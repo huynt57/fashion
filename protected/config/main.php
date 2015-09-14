@@ -14,7 +14,7 @@ return array(
     
         // default contronller
     
-        'defaultController' => 'home',
+        
 
 	// autoloading model and component classes
 	'import'=>array(
