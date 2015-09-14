@@ -7,7 +7,20 @@ class PostController extends Controller {
     }
 
     public function actionAdd() {
-        
+        try {
+            $post_content = StringHelper::filterString($request->getPost('post_content'));
+            $user_id = StringHelper::filterString($request->getPost('user_id'));
+            $location = StringHelper::filterString($request->getPost('location'));
+            $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images']);
+
+            if (Posts::model()->addPost($user_id, $post_content, $location, $url_arr)) {
+                ResponseHelper::JsonReturnSuccess($url_arr, "Success");
+            } else {
+                ResponseHelper::JsonReturnError("", "Server Error");
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
     }
 
     public function actionGetPostByCategory() {
@@ -23,13 +36,24 @@ class PostController extends Controller {
             var_dump($ex->getMessage());
         }
     }
-    
-    public function actionGetPostByGender()
-    {
+
+    public function actionGetPostByUser() {
+        $request = Yii::app()->request;
+        try {
+            $user_id = StringHelper::filterString($request->getQuery('user_id'));
+            $limit = StringHelper::filterString($request->getQuery('limit'));
+            $offset = StringHelper::filterString($request->getQuery('offset'));
+
+            $data = Posts::model()->getPostByUser($user_id, $limit, $offset);
+            ResponseHelper::JsonReturnSuccess($data, "Success");
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
+    public function actionGetPostByGender() {
         
     }
-    
-    
 
     // Uncomment the following methods and override them if needed
     /*
