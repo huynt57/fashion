@@ -7,6 +7,7 @@ class PostController extends Controller {
     }
 
     public function actionAdd() {
+        $request = Yii::app()->request;
         try {
             $post_content = StringHelper::filterString($request->getPost('post_content'));
             $user_id = StringHelper::filterString($request->getPost('user_id'));
