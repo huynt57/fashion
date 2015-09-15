@@ -24,28 +24,24 @@ class UserController extends Controller {
             Yii::app()->end();
         }
     }
-    
-    public function actionUpdateInfo()
-    {
+
+    public function actionUpdateInfo() {
         $request = Yii::app()->request;
         if ($request->isPostRequest && isset($_POST)) {
             try {
-               $post = StringHelper::filterArrayString($_POST);
-               $user_id = StringHelper::filterArrayString($request->getPost('user_id'));
-               if(User::model()->updateUserInfo($user_id, $post))
-               {
-                   ResponseHelper::JsonReturnSuccess("", "Success");
-               } else {
-                   ResponseHelper::JsonReturnError("", "Server Error");
-               }
+                $post = StringHelper::filterArrayString($_POST);
+                $user_id = StringHelper::filterArrayString($request->getPost('user_id'));
+                if (User::model()->updateUserInfo($user_id, $post)) {
+                    ResponseHelper::JsonReturnSuccess("", "Success");
+                } else {
+                    ResponseHelper::JsonReturnError("", "Server Error");
+                }
             } catch (exception $e) {
                 var_dump($e->getMessage());
             }
             Yii::app()->end();
         }
     }
-    
-    
 
     // Uncomment the following methods and override them if needed
     /*
