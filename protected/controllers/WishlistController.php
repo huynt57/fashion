@@ -12,7 +12,7 @@ class WishlistController extends Controller {
             $user_id = StringHelper::filterString($request->getPost('user_id'));
             $post_id = StringHelper::filterString($request->getPost('post_id'));
 
-            if (Wishlist::model() - addWishList($post_id, $user_id)) {
+            if (Wishlist::model()->addWishList($post_id, $user_id)) {
                 ResponseHelper::JsonReturnSuccess("", "Success");
             } else {
                 ResponseHelper::JsonReturnError("", "Server Error");
