@@ -8,7 +8,7 @@ class Posts extends BasePosts {
         return parent::model($className);
     }
 
-    public function addPost($user_id, $post_content, $location, $url_arr) {
+    public function addPost($user_id, $post_content, $location, $url_arr, $album) {
         $model = new Posts;
         $model->post_content = $post_content;
         $model->post_comment_count = 0;
@@ -28,6 +28,8 @@ class Posts extends BasePosts {
             $image->created_at = time();
             $image->created_by = $user_id;
             $image->status = 1;
+            $image->album_id = $album;
+
             if (!$image->save(FALSE)) {
                 return FALSE;
             }

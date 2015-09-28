@@ -13,8 +13,9 @@ class PostController extends Controller {
             $user_id = StringHelper::filterString($request->getPost('user_id'));
             $location = StringHelper::filterString($request->getPost('location'));
             $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images']);
-
-            if (Posts::model()->addPost($user_id, $post_content, $location, $url_arr)) {
+            $album = StringHelper::filterString($request->getPost('album'));
+            
+            if (Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album)) {
                 ResponseHelper::JsonReturnSuccess($url_arr, "Success");
             } else {
                 ResponseHelper::JsonReturnError("", "Server Error");
