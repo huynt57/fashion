@@ -12,9 +12,14 @@ class PostController extends Controller {
             $post_content = StringHelper::filterString($request->getPost('post_content'));
             $user_id = StringHelper::filterString($request->getPost('user_id'));
             $location = StringHelper::filterString($request->getPost('location'));
-            $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images']);
-            $album = StringHelper::filterString($request->getPost('album'));
-            
+            if (count($_FILES['images']['tmp_name']) > 1) {
+                $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
+            } else {
+                $url_arr = UploadHelper::getUrlUploadSingleImage($_FILES['images'], $user_id);
+            }
+            // $album = StringHelper::filterString($request->getPost('album'));
+            $album = NULL;
+
             if (Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album)) {
                 ResponseHelper::JsonReturnSuccess($url_arr, "Success");
             } else {

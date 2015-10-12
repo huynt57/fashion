@@ -16,7 +16,7 @@ class CatPost extends BaseCatPost {
                 ->where('cat_id=:cat_id', array(':cat_id' => $cat_id))
                 ->limit($limit)
                 ->offset($offset)
-                ->order('DESC')
+                ->order('post_id DESC')
                 ->queryAll();
         return $data;
     }

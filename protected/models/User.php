@@ -36,6 +36,9 @@ class User extends BaseUser {
             $model->photo = $photo;
             $model->username = $username;
             $model->device_id = $device_id;
+            $model->created_at = time();
+            $model->updated_at = time();
+            $model->status = 1;
             if ($model->save(FALSE)) {
                 ResponseHelper::JsonReturnSuccess($model, "Success");
             } else {

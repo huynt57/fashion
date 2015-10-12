@@ -21,15 +21,22 @@ class Posts extends BasePosts {
         if (!$model->save(FALSE)) {
             return FALSE;
         }
-        foreach ($url_arr as $url) {
-            $image = new Images;
-            $image->img_url = $url;
-            $image->post_id = $model->post_id;
-            $image->created_at = time();
-            $image->created_by = $user_id;
-            $image->status = 1;
-            $image->album_id = $album;
-
+        $image = new Images;
+        $image->post_id = $model->post_id;
+        $image->created_at = time();
+        $image->created_by = $user_id;
+        $image->updated_at = time();
+        $image->status = 1;
+        $image->album_id = $album;
+        if (is_array($url_arr)) {
+            foreach ($url_arr as $url) {
+                $image->img_url = $url;
+                if (!$image->save(FALSE)) {
+                    return FALSE;
+                }
+            }
+        } else {
+            $image->img_url = $url_arr;
             if (!$image->save(FALSE)) {
                 return FALSE;
             }
@@ -44,7 +51,20 @@ class Posts extends BasePosts {
                 ->where('user_id=:user_id', array(':user_id' => $user_id))
                 ->limit($limit)
                 ->offset($offset)
-                ->order('DESC')
+                ->order('post_id DESC')
+                ->queryAll();
+        return $data;
+    }
+
+    public function getPostByCategory($cat_id, $limit, $offset) {
+        $data = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from('tbl_posts p')
+                ->join('tbl_cat_post c', 'p.post_id=c.post_id')
+                ->where('cat_id=:cat_id', array(':cat_id' => $cat_id))
+                ->limit($limit)
+                ->offset($offset)
+                ->order('post_id DESC')
                 ->queryAll();
         return $data;
     }

@@ -8,17 +8,20 @@
 
 class UploadHelper {
 
-    public static function getUrlUploadSingleImage($obj) {
+    public static function getUrlUploadSingleImage($obj, $user_id) {
         $ext_arr = array('png', 'jpg', 'jpeg', 'bmp');
         $name = StringHelper::filterString($obj['name']);
-        $storeFolder = Yii::getPathOfAlias('webroot') . '/images/';
+        $storeFolder = Yii::getPathOfAlias('webroot') . '/images/' . date('Y-m-d', time()) . '/' . $user_id . '/';
+        $pathUrl = 'images/' . date('Y-m-d', time()) . '/' . $user_id . '/' . time() . $name;
+        if (!file_exists($storeFolder)) {
+            mkdir($storeFolder, 0777, true);
+        }
         $tempFile = $obj['tmp_name'];
-        $targetFile = $storeFolder . $name;
+        $targetFile = $storeFolder . time() . $name;
         $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
         if (in_array($ext, $ext_arr)) {
             if (move_uploaded_file($tempFile, $targetFile)) {
-                $image_url = 'images/' . $name;
-                return $image_url;
+                return $pathUrl;
             } else {
                 return NULL;
             }
@@ -27,26 +30,26 @@ class UploadHelper {
         }
     }
 
-    public static function getUrlUploadMultiImages($obj) {
+    public static function getUrlUploadMultiImages($obj, $user_id) {
         $url_arr = array();
-        foreach($obj["tmp_name"] as $key=>$tmp_name) {
+        foreach ($obj["tmp_name"] as $key => $tmp_name) {
             $ext_arr = array('png', 'jpg', 'jpeg', 'bmp');
             $name = StringHelper::filterString($obj['name'][$key]);
-            $storeFolder = Yii::getPathOfAlias('webroot') . '/images/';
+            $storeFolder = Yii::getPathOfAlias('webroot') . '/images/' . date('Y-m-d', time()) . '/' . $user_id . '/';
+            $pathUrl = 'images/' . date('Y-m-d', time()) . '/' . $user_id . '/' . time() . $name;
+            if (!file_exists($storeFolder)) {
+                mkdir($storeFolder, 0777, true);
+            }
             $tempFile = $obj['tmp_name'][$key];
-            $targetFile = $storeFolder . $name;
-            $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));           
+            $targetFile = $storeFolder . time() . $name;
+            $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
             if (in_array($ext, $ext_arr)) {
                 if (move_uploaded_file($tempFile, $targetFile)) {
-                    $image_url = 'images/' . $name;
-                    array_push($url_arr, $image_url);
-                   
+                    array_push($url_arr, $pathUrl);
                 } else {
-                   
                     return NULL;
                 }
             } else {
-           
                 return NULL;
             }
         }
