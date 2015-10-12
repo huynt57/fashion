@@ -1,0 +1,28 @@
+// Grid
+
+$screen-xs:    		352px !default;
+$screen-xs-min:		$screen-xs !default;
+$screen-sm:    		644px !default;
+$screen-sm-min:		$screen-sm !default;
+$screen-md:    		936px !default;
+$screen-md-min:		$screen-md !default;
+$screen-lg:    		1228px !default;
+$screen-lg-min:		$screen-lg !default;
+$screen-xl:    		1520px !default;
+$screen-xl-min:		$screen-xl !default;
+$screen-yl:    		1812px !default;
+$screen-yl-min:		$screen-yl !default;
+$screen-zl:    		2104px !default;
+$screen-zl-min:		$screen-zl !default;
+
+$screen-xs-max:		($screen-sm-min - 1) !default;
+$screen-sm-max:		($screen-md-min - 1) !default;
+$screen-md-max:		($screen-lg-min - 1) !default;
+
+// 292*1+20+40=352
+// 292*2+20+40=644
+// 292*3+20+40=936
+// 292*4+20+40=1228
+// 292*5+20+40=1520
+// 292*6+20+40=1812
+// 292*7+20+40=2104

@@ -42,6 +42,16 @@ class UserController extends Controller {
             Yii::app()->end();
         }
     }
+    
+    public function actionBlockUser()
+    {
+        
+    }
+    
+    public function actionBlockPost()
+    {
+        
+    }
 
     // Uncomment the following methods and override them if needed
     /*

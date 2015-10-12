@@ -61,6 +61,15 @@ class PostController extends Controller {
     public function actionGetPostByGender() {
         
     }
+    
+    public function actionReportPost() {
+        
+    }
+    
+    public function actionHidePostForUser() {
+        
+    }
+    
 
     // Uncomment the following methods and override them if needed
     /*
