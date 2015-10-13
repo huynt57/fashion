@@ -61,15 +61,24 @@ class PostController extends Controller {
     public function actionGetPostByGender() {
         
     }
-    
+
     public function actionReportPost() {
-        
+        try {
+            $attr = StringHelper::filterArrayString($_POST);
+            $result = Posts::model()->reportPost($attr);
+            if ($result) {
+                ResponseHelper::JsonReturnSuccess("", "Success");
+            } else {
+                ResponseHelper::JsonReturnError("", "Server Error");
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
     }
-    
+
     public function actionHidePostForUser() {
         
     }
-    
 
     // Uncomment the following methods and override them if needed
     /*

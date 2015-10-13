@@ -69,4 +69,73 @@ class Posts extends BasePosts {
         return $data;
     }
 
+    public function reportPost($attr) {
+        $model = new Reports;
+        $model->setAttributes = $attr;
+        $model->created_at = time();
+        $model->status = 0;
+        $model->updated_at = time();
+        $model->type = Yii::app()->params['USER_REPORT'];
+
+        $hide_post = new UserPostRelationship;
+        $rel->user_id = $attr['from'];
+        $rel->post_id = $attr['post_id'];
+        $rel->created_at = time();
+        $rel->updated_at = time();
+        $rel->type = Yii::app()->params['USER_REPORT'];
+
+        if ($model->save(FALSE) && $hide_post->save(FALSE)) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    public function getHiddenPostByUser($user_id) {
+        $hidden_post_criteria = new CDbCriteria;
+        $hidden_post_criteria->select = 'post_id';
+        $hidden_post_criteria->condition = 'user_id=:user_id';
+        $hidden_post_criteria->params = array(':user_id' => $user_id);
+        $hidden_post = UserPostRelationship::model()->findAll($hidden_post_criteria);
+        return implode(',', $hidden_post);
+    }
+
+    public function getBlockedUserByUser($user_id) {
+        $blocked_user_criteria = new CDbCriteria;
+        $blocked_user_criteria->select = 'user_id_2';
+        $blocked_user_criteria->condition = 'user_id_1=:user_id';
+        $blocked_user_criteria->params = array(':user_id' => $user_id);
+        $blocked_user = Relationship::model()->findAll($blocked_user_criteria);
+        return implode(',', $blocked_user);
+    }
+
+    public function getNewsFeedForUser($user_id, $limit, $offset) {
+        $hidden_post = $this->getHiddenPostByUser($user_id);
+        $blocked_user = $this->getBlockedUserByUser($user_id);
+        $news_feed_criteria = new CdbCriteria;
+        $news_feed_criteria->select = 'tbl_posts.*, tbl_user.username';
+        $news_feed_criteria->join = 'JOIN tbl_user ON tbl_posts.user_id = tbl_user.id';
+        $news_feed_criteria->condition = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $news_feed_criteria->limit = $limit;
+        $news_feed_criteria->offset = $offset;
+        $news_feed_criteria->order = 'tbl_post.post_id DESC';
+        $data = Posts::model()->findAll($news_feed_criteria);
+        return $data;
+    }
+
+    public function getNewsFeedForWeb($user_id) {
+        $hidden_post = $this->getHiddenPostByUser($user_id);
+        $blocked_user = $this->getBlockedUserByUser($user_id);
+        $news_feed_criteria = new CdbCriteria;
+        $news_feed_criteria->select = 'tbl_posts.*, tbl_user.username';
+        $news_feed_criteria->join = 'JOIN tbl_user ON tbl_posts.user_id = tbl_user.id';
+        $news_feed_criteria->condition = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $news_feed_criteria->order = 'tbl_post.post_id DESC';
+        $count = Posts::model()->count($news_feed_criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($news_feed_criteria);
+        $data = Posts::model()->findAll($news_feed_criteria);
+        return array('data' => $data, 'pages' => $pages);
+    }
+
 }
