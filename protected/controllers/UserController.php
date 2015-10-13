@@ -5,6 +5,22 @@ class UserController extends Controller {
     public function actionIndex() {
         $this->render('index');
     }
+    
+    public function actionLogin()
+    {
+        $this->render('login');
+    }
+    
+    public function actionProfile()
+    {
+        $this->render('profile');
+    }
+    
+    public function actionEditProfile()
+    {
+        $this->render('editProfile');
+    }
+    
 
     public function actionLoginWithFacebook() {
         $request = Yii::app()->request;

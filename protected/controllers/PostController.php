@@ -109,6 +109,18 @@ class PostController extends Controller {
             var_dump($ex->getMessage());
         }
     }
+    
+    public function actionUpload()
+    {
+        $this->render('upload');
+    }
+    
+    public function actionViewPost()
+    {
+        $this->render('viewPost');
+    }
+    
+  
 
     // Uncomment the following methods and override them if needed
     /*
