@@ -47,4 +47,43 @@ class User extends BaseUser {
         }
     }
 
+    public function blockUser($user_block, $user_blocked) {
+        $model = Relationship::model()->findByAttributes(array('user_id_1' => $user_block, 'user_id_2' => $user_blocked));
+        if ($model) {
+            return 1;
+        } else {
+            $rel = new Relationship;
+            $rel->user_id_1 = $user_block;
+            $rel->user_id_2 = $user_blocked;
+            $rel->status = 1;
+            $rel->created_at = time();
+            $rel->updated_at = time();
+            $rel->type = Yii::app()->params['USER_BLOCK'];
+            if ($rel->save(FALSE)) {
+                return 2;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    public function blockPost($user_block, $post_id) {
+        $model = UserPostRelationship::model()->findByAttributes(array('user_id' => $user_block, 'post_id' => $post_id));
+        if ($model) {
+            return 1;
+        } else {
+            $rel = new UserPostRelationship;
+            $rel->user_id = $user_block;
+            $rel->post_id = $post_id;
+            $rel->created_at = time();
+            $rel->updated_at = time();
+            $rel->type = Yii::app()->params['USER_BLOCK'];
+            if ($rel->save(FALSE)) {
+                return 2;
+            } else {
+                return 0;
+            }
+        }
+    }
+
 }

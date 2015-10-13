@@ -42,15 +42,45 @@ class UserController extends Controller {
             Yii::app()->end();
         }
     }
-    
-    public function actionBlockUser()
-    {
-        
+
+    public function actionBlockUser() {
+        $request = Yii::app()->request;
+        if ($request->isPostRequest && isset($_POST)) {
+            try {
+                $user_blocked = StringHelper::filterString($request->getPost('user_blocked'));
+                $user_block = StringHelper::filterString($request->getPost('user_block'));
+                if (User::model()->blockUser($user_block, $user_blocked) == 1) {
+                    ResponseHelper::JsonReturnSuccess("", "Blocked before");
+                } else if (User::model()->blockUser($user_block, $user_blocked) == 0) {
+                    ResponseHelper::JsonReturnError("", "Server Error");
+                } else {
+                    ResponseHelper::JsonReturnSuccess("", "Success");
+                }
+            } catch (exception $e) {
+                var_dump($e->getMessage());
+            }
+            Yii::app()->end();
+        }
     }
-    
-    public function actionBlockPost()
-    {
-        
+
+    public function actionBlockPost() {
+        $request = Yii::app()->request;
+        if ($request->isPostRequest && isset($_POST)) {
+            try {
+                $user_block = StringHelper::filterString($request->getPost('user_block'));
+                $post_id = StringHelper::filterString($request->getPost('post_id'));
+                if (User::model()->blockPost($user_block, $post_id) == 1) {
+                    ResponseHelper::JsonReturnSuccess("", "Blocked before");
+                } else if (User::model()->blockUser($user_block, $user_blocked) == 0) {
+                    ResponseHelper::JsonReturnError("", "Server Error");
+                } else {
+                    ResponseHelper::JsonReturnSuccess("", "Success");
+                }
+            } catch (exception $e) {
+                var_dump($e->getMessage());
+            }
+            Yii::app()->end();
+        }
     }
 
     // Uncomment the following methods and override them if needed
