@@ -85,23 +85,44 @@ class User extends BaseUser {
             }
         }
     }
-    
-    public function rankByDay()
-    {
+
+    public function rankByDay() {
         $criteria = new CDbCriteria;
-        $criteria->select = '*';
-        $criteria->addBetweenCondition();
-        $criteria->join = '';
+        $time_start = strtotime('-1 day');
+        $time_end = time();
+        $criteria->select = 'COUNT(*) AS count_like';
+        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
+        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
+        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
+        $criteria->order = 'count_like DESC';
+        $data = User::model()->findAll($criteria);
+        return $data;
     }
-    
-    public function rankByMonth()
-    {
-        
+
+    public function rankByMonth() {
+        $criteria = new CDbCriteria;
+        $time_start = strtotime('-1 month');
+        $time_end = time();
+        $criteria->select = 'COUNT(*) AS count_like';
+        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
+        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
+        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
+        $criteria->order = 'count_like DESC';
+        $data = User::model()->findAll($criteria);
+        return $data;
     }
-    
-    public function rankByWeek()
-    {
-        
+
+    public function rankByWeek() {
+        $criteria = new CDbCriteria;
+        $time_start = strtotime('-1 week');
+        $time_end = time();
+        $criteria->select = 'COUNT(*) AS count_like';
+        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
+        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
+        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
+        $criteria->order = 'count_like DESC';
+        $data = User::model()->findAll($criteria);
+        return $data;
     }
 
 }
