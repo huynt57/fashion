@@ -7,7 +7,17 @@ class RankController extends Controller
 		$this->render('index');
 	}
         
-        public function actionRankByVote()
+        public function actionRankByMonth()
+        {
+            
+        }
+        
+        public function actionRankByWeek()
+        {
+            
+        }
+        
+        public function actionRankByDay()
         {
             
         }

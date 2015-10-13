@@ -138,19 +138,31 @@ class Posts extends BasePosts {
         return array('data' => $data, 'pages' => $pages);
     }
 
-    public function likePost($post_id) {
+    public function likePost($user_id, $post_id) {
         $model = Posts::model()->findByPk($post_id);
         $model->post_like_count++;
-        if ($model->save(FALSE)) {
+        $like = new Like();
+        $like->from = $user_id;
+        $like->post_id = $post_id;
+        $like->status = 1;
+        $like->created_at = time();
+        $like->updated_at = time();
+        if ($model->save(FALSE) && $like->save(FALSE)) {
             return TRUE;
         }
         return FALSE;
     }
 
-    public function likeImage($image_id) {
-        $model = Images::model()->findByPk($post_id);
+    public function likeImage($user_id, $image_id) {
+        $model = Images::model()->findByPk($image_id);
         $model->image_like_count++;
-        if ($model->save(FALSE)) {
+        $like = new Like();
+        $like->from = $user_id;
+        $like->image_id = $image_id;
+        $like->status = 1;
+        $like->created_at = time();
+        $like->updated_at = time();
+        if ($model->save(FALSE) && $like->save(FALSE)) {
             return TRUE;
         }
         return FALSE;

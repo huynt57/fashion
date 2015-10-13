@@ -85,5 +85,22 @@ class User extends BaseUser {
             }
         }
     }
+    
+    public function rankByDay()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $criteria->addBetweenCondition = '';
+    }
+    
+    public function rankByMonth()
+    {
+        
+    }
+    
+    public function rankByWeek()
+    {
+        
+    }
 
 }
