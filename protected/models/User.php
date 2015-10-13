@@ -91,6 +91,7 @@ class User extends BaseUser {
         $criteria = new CDbCriteria;
         $criteria->select = '*';
         $criteria->addBetweenCondition();
+        $criteria->join = '';
     }
     
     public function rankByMonth()

@@ -96,7 +96,8 @@ class Posts extends BasePosts {
         $hidden_post_criteria->condition = 'user_id=:user_id';
         $hidden_post_criteria->params = array(':user_id' => $user_id);
         $hidden_post = UserPostRelationship::model()->findAll($hidden_post_criteria);
-        return implode(',', $hidden_post);
+        //return implode(',', $hidden_post);
+        return $hidden_post;
     }
 
     public function getBlockedUserByUser($user_id) {
@@ -105,7 +106,8 @@ class Posts extends BasePosts {
         $blocked_user_criteria->condition = 'user_id_1=:user_id';
         $blocked_user_criteria->params = array(':user_id' => $user_id);
         $blocked_user = Relationship::model()->findAll($blocked_user_criteria);
-        return implode(',', $blocked_user);
+        //return implode(',', $blocked_user);
+        return $blocked_user;
     }
 
     public function getNewsFeedForUser($user_id, $limit, $offset) {
@@ -114,7 +116,8 @@ class Posts extends BasePosts {
         $news_feed_criteria = new CdbCriteria;
         $news_feed_criteria->select = 'tbl_posts.*, tbl_user.username';
         $news_feed_criteria->join = 'JOIN tbl_user ON tbl_posts.user_id = tbl_user.id';
-        $news_feed_criteria->condition = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $news_feed_criteria->addNotInCondition('tbl_post.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $news_feed_criteria->addNotInCondition('tbl_posts.user_id ', $blocked_user);
         $news_feed_criteria->limit = $limit;
         $news_feed_criteria->offset = $offset;
         $news_feed_criteria->order = 'tbl_post.post_id DESC';
@@ -128,7 +131,8 @@ class Posts extends BasePosts {
         $news_feed_criteria = new CdbCriteria;
         $news_feed_criteria->select = 'tbl_posts.*, tbl_user.username';
         $news_feed_criteria->join = 'JOIN tbl_user ON tbl_posts.user_id = tbl_user.id';
-        $news_feed_criteria->condition = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $news_feed_criteria->addNotInCondition('tbl_post.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $news_feed_criteria->addNotInCondition('tbl_posts.user_id ', $blocked_user);
         $news_feed_criteria->order = 'tbl_post.post_id DESC';
         $count = Posts::model()->count($news_feed_criteria);
         $pages = new CPagination($count);
