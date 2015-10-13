@@ -18,6 +18,7 @@
  * @property integer $created_by
  * @property integer $comment_id
  * @property integer $album_id
+ * @property integer $image_like_count
  *
  */
 abstract class BaseImages extends GxActiveRecord {
@@ -40,10 +41,10 @@ abstract class BaseImages extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('status, created_at, updated_at, post_id, created_by, comment_id, album_id', 'numerical', 'integerOnly'=>true),
+			array('status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count', 'numerical', 'integerOnly'=>true),
 			array('img_url', 'length', 'max'=>255),
-			array('img_url, status, created_at, updated_at, post_id, created_by, comment_id, album_id', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('img_id, img_url, status, created_at, updated_at, post_id, created_by, comment_id, album_id', 'safe', 'on'=>'search'),
+			array('img_url, status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('img_id, img_url, status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +69,7 @@ abstract class BaseImages extends GxActiveRecord {
 			'created_by' => Yii::t('app', 'Created By'),
 			'comment_id' => Yii::t('app', 'Comment'),
 			'album_id' => Yii::t('app', 'Album'),
+			'image_like_count' => Yii::t('app', 'Image Like Count'),
 		);
 	}
 
@@ -83,6 +85,7 @@ abstract class BaseImages extends GxActiveRecord {
 		$criteria->compare('created_by', $this->created_by);
 		$criteria->compare('comment_id', $this->comment_id);
 		$criteria->compare('album_id', $this->album_id);
+		$criteria->compare('image_like_count', $this->image_like_count);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

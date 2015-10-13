@@ -80,6 +80,34 @@ class PostController extends Controller {
         
     }
 
+    public function actionLikePost() {
+        try {
+            $post_id = StringHelper::filterArrayString(Yii::app()->request->getPost('post_id'));
+            $result = Posts::model()->likePost($post_id);
+            if ($result) {
+                ResponseHelper::JsonReturnSuccess("", "Success");
+            } else {
+                ResponseHelper::JsonReturnError("", "Server Error");
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
+    public function actionLikeImage() {
+        try {
+            $image_id = StringHelper::filterArrayString(Yii::app()->request->getPost('image_id'));
+            $result = Posts::model()->likePost($image_id);
+            if ($result) {
+                ResponseHelper::JsonReturnSuccess("", "Success");
+            } else {
+                ResponseHelper::JsonReturnError("", "Server Error");
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
     // Uncomment the following methods and override them if needed
     /*
       public function filters()

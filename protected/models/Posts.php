@@ -138,4 +138,22 @@ class Posts extends BasePosts {
         return array('data' => $data, 'pages' => $pages);
     }
 
+    public function likePost($post_id) {
+        $model = Posts::model()->findByPk($post_id);
+        $model->post_like_count++;
+        if ($model->save(FALSE)) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    public function likeImage($image_id) {
+        $model = Images::model()->findByPk($post_id);
+        $model->image_like_count++;
+        if ($model->save(FALSE)) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
 }
