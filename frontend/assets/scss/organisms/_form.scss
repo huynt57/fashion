@@ -1,0 +1,28 @@
+// form
+
+label,input{
+	vertical-align: middle;
+}
+
+.form-control{
+	border: 1px solid $grey-lighten-1;
+	&, &:focus, &:active{
+		outline: none !important;
+		-webkit-appearance:none;
+	  box-shadow: none;
+	  -moz-box-shadow: none;
+	  -webkit-box-shadow: none;
+  }
+  &:focus{
+  	border-color: $grey-darken-1;
+  }
+}
+.btn{
+	border: 1px solid $grey-lighten-1;
+	background-color: transparent;
+	@extend .trans-bdc;
+	&:hover{
+		background-color: transparent;
+		border-color: $grey-darken-1;
+	}
+}
