@@ -2,25 +2,26 @@
 
 class UserController extends Controller {
 
+    public $layout;
+    public $layoutPath;
+    
     public function actionIndex() {
         $this->render('index');
     }
-    
-    public function actionLogin()
-    {
+
+    public function actionLogin() {
+        $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend/views/layouts";
+        $this->layout = 'main_empty';
         $this->render('login');
     }
-    
-    public function actionProfile()
-    {
+
+    public function actionProfile() {
         $this->render('profile');
     }
-    
-    public function actionEditProfile()
-    {
+
+    public function actionEditProfile() {
         $this->render('editProfile');
     }
-    
 
     public function actionLoginWithFacebook() {
         $request = Yii::app()->request;
