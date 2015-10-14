@@ -16,7 +16,9 @@ class Comments extends BaseComments {
         $model->comment_content = $content;
         $model->status = 1;
         $model->created_at = time();
-        if ($model->save()) {
+        $post = Posts::model()->findByPk($post_id);
+        $post->post_comment_count++;
+        if ($model->save(FALSE) && $post->save(FALSE)) {
             return TRUE;
         }
         return FALSE;

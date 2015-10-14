@@ -12,6 +12,7 @@ class PostController extends Controller {
             $post_content = StringHelper::filterString($request->getPost('post_content'));
             $user_id = StringHelper::filterString($request->getPost('user_id'));
             $location = StringHelper::filterString($request->getPost('location'));
+            $cats = $request->getPost('cats');
             if (count($_FILES['images']['tmp_name']) > 1) {
                 $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
             } else {
@@ -19,9 +20,9 @@ class PostController extends Controller {
             }
             // $album = StringHelper::filterString($request->getPost('album'));
             $album = NULL;
-
-            if (Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album)) {
-                ResponseHelper::JsonReturnSuccess($url_arr, "Success");
+            $res = Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album, $cats);
+            if ($res != FALSE) {
+                ResponseHelper::JsonReturnSuccess($res, "Success");
             } else {
                 ResponseHelper::JsonReturnError("", "Server Error");
             }
@@ -109,18 +110,14 @@ class PostController extends Controller {
             var_dump($ex->getMessage());
         }
     }
-    
-    public function actionUpload()
-    {
+
+    public function actionUpload() {
         $this->render('upload');
     }
-    
-    public function actionViewPost()
-    {
+
+    public function actionViewPost() {
         $this->render('viewPost');
     }
-    
-  
 
     // Uncomment the following methods and override them if needed
     /*

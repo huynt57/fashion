@@ -8,11 +8,12 @@ class Posts extends BasePosts {
         return parent::model($className);
     }
 
-    public function addPost($user_id, $post_content, $location, $url_arr, $album) {
+    public function addPost($user_id, $post_content, $location, $url_arr, $album, $cats) {
         $model = new Posts;
         $model->post_content = $post_content;
         $model->post_comment_count = 0;
         $model->post_like_count = 0;
+        $model->post_view_count = 0;
         $model->location = $location;
         $model->created_at = time();
         $model->status = 1;
@@ -21,27 +22,48 @@ class Posts extends BasePosts {
         if (!$model->save(FALSE)) {
             return FALSE;
         }
-        $image = new Images;
-        $image->post_id = $model->post_id;
-        $image->created_at = time();
-        $image->created_by = $user_id;
-        $image->updated_at = time();
-        $image->status = 1;
-        $image->album_id = $album;
+        $cats = json_decode($cats, TRUE);
+        foreach ($cats as $cat) {
+            $cat_model = new CatPost();
+            $cat_model->cat_id = $cat;
+            $cat_model->post_id = $model->post_id;
+            $cat_model->status = 1;
+            $cat_model->created_at = time();
+            $cat_model->updated_at = time();
+            if (!$cat_model->save(FALSE)) {
+                return FALSE;
+            }
+        }
         if (is_array($url_arr)) {
             foreach ($url_arr as $url) {
+                $image = new Images;
+                $image->post_id = $model->post_id;
+                $image->created_at = time();
+                $image->created_by = $user_id;
+                $image->updated_at = time();
+                $image->status = 1;
+                $image->album_id = $album;
+                $image->image_like_count = 0;
                 $image->img_url = $url;
                 if (!$image->save(FALSE)) {
                     return FALSE;
                 }
             }
         } else {
+            $image = new Images;
+            $image->post_id = $model->post_id;
+            $image->created_at = time();
+            $image->created_by = $user_id;
+            $image->updated_at = time();
+            $image->status = 1;
+            $image->album_id = $album;
+            $image->image_like_count = 0;
             $image->img_url = $url_arr;
             if (!$image->save(FALSE)) {
                 return FALSE;
             }
         }
-        return TRUE;
+        return $model->post_id;
     }
 
     public function getPostByUser($user_id, $limit, $offset) {
@@ -111,35 +133,89 @@ class Posts extends BasePosts {
     }
 
     public function getNewsFeedForUser($user_id, $limit, $offset) {
+        $returnArr = array();
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
         $news_feed_criteria = new CdbCriteria;
-        $news_feed_criteria->select = 'tbl_posts.*, tbl_user.username';
-        $news_feed_criteria->join = 'JOIN tbl_user ON tbl_posts.user_id = tbl_user.id';
-        $news_feed_criteria->addNotInCondition('tbl_post.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
-        $news_feed_criteria->addNotInCondition('tbl_posts.user_id ', $blocked_user);
+        $news_feed_criteria->select = '*';
+        // $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id JOIN tbl_cat_post c ON t.post_id = c.post_id';
+        $news_feed_criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $news_feed_criteria->addNotInCondition('t.user_id', $blocked_user);
+        $news_feed_criteria->order = 't.post_id DESC';
         $news_feed_criteria->limit = $limit;
         $news_feed_criteria->offset = $offset;
-        $news_feed_criteria->order = 'tbl_post.post_id DESC';
         $data = Posts::model()->findAll($news_feed_criteria);
-        return $data;
+        foreach ($data as $item) {
+            $itemArr = array();
+            $itemArr['username'] = $this->findUserByPostId($item->post_id);
+            $itemArr['post_id'] = $item->post_id;
+            $itemArr['post_content'] = $item->post_content;
+            $itemArr['created_at'] = $item->created_at;
+            $itemArr['updated_at'] = $item->updated_at;
+            $itemArr['post_like_count'] = $item->post_like_count;
+            $itemArr['post_view_count'] = $item->post_view_count;
+            $itemArr['post_comment_count'] = $item->post_comment_count;
+            $itemArr['location'] = $item->location;
+            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
+            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $returnArr[] = $itemArr;
+        }
+        return $returnArr;
     }
 
     public function getNewsFeedForWeb($user_id) {
+        $returnArr = array();
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
         $news_feed_criteria = new CdbCriteria;
-        $news_feed_criteria->select = 'tbl_posts.*, tbl_user.username';
-        $news_feed_criteria->join = 'JOIN tbl_user ON tbl_posts.user_id = tbl_user.id';
-        $news_feed_criteria->addNotInCondition('tbl_post.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
-        $news_feed_criteria->addNotInCondition('tbl_posts.user_id ', $blocked_user);
-        $news_feed_criteria->order = 'tbl_post.post_id DESC';
+        $news_feed_criteria->select = 't.*, u.username';
+        $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id JOIN tbl_cat_post c ON t.post_id = c.post_id';
+        $news_feed_criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $news_feed_criteria->addNotInCondition('t.user_id', $blocked_user);
+        $news_feed_criteria->order = 't.post_id DESC';
         $count = Posts::model()->count($news_feed_criteria);
         $pages = new CPagination($count);
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($news_feed_criteria);
         $data = Posts::model()->findAll($news_feed_criteria);
-        return array('data' => $data, 'pages' => $pages);
+        foreach ($data as $item) {
+            $itemArr = array();
+            $itemArr['username'] = $this->findUserByPostId($item->post_id);
+            $itemArr['post_id'] = $item->post_id;
+            $itemArr['post_content'] = $item->post_content;
+            $itemArr['created_at'] = $item->created_at;
+            $itemArr['updated_at'] = $item->updated_at;
+            $itemArr['post_like_count'] = $item->post_like_count;
+            $itemArr['post_view_count'] = $item->post_view_count;
+            $itemArr['post_comment_count'] = $item->post_comment_count;
+            $itemArr['location'] = $item->location;
+            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
+            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $returnArr[] = $itemArr;
+        }
+        return array('data' => $returnArr, 'pages' => $pages);
+    }
+
+    public function findImagesByPost($post_id) {
+        $sql = "SELECT * FROM tbl_images WHERE post_id = $post_id";
+        $data = Yii::app()->db->createCommand($sql)->queryAll();
+        return $data;
+    }
+
+    public function findCategoryById($cat_id) {
+        $cat = Categories::model()->findByPk($cat_id);
+        return $cat->cat_name;
+    }
+
+    public function findUserByPostId($post_id) {
+        $user_id = Posts::model()->findByPk($post_id);
+        $user = User::model()->findByPk($user_id->user_id);
+        return $user->username;
+    }
+
+    public function findCategoryNameByPostId($post_id) {
+        $cat_id = CatPost::model()->findByAttributes(array('post_id' => $post_id));
+        return $this->findCategoryById($cat_id->cat_id);
     }
 
     public function likePost($user_id, $post_id) {

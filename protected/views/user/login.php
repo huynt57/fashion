@@ -16,7 +16,7 @@
                 <p class="subheading">Tham gia cộng đồng bán hàng đa cấp lớn nhất Việt Nam.</p>
             </div>
             <div class="signin-content-withfb link-no-deco">
-                <a href="">
+                <a href="#" onclick="myFacebookLogin();">
                     <i class="fa fa-facebook-official fa-lg"></i>
                     <span>Đăng nhập với facebook</span>
                 </a>
@@ -51,3 +51,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    
+</script>

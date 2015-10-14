@@ -6,12 +6,14 @@ class HomeController extends Controller {
 //        $this->render('index');
 //    }
 
-    public function actionNewFeedApi() {
+    public function actionNewsFeedApi() {
         $request = Yii::app()->request;
         try {
             $user_id = $request->getQuery('user_id');
+            $limit = $request->getQuery('limit');
+            $offset = $request->getQuery('offset');
             if (isset($user_id)) {
-                $feed = Posts::model()->getNewsFeedForUser($user_id);
+                $feed = Posts::model()->getNewsFeedForUser($user_id, $limit, $offset);
                 ResponseHelper::JsonReturnSuccess($feed, 'Success');
             }
         } catch (Exception $ex) {
@@ -19,18 +21,22 @@ class HomeController extends Controller {
         }
     }
 
-    public function actionNewFeed() {
-        $request = Yii::app()->request;
+    public function actionNewsFeed() {
         try {
             $user_id = Yii::app()->session['user_id'];
             if (isset($user_id)) {
-                $feed = Posts::model()->getNewsFeedForWeb($user_id);
+               // $feed = Posts::model()->getNewsFeedForWeb($user_id);
+                
+                //for testing
+                $feed = Posts::model()->getNewsFeedForWeb(1);
+                
                 $this->render('index', $feed);
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
         }
     }
+    
 
     // Uncomment the following methods and override them if needed
     /*

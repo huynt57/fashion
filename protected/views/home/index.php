@@ -4,62 +4,65 @@
             <div class="card-sizer"></div>
 
             <!-- normal upload card with 1 image -->
-            <div class="card-item card-hide">
-                <div class="card-item-inner">
-                    <div class="post-image card-image has-one-image">
-                        <a href="single.html .lightbox-post" data-featherlight="ajax">
-                            <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card1.jpg" class="img-fullwidth">
-                        </a>
-                    </div>
-                    <div class="post-header card-header">
-                        <div class="header-avatar">
-                            <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
+            <?php foreach ($data as $item): ?>
+                <div class="card-item card-hide">
+                    <div class="card-item-inner">
+                        <div class="post-image card-image has-one-image">
+                            <a href="single.html .lightbox-post" data-featherlight="ajax">
+                                <?php foreach ($images as $image): ?>
+                                    <span style="background-image: url('<?php echo $image['img_url'] ?>');"></span>
+                                <?php endforeach; ?>
+                            </a>
                         </div>
-                        <div class="header-info">
-                            <h4 class="name">
-                                <span class="name-original"><a href="">Summer Dreamz</a></span>
-                            </h4>
-                            <p class="time">4 giờ trước</p>
+                        <div class="post-header card-header">
+                            <div class="header-avatar">
+                                <a href=""><img src="<?php echo $item['photo'] ?>" alt="" width="40" height="40"></a>
+                            </div>
+                            <div class="header-info">
+                                <h4 class="name">
+                                    <span class="name-original"><a href=""><?php echo $item['username'] ?></a></span>
+                                </h4>
+                                <p class="time"><?php echo $item['created_at']; ?></p>
+                            </div>
+                            <div class="header-menu">
+                                <div class="dropdown">
+                                    <a id="post-header-menu" class="post-header-menu" href="#" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-angle-down fa-lg"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
+                                        <li><a href="#" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
+                                        <li><a href="#" onclick="block_user(<?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['username'] ?></a></li>
+                                        <li><a href="#" onclick="report(<?php echo $item['post_id'] ?>)">Báo cáo sai phạm</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="header-menu">
-                            <div class="dropdown">
-                                <a id="post-header-menu" class="post-header-menu" href="#" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-angle-down fa-lg"></i>
-                                </a>
-                                <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
-                                    <li><a href="#">Ẩn bài đăng này</a></li>
-                                    <li><a href="#">Ẩn bài từ Summer Dreamz</a></li>
-                                    <li><a href="">Báo cáo sai phạm</a></li>
+                        <div class="post-content card-content">
+                            <div class="content-main">
+                                <p class="desc">Card với 01 ảnh. Chỉ cần diện những chiếc áo sơ mi đơn giản như Taylor Swift bạn vẫn rất xinh đẹp và thời trang. <a href="">www.pọipsdọi.com</a></p>
+                                <p class="cats">
+                                    <span><a href="">Áo nam</a></span>
+                                    <span><a href="">Phụ kiện nam</a></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="post-footer card-footer">
+                            <div class="footer-count">
+                                <span class="item-count"><a href=""><?php echo $item['post_like_count']?> thích</a></span>
+                                <span class="item-count"><a href=""><?php echo $item['post_comment_count']?> bình luận</a></span>
+                            </div>
+                            <div class="footer-action">
+                                <ul class="icon-container">
+                                    <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star"></i></a></li>
+                                    <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
+                                    <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
+                                    <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="post-content card-content">
-                        <div class="content-main">
-                            <p class="desc">Card với 01 ảnh. Chỉ cần diện những chiếc áo sơ mi đơn giản như Taylor Swift bạn vẫn rất xinh đẹp và thời trang. <a href="">www.pọipsdọi.com</a></p>
-                            <p class="cats">
-                                <span><a href="">Áo nam</a></span>
-                                <span><a href="">Phụ kiện nam</a></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="post-footer card-footer">
-                        <div class="footer-count">
-                            <span class="item-count"><a href="">9999 thích</a></span>
-                            <span class="item-count"><a href="">123 bình luận</a></span>
-                        </div>
-                        <div class="footer-action">
-                            <ul class="icon-container">
-                                <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star"></i></a></li>
-                                <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-            </div>
-
+            <?php endforeach; ?>
             <!-- normal upload card with 2 images -->						
             <div class="card-item card-hide">
                 <div class="card-item-inner">
