@@ -3,24 +3,27 @@
         <div class="cards-display-main-ctn">
             <div class="card-sizer"></div>
 
-            <!-- normal upload card with 1 image -->
+
+
             <?php foreach ($data as $item): ?>
                 <div class="card-item card-hide">
                     <div class="card-item-inner">
                         <div class="post-image card-image has-one-image">
                             <a href="single.html .lightbox-post" data-featherlight="ajax">
-                                <?php foreach ($images as $image): ?>
-                                    <span style="background-image: url('<?php echo $image['img_url'] ?>');"></span>
+                                <?php foreach ($item['images'] as $image): ?>
+        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>-->
+                                    <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
+
                                 <?php endforeach; ?>
                             </a>
                         </div>
                         <div class="post-header card-header">
                             <div class="header-avatar">
-                                <a href=""><img src="<?php echo $item['photo'] ?>" alt="" width="40" height="40"></a>
+                                <a href=""><img src="<?php echo $item['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
                             </div>
                             <div class="header-info">
                                 <h4 class="name">
-                                    <span class="name-original"><a href=""><?php echo $item['username'] ?></a></span>
+                                    <span class="name-original"><a href=""><?php echo $item['user'][0]['username'] ?></a></span>
                                 </h4>
                                 <p class="time"><?php echo $item['created_at']; ?></p>
                             </div>
@@ -31,7 +34,7 @@
                                     </a>
                                     <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
                                         <li><a href="#" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
-                                        <li><a href="#" onclick="block_user(<?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['username'] ?></a></li>
+                                        <li><a href="#" onclick="block_user(<?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
                                         <li><a href="#" onclick="report(<?php echo $item['post_id'] ?>)">Báo cáo sai phạm</a></li>
                                     </ul>
                                 </div>
@@ -39,17 +42,16 @@
                         </div>
                         <div class="post-content card-content">
                             <div class="content-main">
-                                <p class="desc">Card với 01 ảnh. Chỉ cần diện những chiếc áo sơ mi đơn giản như Taylor Swift bạn vẫn rất xinh đẹp và thời trang. <a href="">www.pọipsdọi.com</a></p>
+                                <p class="desc"><?php echo $item['post_content'] ?>
                                 <p class="cats">
-                                    <span><a href="">Áo nam</a></span>
-                                    <span><a href="">Phụ kiện nam</a></span>
+                                    <span><a href=""><?php echo $item['cat_name'] ?></a></span>
                                 </p>
                             </div>
                         </div>
                         <div class="post-footer card-footer">
                             <div class="footer-count">
-                                <span class="item-count"><a href=""><?php echo $item['post_like_count']?> thích</a></span>
-                                <span class="item-count"><a href=""><?php echo $item['post_comment_count']?> bình luận</a></span>
+                                <span class="item-count"><a href=""><?php echo $item['post_like_count'] ?> thích</a></span>
+                                <span class="item-count"><a href=""><?php echo $item['post_comment_count'] ?> bình luận</a></span>
                             </div>
                             <div class="footer-action">
                                 <ul class="icon-container">
@@ -63,247 +65,6 @@
                     </div>
                 </div>
             <?php endforeach; ?>
-            <!-- normal upload card with 2 images -->						
-            <div class="card-item card-hide">
-                <div class="card-item-inner">
-                    <div class="post-image card-image hasTwoImages">
-                        <a href="single.html .lightbox-post" data-featherlight="ajax">
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card17.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card15.jpg');"></span>
-                        </a>
-                    </div>
-                    <div class="post-header card-header">
-                        <div class="header-avatar">
-                            <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
-                        </div>
-                        <div class="header-info">
-                            <h4 class="name"><span class="name-original"><a href="">Summer Dreamz</a></span></h4>
-                            <p class="time">4 giờ trước</p>
-                        </div>
-                    </div>
-                    <div class="post-content card-content">
-                        <div class="content-main">
-                            <p class="desc">Card với 01 ảnh. Chỉ cần diện những chiếc áo sơ mi đơn giản như Taylor Swift bạn vẫn rất xinh đẹp và thời trang.</p>
-                            <p class="cats">
-                                <span><a href="">Áo nam</a></span>
-                                <span><a href="">Phụ kiện nam</a></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="post-footer card-footer">
-                        <div class="footer-count">
-                            <span class="item-count"><a href="">9999 thích</a></span>
-                        </div>
-                        <div class="footer-action">
-                            <ul class="icon-container">
-                                <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star fa-lg"></i></a></li>
-                                <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- normal upload card with 3 images -->
-            <div class="card-item card-hide">
-                <div class="card-item-inner">
-                    <div class="post-image card-image hasThreeImages">
-                        <a href="single.html .lightbox-post" data-featherlight="ajax">
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card11.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card13.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card7.jpg');"></span>
-                        </a>
-                    </div>
-                    <div class="post-header card-header">
-                        <div class="header-avatar">
-                            <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
-                        </div>
-                        <div class="header-info">
-                            <h4 class="name"><span class="name-original"><a href="">Summer Dreamz</a></span></h4>
-                            <p class="time">4 giờ trước</p>
-                        </div>
-                    </div>
-                    <div class="post-content card-content">
-                        <div class="content-main">
-                            <p class="desc">Card với 01 ảnh. Chỉ cần diện những chiếc áo sơ mi đơn giản như Taylor Swift bạn vẫn rất xinh đẹp và thời trang.</p>
-                            <p class="cats">
-                                <span><a href="">Áo nam</a></span>
-                                <span><a href="">Phụ kiện nam</a></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="post-footer card-footer">
-                        <div class="footer-count">
-                            <span class="item-count"><a href="">9999 thích</a></span>
-                        </div>
-                        <div class="footer-action">
-                            <ul class="icon-container">
-                                <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star fa-lg"></i></a></li>
-                                <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- normal upload card with 4 images -->
-            <div class="card-item card-hide">
-                <div class="card-item-inner">
-                    <div class="post-image card-image hasFourImages">
-                        <a href="single.html .lightbox-post" data-featherlight="ajax">
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card27.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card19.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card21.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card20.jpg');"></span>
-                        </a>
-                    </div>
-                    <div class="post-header card-header">
-                        <div class="header-avatar">
-                            <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
-                        </div>
-                        <div class="header-info">
-                            <h4 class="name"><span class="name-original"><a href="">Summer Dreamz</a></span></h4>
-                            <p class="time">4 giờ trước</p>
-                        </div>
-                    </div>
-                    <div class="post-content card-content">
-                        <div class="content-main">
-                            <p class="desc">Card với 01 ảnh. Chỉ cần diện những chiếc áo sơ mi đơn giản như Taylor Swift bạn vẫn rất xinh đẹp và thời trang.</p>
-                            <p class="cats">
-                                <span><a href="">Áo nam</a></span>
-                                <span><a href="">Phụ kiện nam</a></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="post-footer card-footer">
-                        <div class="footer-count">
-                            <span class="item-count"><a href="">9999 thích</a></span>
-                        </div>
-                        <div class="footer-action">
-                            <ul class="icon-container">
-                                <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star fa-lg"></i></a></li>
-                                <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- normal upload card with 5 images -->
-            <div class="card-item card-hide">
-                <div class="card-item-inner">
-                    <div class="post-image card-image hasFiveImages">
-                        <a href="single.html .lightbox-post" data-featherlight="ajax">
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card24.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card23.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card26.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card29.jpg');"></span>
-                            <span style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card22.jpg');"></span>
-                        </a>
-                    </div>
-                    <div class="post-header card-header">
-                        <div class="header-avatar">
-                            <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
-                        </div>
-                        <div class="header-info">
-                            <h4 class="name"><span class="name-original"><a href="">Summer Dreamz</a></span></h4>
-                            <p class="time">4 giờ trước</p>
-                        </div>
-                    </div>
-                    <div class="post-content card-content">
-                        <div class="content-main">
-                            <p class="desc">Card với 05 ảnh. Chỉ cần diện những chiếc áo sơ mi đơn giản như Taylor Swift bạn vẫn rất xinh đẹp và thời trang.</p>
-                            <p class="cats">
-                                <span><a href="">Áo nam</a></span>
-                                <span><a href="">Phụ kiện nam</a></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="post-footer card-footer">
-                        <div class="footer-count">
-                            <span class="item-count"><a href="">9999 thích</a></span>
-                        </div>
-                        <div class="footer-action">
-                            <ul class="icon-container">
-                                <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star fa-lg"></i></a></li>
-                                <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- album card -->
-            <div class="card-item card-hide">
-                <div class="card-item-inner clearfix">
-                    <div class="card-album-image">
-                        <a href="">
-                            <span class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card11.jpg');"></span>
-                            <span class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card15.jpg');"></span>
-                            <span class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card13.jpg');"></span>
-                            <span class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card14.jpg');"></span>
-                        </a>
-                    </div>
-                    <div class="post-header card-album-header">
-                        <div class="header-info">
-                            <h4 class="name"><a href="">Red Hot Chili Pepper Collection</a></h4>
-                            <p class="info">
-                                <span>Album</span>
-                                <span>9999 ảnh</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="post-header card-header">
-                        <div class="header-avatar">
-                            <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
-                        </div>
-                        <div class="header-info">
-                            <h4 class="name">
-                                <span class="name-original"><a href="">Summer Dreamz</a></span>
-                            </h4>
-                            <p class="time">4 giờ trước</p>
-                        </div>
-                    </div>
-                    <div class="post-footer card-footer">
-                        <div class="footer-count">
-                            <span class="item-count"><a href="">9999 thích</a></span>
-                        </div>
-                        <div class="footer-action">
-                            <ul class="icon-container">
-                                <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star fa-lg"></i></a></li>
-                                <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- people card -->
-            <div class="card-item card-hide">
-                <div class="card-item-inner clearfix">
-                    <div class="post-header card-header">
-                        <div class="header-avatar">
-                            <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar2.jpg" alt="" width="40" height="40"></a>
-                        </div>
-                        <div class="header-info">
-                            <h4 class="name"><span class="name-original"><a href="">Adam McCathy</a></span></h4>
-                            <p class="info">
-                                <span>452 bài đăng</span>
-                                <span>9999 album</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

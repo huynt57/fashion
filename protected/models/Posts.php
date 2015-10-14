@@ -147,7 +147,7 @@ class Posts extends BasePosts {
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
             $itemArr = array();
-            $itemArr['username'] = $this->findUserByPostId($item->post_id);
+            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
             $itemArr['post_id'] = $item->post_id;
             $itemArr['post_content'] = $item->post_content;
             $itemArr['created_at'] = $item->created_at;
@@ -180,7 +180,7 @@ class Posts extends BasePosts {
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
             $itemArr = array();
-            $itemArr['username'] = $this->findUserByPostId($item->post_id);
+            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
             $itemArr['post_id'] = $item->post_id;
             $itemArr['post_content'] = $item->post_content;
             $itemArr['created_at'] = $item->created_at;
@@ -210,7 +210,7 @@ class Posts extends BasePosts {
     public function findUserByPostId($post_id) {
         $user_id = Posts::model()->findByPk($post_id);
         $user = User::model()->findByPk($user_id->user_id);
-        return $user->username;
+        return array('username' => $user->username, 'photo' => $user->photo);
     }
 
     public function findCategoryNameByPostId($post_id) {
