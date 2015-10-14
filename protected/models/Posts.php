@@ -248,4 +248,21 @@ class Posts extends BasePosts {
         return FALSE;
     }
 
+    public function getPostById($post_id) {
+        $item = Posts::model()->findByPk($post_id);
+        $itemArr = array();
+        $itemArr['username'] = $this->findUserByPostId($item->post_id);
+        $itemArr['post_id'] = $item->post_id;
+        $itemArr['post_content'] = $item->post_content;
+        $itemArr['created_at'] = $item->created_at;
+        $itemArr['updated_at'] = $item->updated_at;
+        $itemArr['post_like_count'] = $item->post_like_count;
+        $itemArr['post_view_count'] = $item->post_view_count;
+        $itemArr['post_comment_count'] = $item->post_comment_count;
+        $itemArr['location'] = $item->location;
+        $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
+        $itemArr['images'] = $this->findImagesByPost($item->post_id);
+        return $itemArr;
+    }
+
 }

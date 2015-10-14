@@ -5,6 +5,18 @@ class PostController extends Controller {
     public function actionIndex() {
         $this->render('index');
     }
+    
+    public function actionGetPostById()
+    {
+        $request = Yii::app()->request;
+        try {
+            $post_id = StringHelper::filterString($request->getQuery('post_id'));
+            $data = Posts::model()->getPostById($post_id);
+            ResponseHelper::JsonReturnSuccess($data, "Success");
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
 
     public function actionAdd() {
         $request = Yii::app()->request;
