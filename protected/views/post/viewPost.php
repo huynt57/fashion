@@ -52,7 +52,7 @@
                             <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
                                 <li><a href="#">Ẩn bài đăng này</a></li>
                                 <li><a href="#">Ẩn bài từ <?php echo $data['user'][0]['username'] ?></a></li>
-                                <li><a href="">Báo cáo sai phạm</a></li>
+                                <li><a href="" onclick="">Báo cáo sai phạm</a></li>
                             </ul>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         </div>
                         <form id="form_comment" action="javascript::void(0)">
                             <textarea name="comment_content" id=""></textarea>
-                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id'] ?>" />
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']   ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
                         </form>
@@ -102,10 +102,10 @@
                                 </div>
                                 <div class="content">
                                     <div class="content-header">
-                                        <a href="" class="name"><?php echo $comment['username']?></a>
-                                        <span class="time"><?php echo $comment['created_at']?></span>
+                                        <a href="" class="name"><?php echo $comment['username'] ?></a>
+                                        <span class="time"><?php echo $comment['created_at'] ?></span>
                                     </div>
-                                    <div class="content-comment"><?php echo $comment['comment_content']?></div>
+                                    <div class="content-comment"><?php echo $comment['comment_content'] ?></div>
                                 </div>
                             </li>
                         <?php endforeach; ?>
