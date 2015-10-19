@@ -11,10 +11,10 @@ class PostController extends Controller {
         try {
             $post_id = StringHelper::filterString($request->getQuery('post_id'));
             $data = Posts::model()->getPostById($post_id);
-            if ($request->getQuery(Yii::app()->params['REF_API'])) {
+            if ($request->getQuery('ref') == Yii::app()->params['REF_API']) {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
-                $this->render();
+                $this->render('single', array('data' => $data));
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
@@ -131,7 +131,18 @@ class PostController extends Controller {
     }
 
     public function actionViewPost() {
-        $this->render('viewPost');
+        $request = Yii::app()->request;
+        try {
+            $post_id = StringHelper::filterString($request->getQuery('post_id'));
+            $data = Posts::model()->getPostById($post_id);
+            if ($request->getQuery(Yii::app()->params['REF_API'])) {
+                ResponseHelper::JsonReturnSuccess($data, "Success");
+            } else {
+                $this->render('viewPost', array('data' => $data));
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
     }
 
     // Uncomment the following methods and override them if needed

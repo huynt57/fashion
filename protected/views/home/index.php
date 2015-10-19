@@ -2,16 +2,13 @@
     <div class="df-container">
         <div class="cards-display-main-ctn">
             <div class="card-sizer"></div>
-
-
-
             <?php foreach ($data as $item): ?>
                 <div class="card-item card-hide">
                     <div class="card-item-inner">
                         <div class="post-image card-image has-one-image">
-                            <a href="single.html .lightbox-post" data-featherlight="ajax">
+                            <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>-->
+                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']    ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -44,7 +41,9 @@
                             <div class="content-main">
                                 <p class="desc"><?php echo $item['post_content'] ?>
                                 <p class="cats">
-                                    <span><a href=""><?php echo $item['cat_name'] ?></a></span>
+                                    <?php foreach ($item['cat_name'] as $cat): ?>
+                                        <span><a href=""><?php echo $cat ?></a></span>
+                                    <?php endforeach; ?>
                                 </p>
                             </div>
                         </div>

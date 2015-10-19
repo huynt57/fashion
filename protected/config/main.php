@@ -9,7 +9,7 @@ return array(
     'name' => 'MacChat',
     // preloading 'log' component
     'preload' => array('log'),
-    // default contronller
+    'defaultController' => 'home/newsFeed',
     // autoloading model and component classes
     'import' => array(
         'application.models.*',

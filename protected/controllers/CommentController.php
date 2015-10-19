@@ -11,7 +11,7 @@ class CommentController extends Controller {
         try {
             $user_id = StringHelper::filterString($request->getPost('user_id'));
             $post_id = StringHelper::filterString($request->getPost('post_id'));
-            $content = StringHelper::filterString($request->getPost('content'));
+            $content = StringHelper::filterString($request->getPost('comment_content'));
 
             if (Comments::model()->addComment($user_id, $post_id, $content)) {
                 ResponseHelper::JsonReturnSuccess("", "Success");

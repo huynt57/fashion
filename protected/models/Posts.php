@@ -67,15 +67,31 @@ class Posts extends BasePosts {
     }
 
     public function getPostByUser($user_id, $limit, $offset) {
-        $data = Yii::app()->db->createCommand()
-                ->select('*')
-                ->from('tbl_posts p')
-                ->where('user_id=:user_id', array(':user_id' => $user_id))
-                ->limit($limit)
-                ->offset($offset)
-                ->order('post_id DESC')
-                ->queryAll();
-        return $data;
+        $returnArr = array();
+        $news_feed_criteria = new CDbCriteria;
+        $news_feed_criteria->select = 't.*, u.username';
+        $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
+        $news_feed_criteria->order = 't.post_id DESC';
+        $news_feed_criteria->limit = $limit;
+        $news_feed_criteria->offset = $offset;
+        $news_feed_criteria->addCondition("user_id = $user_id");
+        $data = Posts::model()->findAll($news_feed_criteria);
+        foreach ($data as $item) {
+            $itemArr = array();
+            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
+            $itemArr['post_id'] = $item->post_id;
+            $itemArr['post_content'] = $item->post_content;
+            $itemArr['created_at'] = $item->created_at;
+            $itemArr['updated_at'] = $item->updated_at;
+            $itemArr['post_like_count'] = $item->post_like_count;
+            $itemArr['post_view_count'] = $item->post_view_count;
+            $itemArr['post_comment_count'] = $item->post_comment_count;
+            $itemArr['location'] = $item->location;
+            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
+            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $returnArr[] = $itemArr;
+        }
+        return $returnArr;
     }
 
     public function getPostByCategory($cat_id, $limit, $offset) {
@@ -136,9 +152,9 @@ class Posts extends BasePosts {
         $returnArr = array();
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
-        $news_feed_criteria = new CdbCriteria;
+        $news_feed_criteria = new CDbCriteria;
         $news_feed_criteria->select = '*';
-        // $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id JOIN tbl_cat_post c ON t.post_id = c.post_id';
+        $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
         $news_feed_criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
         $news_feed_criteria->addNotInCondition('t.user_id', $blocked_user);
         $news_feed_criteria->order = 't.post_id DESC';
@@ -169,7 +185,7 @@ class Posts extends BasePosts {
         $blocked_user = $this->getBlockedUserByUser($user_id);
         $news_feed_criteria = new CdbCriteria;
         $news_feed_criteria->select = 't.*, u.username';
-        $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id JOIN tbl_cat_post c ON t.post_id = c.post_id';
+        $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
         $news_feed_criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
         $news_feed_criteria->addNotInCondition('t.user_id', $blocked_user);
         $news_feed_criteria->order = 't.post_id DESC';
@@ -214,8 +230,12 @@ class Posts extends BasePosts {
     }
 
     public function findCategoryNameByPostId($post_id) {
-        $cat_id = CatPost::model()->findByAttributes(array('post_id' => $post_id));
-        return $this->findCategoryById($cat_id->cat_id);
+        $cat_ids = CatPost::model()->findAllByAttributes(array('post_id' => $post_id));
+        $returnArr = array();
+        foreach ($cat_ids as $cat_id) {
+            $returnArr[] = $this->findCategoryById($cat_id->cat_id);
+        }
+        return $returnArr;
     }
 
     public function likePost($user_id, $post_id) {
@@ -248,21 +268,31 @@ class Posts extends BasePosts {
         return FALSE;
     }
 
+    public function getCommentsByPost($post_id) {
+        $sql = "SELECT * FROM tbl_comments JOIN tbl_user ON tbl_comments.created_by = tbl_user.id WHERE tbl_comments.post_id = $post_id";
+        $data = Yii::app()->db->createCommand($sql)->queryAll();
+        return $data;
+    }
+
     public function getPostById($post_id) {
         $item = Posts::model()->findByPk($post_id);
-        $itemArr = array();
-        $itemArr['username'] = $this->findUserByPostId($item->post_id);
-        $itemArr['post_id'] = $item->post_id;
-        $itemArr['post_content'] = $item->post_content;
-        $itemArr['created_at'] = $item->created_at;
-        $itemArr['updated_at'] = $item->updated_at;
-        $itemArr['post_like_count'] = $item->post_like_count;
-        $itemArr['post_view_count'] = $item->post_view_count;
-        $itemArr['post_comment_count'] = $item->post_comment_count;
-        $itemArr['location'] = $item->location;
-        $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
-        $itemArr['images'] = $this->findImagesByPost($item->post_id);
-        return $itemArr;
+        if ($item) {
+            $itemArr = array();
+            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
+            $itemArr['post_id'] = $item->post_id;
+            $itemArr['post_content'] = $item->post_content;
+            $itemArr['created_at'] = $item->created_at;
+            $itemArr['updated_at'] = $item->updated_at;
+            $itemArr['post_like_count'] = $item->post_like_count;
+            $itemArr['post_view_count'] = $item->post_view_count;
+            $itemArr['post_comment_count'] = $item->post_comment_count;
+            $itemArr['location'] = $item->location;
+            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
+            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $itemArr['comments'] = $this->getCommentsByPost($item->post_id);
+            return $itemArr;
+        }
+        return NULL;
     }
 
 }

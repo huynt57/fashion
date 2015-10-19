@@ -8,21 +8,11 @@
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <span class="helper-align"></span><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/1full.jpg" alt="...">
-                        </div>
-                        <div class="item">
-                            <span class="helper-align"></span><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/2full.jpg" alt="...">
-                        </div>
-                        <div class="item">
-                            <span class="helper-align"></span><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/3full.jpg" alt="...">
-                        </div>
-                        <div class="item">
-                            <span class="helper-align"></span><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/4full.jpg" alt="...">
-                        </div>
-                        <div class="item">
-                            <span class="helper-align"></span><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/5full.jpg" alt="...">
-                        </div>
+                        <?php foreach ($data['images'] as $image): ?>
+                            <div class="item active">
+                                <span class="helper-align"></span><img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="...">
+                            </div>
+                        <?php endforeach; ?>
                     </div>
 
                     <div class="carousel-navigation">
@@ -30,21 +20,11 @@
                             <i class="fa fa-angle-left fa-2x"></i>
                         </a>
                         <ul class="carousel-indicators">
-                            <li data-target="#post-images-carousel" data-slide-to="0" class="active">
-                                <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/1xs.jpg" alt="">
-                            </li>
-                            <li data-target="#post-images-carousel" data-slide-to="1">
-                                <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/2xs.jpg" alt="">
-                            </li>
-                            <li data-target="#post-images-carousel" data-slide-to="2">
-                                <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/3xs.jpg" alt="">
-                            </li>
-                            <li data-target="#post-images-carousel" data-slide-to="3">
-                                <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/4xs.jpg" alt="">
-                            </li>
-                            <li data-target="#post-images-carousel" data-slide-to="4">
-                                <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample2/5xs.jpg" alt="">
-                            </li>
+                            <?php foreach ($data['images'] as $image): ?>
+                                <li data-target="#post-images-carousel" data-slide-to="0" class="active">
+                                    <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="">
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                         <a class="cn-next" href="#post-images-carousel" role="button" data-slide="next">
                             <i class="fa fa-angle-right fa-2x"></i>
@@ -56,13 +36,13 @@
             <div class="single-post-main clearfix">
                 <div class="post-header single-post-header">
                     <div class="header-avatar">
-                        <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
+                        <a href=""><img src="<?php echo $data['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
                     </div>
                     <div class="header-info">
                         <h4 class="name">
-                            <span class="name-original"><a href="">Summer Dreamz</a></span>
+                            <span class="name-original"><a href=""><?php echo $data['user'][0]['username'] ?></a></span>
                         </h4>
-                        <p class="time">4 giờ trước</p>
+                        <p class="time"><?php echo $data['created_at'] ?></p>
                     </div>
                     <div class="header-menu">
                         <div class="dropdown">
@@ -71,7 +51,7 @@
                             </a>
                             <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
                                 <li><a href="#">Ẩn bài đăng này</a></li>
-                                <li><a href="#">Ẩn bài từ Summer Dreamz</a></li>
+                                <li><a href="#">Ẩn bài từ <?php echo $data['user'][0]['username'] ?></a></li>
                                 <li><a href="">Báo cáo sai phạm</a></li>
                             </ul>
                         </div>
@@ -79,19 +59,20 @@
                 </div>
                 <div class="post-content single-post-content">
                     <div class="content-main">
-                        <p class="desc">Card với 01 ảnh. Chỉ cần diện những chiếc áo sơ mi đơn giản như Taylor Swift bạn vẫn rất xinh đẹp và thời trang.</p>
+                        <p class="desc"><?php echo $data['post_content'] ?></p>
                         <p class="cats">
-                            <span><a href="">Áo nam</a></span>
-                            <span><a href="">Phụ kiện nam</a></span>
+                            <?php foreach ($data['cat_name'] as $cat): ?>
+                                <span><a href=""><?php echo $cat ?></a></span>
+                            <?php endforeach; ?>
                         </p>
                     </div>
                 </div>
                 <div class="post-footer single-post-footer">
                     <div class="footer-count">
-                        <span class="item-count"><a href="">9999 thích</a></span>
-                        <span class="item-count"><a href="">1234 đánh dấu</a></span>
-                        <span class="item-count"><a href="">9999 bình luận</a></span>
-                        <span class="item-count"><a href="">1234 chia sẻ</a></span>
+                        <span class="item-count"><a href=""><?php echo $data['post_like_count'] ?> thích</a></span>
+                        <span class="item-count"><a href=""><?php echo $data['post_view_count'] ?> lượt xem</a></span>
+                        <span class="item-count"><a href=""><?php echo $data['post_comment_count'] ?> bình luận</a></span>
+<!--                        <span class="item-count"><a href="">1234 chia sẻ</a></span>-->
                     </div>
                     <div class="footer-action">
                         <ul class="icon-container">
@@ -106,48 +87,28 @@
                         <div class="avatar">
                             <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar1.jpg" alt="" width="40" height="40">
                         </div>
-                        <form action="">
-                            <textarea name="" id=""></textarea>
+                        <form id="form_comment" action="javascript::void(0)">
+                            <textarea name="comment_content" id=""></textarea>
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id'] ?>" />
+                            <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
                         </form>
                     </div>
                     <ul class="comment-list">
-                        <li class="comment-item clearfix">
-                            <div class="avatar">
-                                <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar1.jpg" alt="" width="40" height="40">
-                            </div>
-                            <div class="content">
-                                <div class="content-header">
-                                    <a href="" class="name">Tùng Nguyễn</a>
-                                    <span class="time">23 phút trước</span>
+                        <?php foreach ($data['comments'] as $comment): ?>
+                            <li class="comment-item clearfix">
+                                <div class="avatar">
+                                    <img src="<?php echo $comment['photo'] ?>" alt="" width="40" height="40">
                                 </div>
-                                <div class="content-comment">The inner comments use internal unordered lists with the class .replies attached onto each one</div>
-                            </div>
-                        </li>
-                        <li class="comment-item clearfix">
-                            <div class="avatar">
-                                <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar2.jpg" alt="" width="40" height="40">
-                            </div>
-                            <div class="content">
-                                <div class="content-header">
-                                    <a href="" class="name">Shop hà đông 234 65 2 hà ý</a>
-                                    <span class="time">23 phút trước</span>
+                                <div class="content">
+                                    <div class="content-header">
+                                        <a href="" class="name"><?php echo $comment['username']?></a>
+                                        <span class="time"><?php echo $comment['created_at']?></span>
+                                    </div>
+                                    <div class="content-comment"><?php echo $comment['comment_content']?></div>
                                 </div>
-                                <div class="content-comment">The inner comments use internal unordered lists with the class .replies attached onto each one</div>
-                            </div>
-                        </li>
-                        <li class="comment-item clearfix">
-                            <div class="avatar">
-                                <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar1.jpg" alt="" width="40" height="40">
-                            </div>
-                            <div class="content">
-                                <div class="content-header">
-                                    <a href="" class="name">Tùng Nguyễn</a>
-                                    <span class="time">23 phút trước</span>
-                                </div>
-                                <div class="content-comment">The inner comments use internal unordered lists with the class .replies attached onto each one</div>
-                            </div>
-                        </li>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -155,3 +116,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#form_comment').submit(function (event) {
+            event.preventDefault();
+            var form = $('#form_comment');
+            var data = form.serialize();
+            $.ajax({
+                type: 'POST',
+                beforeSend: function () {
+
+                },
+                url: '<?php echo Yii::app()->createUrl('comment/add') ?>',
+                data: data,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function () {
+
+                }
+            })
+        });
+    });
+</script>
