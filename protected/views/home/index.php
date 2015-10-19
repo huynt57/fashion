@@ -8,7 +8,7 @@
                         <div class="post-image card-image has-one-image">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']    ?>');"></span>-->
+                                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']        ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -67,3 +67,43 @@
         </div>
     </div>
 </div>
+
+<script>
+    function hide_post(post_id)
+    {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl()?>',
+            type: 'POST',
+            data: '',
+            success: function (response) {
+                console.log(response)
+            }
+        })
+
+    }
+
+    function block_user(post_id)
+    {
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: '',
+            success: function (response) {
+                console.log(response)
+            }
+        })
+    }
+
+    function report(post_id)
+    {
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: '',
+            success: function (response) {
+                console.log(response)
+            }
+        })
+    }
+
+</script>
