@@ -4,7 +4,7 @@ class UserController extends Controller {
 
     public $layout;
     public $layoutPath;
-    
+
     public function actionIndex() {
         $this->render('index');
     }
@@ -16,7 +16,18 @@ class UserController extends Controller {
     }
 
     public function actionProfile() {
-        $this->render('profile');
+        try {
+            $request = Yii::app()->request;
+            $user_id = $request->getQuery('user_id');
+            $data = User::model()->getProfile($user_id);
+            if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
+                ResponseHelper::JsonReturnSuccess($data, 'Success');
+            } else {
+                $this->render('profile', array('data' => $data));
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
     }
 
     public function actionEditProfile() {

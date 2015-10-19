@@ -126,5 +126,10 @@ class User extends BaseUser {
         $data = User::model()->findAll($criteria);
         return $data;
     }
-
+    
+    public function getProfile($user_id)
+    {
+        $data = User::model()->findByPk($user_id);
+        return $data;
+    }
 }
