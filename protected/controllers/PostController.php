@@ -5,14 +5,17 @@ class PostController extends Controller {
     public function actionIndex() {
         $this->render('index');
     }
-    
-    public function actionGetPostById()
-    {
+
+    public function actionGetPostById() {
         $request = Yii::app()->request;
         try {
             $post_id = StringHelper::filterString($request->getQuery('post_id'));
             $data = Posts::model()->getPostById($post_id);
-            ResponseHelper::JsonReturnSuccess($data, "Success");
+            if ($request->getQuery(Yii::app()->params['REF_API'])) {
+                ResponseHelper::JsonReturnSuccess($data, "Success");
+            } else {
+                $this->render();
+            }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
         }
