@@ -1,5 +1,5 @@
 <div class="cards-display-main">
-    <div class="df-container">
+    <div class="df-container" id="container">
         <div class="cards-display-main-ctn">
             <div class="card-sizer"></div>
             <?php foreach ($data as $item): ?>
@@ -8,7 +8,7 @@
                         <div class="post-image card-image has-one-image">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']             ?>');"></span>-->
+                                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                 ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -68,7 +68,7 @@
     </div>
 </div>
 
-
+<div style="display: none;">
 <?php
 $this->widget('CLinkPager', array(
     'pages' => $pages,
@@ -84,7 +84,7 @@ $this->widget('CLinkPager', array(
         )
 )
 ?>
-
+</div>
 
 <script>
     function hide_post(post_id)
@@ -131,34 +131,32 @@ $this->widget('CLinkPager', array(
 //
 //        var $container = $('#container');
 //
-//        $container.imagesLoaded(function () {
-//            $container.masonry({
-//                itemSelector: '.box',
-//                columnWidth: 100
-//            });
-//        });
-//
-//        $container.infinitescroll({
-//            navSelector: '#page-nav', // selector for the paged navigation 
-//            nextSelector: '#page-nav a', // selector for the NEXT link (to page 2)
-//            itemSelector: '.box', // selector for all items you'll retrieve
-//            loading: {
-//                finishedMsg: 'No more pages to load.',
-//                img: 'http://i.imgur.com/6RMhx.gif'
+//        try {
+//            $container.infinitescroll({
+//                navSelector: '.next', // selector for the paged navigation 
+//                nextSelector: '.next a', // selector for the NEXT link (to page 2)
+//                itemSelector: '.card-item', // selector for all items you'll retrieve
+//                loading: {
+//                    finishedMsg: 'No more pages to load.',
+//                    img: 'http://i.imgur.com/6RMhx.gif'
+//                }
+//            },
+//            // trigger Masonry as a callback
+//            function (newElements) {
+//                // hide new items while they are loading
+//                var $newElems = $(newElements).css({opacity: 0});
+//                // ensure that images load before adding to masonry layout
+//                $newElems.imagesLoaded(function () {
+//                    // show elems now they're ready
+//                    $newElems.animate({opacity: 1});
+//                    $container.masonry('appended', $newElems, true);
+//                });
 //            }
-//        },
-//        // trigger Masonry as a callback
-//        function (newElements) {
-//            // hide new items while they are loading
-//            var $newElems = $(newElements).css({opacity: 0});
-//            // ensure that images load before adding to masonry layout
-//            $newElems.imagesLoaded(function () {
-//                // show elems now they're ready
-//                $newElems.animate({opacity: 1});
-//                $container.masonry('appended', $newElems, true);
-//            });
+//            );
+//        } catch (exception) {
+//            console.log(exception);
 //        }
-//        );
+//
 //
 //    });
 </script>
