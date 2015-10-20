@@ -8,7 +8,7 @@
                         <div class="post-image card-image has-one-image">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']           ?>');"></span>-->
+                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']             ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -68,6 +68,24 @@
     </div>
 </div>
 
+
+<?php
+$this->widget('CLinkPager', array(
+    'pages' => $pages,
+    'maxButtonCount' => 1,
+    'htmlOptions' => array('class' => 'pagination',
+    ),
+    'header' => '',
+    'prevPageLabel' => 'Trước',
+    'nextPageLabel' => 'Sau',
+    'firstPageLabel' => 'Đầu tiên',
+    'lastPageLabel' => 'Cuối cùng',
+    'selectedPageCssClass' => 'active',
+        )
+)
+?>
+
+
 <script>
     function hide_post(post_id)
     {
@@ -106,4 +124,41 @@
         });
     }
 
+</script>
+
+<script>
+//    $(function () {
+//
+//        var $container = $('#container');
+//
+//        $container.imagesLoaded(function () {
+//            $container.masonry({
+//                itemSelector: '.box',
+//                columnWidth: 100
+//            });
+//        });
+//
+//        $container.infinitescroll({
+//            navSelector: '#page-nav', // selector for the paged navigation 
+//            nextSelector: '#page-nav a', // selector for the NEXT link (to page 2)
+//            itemSelector: '.box', // selector for all items you'll retrieve
+//            loading: {
+//                finishedMsg: 'No more pages to load.',
+//                img: 'http://i.imgur.com/6RMhx.gif'
+//            }
+//        },
+//        // trigger Masonry as a callback
+//        function (newElements) {
+//            // hide new items while they are loading
+//            var $newElems = $(newElements).css({opacity: 0});
+//            // ensure that images load before adding to masonry layout
+//            $newElems.imagesLoaded(function () {
+//                // show elems now they're ready
+//                $newElems.animate({opacity: 1});
+//                $container.masonry('appended', $newElems, true);
+//            });
+//        }
+//        );
+//
+//    });
 </script>

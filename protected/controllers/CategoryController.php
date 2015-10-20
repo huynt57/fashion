@@ -3,7 +3,14 @@
 class CategoryController extends Controller {
 
     public function actionIndex() {
-        $this->render('index');
+        $request = Yii::app()->request;
+        try {
+            $type = StringHelper::filterString($request->getQuery('type'));
+            $data = Posts::model()->getPostByCategoryType($type);
+            $this->render('index', $data);
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
     }
 
     public function actionGetAllCategory() {
