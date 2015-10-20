@@ -166,6 +166,7 @@ class Posts extends BasePosts {
             $itemArr['user'] = array($this->findUserByPostId($item->post_id));
             $itemArr['post_id'] = $item->post_id;
             $itemArr['post_content'] = $item->post_content;
+            $itemArr['user_id'] = $item->user_id;
             $itemArr['created_at'] = $item->created_at;
             $itemArr['updated_at'] = $item->updated_at;
             $itemArr['post_like_count'] = $item->post_like_count;
@@ -199,6 +200,7 @@ class Posts extends BasePosts {
             $itemArr['user'] = array($this->findUserByPostId($item->post_id));
             $itemArr['post_id'] = $item->post_id;
             $itemArr['post_content'] = $item->post_content;
+            $itemArr['user_id'] = $item->user_id;
             $itemArr['created_at'] = $item->created_at;
             $itemArr['updated_at'] = $item->updated_at;
             $itemArr['post_like_count'] = $item->post_like_count;
@@ -279,6 +281,7 @@ class Posts extends BasePosts {
         if ($item) {
             $itemArr = array();
             $itemArr['user'] = array($this->findUserByPostId($item->post_id));
+            $itemArr['user_id'] = $item->user_id;
             $itemArr['post_id'] = $item->post_id;
             $itemArr['post_content'] = $item->post_content;
             $itemArr['created_at'] = $item->created_at;

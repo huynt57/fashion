@@ -93,7 +93,21 @@ class PostController extends Controller {
     }
 
     public function actionHidePostForUser() {
-        
+        $request = Yii::app()->request;
+        try {
+            $user_block = StringHelper::filterString($request->getPost('user_block'));
+            $post_id = StringHelper::filterString($request->getPost('post_id'));
+            $result = User::model()->blockPost($user_block, $post_id);
+            if ($result == 1) {
+                ResponseHelper::JsonReturnError('', 'Blocked before');
+            } else if ($result == 0) {
+                ResponseHelper::JsonReturnError('', 'Server Error');
+            } else {
+                ResponseHelper::JsonReturnSuccess('', 'Success');
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
     }
 
     public function actionLikePost() {
@@ -163,8 +177,7 @@ class PostController extends Controller {
             }
             // $album = StringHelper::filterString($request->getPost('album'));
             $album = NULL;
-            if(Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album, $cats))
-            {
+            if (Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album, $cats)) {
                 
             } else {
                 

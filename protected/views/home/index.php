@@ -8,7 +8,7 @@
                         <div class="post-image card-image has-one-image">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']        ?>');"></span>-->
+                                                <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']           ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -31,7 +31,7 @@
                                     </a>
                                     <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
                                         <li><a href="#" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
-                                        <li><a href="#" onclick="block_user(<?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
+                                        <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
                                         <li><a href="#" onclick="report(<?php echo $item['post_id'] ?>)">Báo cáo sai phạm</a></li>
                                     </ul>
                                 </div>
@@ -72,38 +72,38 @@
     function hide_post(post_id)
     {
         $.ajax({
-            url: '<?php echo Yii::app()->createUrl()?>',
+            url: '<?php echo Yii::app()->createUrl('post/hidePostForUser') ?>',
             type: 'POST',
-            data: '',
+            data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id},
             success: function (response) {
-                console.log(response)
+                console.log(response);
             }
-        })
+        });
 
     }
 
-    function block_user(post_id)
+    function block_user(user_blocked, post_id)
     {
         $.ajax({
-            url: '',
+            url: '<?php echo Yii::app()->createUrl('user/blockUser') ?>',
             type: 'POST',
-            data: '',
+            data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked},
             success: function (response) {
-                console.log(response)
+                console.log(response);
             }
-        })
+        });
     }
 
     function report(post_id)
     {
         $.ajax({
-            url: '',
+            url: '<?php echo Yii::app()->createUrl('post/reportPost') ?>',
             type: 'POST',
             data: '',
             success: function (response) {
-                console.log(response)
+                console.log(response);
             }
-        })
+        });
     }
 
 </script>
