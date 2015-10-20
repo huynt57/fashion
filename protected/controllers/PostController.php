@@ -127,7 +127,10 @@ class PostController extends Controller {
     }
 
     public function actionUpload() {
-        $this->render('upload');
+        $male_cats = Categories::model()->getMaleCategory();
+        $female_cats = Categories::model()->getFemaleCategory();
+        $other_cats = Categories::model()->getOtherCategory();
+        $this->render('upload', array('male_cats' => $male_cats, 'female_cats' => $female_cats, 'other_cats' => $other_cats));
     }
 
     public function actionViewPost() {
@@ -139,6 +142,32 @@ class PostController extends Controller {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
                 $this->render('viewPost', array('data' => $data));
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
+    public function actionAddPostForWeb() {
+        $request = Yii::app()->request;
+        try {
+            $post_content = StringHelper::filterString($request->getPost('post_content'));
+            $user_id = StringHelper::filterString($request->getPost('user_id'));
+            $location = StringHelper::filterString($request->getPost('location'));
+            $cats_arr = StringHelper::filterArrayString($request->getPost('cats'));
+            $cats = json_encode($cats_arr);
+            if (count($_FILES['images']['tmp_name']) > 1) {
+                $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
+            } else {
+                $url_arr = UploadHelper::getUrlUploadSingleImage($_FILES['images'], $user_id);
+            }
+            // $album = StringHelper::filterString($request->getPost('album'));
+            $album = NULL;
+            if(Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album, $cats))
+            {
+                
+            } else {
+                
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
