@@ -304,17 +304,24 @@ class Posts extends BasePosts {
 //                . "tbl_cat_post.post_id JOIN tbl_cat WHERE tbl_cat_post.cat_id = "
 //                . "tbl.categories.cat_id WHERE tbl_categories.type = $type";
 //        $data = Yii::app()->db->createCommand($sql)->queryAll
+        $returnArr = array();
         $categories = $this->getCategoryByType($type);
         $criteria = new CDbCriteria;
-        $criteria->join = 'JOIN tbl_cat_post ON t.post_id = tbl_cat_post.post_id JOIN tbl_categories ON tbl_cat_post.cat_id = tbl.categories.cat_id';
+        $criteria->join = 'JOIN tbl_cat_post c ON c.post_id = t.post_id';
+        $criteria->join .= ' JOIN tbl_categories a ON a.cat_id = c.cat_id ';
         $criteria->order = 't.post_id DESC';
-        $criteria->condition = "tbl_categories.type = $type";
+        $criteria->condition = "a.type = $type";
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
-        return array('data' => $data, 'pages' => $pages, 'cats' => $categories);
+        foreach($data as $item)
+        {
+            $itemArr = $this->getPostById($item->post_id);
+            $returnArr[] = $itemArr;
+        }
+        return array('data' => $returnArr, 'pages' => $pages, 'cats' => $categories);
     }
 
     public function getCategoryByType($type) {

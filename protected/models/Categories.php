@@ -22,18 +22,16 @@ class Categories extends BaseCategories {
         $data = Categories::model()->findAllByAttributes(array('type' => 3));
         return $data;
     }
-    
+
     public function addCategory($attr) {
         $model = new Categories;
         $model->setAttributes($attr);
         $model->status = 1;
         $model->created_at = time();
         $model->updated_at = time();
-        if($model->save(FALSE))
-        {
+        if ($model->save(FALSE)) {
             return TRUE;
         }
         return FALSE;
     }
-
 }
