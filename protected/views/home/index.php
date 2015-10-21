@@ -8,7 +8,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                            <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                  ?>');"></span>-->
+                                                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                     ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -32,7 +32,7 @@
                                     <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
                                         <li><a href="#" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
                                         <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                        <li><a href="#" onclick="report(<?php echo $item['post_id'] ?>)">Báo cáo sai phạm</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -57,10 +57,11 @@
                                     <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star"></i></a></li>
                                     <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
                                     <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                    <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
+                                    <li class="share-icon"><a href="" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>
                             </div>
                         </div>
+                       <?php $this->renderPartial('modal');?>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -87,6 +88,7 @@
 </div>
 
 <script>
+
     function hide_post(post_id)
     {
         $.ajax({
@@ -97,9 +99,9 @@
                 console.log(response);
             }
         });
-        
+
     }
-    
+
     function block_user(user_blocked, post_id)
     {
         $.ajax({
@@ -111,7 +113,7 @@
             }
         });
     }
-    
+
     function report(post_id)
     {
         $.ajax({
@@ -123,7 +125,7 @@
             }
         });
     }
-    
+
 </script>
 
 <script>

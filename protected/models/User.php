@@ -101,11 +101,11 @@ class User extends BaseUser {
         }
         $time_end = time();
         $criteria->select = 'COUNT(*) AS count_like';
-        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
-        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
+        $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
+        $criteria->join = 'JOIN tbl_like l ON t.id = l.to';
+        $criteria->order = 'count_like DESC';
         $criteria->limit = $limit;
         $criteria->offset = $offset;
-        $criteria->order = 'count_like DESC';
         $data = User::model()->findAll($criteria);
         return $data;
     }
@@ -123,8 +123,8 @@ class User extends BaseUser {
         }
         $time_end = time();
         $criteria->select = 'COUNT(*) AS count_like';
-        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
-        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
+        $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
+        $criteria->join = 'JOIN tbl_like l ON t.id = l.to';
         $criteria->order = 'count_like DESC';
         $data = User::model()->findAll($criteria);
         $count = User::model()->count($criteria);
@@ -133,6 +133,7 @@ class User extends BaseUser {
         $pages->applyLimit($criteria);
         return array('data' => $data, 'pages' => $pages);
     }
+    
 
 //    public function rankByMonth() {
 //        $criteria = new CDbCriteria;

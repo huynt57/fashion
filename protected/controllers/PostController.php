@@ -113,7 +113,7 @@ class PostController extends Controller {
     public function actionLikePost() {
         try {
             $post_id = StringHelper::filterArrayString(Yii::app()->request->getPost('post_id'));
-            $user_id = StringHelper::filterArrayString(Yii::app()->request->getPost('$user_id'));
+            $user_id = StringHelper::filterArrayString(Yii::app()->request->getPost('user_id'));
             $result = Posts::model()->likePost($user_id, $post_id);
             if ($result) {
                 ResponseHelper::JsonReturnSuccess("", "Success");
@@ -128,8 +128,8 @@ class PostController extends Controller {
     public function actionLikeImage() {
         try {
             $image_id = StringHelper::filterArrayString(Yii::app()->request->getPost('image_id'));
-            $user_id = StringHelper::filterArrayString(Yii::app()->request->getPost('$user_id'));
-            $result = Posts::model()->likePost($user_id, $image_id);
+            $user_id = StringHelper::filterArrayString(Yii::app()->request->getPost('user_id'));
+            $result = Posts::model()->likeImage($user_id, $image_id);
             if ($result) {
                 ResponseHelper::JsonReturnSuccess("", "Success");
             } else {
@@ -186,8 +186,6 @@ class PostController extends Controller {
             var_dump($ex->getMessage());
         }
     }
-    
-    
 
     // Uncomment the following methods and override them if needed
     /*

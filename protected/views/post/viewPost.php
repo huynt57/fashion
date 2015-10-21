@@ -88,8 +88,8 @@
                             <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar1.jpg" alt="" width="40" height="40">
                         </div>
                         <form id="form_comment" action="javascript::void(0)">
-                            <textarea name="comment_content" id=""></textarea>
-                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']   ?>" />
+                            <textarea name="comment_content" id="comment_content"></textarea>
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']    ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
                         </form>
@@ -125,16 +125,14 @@
             var data = form.serialize();
             $.ajax({
                 type: 'POST',
-                beforeSend: function () {
-
-                },
                 url: '<?php echo Yii::app()->createUrl('comment/add') ?>',
                 data: data,
+                dataType: 'json',
                 success: function (response) {
                     console.log(response);
                 },
-                error: function () {
-
+                error: function (response) {
+                    console.log(response);
                 }
             })
         });

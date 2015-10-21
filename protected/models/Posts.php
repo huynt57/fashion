@@ -328,5 +328,7 @@ class Posts extends BasePosts {
         $data = Categories::model()->findAllByAttributes(array('type' => $type));
         return $data;
     }
+    
+    
 
 }
