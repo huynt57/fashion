@@ -108,4 +108,26 @@ class StringHelper {
         }
     }
 
+    public static function returnClassForMultipleImages($count) {
+        $class = NULL;
+        switch ($count) {
+            case 1:
+                $class = 'has-one-image';
+                break;
+            case 2:
+                $class = 'hasTwoImages';
+                break;
+            case 3:
+                $class = 'hasThreeImages';
+                break;
+            case 4:
+                $class = 'hasFourImages';
+                break;
+            case 5:
+                $class = 'hasFiveImages';
+                break;
+        }
+        return $class;
+    }
+
 }

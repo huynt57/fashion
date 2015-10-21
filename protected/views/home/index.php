@@ -5,10 +5,10 @@
             <?php foreach ($data as $item): ?>
                 <div class="card-item card-hide">
                     <div class="card-item-inner">
-                        <div class="post-image card-image has-one-image">
+                        <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                 ?>');"></span>-->
+                                                                            <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                  ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -69,21 +69,21 @@
 </div>
 
 <div style="display: none;">
-<?php
-$this->widget('CLinkPager', array(
-    'pages' => $pages,
-    'maxButtonCount' => 1,
-    'htmlOptions' => array('class' => 'pagination',
-    ),
-    'header' => '',
-    'prevPageLabel' => 'Trước',
-    'nextPageLabel' => 'Sau',
-    'firstPageLabel' => 'Đầu tiên',
-    'lastPageLabel' => 'Cuối cùng',
-    'selectedPageCssClass' => 'active',
-        )
-)
-?>
+    <?php
+    $this->widget('CLinkPager', array(
+        'pages' => $pages,
+        'maxButtonCount' => 1,
+        'htmlOptions' => array('class' => 'pagination',
+        ),
+        'header' => '',
+        'prevPageLabel' => 'Trước',
+        'nextPageLabel' => 'Sau',
+        'firstPageLabel' => 'Đầu tiên',
+        'lastPageLabel' => 'Cuối cùng',
+        'selectedPageCssClass' => 'active',
+            )
+    )
+    ?>
 </div>
 
 <script>
@@ -97,9 +97,9 @@ $this->widget('CLinkPager', array(
                 console.log(response);
             }
         });
-
+        
     }
-
+    
     function block_user(user_blocked, post_id)
     {
         $.ajax({
@@ -111,7 +111,7 @@ $this->widget('CLinkPager', array(
             }
         });
     }
-
+    
     function report(post_id)
     {
         $.ajax({
@@ -123,7 +123,7 @@ $this->widget('CLinkPager', array(
             }
         });
     }
-
+    
 </script>
 
 <script>
