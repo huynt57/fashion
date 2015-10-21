@@ -42,8 +42,8 @@ b{
 a{
 	@include transition(color,.15s,ease-in-out, background-color,.15s,ease-in-out, opacity .15s, ease-in-out);
 	color: $lblue-darken-2;
-	&:hover{
-		color: $lblue-darken-2;
+	&:hover, &:focus {
+		// color: $lblue-darken-2;
 	}
 }
 

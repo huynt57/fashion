@@ -17,6 +17,10 @@ label,input{
   	border-color: $grey-darken-1;
   }
 }
+textarea{
+	min-width: 100%;
+	max-width: 100%;
+}
 .btn{
 	border: 1px solid $grey-lighten-1;
 	background-color: transparent;

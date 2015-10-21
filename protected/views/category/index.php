@@ -6,7 +6,7 @@
                 <li><a href="">
                         <span class="bg-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card30.jpg')"></span>
                         <span class="bg-gradient"></span>
-                        <h2 class="cat-name"><?php echo $cat->cat_name?></h2>
+                        <h2 class="cat-name"><?php echo $cat->cat_name ?></h2>
                     </a></li>
             <?php endforeach; ?>
         </ul>
@@ -23,7 +23,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                            <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                  ?>');"></span>-->
+                                                                                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                    ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -112,9 +112,9 @@
                 console.log(response);
             }
         });
-        
+
     }
-    
+
     function block_user(user_blocked, post_id)
     {
         $.ajax({
@@ -126,7 +126,7 @@
             }
         });
     }
-    
+
     function report(post_id)
     {
         $.ajax({
@@ -138,7 +138,7 @@
             }
         });
     }
-    
+
 </script>
 
 <script>

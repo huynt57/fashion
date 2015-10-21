@@ -120,57 +120,6 @@
 				}
 			}
 		}//.cover-photo
-		.menu-section{
-			background-color: #fff;
-			@extend .shadow-depth-1;
-			@extend .link-remove-deco;
-			.main-menu-section,
-			.other-menu-section{
-				& > ul{
-					& > li{
-						& > a{
-							display: block;
-							padding: 12px 15px;
-							height: 50px;
-							line-height: 26px;
-							font-size: 15px;
-							@include box-sizing(border-box);
-							color: $grey-darken-1;
-							@include transition(border-bottom-color, 0.2s, ease-in-out);
-							@include transition(color, 0.2s, ease-in-out);
-						}
-					}
-				}
-				li a:hover,
-				li.active a,
-				li.dropdown.open > a{
-					color: $grey-darken-4;
-					border-bottom-color: $lblue-darken-2;
-				}
-			}
-			.main-menu-section{
-				float: left;
-				ul{
-					li{
-						float: left;
-						padding: 0 6px;
-						a{
-							border-bottom: 3px solid transparent;
-						}
-					}
-				}
-			}
-			.other-menu-section{
-				float: right;
-				ul.dropdown-menu{
-					top: 45px;
-					@extend .shadow-depth-1;
-					&:before{
-						right: 17px;
-					}
-				}
-			}
-		}//.menu-section
 	}
 	.edit-information{
 		margin: 20px 0;

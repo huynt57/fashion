@@ -88,48 +88,81 @@ class User extends BaseUser {
         }
     }
 
-    public function rankByDay() {
+    public function rankByTimeApi($time, $limit, $offset) {
+        $time = strtoupper($time);
+
         $criteria = new CDbCriteria;
-        $time_start = strtotime('-1 day');
+        if ($time == 'DAY') {
+            $time_start = strtotime('-1 day');
+        } else if ($time == 'WEEK') {
+            $time_start = strtotime('-1 week');
+        } else if ($time == 'MONTH') {
+            $time_start = strtotime('-1 month');
+        }
         $time_end = time();
         $criteria->select = 'COUNT(*) AS count_like';
         $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
         $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
-        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
+        $criteria->limit = $limit;
+        $criteria->offset = $offset;
         $criteria->order = 'count_like DESC';
         $data = User::model()->findAll($criteria);
         return $data;
     }
 
-    public function rankByMonth() {
+    public function rankByTimeForWeb($time) {
+        $time = strtoupper($time);
+
         $criteria = new CDbCriteria;
-        $time_start = strtotime('-1 month');
+        if ($time == 'DAY') {
+            $time_start = strtotime('-1 day');
+        } else if ($time == 'WEEK') {
+            $time_start = strtotime('-1 week');
+        } else if ($time == 'MONTH') {
+            $time_start = strtotime('-1 month');
+        }
         $time_end = time();
         $criteria->select = 'COUNT(*) AS count_like';
         $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
         $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
-        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
         $criteria->order = 'count_like DESC';
         $data = User::model()->findAll($criteria);
-        return $data;
+        $count = User::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
+        return array('data' => $data, 'pages' => $pages);
     }
 
-    public function rankByWeek() {
-        $criteria = new CDbCriteria;
-        $time_start = strtotime('-1 week');
-        $time_end = time();
-        $criteria->select = 'COUNT(*) AS count_like';
-        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
-        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
-        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
-        $criteria->order = 'count_like DESC';
-        $data = User::model()->findAll($criteria);
-        return $data;
-    }
-    
-    public function getProfile($user_id)
-    {
+//    public function rankByMonth() {
+//        $criteria = new CDbCriteria;
+//        $time_start = strtotime('-1 month');
+//        $time_end = time();
+//        $criteria->select = 'COUNT(*) AS count_like';
+//        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
+//        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
+//        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
+//        $criteria->order = 'count_like DESC';
+//        $data = User::model()->findAll($criteria);
+//        return $data;
+//    }
+//
+//    public function rankByWeek() {
+//        $criteria = new CDbCriteria;
+//        $time_start = strtotime('-1 week');
+//        $time_end = time();
+//        $criteria->select = 'COUNT(*) AS count_like';
+//        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
+//        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
+//        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
+//        $criteria->order = 'count_like DESC';
+//        $data = User::model()->findAll($criteria);
+//        return $data;
+//    }
+
+    public function getProfile($user_id) {
         $data = User::model()->findByPk($user_id);
         return $data;
     }
+
 }

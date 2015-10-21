@@ -6,19 +6,24 @@ class RankController extends Controller {
         $this->render('index');
     }
 
-    public function actionRankByMonth() {
-        $data = User::model()->rankByMonth();
-        ResponseHelper::JsonReturnSuccess($data, 'Success');
-    }
+    public function actionRankByTime() {
+        $request = Yii::app()->request;
+        try {
+            $time = StringHelper::filterString($request->getQuery('time'));
+            $ref_api = StringHelper::filterString($request->getQuery('ref_api'));
+            $limit = StringHelper::filterString($request->getQuery('limit'));
+            $offset = StringHelper::filterString($request->getQuery('offset'));
 
-    public function actionRankByWeek() {
-        $data = User::model()->rankByWeek();
-        ResponseHelper::JsonReturnSuccess($data, 'Success');
-    }
-
-    public function actionRankByDay() {
-        $data = User::model()->rankByDay();
-        ResponseHelper::JsonReturnSuccess($data, 'Success');
+            if ($ref_api == Yii::app()->params['REF_API'] && !empty($limit) && !empty($offset)) {
+                $data = User::model()->rankByTimeApi($time, $limit, $offset);
+                ResponseHelper::JsonReturnSuccess($data, 'Success');
+            } else {
+                $data = User::model()->rankByTimeForWeb($time);
+                $this->render('index', $data);
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
     }
 
     // Uncomment the following methods and override them if needed
