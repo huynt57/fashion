@@ -11,8 +11,8 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/modernizr.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/jquery-2.1.4.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/bootstrap.min.js"></script>
-       
-        
+
+
     </head>
     <body>
 
@@ -56,7 +56,7 @@
                     <div class="tools-nav">
                         <ul class="tools-nav-ctn">
                             <li class="upload-icon">
-                                <a href="upload.html .upload-container" data-featherlight="ajax"><i class="fa fa-cloud-upload"></i></a>
+                                <a href="<?php echo Yii::app()->createUrl('post/upload'); ?> .upload-container" data-featherlight="ajax"><i class="fa fa-cloud-upload"></i></a>
                             </li>
                             <li class="notify-icon dropdown">
                                 <a id="notify-nav-list" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -139,7 +139,7 @@
                                     <li><a href="">Trợ giúp</a></li>
                                     <li><a href="">Báo lỗi</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="">Đăng xuất</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('user/logout') ?>">Đăng xuất</a></li>
                                 </ul>
                             </li>
                         </ul>

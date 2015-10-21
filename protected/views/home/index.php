@@ -8,7 +8,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                     ?>');"></span>-->
+                                                                                                <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                       ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -61,13 +61,14 @@
                                 </ul>
                             </div>
                         </div>
-                       <?php $this->renderPartial('modal');?>
+
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
 </div>
+<?php $this->renderPartial('modal'); ?>
 
 <div style="display: none;">
     <?php

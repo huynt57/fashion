@@ -110,6 +110,12 @@ class UserController extends Controller {
             Yii::app()->end();
         }
     }
+    
+    public function actionLogout()
+    {
+        Yii::app()->session->destroy();
+        $this->redirect(Yii::app()->createUrl('home'));
+    }
 
     // Uncomment the following methods and override them if needed
     /*

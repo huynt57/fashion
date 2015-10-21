@@ -21,142 +21,69 @@
         <div class="cards-display-main-ctn">
             <div class="card-sizer"></div>
 
-            <!-- normal upload card with 1 image -->
-            <div class="card-item card-hide">
-                <div class="card-item-inner">
-                    <div class="post-image card-image has-one-image">
-                        <a href="single.html .lightbox-post" data-featherlight="ajax">
-                            <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card1.jpg" class="img-fullwidth">
-                        </a>
-                    </div>
-                    <div class="post-header card-header">
-                        <div class="header-avatar">
-                            <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
+            <?php foreach ($data as $item): ?>
+                <!-- normal upload card with 1 image -->
+                <div class="card-item card-hide">
+                    <div class="card-item-inner">
+                        <div class="post-image card-image has-one-image">
+                            <a href="single.html .lightbox-post" data-featherlight="ajax">
+                                <img src="<?php echo $item->photo?>" class="img-fullwidth">
+                            </a>
                         </div>
-                        <div class="header-info">
-                            <h4 class="name">
-                                <span class="name-original"><a href="">Summer Dreamz</a></span>
-                            </h4>
-                            <p class="time">4 giờ trước</p>
+                        <div class="post-header card-header">
+                            <div class="header-avatar">
+                                <a href=""><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar7.jpg" alt="" width="40" height="40"></a>
+                            </div>
+                            <div class="header-info">
+                                <h4 class="name">
+                                    <span class="name-original"><a href="">Summer Dreamz</a></span>
+                                </h4>
+                                <p class="time">4 giờ trước</p>
+                            </div>
+                            <div class="header-menu">
+                                <div class="dropdown">
+                                    <a id="post-header-menu" class="post-header-menu" href="#" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-angle-down fa-lg"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
+                                        <li><a href="#">Ẩn bài đăng này</a></li>
+                                        <li><a href="#">Ẩn bài từ Summer Dreamz</a></li>
+                                        <li><a href="" data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="header-menu">
-                            <div class="dropdown">
-                                <a id="post-header-menu" class="post-header-menu" href="#" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-angle-down fa-lg"></i>
-                                </a>
-                                <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
-                                    <li><a href="#">Ẩn bài đăng này</a></li>
-                                    <li><a href="#">Ẩn bài từ Summer Dreamz</a></li>
-                                    <li><a href="" data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
+                        <div class="post-content card-content">
+                            <div class="content-main">
+                                <p class="desc">Lightbox ở Report và share</p>
+                                <p class="cats">
+                                    <span><a href="">Áo nam</a></span>
+                                    <span><a href="">Phụ kiện nam</a></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="post-footer card-footer">
+                            <div class="footer-count">
+                                <span class="item-count"><a href="">9999 thích</a></span>
+                                <span class="item-count"><a href="">123 bình luận</a></span>
+                            </div>
+                            <div class="footer-action">
+                                <ul class="icon-container">
+                                    <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star"></i></a></li>
+                                    <li class="pin-icon"><a href="" title="Đánh dấu" data-toggle="modal" data-target="#post-pin-modal"><i class="fa fa-thumb-tack"></i></a></li>
+                                    <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
+                                    <li class="share-icon"><a href="" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="post-content card-content">
-                        <div class="content-main">
-                            <p class="desc">Lightbox ở Report và share</p>
-                            <p class="cats">
-                                <span><a href="">Áo nam</a></span>
-                                <span><a href="">Phụ kiện nam</a></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="post-footer card-footer">
-                        <div class="footer-count">
-                            <span class="item-count"><a href="">9999 thích</a></span>
-                            <span class="item-count"><a href="">123 bình luận</a></span>
-                        </div>
-                        <div class="footer-action">
-                            <ul class="icon-container">
-                                <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star"></i></a></li>
-                                <li class="pin-icon"><a href="" title="Đánh dấu" data-toggle="modal" data-target="#post-pin-modal"><i class="fa fa-thumb-tack"></i></a></li>
-                                <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                <li class="share-icon"><a href="" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Report Modal -->
-                    <div class="modal fade modal-post-report" id="post-report-modal" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-sm" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Báo cáo sai phạm</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="">
-                                        <div class="form-group">
-                                            <label>Lý do bạn cho rằng bài đăng vi phạm?</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="options-report" id="optionsRadios1" value="option1">
-                                                    Sexual Content
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="options-report" id="optionsRadios1" value="option1">
-                                                    Vi phạm bản quyền
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="options-report" id="optionsRadios1" value="option1">
-                                                    Spam, Virus
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="options-report" id="optionsRadios1" value="option1">
-                                                    Option one is this and that—be sure to include why it's great
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="options-report" id="optionsRadios1" value="option1">
-                                                    Lý do khác
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="upload-des">Thông tin thêm</label>
-                                            <textarea id="upload-des" class="form-control" rows="2" placeholder="Thông tin thêm cho bộ phận quản lý"></textarea>
-                                        </div>
-                                        <hr>
-                                        <!-- <div class="form-group">
-                                              <p class="error-color">
-                                                      Đã chọn chuyên mục đâu thím ơi.
-                                              </p>
-                                        </div> -->
-                                        <button type="submit" class="btn btn-default btn-sm">Báo cáo</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Share Modal -->
-                    <div class="modal fade modal-post-shared" id="post-share-modal" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-xs" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Chia sẻ</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <a href="" class="facebook-color"><i class="fa fa-facebook-square fa-3x"></i></a>
-                                    <a href="" class="twitter-color"><i class="fa fa-twitter-square fa-3x"></i></a>
-                                    <a href="" class="ggplus-color"><i class="fa fa-google-plus-square fa-3x"></i></a>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
-            </div>
-
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
-
+<?php $this->renderPartial('modal'); ?>
 
 <div style="display: none;">
     <?php
