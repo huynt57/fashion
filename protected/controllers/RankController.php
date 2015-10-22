@@ -25,6 +25,11 @@ class RankController extends Controller {
             var_dump($ex->getMessage());
         }
     }
+    
+    public function actionRankForPost()
+    {
+        
+    }
 
     // Uncomment the following methods and override them if needed
     /*
