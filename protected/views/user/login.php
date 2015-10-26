@@ -21,7 +21,7 @@
                     <span>Đăng nhập với facebook</span>
                 </a>
             </div>
-            <p class="signin-content-text">
+<!--            <p class="signin-content-text">
                 ... hoặc đăng nhập với tài khoản:
             </p>
             <div class="signin-content-main">
@@ -41,7 +41,7 @@
             </div>
             <p class="signin-content-text">
                 <a href="">Quên mật khẩu?</a>
-            </p>
+            </p>-->
         </div>
     </div>
 

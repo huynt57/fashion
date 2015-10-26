@@ -316,8 +316,7 @@ class Posts extends BasePosts {
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
-        foreach($data as $item)
-        {
+        foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id);
             $returnArr[] = $itemArr;
         }
@@ -328,7 +327,50 @@ class Posts extends BasePosts {
         $data = Categories::model()->findAllByAttributes(array('type' => $type));
         return $data;
     }
-    
-    
+
+    public function rankByTimeApi($time, $limit, $offset) {
+        $time = strtoupper($time);
+        $criteria = new CDbCriteria;
+        if ($time == 'DAY') {
+            $time_start = strtotime('-1 day');
+        } else if ($time == 'WEEK') {
+            $time_start = strtotime('-1 week');
+        } else if ($time == 'MONTH') {
+            $time_start = strtotime('-1 month');
+        }
+        $time_end = time();
+        $criteria->select = 'COUNT(*) AS count_like';
+        $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
+        $criteria->join = 'JOIN tbl_like l ON t.id = l.to';
+        $criteria->order = 'count_like DESC';
+        $criteria->limit = $limit;
+        $criteria->offset = $offset;
+        $data = Posts::model()->findAll($criteria);
+        return $data;
+    }
+
+    public function rankByTimeForWeb($time) {
+        $time = strtoupper($time);
+
+        $criteria = new CDbCriteria;
+        if ($time == 'DAY') {
+            $time_start = strtotime('-1 day');
+        } else if ($time == 'WEEK') {
+            $time_start = strtotime('-1 week');
+        } else if ($time == 'MONTH') {
+            $time_start = strtotime('-1 month');
+        }
+        $time_end = time();
+        $criteria->select = 'COUNT(*) AS count_like';
+        $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
+        $criteria->join = 'JOIN tbl_like l ON t.id = l.to';
+        $criteria->order = 'count_like DESC';
+        $data = Posts::model()->findAll($criteria);
+        $count = Posts::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
+        return array('data' => $data, 'pages' => $pages);
+    }
 
 }
