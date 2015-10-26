@@ -1,6 +1,6 @@
 <div class="upload-page">
     <div class="upload-container clearfix">
-        <form action="<?php echo Yii::app()->createUrl('post/addPostForWeb') ?>" class="upload-content-form" method="POST" enctype="multipart/form-data">
+        <form action="<?php echo Yii::app()->createUrl('post/AddPostForWeb') ?>" class="upload-content-form" method="POST" enctype="multipart/form-data" id="addPostForm">
             <input type="hidden" value="<?php echo Yii::app()->session['user_id'] ?>" />
             <div class="form-group">
                 <label for="upload-image">Chọn ảnh (tối đa: 5)</label>
@@ -47,7 +47,7 @@
                     Chưa chọn chuyên mục.
                 </p>
             </div>
-            <button type="submit" class="btn btn-default">Đăng</button>
+            <button type="submit" id="submitButton" class="btn btn-default">Đăng</button>
 
         </form>
         <!-- <form action="#" class="dropzone">
@@ -55,3 +55,17 @@
         </form> -->
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#addPostForm").submit(function () {
+            $.ajax(this.action, {
+                data: $(":text", this).serializeArray(),
+                files: $(":file", this),
+                iframe: true
+            }).complete(function (data) {
+                console.log(data);
+            });
+        });
+    });
+</script>
