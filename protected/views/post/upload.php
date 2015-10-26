@@ -61,7 +61,7 @@
         $("#addPostForm").submit(function () {
             $.ajax(this.action, {
                 data: $(":text", this).serializeArray(),
-                files: $(":file", this),
+                files: $("#images", this),
                 iframe: true
             }).complete(function (data) {
                 console.log(data);
