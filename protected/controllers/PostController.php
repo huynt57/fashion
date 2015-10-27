@@ -170,17 +170,15 @@ class PostController extends Controller {
             $location = StringHelper::filterString($request->getPost('location'));
             $cats_arr = StringHelper::filterArrayString($request->getPost('cats'));
             $cats = json_encode($cats_arr);
-            if (count($_FILES['images']['tmp_name']) > 1) {
-                $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
-            } else {
-                $url_arr = UploadHelper::getUrlUploadSingleImage($_FILES['images'], $user_id);
-            }
+            $url = $request->getPost('previous_url');
+            $url_arr = NULL;           
+            $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
             // $album = StringHelper::filterString($request->getPost('album'));
             $album = NULL;
             if (Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album, $cats)) {
-                
+                $this->redirect($url);
             } else {
-                
+                $this->redirect($url);
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
