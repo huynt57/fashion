@@ -18,12 +18,18 @@ class UserController extends Controller {
     public function actionProfile() {
         try {
             $request = Yii::app()->request;
-            $user_id = $request->getQuery('user_id');
-            $data = User::model()->getProfile($user_id);
             if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
-                ResponseHelper::JsonReturnSuccess($data, 'Success');
+                $user_id = $request->getQuery('user_id');
             } else {
-                $this->render('profile', array('data' => $data));
+                $user_id = Yii::app()->session['user_id'];
+            }
+            $data = User::model()->getProfile($user_id);
+            $posts = Posts::model()->getPostByUserForWeb($user_id);
+            $arr = array('profile' => $data, 'posts' => $posts['data'], 'pages' => $posts['pages']);
+            if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
+                ResponseHelper::JsonReturnSuccess($arr, 'Success');
+            } else {
+                $this->render('profile', $arr);
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
@@ -110,13 +116,12 @@ class UserController extends Controller {
             Yii::app()->end();
         }
     }
-    
-    public function actionLogout()
-    {
+
+    public function actionLogout() {
         Yii::app()->session->destroy();
-        $this->redirect(Yii::app()->createUrl('home'));
+        $this->redirect(Yii::app()->createUrl('user/login'));
     }
-    
+
     // Uncomment the following methods and override them if needed
     /*
       public function filters()

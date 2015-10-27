@@ -27,8 +27,8 @@
                         </div>
                         <div class="user-meta clearfix">
                             <p>
-                                <span class="meta-count">1234 Bài đăng</span>
-                                <span class="meta-count">344 Album</span>
+                                <span class="meta-count"><?php echo count($posts) ?> Bài đăng</span>
+<!--                                <span class="meta-count">344 Album</span>-->
                             </p>
                         </div>
                     </div>
@@ -70,6 +70,7 @@
                     </ul>
                 </div>
                 <div class="clearfix"></div>
+                <?php $this->renderPartial('listpost', array('data' => $posts)); ?>
             </div>
         </div>
     </div>

@@ -94,6 +94,37 @@ class Posts extends BasePosts {
         return $returnArr;
     }
 
+    public function getPostByUserForWeb($user_id) {
+        $returnArr = array();
+        $news_feed_criteria = new CDbCriteria;
+        $news_feed_criteria->select = 't.*, u.username';
+        $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
+        $news_feed_criteria->order = 't.post_id DESC';
+        $news_feed_criteria->addCondition("t.user_id = $user_id");
+        $data = Posts::model()->findAll($news_feed_criteria);
+        $count = Posts::model()->count($news_feed_criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($news_feed_criteria);
+        foreach ($data as $item) {
+            $itemArr = array();
+            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
+            $itemArr['post_id'] = $item->post_id;
+            $itemArr['post_content'] = $item->post_content;
+            $itemArr['created_at'] = $item->created_at;
+            $itemArr['updated_at'] = $item->updated_at;
+            $itemArr['post_like_count'] = $item->post_like_count;
+            $itemArr['post_view_count'] = $item->post_view_count;
+            $itemArr['post_comment_count'] = $item->post_comment_count;
+            $itemArr['location'] = $item->location;
+            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
+            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $returnArr[] = $itemArr;
+        }
+        return array('data' => $returnArr, 'pages' => $pages);
+        ;
+    }
+
     public function getPostByCategory($cat_id, $limit, $offset) {
         $data = Yii::app()->db->createCommand()
                 ->select('*')
