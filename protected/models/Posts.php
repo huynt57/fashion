@@ -311,6 +311,8 @@ class Posts extends BasePosts {
         $item = Posts::model()->findByPk($post_id);
         if ($item) {
             $itemArr = array();
+          //  var_dump($item);
+           // die();
             $itemArr['user'] = array($this->findUserByPostId($item->post_id));
             $itemArr['user_id'] = $item->user_id;
             $itemArr['post_id'] = $item->post_id;
@@ -349,6 +351,7 @@ class Posts extends BasePosts {
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id);
+        
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages, 'cats' => $categories);

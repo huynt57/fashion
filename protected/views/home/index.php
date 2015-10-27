@@ -54,8 +54,8 @@
                             </div>
                             <div class="footer-action">
                                 <ul class="icon-container">
-                                    <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star"></i></a></li>
-                                    <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
+                                    <li class="like-icon"><a href="" onclick="like(<?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
+                                    <li class="pin-icon"><a href="" onclick="boomark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
                                     <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
                                     <li class="share-icon"><a href="" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>
@@ -126,7 +126,30 @@
             }
         });
     }
-
+    
+    function like(post_id)
+    {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',
+            type: 'POST',
+            data: {user_id: '<?php echo Yii::app()->session['user_id']?>', post_id: post_id},
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    
+    function bookmark(post_id)
+    {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
+            type: 'POST',
+            data: {user_id: '<?php echo Yii::app()->session['user_id']?>', post_id: post_id},
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
 </script>
 <script>
     $(document).ready(function () {
