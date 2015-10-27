@@ -18,8 +18,15 @@ class Comments extends BaseComments {
         $model->created_at = time();
         $post = Posts::model()->findByPk($post_id);
         $post->post_comment_count++;
+        $user = User::model()->findByPk($model->created_by);
         if ($model->save(FALSE) && $post->save(FALSE)) {
-            return TRUE;
+            $returnArr = array();
+            $returnArr['created_by'] = $model->created_by;
+            $returnArr['username'] = $user->username;
+            $returnArr['photo'] = $user->photo;
+            $returnArr['created_at'] = $model->created_at;
+            $returnArr['comment_content'] = $model->comment_content;
+            return $returnArr;
         }
         return FALSE;
     }

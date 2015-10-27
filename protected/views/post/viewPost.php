@@ -89,12 +89,12 @@
                         </div>
                         <form id="form_comment" action="javascript::void(0)">
                             <textarea name="comment_content" id="comment_content"></textarea>
-                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']    ?>" />
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']     ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
                         </form>
                     </div>
-                    <ul class="comment-list">
+                    <ul class="comment-list" id="comment-list">
                         <?php foreach ($data['comments'] as $comment): ?>
                             <li class="comment-item clearfix">
                                 <div class="avatar">
@@ -130,6 +130,21 @@
                 dataType: 'json',
                 success: function (response) {
                     console.log(response);
+                    if (response.status === 1)
+                    {
+                        $('#comment-list').prepend('<li class="comment-item clearfix">' +
+                                '<div class="avatar">' +
+                                '<img src="'+response.data.photo+'" alt="" width="40" height="40">' +
+                                '</div>' +
+                                '<div class="content">' +
+                                '<div class="content-header">' +
+                                '<a href="" class="name">' + response.data.username + '</a>' +
+                                '<span class="time">' + response.data.created_at + '</span>' +
+                                '</div>' +
+                                '<div class="content-comment">' + response.data.comment_content + '</div>' +
+                                '</div>' +
+                                '</li>');
+                    }
                 },
                 error: function (response) {
                     console.log(response);

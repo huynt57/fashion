@@ -12,9 +12,10 @@ class CommentController extends Controller {
             $user_id = StringHelper::filterString($request->getPost('user_id'));
             $post_id = StringHelper::filterString($request->getPost('post_id'));
             $content = StringHelper::filterString($request->getPost('comment_content'));
-
-            if (Comments::model()->addComment($user_id, $post_id, $content)) {
-                ResponseHelper::JsonReturnSuccess("", "Success");
+            
+            $response = Comments::model()->addComment($user_id, $post_id, $content);
+            if ($response) {
+                ResponseHelper::JsonReturnSuccess($response, "Success");
             } else {
                 ResponseHelper::JsonReturnError("", "Server Error");
             }

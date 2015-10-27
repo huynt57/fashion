@@ -160,7 +160,7 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/imagesloaded.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/masonry.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/iframe-transport.js"></script>
-<!--         <script src="http://desandro.github.io/masonry/js/jquery.infinitescroll.min.js"></script>-->
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/jquery.infinitescroll.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/featherlight.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/main.js"></script>
 

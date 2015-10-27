@@ -116,7 +116,7 @@ class UserController extends Controller {
         Yii::app()->session->destroy();
         $this->redirect(Yii::app()->createUrl('home'));
     }
-
+    
     // Uncomment the following methods and override them if needed
     /*
       public function filters()

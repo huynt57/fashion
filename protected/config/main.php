@@ -74,7 +74,7 @@ return array(
         'adminEmail' => 'webmaster@example.com',
         'USER_BLOCK' => 'block',
         'USER_REPORT' => 'report',
-        'RESULT_PER_PAGE' => 1000,
+        'RESULT_PER_PAGE' => 10,
         'fb_app_id' => '1639196766348460',
         'REF_API' => 'ref_api'
     ),
