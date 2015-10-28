@@ -279,9 +279,16 @@ class Posts extends BasePosts {
     public function likePost($from, $to, $post_id) {
         $check = Like::model()->findByAttributes(array('from' => $from, 'to' => $to, 'post_id' => $post_id));
         $model = Posts::model()->findByPk($post_id);
-        if ($check) {
+        if ($check && $check->status == 1 && $model->post_like_count > 0) {
+            $model->post_like_count--;
+            $check->status = 0;
+            if ($model->save(FALSE) && $check->save(FALSE)) {
+                return TRUE;
+            }
+        } else if ($check && $check->status == 0) {
             $model->post_like_count++;
-            if ($model->save(FALSE)) {
+            $check->status = 1;
+            if ($model->save(FALSE) && $check->save(FALSE)) {
                 return TRUE;
             }
         } else {
