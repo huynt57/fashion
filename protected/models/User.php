@@ -165,5 +165,15 @@ class User extends BaseUser {
         $data = User::model()->findByPk($user_id);
         return $data;
     }
+    
+    public function searchByUsername($username, $limit, $offset)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = $limit;
+        $criteria->offset = $offset;
+        $criteria->addSearchCondition('username', $username);
+        $data = User::model()->findAll($criteria);
+        return $data;
+    }
 
 }

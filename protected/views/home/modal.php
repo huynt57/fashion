@@ -67,7 +67,7 @@
                 <h4 class="modal-title" id="myModalLabel">Chia sẻ</h4>
             </div>
             <div class="modal-body">
-                <a href="" class="facebook-color"><i class="fa fa-facebook-square fa-3x"></i></a>
+                <a href="" class="facebook-color" id="fb-sharer"><i class="fa fa-facebook-square fa-3x"></i></a>
                 <a href="" class="twitter-color"><i class="fa fa-twitter-square fa-3x"></i></a>
                 <a href="" class="ggplus-color"><i class="fa fa-google-plus-square fa-3x"></i></a>
             </div>

@@ -436,4 +436,17 @@ class Posts extends BasePosts {
         return array('data' => $returnArr, 'pages' => $pages);
     }
 
+    public function searchByPostContent($content, $limit, $offset) {
+        $returnArr = array();
+        $criteria = new CDbCriteria;
+        $criteria->limit = $limit;
+        $criteria->offset = $offset;
+        $criteria->addSearchCondition('post_content', $content);
+        $data = Posts::model()->findAll($criteria);
+        foreach ($data as $item) {
+            $returnArr[] = $this->getPostById($item->post_id);
+        }
+        return $returnArr;
+    }
+
 }

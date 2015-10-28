@@ -57,7 +57,7 @@
                                     <li class="like-icon"><a href="#" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
                                     <li class="pin-icon"><a href="#" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
                                     <li class="comment-icon"><a href="#" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                    <li class="share-icon"><a href="#" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
+                                    <li class="share-icon"><a href="#" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id'=>$item['post_id'])) ?>')" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -162,6 +162,11 @@
                 alert(response.message);
             }
         });
+    }
+    
+    function share(url)
+    {
+        $('#fb-sharer').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+encodeURI(url));
     }
 </script>
 <script>
