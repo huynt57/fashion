@@ -39,8 +39,7 @@ abstract class BaseLike extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('id', 'required'),
-			array('id, from, post_id, image_id, created_at, updated_at, status, to', 'numerical', 'integerOnly'=>true),
+			array('from, post_id, image_id, created_at, updated_at, status, to', 'numerical', 'integerOnly'=>true),
 			array('from, post_id, image_id, created_at, updated_at, status, to', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, from, post_id, image_id, created_at, updated_at, status, to', 'safe', 'on'=>'search'),
 		);

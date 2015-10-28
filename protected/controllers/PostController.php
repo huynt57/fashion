@@ -112,9 +112,10 @@ class PostController extends Controller {
 
     public function actionLikePost() {
         try {
-            $post_id = StringHelper::filterArrayString(Yii::app()->request->getPost('post_id'));
-            $user_id = StringHelper::filterArrayString(Yii::app()->request->getPost('user_id'));
-            $result = Posts::model()->likePost($user_id, $post_id);
+            $post_id = StringHelper::filterString(Yii::app()->request->getPost('post_id'));
+            $from = StringHelper::filterString(Yii::app()->request->getPost('from'));
+            $to = StringHelper::filterString(Yii::app()->request->getPost('to'));
+            $result = Posts::model()->likePost($from, $to, $post_id);
             if ($result) {
                 ResponseHelper::JsonReturnSuccess("", "Success");
             } else {
@@ -171,7 +172,7 @@ class PostController extends Controller {
             $cats_arr = StringHelper::filterArrayString($request->getPost('cats'));
             $cats = json_encode($cats_arr);
             $url = $_SERVER['HTTP_REFERER'];
-            $url_arr = NULL;           
+            $url_arr = NULL;
             $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
             // $album = StringHelper::filterString($request->getPost('album'));
             $album = NULL;

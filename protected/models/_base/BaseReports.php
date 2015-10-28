@@ -13,9 +13,11 @@
  * @property integer $from
  * @property string $type
  * @property string $content
- * @property string $created_at
- * @property string $updated_at
+ * @property integer $created_at
+ * @property integer $updated_at
  * @property integer $status
+ * @property integer $post_id
+ * @property integer $user_id
  *
  */
 abstract class BaseReports extends GxActiveRecord {
@@ -38,11 +40,11 @@ abstract class BaseReports extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('from, status', 'numerical', 'integerOnly'=>true),
+			array('from, created_at, updated_at, status, post_id, user_id', 'numerical', 'integerOnly'=>true),
 			array('type', 'length', 'max'=>255),
-			array('content, created_at, updated_at', 'safe'),
-			array('from, type, content, created_at, updated_at, status', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, from, type, content, created_at, updated_at, status', 'safe', 'on'=>'search'),
+			array('content', 'safe'),
+			array('from, type, content, created_at, updated_at, status, post_id, user_id', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, from, type, content, created_at, updated_at, status, post_id, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +67,8 @@ abstract class BaseReports extends GxActiveRecord {
 			'created_at' => Yii::t('app', 'Created At'),
 			'updated_at' => Yii::t('app', 'Updated At'),
 			'status' => Yii::t('app', 'Status'),
+			'post_id' => Yii::t('app', 'Post'),
+			'user_id' => Yii::t('app', 'User'),
 		);
 	}
 
@@ -75,9 +79,11 @@ abstract class BaseReports extends GxActiveRecord {
 		$criteria->compare('from', $this->from);
 		$criteria->compare('type', $this->type, true);
 		$criteria->compare('content', $this->content, true);
-		$criteria->compare('created_at', $this->created_at, true);
-		$criteria->compare('updated_at', $this->updated_at, true);
+		$criteria->compare('created_at', $this->created_at);
+		$criteria->compare('updated_at', $this->updated_at);
 		$criteria->compare('status', $this->status);
+		$criteria->compare('post_id', $this->post_id);
+		$criteria->compare('user_id', $this->user_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -9,13 +9,18 @@ class Wishlist extends BaseWishlist {
     }
 
     public function addWishList($post_id, $user_id) {
-        $model = new Wishlist;
-        $model->post_id = $post_id;
-        $model->user_id = $user_id;
-        $model->status = 1;
-        $model->created_at = time();
-        if ($model->save()) {
-            return TRUE;
+        $check = Wishlist::model()->findByAttributes(array('post_id' => $post_id));
+        if ($check) {
+            return FALSE;
+        } else {
+            $model = new Wishlist;
+            $model->post_id = $post_id;
+            $model->user_id = $user_id;
+            $model->status = 1;
+            $model->created_at = time();
+            if ($model->save()) {
+                return TRUE;
+            }
         }
         return FALSE;
     }

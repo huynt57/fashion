@@ -139,22 +139,27 @@ class Posts extends BasePosts {
     }
 
     public function reportPost($attr) {
-        $model = new Reports;
-        $model->setAttributes = $attr;
-        $model->created_at = time();
-        $model->status = 0;
-        $model->updated_at = time();
-        $model->type = Yii::app()->params['USER_REPORT'];
+        $check = Reports::model()->findByAttributes(array('post_id' => $attr['post_id']));
+        if ($check) {
+            return FALSE;
+        } else {
+            $model = new Reports;
+            $model->setAttributes($attr);
+            $model->created_at = time();
+            $model->status = 0;
+            $model->updated_at = time();
+            // $model->type = Yii::app()->params['USER_REPORT'];
 
-        $hide_post = new UserPostRelationship;
-        $rel->user_id = $attr['from'];
-        $rel->post_id = $attr['post_id'];
-        $rel->created_at = time();
-        $rel->updated_at = time();
-        $rel->type = Yii::app()->params['USER_REPORT'];
+            $rel = new UserPostRelationship;
+            $rel->user_id = $attr['from'];
+            $rel->post_id = $attr['post_id'];
+            $rel->created_at = time();
+            $rel->updated_at = time();
+            $rel->type = Yii::app()->params['USER_REPORT'];
 
-        if ($model->save(FALSE) && $hide_post->save(FALSE)) {
-            return TRUE;
+            if ($model->save(FALSE) && $rel->save(FALSE)) {
+                return TRUE;
+            }
         }
         return FALSE;
     }
@@ -271,17 +276,26 @@ class Posts extends BasePosts {
         return $returnArr;
     }
 
-    public function likePost($user_id, $post_id) {
+    public function likePost($from, $to, $post_id) {
+        $check = Like::model()->findByAttributes(array('from' => $from, 'to' => $to, 'post_id' => $post_id));
         $model = Posts::model()->findByPk($post_id);
-        $model->post_like_count++;
-        $like = new Like();
-        $like->from = $user_id;
-        $like->post_id = $post_id;
-        $like->status = 1;
-        $like->created_at = time();
-        $like->updated_at = time();
-        if ($model->save(FALSE) && $like->save(FALSE)) {
-            return TRUE;
+        if ($check) {
+            $model->post_like_count++;
+            if ($model->save(FALSE)) {
+                return TRUE;
+            }
+        } else {
+            $model->post_like_count++;
+            $like = new Like();
+            $like->from = $from;
+            $like->to = $to;
+            $like->post_id = $post_id;
+            $like->status = 1;
+            $like->created_at = time();
+            $like->updated_at = time();
+            if ($model->save(FALSE) && $like->save(FALSE)) {
+                return TRUE;
+            }
         }
         return FALSE;
     }
@@ -311,8 +325,8 @@ class Posts extends BasePosts {
         $item = Posts::model()->findByPk($post_id);
         if ($item) {
             $itemArr = array();
-          //  var_dump($item);
-           // die();
+            //  var_dump($item);
+            // die();
             $itemArr['user'] = array($this->findUserByPostId($item->post_id));
             $itemArr['user_id'] = $item->user_id;
             $itemArr['post_id'] = $item->post_id;
@@ -351,7 +365,7 @@ class Posts extends BasePosts {
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id);
-        
+
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages, 'cats' => $categories);

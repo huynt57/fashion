@@ -8,7 +8,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                                                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                        ?>');"></span>-->
+                                                                                                                            <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                              ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -32,7 +32,7 @@
                                     <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
                                         <li><a href="#" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
                                         <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
+                                        <li><a href="#" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)"data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -54,10 +54,10 @@
                             </div>
                             <div class="footer-action">
                                 <ul class="icon-container">
-                                    <li class="like-icon"><a href="" onclick="like(<?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
-                                    <li class="pin-icon"><a href="" onclick="boomark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                    <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                    <li class="share-icon"><a href="" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
+                                    <li class="like-icon"><a href="#" onclick="like(<?php echo $item['user_id']?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
+                                    <li class="pin-icon"><a href="#" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
+                                    <li class="comment-icon"><a href="#" title="Bình luận"><i class="fa fa-comment"></i></a></li>
+                                    <li class="share-icon"><a href="#" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -98,6 +98,7 @@
             data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id},
             success: function (response) {
                 console.log(response);
+                alert(response.message);
             }
         });
 
@@ -111,42 +112,51 @@
             data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked},
             success: function (response) {
                 console.log(response);
+                alert(response.message);
             }
         });
     }
 
-    function report(post_id)
+    function report(post_id, user_id)
     {
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl('post/reportPost') ?>',
-            type: 'POST',
-            data: '',
-            success: function (response) {
-                console.log(response);
-            }
+        $('#btnSubmitReport').click(function () {
+            var from = $('#from').val();
+            var type = $('input[name=type]:checked').val();
+            var content = $('#upload-des').val();
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl('post/reportPost'); ?>',
+                data: {post_id: post_id, from: from, type: type, user_id: user_id, content: content},
+                type: 'POST',
+                success: function (response)
+                {
+                    alert(response.message);
+                }
+            });
         });
     }
-    
-    function like(post_id)
+
+    function like(to, post_id)
     {
         $.ajax({
             url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',
             type: 'POST',
-            data: {user_id: '<?php echo Yii::app()->session['user_id']?>', post_id: post_id},
+            data: {from: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id, to: to},
             success: function (response) {
                 console.log(response);
+                alert(response.message);
             }
         });
     }
-    
+
     function bookmark(post_id)
     {
         $.ajax({
             url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
             type: 'POST',
-            data: {user_id: '<?php echo Yii::app()->session['user_id']?>', post_id: post_id},
+            data: {user_id: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id},
             success: function (response) {
                 console.log(response);
+                alert(response.message);
             }
         });
     }
