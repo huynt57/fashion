@@ -396,7 +396,7 @@ class Posts extends BasePosts {
         $time_end = time();
         $criteria->select = 'COUNT(*) AS count_like';
         $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
-        $criteria->join = 'JOIN tbl_like l ON t.id = l.to';
+        $criteria->join = 'JOIN tbl_like l ON t.user_id = l.to';
         $criteria->order = 'count_like DESC';
         $criteria->limit = $limit;
         $criteria->offset = $offset;
@@ -406,7 +406,7 @@ class Posts extends BasePosts {
 
     public function rankByTimeForWeb($time) {
         $time = strtoupper($time);
-
+        $returnArr = array();
         $criteria = new CDbCriteria;
         if ($time == 'DAY') {
             $time_start = strtotime('-1 day');
@@ -416,16 +416,23 @@ class Posts extends BasePosts {
             $time_start = strtotime('-1 month');
         }
         $time_end = time();
-        $criteria->select = 'COUNT(*) AS count_like';
+        $criteria->select = 't.post_id, COUNT(*) AS count_like';
         $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
-        $criteria->join = 'JOIN tbl_like l ON t.id = l.to';
+        $criteria->join = 'JOIN tbl_like l ON t.user_id = l.to';
         $criteria->order = 'count_like DESC';
         $data = Posts::model()->findAll($criteria);
+        foreach ($data as $item)
+        {
+            $itemArr = $this->getPostById($item->post_id);
+            $returnArr[] = $itemArr;
+        }
+    //    var_dump($returnArr);
+      //  die();
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
-        return array('data' => $data, 'pages' => $pages);
+        return array('data' => $returnArr, 'pages' => $pages);
     }
 
 }
