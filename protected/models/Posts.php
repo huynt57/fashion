@@ -343,6 +343,26 @@ class Posts extends BasePosts {
         return array('data' => $returnArr, 'pages' => $pages, 'cats' => $categories);
     }
 
+    public function getPostByCategoryId($cat_id) {
+        $returnArr = array();
+        $criteria = new CDbCriteria;
+        $criteria->join = 'JOIN tbl_cat_post c ON c.post_id = t.post_id';
+        $criteria->join .= ' JOIN tbl_categories a ON a.cat_id = c.cat_id ';
+        $criteria->order = 't.post_id DESC';
+        $criteria->condition = "a.cat_id = $cat_id";
+        $count = Posts::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
+        $data = Posts::model()->findAll($criteria);
+        foreach ($data as $item) {
+            $itemArr = $this->getPostById($item->post_id);
+
+            $returnArr[] = $itemArr;
+        }
+        return array('data' => $returnArr, 'pages' => $pages);
+    }
+
     public function getCategoryByType($type) {
         $data = Categories::model()->findAllByAttributes(array('type' => $type));
         return $data;

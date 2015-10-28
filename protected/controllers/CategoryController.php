@@ -13,6 +13,17 @@ class CategoryController extends Controller {
         }
     }
 
+    public function actionDetailCategory() {
+        $request = Yii::app()->request;
+        try {
+            $cat_id = StringHelper::filterString($request->getQuery('cat_id'));
+            $data = Posts::model()->getPostByCategoryId($cat_id);
+            $this->render('categoryById', $data);
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
     public function actionGetAllCategory() {
         $data = Categories::model()->findAll();
         ResponseHelper::JsonReturnSuccess($data, "Success");

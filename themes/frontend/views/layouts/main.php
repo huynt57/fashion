@@ -38,8 +38,8 @@
                                 </a>
                                 
                                 <ul class="dropdown-menu" aria-labelledby="top-nav-category">
-                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>1))?>">Thời trang nữ</a></li>
-                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>2))?>">Thời trang nam</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>2))?>">Thời trang nữ</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>1))?>">Thời trang nam</a></li>
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>0))?>">Loại khác</a></li>
                                 </ul>
                             </li>

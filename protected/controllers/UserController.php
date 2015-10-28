@@ -36,6 +36,21 @@ class UserController extends Controller {
         }
     }
 
+    public function actionWishList() {
+        $request = Yii::app()->request;
+        try {
+            if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
+                $user_id = $request->getQuery('user_id');
+            } else {
+                $user_id = Yii::app()->session['user_id'];
+            }
+            $data = Wishlist::model()->getWishListForWeb($user_id);
+            $this->render('wishlist', $data);
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
     public function actionEditProfile() {
         $this->render('editProfile');
     }

@@ -29,7 +29,7 @@ class WishlistController extends Controller {
             $limit = StringHelper::filterString($request->getQuery('limit'));
             $offset = StringHelper::filterString($request->getQuery('offset'));
 
-            $data = Wishlist::model()->getWishList($user_id, $limit, $offset);
+            $data = Wishlist::model()->getWishListAPI($user_id, $limit, $offset);
             ResponseHelper::JsonReturnSuccess($data, "Success");
         } catch (Exception $ex) {
             var_dump($ex->getMessage());

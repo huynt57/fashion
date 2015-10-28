@@ -146,5 +146,11 @@ class StringHelper {
         }
         return $class;
     }
+    
+    public static function returnCategoryNameById($cat_id)
+    {
+        $cat = Categories::model()->findByPk($cat_id);
+        return $cat->cat_name;
+    }
 
 }

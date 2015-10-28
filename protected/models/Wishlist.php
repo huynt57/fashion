@@ -25,7 +25,7 @@ class Wishlist extends BaseWishlist {
         return FALSE;
     }
 
-    public function getWishList($user_id, $limit, $offset) {
+    public function getWishListAPI($user_id, $limit, $offset) {
         $returnArr = array();
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;
@@ -38,6 +38,25 @@ class Wishlist extends BaseWishlist {
                 $returnArr[] = $itemArr;
             }
             return $returnArr;
+        }
+        return FALSE;
+    }
+
+    public function getWishListForWeb($user_id) {
+        $returnArr = array();
+        $criteria = new CDbCriteria;
+        $criteria->condition = "user_id = $user_id";
+        $count = Posts::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
+        $posts = Wishlist::model()->findAll($criteria);
+        if ($posts) {
+            foreach ($posts as $post) {
+                $itemArr = Posts::model()->getPostById($post->post_id);
+                $returnArr[] = $itemArr;
+            }
+            return array('data' => $returnArr, 'pages' => $pages);
         }
         return FALSE;
     }
