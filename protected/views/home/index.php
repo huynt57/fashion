@@ -8,7 +8,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                                                                            <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                              ?>');"></span>-->
+                                                                                                                                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="footer-action">
                                 <ul class="icon-container">
-                                    <li class="like-icon"><a href="#" onclick="like(<?php echo $item['user_id']?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
+                                    <li class="like-icon"><a href="#" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
                                     <li class="pin-icon"><a href="#" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
                                     <li class="comment-icon"><a href="#" title="Bình luận"><i class="fa fa-comment"></i></a></li>
                                     <li class="share-icon"><a href="#" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
@@ -130,6 +130,9 @@
                 success: function (response)
                 {
                     alert(response.message);
+                    $('#from').val('');
+                    $('input[name=type]:checked').val('');
+                    $('#upload-des').val('');
                 }
             });
         });

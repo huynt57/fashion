@@ -414,6 +414,8 @@ class Posts extends BasePosts {
             $time_start = strtotime('-1 week');
         } else if ($time == 'MONTH') {
             $time_start = strtotime('-1 month');
+        } else if ($time == 'YEAR') {
+            $time_start = strtotime('-1 year');
         }
         $time_end = time();
         $criteria->select = 't.post_id, COUNT(*) AS count_like';
@@ -421,13 +423,12 @@ class Posts extends BasePosts {
         $criteria->join = 'JOIN tbl_like l ON t.user_id = l.to';
         $criteria->order = 'count_like DESC';
         $data = Posts::model()->findAll($criteria);
-        foreach ($data as $item)
-        {
+        foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id);
             $returnArr[] = $itemArr;
         }
-    //    var_dump($returnArr);
-      //  die();
+        //    var_dump($returnArr);
+        //  die();
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];

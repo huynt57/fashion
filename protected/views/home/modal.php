@@ -22,7 +22,7 @@
                                 Vi phạm bản quyền
                             </label>
                         </div>
-                        <input id="from" type="hidden" name="from" value="<?php echo Yii::app()->session['user_id']?>">
+                        <input id="from" type="hidden" name="from" value="<?php echo Yii::app()->session['user_id'] ?>">
                         <div class="radio">
                             <label>
                                 <input type="radio" name="type" id="optionsRadios1" value="3">
@@ -81,7 +81,7 @@
 //           var form = $('#form-report');
 //           var data = form.serialize();
 //           $.ajax({
-//               url: '<?php echo Yii::app()->createUrl('post/reportPost');?>',
+//               url: '<?php echo Yii::app()->createUrl('post/reportPost'); ?>',
 //               data: data,
 //               type: 'POST',
 //               success: function(response)
