@@ -8,7 +8,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                                                                                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                ?>');"></span>-->
+                                                                                                                                            <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                  ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -57,7 +57,7 @@
                                     <li class="like-icon"><a href="#" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
                                     <li class="pin-icon"><a href="#" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
                                     <li class="comment-icon"><a href="#" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                    <li class="share-icon"><a href="#" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id'=>$item['post_id'])) ?>')" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
+                                    <li class="share-icon"><a href="#" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $item['post_id'])) ?>')" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -163,10 +163,12 @@
             }
         });
     }
-    
+
     function share(url)
     {
-        $('#fb-sharer').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+encodeURI(url));
+        $('#fb-sharer').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url));
+        $('#gg-sharer').attr('href', 'https://plus.google.com/share?url=' + encodeURIComponent(url));
+        $('#tt-sharer').attr('href', 'http://www.twitter.com/share?url=' + encodeURIComponent(url));
     }
 </script>
 <script>

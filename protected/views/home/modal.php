@@ -68,8 +68,8 @@
             </div>
             <div class="modal-body">
                 <a href="" class="facebook-color" id="fb-sharer"><i class="fa fa-facebook-square fa-3x"></i></a>
-                <a href="" class="twitter-color"><i class="fa fa-twitter-square fa-3x"></i></a>
-                <a href="" class="ggplus-color"><i class="fa fa-google-plus-square fa-3x"></i></a>
+                <a href="" class="twitter-color" id="tt-sharer"><i class="fa fa-twitter-square fa-3x"></i></a>
+                <a href="" class="ggplus-color" id="gg-sharer"><i class="fa fa-google-plus-square fa-3x"></i></a>
             </div>
         </div>
     </div>

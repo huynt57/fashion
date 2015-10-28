@@ -107,18 +107,7 @@ class Posts extends BasePosts {
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($news_feed_criteria);
         foreach ($data as $item) {
-            $itemArr = array();
-            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
-            $itemArr['post_id'] = $item->post_id;
-            $itemArr['post_content'] = $item->post_content;
-            $itemArr['created_at'] = $item->created_at;
-            $itemArr['updated_at'] = $item->updated_at;
-            $itemArr['post_like_count'] = $item->post_like_count;
-            $itemArr['post_view_count'] = $item->post_view_count;
-            $itemArr['post_comment_count'] = $item->post_comment_count;
-            $itemArr['location'] = $item->location;
-            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
-            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $itemArr = $this->getPostById($item->post_id);
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages);
@@ -198,19 +187,7 @@ class Posts extends BasePosts {
         $news_feed_criteria->offset = $offset;
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
-            $itemArr = array();
-            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
-            $itemArr['post_id'] = $item->post_id;
-            $itemArr['post_content'] = $item->post_content;
-            $itemArr['user_id'] = $item->user_id;
-            $itemArr['created_at'] = $item->created_at;
-            $itemArr['updated_at'] = $item->updated_at;
-            $itemArr['post_like_count'] = $item->post_like_count;
-            $itemArr['post_view_count'] = $item->post_view_count;
-            $itemArr['post_comment_count'] = $item->post_comment_count;
-            $itemArr['location'] = $item->location;
-            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
-            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $itemArr = $this->getPostById($item->post_id);
             $returnArr[] = $itemArr;
         }
         return $returnArr;
@@ -232,19 +209,7 @@ class Posts extends BasePosts {
         $pages->applyLimit($news_feed_criteria);
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
-            $itemArr = array();
-            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
-            $itemArr['post_id'] = $item->post_id;
-            $itemArr['post_content'] = $item->post_content;
-            $itemArr['user_id'] = $item->user_id;
-            $itemArr['created_at'] = $item->created_at;
-            $itemArr['updated_at'] = $item->updated_at;
-            $itemArr['post_like_count'] = $item->post_like_count;
-            $itemArr['post_view_count'] = $item->post_view_count;
-            $itemArr['post_comment_count'] = $item->post_comment_count;
-            $itemArr['location'] = $item->location;
-            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
-            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $itemArr = $this->getPostById($item->post_id);
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages);
