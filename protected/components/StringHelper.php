@@ -129,5 +129,22 @@ class StringHelper {
         }
         return $class;
     }
+    
+    public static function returnCategoryTypeName($type)
+    {
+        $class = NULL;
+        switch ($type) {
+            case 1:
+                $class = 'Thời trang nam';
+                break;
+            case 2:
+                $class = 'Thời trang nữ';
+                break;
+            case 0:
+                $class = 'Loại khác';
+                break;
+        }
+        return $class;
+    }
 
 }

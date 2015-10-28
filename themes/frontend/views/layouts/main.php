@@ -36,11 +36,11 @@
                                     <span class="text-on-large">Chuyên mục</span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
+                                
                                 <ul class="dropdown-menu" aria-labelledby="top-nav-category">
-                                    <li><a href="#">Thời trang nữ</a></li>
-                                    <li><a href="#">Thời trang nam</a></li>
-                                    <li><a href="">Dịch vụ thời trang</a></li>
-                                    <li><a href="">Mỹ phẩm - Sức khỏe</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>1))?>">Thời trang nữ</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>2))?>">Thời trang nam</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>0))?>">Loại khác</a></li>
                                 </ul>
                             </li>
                         </ul>

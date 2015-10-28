@@ -1,6 +1,8 @@
 <div class="intro-header text-center">
     <div class="df-container">
-        <h1 class="feed-name">Thời trang nam</h1>
+        <h1 class="feed-name">
+            <?php echo StringHelper::returnCategoryTypeName($_GET['type']); ?>
+        </h1>
         <ul class="list-child-category">
             <?php foreach ($cats as $cat): ?>
                 <li><a href="">
@@ -23,7 +25,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                                    <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                    ?>');"></span>-->
+                                                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                     ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
