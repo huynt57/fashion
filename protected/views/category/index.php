@@ -5,7 +5,7 @@
         </h1>
         <ul class="list-child-category">
             <?php foreach ($cats as $cat): ?>
-                <li><a href="">
+                <li><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat->cat_id)); ?>">
                         <span class="bg-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card30.jpg')"></span>
                         <span class="bg-gradient"></span>
                         <h2 class="cat-name"><?php echo $cat->cat_name ?></h2>
@@ -25,7 +25,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                     ?>');"></span>-->
+                                                                                            <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                      ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
