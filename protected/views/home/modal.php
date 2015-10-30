@@ -52,7 +52,7 @@
                                   Đã chọn chuyên mục đâu thím ơi.
                           </p>
                     </div> -->
-                    <button type="button" class="btn btn-default btn-sm" id="btnSubmitReport">Báo cáo</button>
+                    <button type="button" class="btn btn-default btn-sm" name="btnSubmitReport" id="btnSubmitReport">Báo cáo</button>
                 </form>
             </div>
         </div>

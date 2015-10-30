@@ -82,10 +82,12 @@ class PostController extends Controller {
         try {
             $attr = StringHelper::filterArrayString($_POST);
             $result = Posts::model()->reportPost($attr);
-            if ($result) {
-                ResponseHelper::JsonReturnSuccess("", "Success");
-            } else {
+            if ($result === 1) {
+                ResponseHelper::JsonReturnError("", "Reported before");
+            } else if ($result == 3) {
                 ResponseHelper::JsonReturnError("", "Server Error");
+            } else {
+                ResponseHelper::JsonReturnSuccess("", "Success");
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());

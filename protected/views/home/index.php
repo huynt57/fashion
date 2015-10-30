@@ -8,7 +8,7 @@
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
-                                                                                                                                            <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                  ?>');"></span>-->
+                                                                                                                                                        <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                     ?>');"></span>-->
                                     <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
 
                                 <?php endforeach; ?>
@@ -119,7 +119,9 @@
 
     function report(post_id, user_id)
     {
-        $('#btnSubmitReport').click(function () {
+        var btnSubmitReport = $("[name=btnSubmitReport]");
+        btnSubmitReport.attr("id", "btnSubmitReport" + post_id);
+        $(document).on('click', '#btnSubmitReport' + post_id, function () {
             var from = $('#from').val();
             var type = $('input[name=type]:checked').val();
             var content = $('#upload-des').val();
@@ -130,12 +132,29 @@
                 success: function (response)
                 {
                     alert(response.message);
-                    $('#from').val('');
+                    //$('#from').val('');
                     $('input[name=type]:checked').val('');
                     $('#upload-des').val('');
                 }
             });
         });
+//        $('#btnSubmitReport' + post_id).click(function () {
+//            var from = $('#from').val();
+//            var type = $('input[name=type]:checked').val();
+//            var content = $('#upload-des').val();
+//            $.ajax({
+//                url: '<?php //echo Yii::app()->createUrl('post/reportPost');   ?>',
+//                data: {post_id: post_id, from: from, type: type, user_id: user_id, content: content},
+//                type: 'POST',
+//                success: function (response)
+//                {
+//                    alert(response.message);
+//                    $('#from').val('');
+//                    $('input[name=type]:checked').val('');
+//                    $('#upload-des').val('');
+//                }
+//            });
+//        });
     }
 
     function like(to, post_id)

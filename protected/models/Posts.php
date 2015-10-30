@@ -130,7 +130,7 @@ class Posts extends BasePosts {
     public function reportPost($attr) {
         $check = Reports::model()->findByAttributes(array('post_id' => $attr['post_id']));
         if ($check) {
-            return FALSE;
+            return 1;
         } else {
             $model = new Reports;
             $model->setAttributes($attr);
@@ -147,10 +147,10 @@ class Posts extends BasePosts {
             $rel->type = Yii::app()->params['USER_REPORT'];
 
             if ($model->save(FALSE) && $rel->save(FALSE)) {
-                return TRUE;
+                return 2;
             }
         }
-        return FALSE;
+        return 3;
     }
 
     public function getHiddenPostByUser($user_id) {
