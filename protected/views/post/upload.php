@@ -10,7 +10,7 @@
                 <label for="upload-des">Miêu tả</label>
                 <textarea name="post_content" id="upload-des" class="form-control" rows="3" placeholder="Miêu tả cho bài đăng"></textarea>
             </div>
-            <input type="hidden" value="<?php echo Yii::app()->request->url?>" name="previous_url">
+            <input type="hidden" value="<?php echo Yii::app()->request->url ?>" name="previous_url">
             <input type="hidden" value="<?php echo Yii::app()->session['user_id'] ?>" name="user_id" > 
             <div class="form-group">
                 <label>Chọn chuyên mục (tối đa: 2)</label>
