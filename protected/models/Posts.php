@@ -108,7 +108,7 @@ class Posts extends BasePosts {
                 ->select('*')
                 ->from('tbl_posts p')
                 ->join('tbl_cat_post c', 'p.post_id=c.post_id')
-                ->where('cat_id=:cat_id', array(':cat_id' => $cat_id))
+                ->where('c.cat_id=:cat_id', array(':cat_id' => $cat_id))
                 ->limit($limit)
                 ->offset($offset)
                 ->order('p.post_id DESC')
@@ -215,6 +215,18 @@ class Posts extends BasePosts {
         return $cat->cat_name;
     }
 
+    public function findUsernameByPostId($post_id) {
+        $user_id = Posts::model()->findByPk($post_id);
+        $user = User::model()->findByPk($user_id->user_id);
+        return $user->username;
+    }
+
+    public function findUserPhotoByPostId($post_id) {
+        $user_id = Posts::model()->findByPk($post_id);
+        $user = User::model()->findByPk($user_id->user_id);
+        return $user->photo;
+    }
+
     public function findUserByPostId($post_id) {
         $user_id = Posts::model()->findByPk($post_id);
         $user = User::model()->findByPk($user_id->user_id);
@@ -290,6 +302,8 @@ class Posts extends BasePosts {
             // die();
             $itemArr['user'] = array($this->findUserByPostId($item->post_id));
             $itemArr['user_id'] = $item->user_id;
+            $itemArr['username'] = $this->findUsernameByPostId($item->post_id);
+            $itemArr['photo'] = $this->findUserPhotoByPostId($item->post_id);
             $itemArr['post_id'] = $item->post_id;
             $itemArr['post_content'] = $item->post_content;
             if (!empty($user_id)) {
