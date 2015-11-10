@@ -359,7 +359,7 @@ class Posts extends BasePosts {
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
-            $itemArr = $this->getPostById($item->post_id);
+            $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
 
             $returnArr[] = $itemArr;
         }
@@ -379,7 +379,7 @@ class Posts extends BasePosts {
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
-            $itemArr = $this->getPostById($item->post_id);
+            $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages);
@@ -431,7 +431,7 @@ class Posts extends BasePosts {
         $criteria->order = 'count_like DESC';
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
-            $itemArr = $this->getPostById($item->post_id);
+            $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
             $returnArr[] = $itemArr;
         }
         //    var_dump($returnArr);
@@ -451,7 +451,7 @@ class Posts extends BasePosts {
         $criteria->addSearchCondition('post_content', $content);
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
-            $returnArr[] = $this->getPostById($item->post_id);
+            $returnArr[] = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
         }
         return $returnArr;
     }

@@ -8,8 +8,8 @@
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
-                        <?php foreach ($data['images'] as $key=>$image): ?>
-                        <div class="item <?php if($key == 0): ?>active<?php endif;?>">
+                        <?php foreach ($data['images'] as $key => $image): ?>
+                            <div class="item <?php if ($key == 0): ?>active<?php endif; ?>">
                                 <span class="helper-align"></span><img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="...">
                             </div>
                         <?php endforeach; ?>
@@ -21,8 +21,8 @@
                         </a>
                         <ul class="carousel-indicators">
                             <?php foreach ($data['images'] as $key => $image): ?>
-                            <li data-target="#post-images-carousel" data-slide-to="<?php echo $key ?>" <?php if($key == 0): ?>class="active"<?php endif;?>>
-                                <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="" style="height: 100%; width: 100%;">
+                                <li data-target="#post-images-carousel" data-slide-to="<?php echo $key ?>" <?php if ($key == 0): ?>class="active"<?php endif; ?>>
+                                    <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="" style="height: 100%; width: 100%;">
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -76,11 +76,13 @@
                     </div>
                     <div class="footer-action">
                         <ul class="icon-container">
-                            <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star"></i></a></li>
-                            <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                            <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
+                            <li class="like-icon <?php if ($data['is_liked']): ?>active<?php endif; ?>" id="like-<?php echo $data['post_id'] ?>"><a href="javascript: void(0)" onclick="like(<?php echo $data['user_id'] ?>, <?php echo $data['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
+                            <li class="pin-icon <?php if ($data['is_bookmarked']): ?>active<?php endif; ?>" id="bookmark-<?php echo $data['post_id'] ?>"><a href="javascript: void(0)" onclick="bookmark(<?php echo $data['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
+
+                            <li class="share-icon"><a href="javascript: void(0)" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $data['post_id'])) ?>')" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                         </ul>
                     </div>
+
                 </div>
                 <div class="post-comment single-post-comment">
                     <div class="enter-comment-form clearfix">
@@ -89,7 +91,7 @@
                         </div>
                         <form id="form_comment" action="javascript::void(0)">
                             <textarea name="comment_content" id="comment_content"></textarea>
-                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']      ?>" />
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']        ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
                         </form>
@@ -153,3 +155,127 @@
         });
     });
 </script>
+
+<script>
+
+    function hide_post(post_id)
+    {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl('post/hidePostForUser') ?>',
+            type: 'POST',
+            data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id},
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1)
+                {
+                    $.toast('Ẩn bài viết thành công !!');
+                    $('#' + post_id).hide();
+                } else {
+                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    $('#' + post_id).hide();
+                }
+            }
+        });
+
+    }
+
+    function block_user(user_blocked, post_id)
+    {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl('user/blockUser') ?>',
+            type: 'POST',
+            data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked},
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1)
+                {
+                    $.toast('Chặn người dùng thành công !!');
+
+                } else {
+                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+
+                }
+            }
+        });
+    }
+
+    function report(post_id, user_id)
+    {
+        var btnSubmitReport = $("[name=btnSubmitReport]");
+        btnSubmitReport.attr("id", "btnSubmitReport" + post_id);
+        $(document).on('click', '#btnSubmitReport' + post_id, function () {
+            var from = $('#from').val();
+            var type = $('input[name=type]:checked').val();
+            var content = $('#upload-des').val();
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl('post/reportPost'); ?>',
+                data: {post_id: post_id, from: from, type: type, user_id: user_id, content: content},
+                type: 'POST',
+                success: function (response)
+                {
+                    //  alert(response.message);
+                    //$('#from').val('');
+                    $('input[name=type]:checked').val('');
+                    $('#upload-des').val('');
+                    $('#post-report-modal').modal('hide');
+                    if (response.status === 1)
+                    {
+                        $.toast('Thành công !!');
+                    } else {
+                        $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    }
+                }
+            });
+        });
+    }
+
+    function like(to, post_id)
+    {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',
+            type: 'POST',
+            data: {from: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id, to: to},
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1)
+                {
+                    if ($('#like-' + post_id).hasClass('active'))
+                    {
+                        $('#like-' + post_id).removeClass('active');
+                    } else {
+                        $('#like-' + post_id).addClass('active');
+                    }
+                    $.toast('Thành công !!');
+                } else {
+                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                }
+            }
+        });
+    }
+
+    function bookmark(post_id)
+    {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
+            type: 'POST',
+            data: {user_id: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id},
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1)
+                {
+                    $.toast('Đánh dấu thành công !!');
+                } else {
+                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                }
+            }
+        });
+    }
+
+    function share(url)
+    {
+        $('#fb-sharer').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url));
+        $('#gg-sharer').attr('href', 'https://plus.google.com/share?url=' + encodeURIComponent(url));
+        $('#tt-sharer').attr('href', 'http://www.twitter.com/share?url=' + encodeURIComponent(url));
+    }
+</script>
+

@@ -57,8 +57,8 @@
                             </div>
                             <div class="footer-action">
                                 <ul class="icon-container">
-                                    <li class="like-icon <?php if ($item['is_liked']): ?>active<?php endif; ?>"><a href="javascript: void(0)" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
-                                    <li class="pin-icon <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>"><a href="javascript: void(0)" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
+                                    <li class="like-icon <?php if ($item['is_liked']): ?>active<?php endif; ?>" id="like-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
+                                    <li class="pin-icon <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" id="bookmark-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
                                     <li class="comment-icon"><a href="javascript: void(0)" title="Bình luận"><i class="fa fa-comment"></i></a></li>
                                     <li class="share-icon"><a href="javascript: void(0)" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $item['post_id'])) ?>')" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>

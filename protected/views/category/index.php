@@ -29,7 +29,7 @@
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                         ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                          ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -72,12 +72,12 @@
                                 <span class="item-count"><a href=""><?php echo $item['post_like_count'] ?> thích</a></span>
                                 <span class="item-count"><a href=""><?php echo $item['post_comment_count'] ?> bình luận</a></span>
                             </div>
-                            <div class="footer-action">
+                             <div class="footer-action">
                                 <ul class="icon-container">
-                                    <li class="like-icon"><a href="" title="Thích"><i class="fa fa-star"></i></a></li>
-                                    <li class="pin-icon"><a href="" title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                    <li class="comment-icon"><a href="" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                    <li class="share-icon"><a href="" title="Chia sẻ"><i class="fa fa-share"></i></a></li>
+                                    <li class="like-icon <?php if ($item['is_liked']): ?>active<?php endif; ?>" id="like-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
+                                    <li class="pin-icon <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" id="bookmark-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
+                                    <li class="comment-icon"><a href="javascript: void(0)" title="Bình luận"><i class="fa fa-comment"></i></a></li>
+                                    <li class="share-icon"><a href="javascript: void(0)" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $item['post_id'])) ?>')" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>
                             </div>
                         </div>

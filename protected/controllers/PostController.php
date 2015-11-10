@@ -154,7 +154,7 @@ class PostController extends Controller {
         $request = Yii::app()->request;
         try {
             $post_id = StringHelper::filterString($request->getQuery('post_id'));
-            $data = Posts::model()->getPostById($post_id);
+            $data = Posts::model()->getPostById($post_id, Yii::app()->session['user_id']);
             if ($request->getQuery(Yii::app()->params['REF_API'])) {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
