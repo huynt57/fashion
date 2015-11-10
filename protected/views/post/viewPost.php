@@ -8,8 +8,8 @@
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
-                        <?php foreach ($data['images'] as $image): ?>
-                            <div class="item active">
+                        <?php foreach ($data['images'] as $key=>$image): ?>
+                        <div class="item <?php if($key == 0): ?>active<?php endif;?>">
                                 <span class="helper-align"></span><img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="...">
                             </div>
                         <?php endforeach; ?>
@@ -20,9 +20,9 @@
                             <i class="fa fa-angle-left fa-2x"></i>
                         </a>
                         <ul class="carousel-indicators">
-                            <?php foreach ($data['images'] as $image): ?>
-                                <li data-target="#post-images-carousel" data-slide-to="0" class="active">
-                                    <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="">
+                            <?php foreach ($data['images'] as $key => $image): ?>
+                            <li data-target="#post-images-carousel" data-slide-to="<?php echo $key ?>" <?php if($key == 0): ?>class="active"<?php endif;?>>
+                                <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="" style="height: 100%; width: 100%;">
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -89,7 +89,7 @@
                         </div>
                         <form id="form_comment" action="javascript::void(0)">
                             <textarea name="comment_content" id="comment_content"></textarea>
-                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']     ?>" />
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']      ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
                         </form>
@@ -134,7 +134,7 @@
                     {
                         $('#comment-list').prepend('<li class="comment-item clearfix">' +
                                 '<div class="avatar">' +
-                                '<img src="'+response.data.photo+'" alt="" width="40" height="40">' +
+                                '<img src="' + response.data.photo + '" alt="" width="40" height="40">' +
                                 '</div>' +
                                 '<div class="content">' +
                                 '<div class="content-header">' +
