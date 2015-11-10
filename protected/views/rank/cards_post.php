@@ -12,7 +12,7 @@
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                          ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                           ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -44,8 +44,9 @@
                             <div class="content-main">
                                 <p class="desc"><?php echo $item['post_content'] ?>
                                 <p class="cats">
-                                    <?php foreach ($item['cat_name'] as $cat): ?>
-                                        <span><a href=""><?php echo $cat ?></a></span>
+
+                                    <?php foreach ($item['cat'] as $cat): ?>
+                                        <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
                                     <?php endforeach; ?>
                                 </p>
                             </div>

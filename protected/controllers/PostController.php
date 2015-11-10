@@ -164,7 +164,7 @@ class PostController extends Controller {
             var_dump($ex->getMessage());
         }
     }
-
+    
     public function actionAddPostForWeb() {
         $request = Yii::app()->request;
         try {

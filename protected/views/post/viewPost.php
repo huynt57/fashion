@@ -61,18 +61,18 @@
                     <div class="content-main">
                         <p class="desc"><?php echo $data['post_content'] ?></p>
                         <p class="cats">
-                 
+
                             <?php foreach ($data['cat'] as $cat): ?>
-                                <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id'=>$cat[1]))?>"><?php echo $cat[0] ?></a></span>
+                                <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
                             <?php endforeach; ?>
                         </p>
                     </div>
                 </div>
                 <div class="post-footer single-post-footer">
                     <div class="footer-count">
-                        <span class="item-count"><a href=""><?php echo $data['post_like_count'] ?> thích</a></span>
-                        <span class="item-count"><a href=""><?php echo $data['post_view_count'] ?> lượt xem</a></span>
-                        <span class="item-count"><a href=""><?php echo $data['post_comment_count'] ?> bình luận</a></span>
+                        <span class="item-count"><a href="" id="post_like_count"><?php echo $data['post_like_count'] ?> thích</a></span>
+                        <span class="item-count"><a href="" id="post_view_count"><?php echo $data['post_view_count'] ?> lượt xem</a></span>
+                        <span class="item-count"><a href="" id="post_comment_count"><?php echo $data['post_comment_count'] ?> bình luận</a></span>
 <!--                        <span class="item-count"><a href="">1234 chia sẻ</a></span>-->
                     </div>
                     <div class="footer-action">
@@ -92,7 +92,7 @@
                         </div>
                         <form id="form_comment" action="javascript::void(0)">
                             <textarea name="comment_content" id="comment_content"></textarea>
-                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']          ?>" />
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']            ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
                             <img id="ajax-loader"src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/ajax-loader.gif">

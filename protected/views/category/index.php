@@ -60,11 +60,12 @@
                         <div class="post-content card-content">
                             <div class="content-main">
                                 <p class="desc"><?php echo $item['post_content'] ?>
-                                <p class="cats">
-                                    <?php foreach ($item['cat_name'] as $cat): ?>
-                                        <span><a href=""><?php echo $cat ?></a></span>
-                                    <?php endforeach; ?>
-                                </p>
+                                 <p class="cats">
+
+                            <?php foreach ($item['cat'] as $cat): ?>
+                                <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
+                            <?php endforeach; ?>
+                        </p>
                             </div>
                         </div>
                         <div class="post-footer card-footer">
