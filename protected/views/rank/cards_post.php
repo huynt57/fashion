@@ -25,7 +25,7 @@
                                 <h4 class="name">
                                     <span class="name-original"><a href=""><?php echo $item['user'][0]['username'] ?></a></span>
                                 </h4>
-                                <p class="time"><?php echo $item['created_at']; ?></p>
+                                 <p class="time"><?php echo Util::time_elapsed_string($item['created_at']); ?></p>
                             </div>
                             <div class="header-menu">
                                 <div class="dropdown">

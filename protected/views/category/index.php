@@ -20,7 +20,7 @@
         <div class="cards-display-main-ctn">
             <div class="card-sizer"></div>
             <?php foreach ($data as $item): ?>
-                <div class="card-item card-hide">
+                <div class="card-item card-hide" id="<?php echo $item['post_id'] ?>">
                     <div class="card-item-inner">
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
@@ -29,7 +29,7 @@
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                       ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                         ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -42,7 +42,7 @@
                                 <h4 class="name">
                                     <span class="name-original"><a href=""><?php echo $item['user'][0]['username'] ?></a></span>
                                 </h4>
-                                <p class="time"><?php echo $item['created_at']; ?></p>
+                                <p class="time"><?php echo Util::time_elapsed_string($item['created_at']); ?></p>
                             </div>
                             <div class="header-menu">
                                 <div class="dropdown">
@@ -113,8 +113,13 @@
             url: '<?php echo Yii::app()->createUrl('post/hidePostForUser') ?>',
             type: 'POST',
             data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id},
+            dataType: 'json',
             success: function (response) {
-                console.log(response);
+                //console.log(response);
+                if (response.status == 1) {
+                    $.toast();
+                    $('#' + post_id).hide();
+                }
             }
         });
 

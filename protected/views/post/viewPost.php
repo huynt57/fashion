@@ -42,7 +42,7 @@
                         <h4 class="name">
                             <span class="name-original"><a href=""><?php echo $data['user'][0]['username'] ?></a></span>
                         </h4>
-                        <p class="time"><?php echo $data['created_at'] ?></p>
+                        <p class="time"><?php echo Util::time_elapsed_string($data['created_at']) ?></p>
                     </div>
                     <div class="header-menu">
                         <div class="dropdown">
@@ -103,7 +103,7 @@
                                 <div class="content">
                                     <div class="content-header">
                                         <a href="" class="name"><?php echo $comment['username'] ?></a>
-                                        <span class="time"><?php echo $comment['created_at'] ?></span>
+                                        <span class="time"><?php echo Util::time_elapsed_string($comment['created_at']) ?></span>
                                     </div>
                                     <div class="content-comment"><?php echo $comment['comment_content'] ?></div>
                                 </div>

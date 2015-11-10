@@ -7,10 +7,12 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/font-awesome.css">
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/style.css">
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/jquery.toast.min.css">
 
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/modernizr.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/jquery-2.1.4.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/bootstrap.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/jquery.toast.min.js"></script>
 
 
     </head>
@@ -36,11 +38,11 @@
                                     <span class="text-on-large">Chuyên mục</span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
-                                
+
                                 <ul class="dropdown-menu" aria-labelledby="top-nav-category">
-                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>2))?>">Thời trang nữ</a></li>
-                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>1))?>">Thời trang nam</a></li>
-                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type'=>0))?>">Loại khác</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 2)) ?>">Thời trang nữ</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 1)) ?>">Thời trang nam</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 0)) ?>">Loại khác</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -123,7 +125,7 @@
                                 </ul>
                             </li>
                             <li class="account-icon">
-                                <a href="<?php echo Yii::app()->createUrl('user/profile')?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar5.jpg" alt="theFabulousName" width="33" height="33"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profile') ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar5.jpg" alt="theFabulousName" width="33" height="33"></a>
                             </li>
                             <li class="other-icon dropdown">
                                 <a id="other-nav-menu" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
