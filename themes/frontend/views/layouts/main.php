@@ -22,7 +22,7 @@
             <div class="df-container">
                 <div class="left-side">
                     <div class="site-logo">
-                        <h1><a href="#">PutLogoHere</a></h1>
+                        <h1><a href="<?php echo Yii::app()->createUrl('home/newsfeed') ?>">PutLogoHere</a></h1>
                     </div>
                     <nav class="top-nav">
                         <ul class="top-nav-ctn">
@@ -44,6 +44,13 @@
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 1)) ?>">Thời trang nam</a></li>
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 0)) ?>">Loại khác</a></li>
                                 </ul>
+
+                            </li>
+                            <li class="top-nav-explore active">
+                                <a href="<?php echo Yii::app()->createUrl('rank/rankPostBytime', array('time' => 'DAY')) ?>">
+                                    <i class="fa fa-compass fa-lg icon-on-small"></i>
+                                    <span class="text-on-large">Xếp hạng</span>
+                                </a>
                             </li>
                         </ul>
                     </nav>
@@ -125,7 +132,7 @@
                                 </ul>
                             </li>
                             <li class="account-icon">
-                                <a href="<?php echo Yii::app()->createUrl('user/profile') ?>"><img src="<?php echo Yii::app()->session['user_avatar']?>" alt="theFabulousName" width="33" height="33"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profile') ?>"><img src="<?php echo Yii::app()->session['user_avatar'] ?>" alt="theFabulousName" width="33" height="33"></a>
                             </li>
                             <li class="other-icon dropdown">
                                 <a id="other-nav-menu" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
