@@ -33,9 +33,9 @@
                                         <i class="fa fa-angle-down fa-lg"></i>
                                     </a>
                                     <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
-                                        <li><a href="#" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
-                                        <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                        <li><a href="#" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)"data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
+                                        <li><a href="javascript: void(0)" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
+                                        <li><a href="javascript: void(0)" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
+                                        <li><a href="javascript: void(0)" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)"data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -57,10 +57,10 @@
                             </div>
                             <div class="footer-action">
                                 <ul class="icon-container">
-                                    <li class="like-icon"><a href="#" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
-                                    <li class="pin-icon"><a href="#" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                    <li class="comment-icon"><a href="#" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                    <li class="share-icon"><a href="#" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
+                                    <li class="like-icon"><a href="javascript: void(0)" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
+                                    <li class="pin-icon"><a href="javascript: void(0)" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
+                                    <li class="comment-icon"><a href="javascript: void(0)" title="Bình luận"><i class="fa fa-comment"></i></a></li>
+                                    <li class="share-icon"><a href="javascript: void(0)" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -174,6 +174,12 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    if ($('#like-' + post_id).hasClass('active'))
+                    {
+                        $('#like-' + post_id).removeClass('active');
+                    } else {
+                        $('#like-' + post_id).addClass('active');
+                    }
                     $.toast('Thành công !!');
                 } else {
                     $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');

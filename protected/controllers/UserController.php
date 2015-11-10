@@ -64,7 +64,7 @@ class UserController extends Controller {
                 $gender = StringHelper::filterString($request->getPost('gender'));
                 $facebook_access_token = StringHelper::filterString($request->getPost('facebook_access_token'));
                 $photo = StringHelper::filterString($request->getPost('photo'));
-                $username = StringHelper::filterString($request->getPost('username'));
+                $username = StringHelper::filterString($request->getPost('name'));
                 $device_id = StringHelper::filterString($request->getPost('device_id'));
                 User::model()->processLoginWithFacebook($facebook_id, $age, $gender, $facebook_access_token, $photo, $username, $device_id);
             } catch (exception $e) {

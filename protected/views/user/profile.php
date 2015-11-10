@@ -70,7 +70,7 @@
                     </ul>
                 </div>
                 <div class="clearfix"></div>
-                <?php $this->renderPartial('listpost', array('data' => $posts)); ?>
+                <?php $this->renderPartial('listPost', array('data' => $posts, 'pages'=>$pages)); ?>
             </div>
         </div>
     </div>
