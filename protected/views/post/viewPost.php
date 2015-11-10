@@ -61,8 +61,9 @@
                     <div class="content-main">
                         <p class="desc"><?php echo $data['post_content'] ?></p>
                         <p class="cats">
-                            <?php foreach ($data['cat_name'] as $cat): ?>
-                                <span><a href=""><?php echo $cat ?></a></span>
+                 
+                            <?php foreach ($data['cat'] as $cat): ?>
+                                <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id'=>$cat[1]))?>"><?php echo $cat[0] ?></a></span>
                             <?php endforeach; ?>
                         </p>
                     </div>
@@ -87,14 +88,16 @@
                 <div class="post-comment single-post-comment">
                     <div class="enter-comment-form clearfix">
                         <div class="avatar">
-                            <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar1.jpg" alt="" width="40" height="40">
+                            <img src="<?php echo Yii::app()->session['user_avatar'] ?>" alt="" width="40" height="40">
                         </div>
                         <form id="form_comment" action="javascript::void(0)">
                             <textarea name="comment_content" id="comment_content"></textarea>
-                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']        ?>" />
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']          ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
+                            <img id="ajax-loader"src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/ajax-loader.gif">
                         </form>
+
                     </div>
                     <ul class="comment-list" id="comment-list">
                         <?php foreach ($data['comments'] as $comment): ?>
@@ -121,17 +124,23 @@
 
 <script>
     $(document).ready(function () {
+        $('#ajax-loader').hide();
         $('#form_comment').submit(function (event) {
             event.preventDefault();
             var form = $('#form_comment');
             var data = form.serialize();
             $.ajax({
+                beforeSend: function (xhr) {
+                    $('#ajax-loader').show();
+                },
                 type: 'POST',
                 url: '<?php echo Yii::app()->createUrl('comment/add') ?>',
                 data: data,
                 dataType: 'json',
                 success: function (response) {
                     console.log(response);
+                    $('#ajax-loader').hide();
+                    $('#comment_content').val('');
                     if (response.status === 1)
                     {
                         $('#comment-list').prepend('<li class="comment-item clearfix">' +

@@ -212,7 +212,7 @@ class Posts extends BasePosts {
 
     public function findCategoryById($cat_id) {
         $cat = Categories::model()->findByPk($cat_id);
-        return $cat->cat_name;
+        return array($cat->cat_name, $cat->cat_id);
     }
 
     public function findUsernameByPostId($post_id) {
@@ -316,7 +316,7 @@ class Posts extends BasePosts {
             $itemArr['post_view_count'] = $item->post_view_count;
             $itemArr['post_comment_count'] = $item->post_comment_count;
             $itemArr['location'] = $item->location;
-            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
+            $itemArr['cat'] = $this->findCategoryNameByPostId($item->post_id);
             $itemArr['images'] = $this->findImagesByPost($item->post_id);
             $itemArr['comments'] = $this->getCommentsByPost($item->post_id);
             return $itemArr;

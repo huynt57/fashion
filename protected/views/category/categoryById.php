@@ -8,7 +8,7 @@
                         <li><a href="">
                                 <span class="bg-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/card30.jpg')"></span>
                                 <span class="bg-gradient"></span>
-                                <h2 class="cat-name"><?php //echo $cat->cat_name  ?></h2>
+                                <h2 class="cat-name"><?php //echo $cat->cat_name   ?></h2>
                             </a></li>
         <?php //endforeach; ?>
                 </ul>-->
@@ -22,14 +22,14 @@
             <?php foreach ($data as $item): ?>
                 <div class="card-item card-hide">
                     <div class="card-item-inner">
-                       <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
+                        <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
                                     <?php if (count($item['images']) == 1): ?>                                                                                                             <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                     ?>');"></span>-->
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                       ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                        ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -61,8 +61,9 @@
                             <div class="content-main">
                                 <p class="desc"><?php echo $item['post_content'] ?>
                                 <p class="cats">
-                                    <?php foreach ($item['cat_name'] as $cat): ?>
-                                        <span><a href=""><?php echo $cat ?></a></span>
+
+                                    <?php foreach ($item['cat'] as $cat): ?>
+                                        <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
                                     <?php endforeach; ?>
                                 </p>
                             </div>
@@ -72,7 +73,7 @@
                                 <span class="item-count"><a href=""><?php echo $item['post_like_count'] ?> thích</a></span>
                                 <span class="item-count"><a href=""><?php echo $item['post_comment_count'] ?> bình luận</a></span>
                             </div>
-                             <div class="footer-action">
+                            <div class="footer-action">
                                 <ul class="icon-container">
                                     <li class="like-icon <?php if ($item['is_liked']): ?>active<?php endif; ?>" id="like-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
                                     <li class="pin-icon <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" id="bookmark-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
