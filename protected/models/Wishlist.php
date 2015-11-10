@@ -18,6 +18,7 @@ class Wishlist extends BaseWishlist {
             $model->user_id = $user_id;
             $model->status = 1;
             $model->created_at = time();
+            $model->updated_at = time();
             if ($model->save()) {
                 return TRUE;
             }

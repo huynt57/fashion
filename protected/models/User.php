@@ -24,6 +24,7 @@ class User extends BaseUser {
             $check->updated_at = time();
             if ($check->save(FALSE)) {
                 Yii::app()->session['user_id'] = $check->id;
+                Yii::app()->session['user_avatar'] = $check->photo;
                 ResponseHelper::JsonReturnSuccess($check, "Success");
             } else {
                 ResponseHelper::JsonReturnError("", "Server Error");
@@ -42,6 +43,7 @@ class User extends BaseUser {
             $model->status = 1;
             if ($model->save(FALSE)) {
                 Yii::app()->session['user_id'] = $model->id;
+                Yii::app()->session['user_avatar'] = $check->photo;
                 ResponseHelper::JsonReturnSuccess($model, "Success");
             } else {
                 ResponseHelper::JsonReturnError("", "Server Error");

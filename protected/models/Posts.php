@@ -308,6 +308,7 @@ class Posts extends BasePosts {
             $itemArr['post_content'] = $item->post_content;
             if (!empty($user_id)) {
                 $itemArr['is_liked'] = $this->checkIfPostIsLiked($post_id, $user_id);
+                $itemArr['is_bookmarked'] = $this->checkIfPostIsBookmarked($post_id, $user_id);
             }
             $itemArr['created_at'] = $item->created_at;
             $itemArr['updated_at'] = $item->updated_at;
@@ -325,6 +326,14 @@ class Posts extends BasePosts {
 
     public function checkIfPostIsLiked($post_id, $user_id) {
         $check = Like::model()->findByAttributes(array('post_id' => $post_id, 'from' => $user_id, 'status' => 1));
+        if ($check) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    public function checkIfPostIsBookmarked($post_id, $user_id) {
+        $check = Wishlist::model()->findByAttributes(array('post_id' => $post_id, 'user_id' => $user_id));
         if ($check) {
             return TRUE;
         }

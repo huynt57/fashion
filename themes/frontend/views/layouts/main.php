@@ -125,7 +125,7 @@
                                 </ul>
                             </li>
                             <li class="account-icon">
-                                <a href="<?php echo Yii::app()->createUrl('user/profile') ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/sample/avatar5.jpg" alt="theFabulousName" width="33" height="33"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profile') ?>"><img src="<?php echo Yii::app()->session['user_avatar']?>" alt="theFabulousName" width="33" height="33"></a>
                             </li>
                             <li class="other-icon dropdown">
                                 <a id="other-nav-menu" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

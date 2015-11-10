@@ -37,19 +37,19 @@
 // Only works after `FB.init` is called
             function myFacebookLogin() {
                 FB.login(function () {
-                    FB.api('/me?fields=id,name,first_name, last_name, link, age_range', function (response) {
+                    FB.api('/me?fields=id,name, email,  picture, first_name, last_name, link, age_range', function (response) {
                         console.log(response);
                         $.ajax({
                             url: '<?php echo Yii::app()->createUrl('user/LoginWithFacebook') ?>',
                             type: 'POST',
                             data: {
                                 facebook_id: response.id,
-                                //gender: response.gender,
+                                gender: response.gender,
                                 name: response.name,
                                 email: response.email,
-                                //location: response.locale,
-                                //  birthday: response.birthday,
-                                //photo: response.picture.data.url,
+                                location: response.locale,
+                                birthday: response.birthday,
+                                photo: 'https://graph.facebook.com/'+response.id+'/picture?type=large',
                             },
                             dataType: 'json',
                             success: function (response) {
