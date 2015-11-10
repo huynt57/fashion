@@ -77,18 +77,7 @@ class Posts extends BasePosts {
         $news_feed_criteria->addCondition("user_id = $user_id");
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
-            $itemArr = array();
-            $itemArr['user'] = array($this->findUserByPostId($item->post_id));
-            $itemArr['post_id'] = $item->post_id;
-            $itemArr['post_content'] = $item->post_content;
-            $itemArr['created_at'] = $item->created_at;
-            $itemArr['updated_at'] = $item->updated_at;
-            $itemArr['post_like_count'] = $item->post_like_count;
-            $itemArr['post_view_count'] = $item->post_view_count;
-            $itemArr['post_comment_count'] = $item->post_comment_count;
-            $itemArr['location'] = $item->location;
-            $itemArr['cat_name'] = $this->findCategoryNameByPostId($item->post_id);
-            $itemArr['images'] = $this->findImagesByPost($item->post_id);
+            $itemArr = $this->getPostById($item->post_id, $user_id);
             $returnArr[] = $itemArr;
         }
         return $returnArr;
@@ -107,7 +96,7 @@ class Posts extends BasePosts {
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($news_feed_criteria);
         foreach ($data as $item) {
-            $itemArr = $this->getPostById($item->post_id);
+            $itemArr = $this->getPostById($item->post_id, $user_id);
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages);
@@ -187,7 +176,7 @@ class Posts extends BasePosts {
         $news_feed_criteria->offset = $offset;
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
-            $itemArr = $this->getPostById($item->post_id);
+            $itemArr = $this->getPostById($item->post_id, $user_id);
             $returnArr[] = $itemArr;
         }
         return $returnArr;
@@ -209,7 +198,7 @@ class Posts extends BasePosts {
         $pages->applyLimit($news_feed_criteria);
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
-            $itemArr = $this->getPostById($item->post_id);
+            $itemArr = $this->getPostById($item->post_id, $user_id);
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages);
@@ -305,7 +294,7 @@ class Posts extends BasePosts {
         return $data;
     }
 
-    public function getPostById($post_id) {
+    public function getPostById($post_id, $user_id = NULL) {
         $item = Posts::model()->findByPk($post_id);
         if ($item) {
             $itemArr = array();
@@ -317,6 +306,9 @@ class Posts extends BasePosts {
             $itemArr['photo'] = $this->findUserPhotoByPostId($item->post_id);
             $itemArr['post_id'] = $item->post_id;
             $itemArr['post_content'] = $item->post_content;
+            if (!empty($user_id)) {
+                $itemArr['is_liked'] = $this->checkIfPostIsLiked($post_id, $user_id);
+            }
             $itemArr['created_at'] = $item->created_at;
             $itemArr['updated_at'] = $item->updated_at;
             $itemArr['post_like_count'] = $item->post_like_count;
@@ -329,6 +321,14 @@ class Posts extends BasePosts {
             return $itemArr;
         }
         return NULL;
+    }
+
+    public function checkIfPostIsLiked($post_id, $user_id) {
+        $check = Like::model()->findByAttributes(array('post_id' => $post_id, 'from' => $user_id, 'status' => 1));
+        if ($check) {
+            return TRUE;
+        }
+        return FALSE;
     }
 
     public function getPostByCategoryType($type) {
@@ -371,7 +371,6 @@ class Posts extends BasePosts {
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id);
-
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages);
