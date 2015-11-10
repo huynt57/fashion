@@ -107,6 +107,7 @@
 </div>
 
 <script>
+
     function hide_post(post_id)
     {
         $.ajax({
@@ -115,9 +116,12 @@
             data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id},
             dataType: 'json',
             success: function (response) {
-                //console.log(response);
-                if (response.status == 1) {
-                    $.toast();
+                if (response.status === 1)
+                {
+                    $.toast('Ẩn bài viết thành công !!');
+                    $('#' + post_id).hide();
+                } else {
+                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
                     $('#' + post_id).hide();
                 }
             }
@@ -131,24 +135,92 @@
             url: '<?php echo Yii::app()->createUrl('user/blockUser') ?>',
             type: 'POST',
             data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked},
+            dataType: 'json',
             success: function (response) {
-                console.log(response);
+                if (response.status === 1)
+                {
+                    $.toast('Chặn người dùng thành công !!');
+
+                } else {
+                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+
+                }
             }
         });
     }
 
-    function report(post_id)
+    function report(post_id, user_id)
+    {
+        var btnSubmitReport = $("[name=btnSubmitReport]");
+        btnSubmitReport.attr("id", "btnSubmitReport" + post_id);
+        $(document).on('click', '#btnSubmitReport' + post_id, function () {
+            var from = $('#from').val();
+            var type = $('input[name=type]:checked').val();
+            var content = $('#upload-des').val();
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl('post/reportPost'); ?>',
+                data: {post_id: post_id, from: from, type: type, user_id: user_id, content: content},
+                type: 'POST',
+                success: function (response)
+                {
+                    //  alert(response.message);
+                    //$('#from').val('');
+                    $('input[name=type]:checked').val('');
+                    $('#upload-des').val('');
+                    $('#post-report-modal').modal('hide');
+                    if (response.status === 1)
+                    {
+                        $.toast('Thành công !!');
+                    } else {
+                        $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    }
+                }
+            });
+        });
+    }
+
+    function like(to, post_id)
     {
         $.ajax({
-            url: '<?php echo Yii::app()->createUrl('post/reportPost') ?>',
+            url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',
             type: 'POST',
-            data: '',
+            data: {from: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id, to: to},
+            dataType: 'json',
             success: function (response) {
-                console.log(response);
+                if (response.status === 1)
+                {
+                    $.toast('Thành công !!');
+                } else {
+                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                }
             }
         });
     }
 
+    function bookmark(post_id)
+    {
+        $.ajax({
+            url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
+            type: 'POST',
+            data: {user_id: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id},
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1)
+                {
+                    $.toast('Đánh dấu thành công !!');
+                } else {
+                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                }
+            }
+        });
+    }
+
+    function share(url)
+    {
+        $('#fb-sharer').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url));
+        $('#gg-sharer').attr('href', 'https://plus.google.com/share?url=' + encodeURIComponent(url));
+        $('#tt-sharer').attr('href', 'http://www.twitter.com/share?url=' + encodeURIComponent(url));
+    }
 </script>
 
 <script>
