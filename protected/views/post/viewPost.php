@@ -92,7 +92,7 @@
                         </div>
                         <form id="form_comment" action="javascript::void(0)">
                             <textarea name="comment_content" id="comment_content"></textarea>
-                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']            ?>" />
+                            <input name="user_id" type="hidden" value="<?php echo '1'//echo Yii::app()->session['user_id']             ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
                             <img id="ajax-loader"src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/ajax-loader.gif">
@@ -125,7 +125,7 @@
 <script>
     $(document).ready(function () {
         $('#ajax-loader').hide();
-        $('#form_comment').submit(function (event) {
+        $(document).on('submit', '#form_comment', function (event) {
             event.preventDefault();
             var form = $('#form_comment');
             var data = form.serialize();

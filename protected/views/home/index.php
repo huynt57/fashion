@@ -12,7 +12,7 @@
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                   ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                    ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -43,12 +43,12 @@
                         <div class="post-content card-content">
                             <div class="content-main">
                                 <p class="desc"><?php echo $item['post_content'] ?>
-                                 <p class="cats">
+                                <p class="cats">
 
-                            <?php foreach ($item['cat'] as $cat): ?>
-                                <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
-                            <?php endforeach; ?>
-                        </p>
+                                    <?php foreach ($item['cat'] as $cat): ?>
+                                        <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
+                                    <?php endforeach; ?>
+                                </p>
                             </div>
                         </div>
                         <div class="post-footer card-footer">
@@ -216,6 +216,44 @@
 </script>
 <script>
     $(document).ready(function () {
+        $('#ajax-loader').hide();
+        $(document).on('submit', '#form_comment', function (event) {
+            event.preventDefault();
+            var form = $('#form_comment');
+            var data = form.serialize();
+            $.ajax({
+                beforeSend: function (xhr) {
+                    $('#ajax-loader').show();
+                },
+                type: 'POST',
+                url: '<?php echo Yii::app()->createUrl('comment/add') ?>',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $('#ajax-loader').hide();
+                    $('#comment_content').val('');
+                    if (response.status === 1)
+                    {
+                        $('#comment-list').prepend('<li class="comment-item clearfix">' +
+                                '<div class="avatar">' +
+                                '<img src="' + response.data.photo + '" alt="" width="40" height="40">' +
+                                '</div>' +
+                                '<div class="content">' +
+                                '<div class="content-header">' +
+                                '<a href="" class="name">' + response.data.username + '</a>' +
+                                '<span class="time">' + response.data.created_at + '</span>' +
+                                '</div>' +
+                                '<div class="content-comment">' + response.data.comment_content + '</div>' +
+                                '</div>' +
+                                '</li>');
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            })
+        });
 
         // masonry layout for cards
         $cardContainer = $('.cards-display-main-ctn');
