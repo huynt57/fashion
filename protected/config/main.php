@@ -4,12 +4,17 @@
 // Yii::setPathOfAlias('local','path/to/local-folder');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
+if (isset(Yii::app()->session['user_id'])) {
+    $defaultControlelr = 'home/newsFeed';
+} else {
+    $defaultControlelr = 'user/login';
+}
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'MacChat',
     // preloading 'log' component
     'preload' => array('log'),
-    'defaultController' => 'home/newsFeed',
+    'defaultController' => $defaultControlelr,
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
