@@ -121,6 +121,7 @@
         </div>
     </div>
 </div>
+<?php $this->renderPartial('modal')?>
 
 <script>
     $(document).ready(function () {

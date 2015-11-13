@@ -302,9 +302,12 @@
         });
 
         // lightbox ajax
-         
-
-
+         $.featherlight.defaults{
+             beforeOpen: function()
+             {
+                 $('#ajax-loader').hide();
+             }
+         };
 
     });
 </script>
