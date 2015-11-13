@@ -16,6 +16,8 @@ class Comments extends BaseComments {
         $model->comment_content = $content;
         $model->status = 1;
         $model->created_at = time();
+        $model->updated_at = time();
+        
         $post = Posts::model()->findByPk($post_id);
         $post->post_comment_count++;
         $user = User::model()->findByPk($model->created_by);
@@ -42,7 +44,7 @@ class Comments extends BaseComments {
 //                ->offset($offset)
 //                ->order('comment_id DESC')
 //                ->queryAll();
-        $sql = "SELECT tbl_comments.*, tbl_user.username FROM tbl_comments JOIN tbl_user ON tbl_comments.created_by = tbl_user.id WHERE tbl_comments.post_id = $post_id LIMIT $offset, $limit";
+        $sql = "SELECT tbl_comments.*, tbl_user.username FROM tbl_comments JOIN tbl_user ON tbl_comments.created_by = tbl_user.id WHERE tbl_comments.post_id = $post_id ORDER BY tbl_comments.comment_id DESC LIMIT $offset, $limit ";
         $data = Yii::app()->db->createCommand($sql)->queryAll();
         return $data;
     }

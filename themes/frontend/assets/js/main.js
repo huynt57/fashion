@@ -1,32 +1,28 @@
 // main js
 
 
-$(document).ready(function(){
+$(document).ready(function () {
 
-	// masonry layout for cards
-	$cardContainer = $('.cards-display-main-ctn');
-	$cardItem = $('.card-item');
+    // masonry layout for cards
+    $cardContainer = $('.cards-display-main-ctn');
+    $cardItem = $('.card-item');
 
-	$cardItem.hide();
-	$cardContainer.imagesLoaded().done( function() {
-		$cardItem.removeClass('card-hide').fadeIn();
-		$cardContainer.masonry({
-		  columnWidth: '.card-sizer',
-		  itemSelector: '.card-item',
-		  percentPosition: true,
-		  transitionDuration: 0
-		});
-	});
+    $cardItem.hide();
+    $cardContainer.imagesLoaded().done(function () {
+        $cardItem.removeClass('card-hide').fadeIn();
+        $cardContainer.masonry({
+            columnWidth: '.card-sizer',
+            itemSelector: '.card-item',
+            percentPosition: true,
+            transitionDuration: 0
+        });
+    });
 
-	// single post image
-	$('.carousel').carousel({
-		interval: false,
-		wrap: false
-	});
+    // single post image
+    $('.carousel').carousel({
+        interval: false,
+        wrap: false
+    });
 
-	// lightbox ajax
-	// $.featherlight{}
-
-	
-
+    // lightbox ajax
 });
