@@ -18,6 +18,9 @@ hr {
   margin: 15px 0;
   border-top: 1px solid #e0e0e0; }
 
+.noscroll {
+  overflow: hidden; }
+
 body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -987,10 +990,10 @@ header.site-header {
         font-size: 12px; }
 
 .cards-display-main {
-  margin: 10px auto; }
+  margin: 10px auto 60px; }
 
 .cards-display-main-ctn {
-  padding: 0px;
+  padding: 0;
   margin: 0; }
   .cards-display-main-ctn .card-hide {
     display: none;
@@ -1003,6 +1006,17 @@ header.site-header {
     padding: 10px; }
   .cards-display-main-ctn .card-item-inner {
     background-color: #fff; }
+
+#infscr-loading {
+  text-align: center;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  margin-left: -20px; }
+  #infscr-loading:after, #infscr-loading:before {
+    clear: both !important;
+    content: " " !important;
+    display: table !important; }
 
 /**
  * Featherlight ΓÇô ultra slim jQuery lightbox
