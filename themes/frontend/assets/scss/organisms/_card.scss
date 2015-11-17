@@ -22,3 +22,16 @@
 		background-color: #fff;
 	}
 }
+#infscr-loading{
+	text-align: center;
+	position: absolute;
+	bottom: -40px;
+	left: 50%;
+	margin-left: -20px;
+	&:after, &:before{
+		clear: both !important;
+		content: " " !important;
+  	display: table !important;
+	}
+}
+
