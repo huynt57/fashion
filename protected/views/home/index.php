@@ -3,7 +3,7 @@
         <div class="cards-display-main-ctn">
             <div class="card-sizer"></div>
             <?php foreach ($data as $item): ?>
-                <div class="card-item card-hide" id="<?php echo $item['post_id'] ?>">
+                <div class="card-item" id="<?php echo $item['post_id'] ?>">
                     <div class="card-item-inner">
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
@@ -258,10 +258,7 @@
         // masonry layout for cards
         $cardContainer = $('.cards-display-main-ctn');
         $cardItem = $('.card-item');
-
-        $cardItem.hide();
         $cardContainer.imagesLoaded().done(function () {
-            $cardItem.fadeIn();
             $cardContainer.masonry({
                 columnWidth: '.card-item',
                 itemSelector: '.card-item',
@@ -275,10 +272,12 @@
             nextSelector: '.next a',
             itemSelector: '.cards-display-main-ctn',
             loading: {
-                finishedMsg: 'ÄÃ£ háº¿t post',
-                img: '',
-                msgText: "Äang táº£i..."
-            }
+                finishedMsg: 'Đã hết bài đăng',
+                img: 'http://loadinggif.com/images/image-selection/17.gif',
+                msgText: "Đang tải"
+            },
+            pixelsFromNavToBottom: '100',
+            animate: true,
         },
         // trigger Masonry as a callback
 
@@ -300,8 +299,6 @@
             interval: false,
             wrap: false
         });
-
-        // lightbox ajax
-         
+   
     });
 </script>
