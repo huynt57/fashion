@@ -3,7 +3,7 @@
         <div class="cards-display-main-ctn">
             <div class="card-sizer"></div>
             <?php foreach ($data as $item): ?>
-                <div class="card-item card-hide">
+                <div class="card-item" id="<?php echo $item['post_id'] ?>">
                     <div class="card-item-inner">
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
@@ -12,7 +12,7 @@
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                           ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                      ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -216,14 +216,49 @@
 </script>
 <script>
     $(document).ready(function () {
+        $()
+        $(document).on('submit', '#form_comment', function (event) {
+            event.preventDefault();
+            var form = $('#form_comment');
+            var data = form.serialize();
+            $.ajax({
+                beforeSend: function (xhr) {
+                    $('#ajax-loader').show();
+                },
+                type: 'POST',
+                url: '<?php echo Yii::app()->createUrl('comment/add') ?>',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $('#ajax-loader').hide();
+                    $('#comment_content').val('');
+                    if (response.status === 1)
+                    {
+                        $('#comment-list').prepend('<li class="comment-item clearfix">' +
+                                '<div class="avatar">' +
+                                '<img src="' + response.data.photo + '" alt="" width="40" height="40">' +
+                                '</div>' +
+                                '<div class="content">' +
+                                '<div class="content-header">' +
+                                '<a href="" class="name">' + response.data.username + '</a>' +
+                                '<span class="time">' + response.data.created_at + '</span>' +
+                                '</div>' +
+                                '<div class="content-comment">' + response.data.comment_content + '</div>' +
+                                '</div>' +
+                                '</li>');
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            })
+        });
 
         // masonry layout for cards
         $cardContainer = $('.cards-display-main-ctn');
         $cardItem = $('.card-item');
-
-        $cardItem.hide();
         $cardContainer.imagesLoaded().done(function () {
-            $cardItem.fadeIn();
             $cardContainer.masonry({
                 columnWidth: '.card-item',
                 itemSelector: '.card-item',
@@ -237,10 +272,12 @@
             nextSelector: '.next a',
             itemSelector: '.cards-display-main-ctn',
             loading: {
-                finishedMsg: 'ÄÃ£ háº¿t post',
-                img: '',
-                msgText: "Äang táº£i..."
-            }
+                finishedMsg: 'Đã hết bài đăng',
+                img: 'http://loadinggif.com/images/image-selection/17.gif',
+                msgText: "Đang tải"
+            },
+            pixelsFromNavToBottom: '100',
+            animate: true,
         },
         // trigger Masonry as a callback
 
@@ -262,11 +299,6 @@
             interval: false,
             wrap: false
         });
-
-        // lightbox ajax
-        // $.featherlight{}
-
-
-
+   
     });
 </script>

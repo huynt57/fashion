@@ -20,7 +20,7 @@
         <div class="cards-display-main-ctn">
             <div class="card-sizer"></div>
             <?php foreach ($data as $item): ?>
-                <div class="card-item card-hide" id="<?php echo $item['post_id'] ?>">
+                <div class="card-item" id="<?php echo $item['post_id'] ?>">
                     <div class="card-item-inner">
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
@@ -29,7 +29,7 @@
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                          ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                       ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -52,7 +52,7 @@
                                     <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
                                         <li><a href="javascript: void(0)" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
                                         <li><a href="javascript: void(0)" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                        <li><a href="javascript: void(0)" onclick="report(<?php echo $item['post_id'] ?>)">Báo cáo sai phạm</a></li>
+                                        <li><a href="javascript: void(0)" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)"data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -60,12 +60,12 @@
                         <div class="post-content card-content">
                             <div class="content-main">
                                 <p class="desc"><?php echo $item['post_content'] ?>
-                                 <p class="cats">
+                                <p class="cats">
 
-                            <?php foreach ($item['cat'] as $cat): ?>
-                                <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
-                            <?php endforeach; ?>
-                        </p>
+                                    <?php foreach ($item['cat'] as $cat): ?>
+                                        <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
+                                    <?php endforeach; ?>
+                                </p>
                             </div>
                         </div>
                         <div class="post-footer card-footer">
@@ -73,7 +73,7 @@
                                 <span class="item-count"><a href=""><?php echo $item['post_like_count'] ?> thích</a></span>
                                 <span class="item-count"><a href=""><?php echo $item['post_comment_count'] ?> bình luận</a></span>
                             </div>
-                             <div class="footer-action">
+                            <div class="footer-action">
                                 <ul class="icon-container">
                                     <li class="like-icon <?php if ($item['is_liked']): ?>active<?php endif; ?>" id="like-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
                                     <li class="pin-icon <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" id="bookmark-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
@@ -82,12 +82,14 @@
                                 </ul>
                             </div>
                         </div>
+
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
 </div>
+<?php $this->renderPartial('modal'); ?>
 
 <div style="display: none;">
     <?php
@@ -229,38 +231,91 @@
         $('#tt-sharer').attr('href', 'http://www.twitter.com/share?url=' + encodeURIComponent(url));
     }
 </script>
-
 <script>
-//    $(function () {
-//
-//        var $container = $('#container');
-//
-//        try {
-//            $container.infinitescroll({
-//                navSelector: '.next', // selector for the paged navigation 
-//                nextSelector: '.next a', // selector for the NEXT link (to page 2)
-//                itemSelector: '.card-item', // selector for all items you'll retrieve
-//                loading: {
-//                    finishedMsg: 'No more pages to load.',
-//                    img: 'http://i.imgur.com/6RMhx.gif'
-//                }
-//            },
-//            // trigger Masonry as a callback
-//            function (newElements) {
-//                // hide new items while they are loading
-//                var $newElems = $(newElements).css({opacity: 0});
-//                // ensure that images load before adding to masonry layout
-//                $newElems.imagesLoaded(function () {
-//                    // show elems now they're ready
-//                    $newElems.animate({opacity: 1});
-//                    $container.masonry('appended', $newElems, true);
-//                });
-//            }
-//            );
-//        } catch (exception) {
-//            console.log(exception);
-//        }
-//
-//
-//    });
+    $(document).ready(function () {
+        $()
+        $(document).on('submit', '#form_comment', function (event) {
+            event.preventDefault();
+            var form = $('#form_comment');
+            var data = form.serialize();
+            $.ajax({
+                beforeSend: function (xhr) {
+                    $('#ajax-loader').show();
+                },
+                type: 'POST',
+                url: '<?php echo Yii::app()->createUrl('comment/add') ?>',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $('#ajax-loader').hide();
+                    $('#comment_content').val('');
+                    if (response.status === 1)
+                    {
+                        $('#comment-list').prepend('<li class="comment-item clearfix">' +
+                                '<div class="avatar">' +
+                                '<img src="' + response.data.photo + '" alt="" width="40" height="40">' +
+                                '</div>' +
+                                '<div class="content">' +
+                                '<div class="content-header">' +
+                                '<a href="" class="name">' + response.data.username + '</a>' +
+                                '<span class="time">' + response.data.created_at + '</span>' +
+                                '</div>' +
+                                '<div class="content-comment">' + response.data.comment_content + '</div>' +
+                                '</div>' +
+                                '</li>');
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            })
+        });
+
+        // masonry layout for cards
+        $cardContainer = $('.cards-display-main-ctn');
+        $cardItem = $('.card-item');
+        $cardContainer.imagesLoaded().done(function () {
+            $cardContainer.masonry({
+                columnWidth: '.card-item',
+                itemSelector: '.card-item',
+                percentPosition: true,
+                transitionDuration: 0
+            });
+        });
+        var maxPage = '';
+        $cardContainer.infinitescroll({
+            navSelector: '.next',
+            nextSelector: '.next a',
+            itemSelector: '.cards-display-main-ctn',
+            loading: {
+                finishedMsg: 'Đã hết bài đăng',
+                img: 'http://loadinggif.com/images/image-selection/17.gif',
+                msgText: "Đang tải"
+            },
+            pixelsFromNavToBottom: '100',
+            animate: true,
+        },
+                // trigger Masonry as a callback
+
+                        function (newElements) {
+                            var $newElems = $(newElements).css({
+                                opacity: 0
+                            });
+                            $newElems.imagesLoaded(function () {
+                                $newElems.animate({
+                                    opacity: 1
+                                });
+                                $cardContainer.masonry('appended', $newElems, true);
+                            });
+                        }
+                );
+
+                // single post image slider
+                $('.carousel').carousel({
+                    interval: false,
+                    wrap: false
+                });
+
+            });
 </script>
