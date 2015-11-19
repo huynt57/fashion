@@ -276,7 +276,7 @@
                 img: 'http://loadinggif.com/images/image-selection/17.gif',
                 msgText: "Đang tải"
             },
-            pixelsFromNavToBottom: '100',
+            pixelsFromNavToBottom: '0',
             animate: true,
         },
         // trigger Masonry as a callback
