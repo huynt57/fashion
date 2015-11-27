@@ -12,7 +12,7 @@
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                      ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                       ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -279,26 +279,26 @@
             pixelsFromNavToBottom: '0',
             animate: true,
         },
-        // trigger Masonry as a callback
+                // trigger Masonry as a callback
 
-        function (newElements) {
-            var $newElems = $(newElements).css({
-                opacity: 0
-            });
-            $newElems.imagesLoaded(function () {
-                $newElems.animate({
-                    opacity: 1
+                        function (newElements) {
+                            var $newElems = $(newElements).css({
+                                opacity: 0
+                            });
+                            $newElems.imagesLoaded(function () {
+                                $newElems.animate({
+                                    opacity: 1
+                                });
+                                $cardContainer.masonry('appended', $newElems, true);
+                            });
+                        }
+                );
+
+                // single post image slider
+                $('.carousel').carousel({
+                    interval: false,
+                    wrap: false
                 });
-                $cardContainer.masonry('appended', $newElems, true);
-            });
-        }
-        );
 
-        // single post image slider
-        $('.carousel').carousel({
-            interval: false,
-            wrap: false
-        });
-   
-    });
+            });
 </script>
