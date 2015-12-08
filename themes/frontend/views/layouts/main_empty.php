@@ -36,31 +36,33 @@
 
 // Only works after `FB.init` is called
             function myFacebookLogin() {
-                FB.login(function () {
-                    FB.api('/me?fields=id,name, email,  picture, first_name, last_name, link, age_range', function (response) {
-                        console.log(response);
-                        $.ajax({
-                            url: '<?php echo Yii::app()->createUrl('user/LoginWithFacebook') ?>',
-                            type: 'POST',
-                            data: {
-                                facebook_id: response.id,
-                                gender: response.gender,
-                                name: response.name,
-                                email: response.email,
-                                location: response.locale,
-                                birthday: response.birthday,
-                                photo: 'https://graph.facebook.com/'+response.id+'/picture?type=large',
-                            },
-                            dataType: 'json',
-                            success: function (response) {
-                                console.log(response);
-                                if (response.status === 1)
-                                {
-                                    window.location = '<?php echo Yii::app()->createAbsoluteUrl('home/newsFeed') ?>';
-                                }
-                            },
+                FB.login(function (response) {
+                    if (response.authResponse) {
+                        FB.api('/me?fields=id,name, email,  picture, first_name, last_name, link, age_range', function (response) {
+                            console.log(response);
+                            $.ajax({
+                                url: '<?php echo Yii::app()->createUrl('user/LoginWithFacebook') ?>',
+                                type: 'POST',
+                                data: {
+                                    facebook_id: response.id,
+                                    gender: response.gender,
+                                    name: response.name,
+                                    email: response.email,
+                                    location: response.locale,
+                                    birthday: response.birthday,
+                                    photo: 'https://graph.facebook.com/' + response.id + '/picture?type=large',
+                                },
+                                dataType: 'json',
+                                success: function (response) {
+                                    console.log(response);
+                                    if (response.status === 1)
+                                    {
+                                        window.location = '<?php echo Yii::app()->createAbsoluteUrl('home/newsFeed') ?>';
+                                    }
+                                },
+                            });
                         });
-                    });
+                    }
                 }, {scope: 'public_profile, email'});
             }
 

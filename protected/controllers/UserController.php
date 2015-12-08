@@ -20,6 +20,8 @@ class UserController extends Controller {
             $request = Yii::app()->request;
             if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
                 $user_id = $request->getQuery('user_id');
+            } else if ($request->getQuery('ref_web') == 'ref_web') {
+                $user_id = $request->getQuery('user_id');
             } else {
                 $user_id = Yii::app()->session['user_id'];
             }

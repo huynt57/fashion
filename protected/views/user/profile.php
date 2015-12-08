@@ -7,7 +7,7 @@
                 <div class="df-container">
                     <div class="cover-content-inner">
                         <div class="avatar">
-                            <img src="<?php echo Yii::app()->session['user_avatar']?>" height="128" width="128" alt="">
+                            <img src="<?php echo $profile->photo?>" height="128" width="128" alt="">
                         </div>
                         <div class="info">
                             <h1 class="name"><?php echo $profile->username?></h1>

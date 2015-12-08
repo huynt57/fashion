@@ -12,18 +12,18 @@
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                       ?>');"></span>-->
+            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                          ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
                         </div>
                         <div class="post-header card-header">
                             <div class="header-avatar">
-                                <a href=""><img src="<?php echo $item['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>"><img src="<?php echo $item['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
                             </div>
                             <div class="header-info">
                                 <h4 class="name">
-                                    <span class="name-original"><a href=""><?php echo $item['user'][0]['username'] ?></a></span>
+                                    <span class="name-original"><a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>"><?php echo $item['user'][0]['username'] ?></a></span>
                                 </h4>
                                 <p class="time"><?php echo Util::time_elapsed_string($item['created_at']); ?></p>
                             </div>

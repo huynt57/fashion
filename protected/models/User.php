@@ -43,7 +43,7 @@ class User extends BaseUser {
             $model->status = 1;
             if ($model->save(FALSE)) {
                 Yii::app()->session['user_id'] = $model->id;
-                Yii::app()->session['user_avatar'] = $check->photo;
+                Yii::app()->session['user_avatar'] = $model->photo;
                 ResponseHelper::JsonReturnSuccess($model, "Success");
             } else {
                 ResponseHelper::JsonReturnError("", "Server Error");
@@ -135,7 +135,6 @@ class User extends BaseUser {
         $pages->applyLimit($criteria);
         return array('data' => $data, 'pages' => $pages);
     }
-    
 
 //    public function rankByMonth() {
 //        $criteria = new CDbCriteria;
@@ -167,9 +166,8 @@ class User extends BaseUser {
         $data = User::model()->findByPk($user_id);
         return $data;
     }
-    
-    public function searchByUsername($username, $limit, $offset)
-    {
+
+    public function searchByUsername($username, $limit, $offset) {
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;
         $criteria->offset = $offset;
