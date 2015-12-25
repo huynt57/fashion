@@ -174,7 +174,7 @@ class PostController extends Controller {
             $cats_arr = StringHelper::filterArrayString($request->getPost('cats'));
             $cats = json_encode($cats_arr);
             $url = $_SERVER['HTTP_REFERER'];
-            $url_arr = NULL;
+         //   $url_arr = NULL;
             $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
             // $album = StringHelper::filterString($request->getPost('album'));
             $album = NULL;

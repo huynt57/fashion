@@ -7,14 +7,14 @@
                 <div class="df-container">
                     <div class="cover-content-inner">
                         <div class="avatar">
-                            <img src="<?php echo $profile->photo?>" height="128" width="128" alt="">
+                            <img src="<?php echo $profile->photo ?>" height="128" width="128" alt="">
                         </div>
                         <div class="info">
-                            <h1 class="name"><?php echo $profile->username?></h1>
+                            <h1 class="name"><?php echo $profile->username ?></h1>
                             <div class="about">
                                 <p class="about-text">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you.</p>
                                 <p class="about-link">
-<!--                                    <span class="location"><i class="fa fa-map-marker"></i><?php //echo $profile->location ?></span>-->
+<!--                                    <span class="location"><i class="fa fa-map-marker"></i><?php //echo $profile->location  ?></span>-->
                                     <!-- <span class="website"><i class="fa fa-globe"></i><a href="">www.juliagabriel.com</a></span> -->
                                     <span class="social">
                                         <a href=""><i class="fa fa-facebook-square"></i></a>
@@ -70,7 +70,7 @@
                     </ul>
                 </div>
                 <div class="clearfix"></div>
-                <?php $this->renderPartial('listPost', array('data' => $posts, 'pages'=>$pages)); ?>
+                <?php $this->renderPartial('listPost', array('data' => $posts, 'pages' => $pages)); ?>
             </div>
         </div>
     </div>
