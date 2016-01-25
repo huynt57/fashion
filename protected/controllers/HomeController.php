@@ -28,7 +28,7 @@ class HomeController extends Controller {
                // $feed = Posts::model()->getNewsFeedForWeb($user_id);
                 
                 //for testing
-                $feed = Posts::model()->getNewsFeedForWeb(1);
+                $feed = Posts::model()->getNewsFeedForWeb($user_id);
                 
                 $this->render('index', $feed);
             }

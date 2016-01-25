@@ -10,7 +10,7 @@
                     <div class="carousel-inner" role="listbox">
                         <?php foreach ($data['images'] as $key => $image): ?>
                             <div class="item <?php if ($key == 0): ?>active<?php endif; ?>">
-                                <span class="helper-align"></span><img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="...">
+                                <span class="helper-align"></span><img src="<?php echo StringHelper::generateUrlImage($image['img_url']) ?>" alt="...">
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -22,7 +22,7 @@
                         <ul class="carousel-indicators">
                             <?php foreach ($data['images'] as $key => $image): ?>
                                 <li data-target="#post-images-carousel" data-slide-to="<?php echo $key ?>" <?php if ($key == 0): ?>class="active"<?php endif; ?>>
-                                    <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" alt="" style="height: 100%; width: 100%;">
+                                    <img src="<?php echo StringHelper::generateUrlImage($image['img_url']) ?>" alt="" style="height: 100%; width: 100%;">
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -121,7 +121,7 @@
         </div>
     </div>
 </div>
-<?php $this->renderPartial('modal')?>
+<?php $this->renderPartial('modal') ?>
 
 <script>
     $(document).ready(function () {
@@ -200,7 +200,6 @@
                 if (response.status === 1)
                 {
                     $.toast('Chặn người dùng thành công !!');
-
                 } else {
                     $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
 

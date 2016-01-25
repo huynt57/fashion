@@ -149,7 +149,11 @@ class Posts extends BasePosts {
         $hidden_post_criteria->params = array(':user_id' => $user_id);
         $hidden_post = UserPostRelationship::model()->findAll($hidden_post_criteria);
         //return implode(',', $hidden_post);
-        return $hidden_post;
+        $returnArr = array();
+        foreach ($hidden_post as $item) {
+            $returnArr[] = $item->post_id;
+        }
+        return $returnArr;
     }
 
     public function getBlockedUserByUser($user_id) {
@@ -159,13 +163,18 @@ class Posts extends BasePosts {
         $blocked_user_criteria->params = array(':user_id' => $user_id);
         $blocked_user = Relationship::model()->findAll($blocked_user_criteria);
         //return implode(',', $blocked_user);
-        return $blocked_user;
+        $returnArr = array();
+        foreach ($blocked_user as $item) {
+            $returnArr[] = $item->user_id_2;
+        }
+        return $returnArr;
     }
 
     public function getNewsFeedForUser($user_id, $limit, $offset) {
         $returnArr = array();
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
+    //    var_dump($blocked_user); die;
         $news_feed_criteria = new CDbCriteria;
         $news_feed_criteria->select = '*';
         $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
@@ -342,11 +351,6 @@ class Posts extends BasePosts {
     }
 
     public function getPostByCategoryType($type) {
-
-//        $sql = "SELECT * FROM tbl_posts JOIN tbl_cat_post ON tbl_posts.post_id = "
-//                . "tbl_cat_post.post_id JOIN tbl_cat WHERE tbl_cat_post.cat_id = "
-//                . "tbl.categories.cat_id WHERE tbl_categories.type = $type";
-//        $data = Yii::app()->db->createCommand($sql)->queryAll
         $returnArr = array();
         $categories = $this->getCategoryByType($type);
         $criteria = new CDbCriteria;
@@ -356,13 +360,13 @@ class Posts extends BasePosts {
         $criteria->condition = "a.type = $type";
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
-         $pages->validateCurrentPage = FALSE;
+        $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
+        // var_dump($data); die;
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
-
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages, 'cats' => $categories);
@@ -377,7 +381,7 @@ class Posts extends BasePosts {
         $criteria->condition = "a.cat_id = $cat_id";
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
-         $pages->validateCurrentPage = FALSE;
+        $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
@@ -441,7 +445,7 @@ class Posts extends BasePosts {
         //  die();
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
-         $pages->validateCurrentPage = FALSE;
+        $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         return array('data' => $returnArr, 'pages' => $pages);
