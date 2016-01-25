@@ -194,6 +194,7 @@ class Posts extends BasePosts {
         $news_feed_criteria->order = 't.post_id DESC';
         $count = Posts::model()->count($news_feed_criteria);
         $pages = new CPagination($count);
+        $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($news_feed_criteria);
         $data = Posts::model()->findAll($news_feed_criteria);
@@ -355,6 +356,7 @@ class Posts extends BasePosts {
         $criteria->condition = "a.type = $type";
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
+         $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
@@ -375,6 +377,7 @@ class Posts extends BasePosts {
         $criteria->condition = "a.cat_id = $cat_id";
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
+         $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
@@ -438,6 +441,7 @@ class Posts extends BasePosts {
         //  die();
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
+         $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         return array('data' => $returnArr, 'pages' => $pages);

@@ -27,7 +27,7 @@
                     <nav class="top-nav">
                         <ul class="top-nav-ctn">
                             <li class="top-nav-explore active">
-                                <a href="#">
+                                <a href="<?php echo Yii::app()->createUrl('home/newsFeed')?>">
                                     <i class="fa fa-compass fa-lg icon-on-small"></i>
                                     <span class="text-on-large">Khám phá</span>
                                 </a>

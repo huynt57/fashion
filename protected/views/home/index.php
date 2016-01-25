@@ -1,6 +1,6 @@
 <div class="cards-display-main">
     <div class="df-container" id="container">
-        <div class="cards-display-main-ctn">
+        <div class="cards-display-main-ctn" id="card-container">
             <div class="card-sizer"></div>
             <?php foreach ($data as $item): ?>
                 <div class="card-item" id="<?php echo $item['post_id'] ?>">
@@ -9,10 +9,10 @@
                             <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
                                 <?php foreach ($item['images'] as $image): ?>
                                     <?php if (count($item['images']) == 1): ?>                                                                                                             <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                     ?>');"></span>-->
-                                        <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
+                                        <img src="<?php echo StringHelper::generateUrlImage($image['img_url']) ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                          ?>');"></span>-->
+            <span style="background-image: url('<?php echo StringHelper::generateUrlImage($image['img_url']) ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                                ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -87,6 +87,7 @@
         'firstPageLabel' => 'Đầu tiên',
         'lastPageLabel' => 'Cuối cùng',
         'selectedPageCssClass' => 'active',
+        
             )
     )
     ?>
@@ -216,7 +217,7 @@
 </script>
 <script>
     $(document).ready(function () {
-        $()
+
         $(document).on('submit', '#form_comment', function (event) {
             event.preventDefault();
             var form = $('#form_comment');
@@ -268,8 +269,8 @@
         });
 
         $cardContainer.infinitescroll({
-            navSelector: '.next',
-            nextSelector: '.next a',
+            navSelector: '.pagination',
+            nextSelector: '.next a:first',
             itemSelector: '.cards-display-main-ctn',
             loading: {
                 finishedMsg: 'Đã hết bài đăng',
@@ -302,3 +303,7 @@
 
             });
 </script>
+
+
+
+

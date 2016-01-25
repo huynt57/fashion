@@ -19,7 +19,7 @@ class Wishlist extends BaseWishlist {
             $model->status = 1;
             $model->created_at = time();
             $model->updated_at = time();
-            if ($model->save()) {
+            if ($model->save(FALSE)) {
                 return TRUE;
             }
         }

@@ -129,9 +129,8 @@ class StringHelper {
         }
         return $class;
     }
-    
-    public static function returnCategoryTypeName($type)
-    {
+
+    public static function returnCategoryTypeName($type) {
         $class = NULL;
         switch ($type) {
             case 1:
@@ -146,11 +145,17 @@ class StringHelper {
         }
         return $class;
     }
-    
-    public static function returnCategoryNameById($cat_id)
-    {
+
+    public static function returnCategoryNameById($cat_id) {
         $cat = Categories::model()->findByPk($cat_id);
         return $cat->cat_name;
+    }
+
+    public static function generateUrlImage($url) {
+        if (strpos($url, 'http') === false) {
+            $url = Yii::app()->request->getBaseUrl(true) . '/' . $url;
+        }
+        return $url;
     }
 
 }
