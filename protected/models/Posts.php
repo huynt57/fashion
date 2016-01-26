@@ -174,7 +174,7 @@ class Posts extends BasePosts {
         $returnArr = array();
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
-    //    var_dump($blocked_user); die;
+        //    var_dump($blocked_user); die;
         $news_feed_criteria = new CDbCriteria;
         $news_feed_criteria->select = '*';
         $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
@@ -222,25 +222,37 @@ class Posts extends BasePosts {
 
     public function findCategoryById($cat_id) {
         $cat = Categories::model()->findByPk($cat_id);
-        return array($cat->cat_name, $cat->cat_id);
+        if ($cat) {
+            return array($cat->cat_name, $cat->cat_id);
+        }
+        return array('', '');
     }
 
     public function findUsernameByPostId($post_id) {
         $user_id = Posts::model()->findByPk($post_id);
         $user = User::model()->findByPk($user_id->user_id);
-        return $user->username;
+        if ($user) {
+            return $user->username;
+        }
+        return '';
     }
 
     public function findUserPhotoByPostId($post_id) {
         $user_id = Posts::model()->findByPk($post_id);
         $user = User::model()->findByPk($user_id->user_id);
-        return $user->photo;
+        if ($user) {
+            return $user->photo;
+        }
+        return '';
     }
 
     public function findUserByPostId($post_id) {
         $user_id = Posts::model()->findByPk($post_id);
         $user = User::model()->findByPk($user_id->user_id);
-        return array('username' => $user->username, 'photo' => $user->photo);
+        if ($user) {
+            return array('username' => $user->username, 'photo' => $user->photo);
+        }
+        return array('username' => '', 'photo' => '');
     }
 
     public function findCategoryNameByPostId($post_id) {
@@ -299,7 +311,7 @@ class Posts extends BasePosts {
     }
 
     public function getCommentsByPost($post_id) {
-        $sql = "SELECT * FROM tbl_comments JOIN tbl_user ON tbl_comments.created_by = tbl_user.id WHERE tbl_comments.post_id = $post_id";
+        $sql = "SELECT * FROM tbl_comments JOIN tbl_user ON tbl_comments.created_by = tbl_user.id WHERE tbl_comments.post_id = $post_id ORDER BY tbl_comments.created_at DESC";
         $data = Yii::app()->db->createCommand($sql)->queryAll();
         return $data;
     }
@@ -351,6 +363,7 @@ class Posts extends BasePosts {
     }
 
     public function getPostByCategoryType($type) {
+
         $returnArr = array();
         $categories = $this->getCategoryByType($type);
         $criteria = new CDbCriteria;
@@ -358,6 +371,11 @@ class Posts extends BasePosts {
         $criteria->join .= ' JOIN tbl_categories a ON a.cat_id = c.cat_id ';
         $criteria->order = 't.post_id DESC';
         $criteria->condition = "a.type = $type";
+        $user_id = Yii::app()->session['user_id'];
+        $hidden_post = $this->getHiddenPostByUser($user_id);
+        $blocked_user = $this->getBlockedUserByUser($user_id);
+        $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $criteria->addNotInCondition('t.user_id', $blocked_user);
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->validateCurrentPage = FALSE;
@@ -381,6 +399,11 @@ class Posts extends BasePosts {
         $criteria->condition = "a.cat_id = $cat_id";
         $count = Posts::model()->count($criteria);
         $pages = new CPagination($count);
+        $user_id = Yii::app()->session['user_id'];
+        $hidden_post = $this->getHiddenPostByUser($user_id);
+        $blocked_user = $this->getBlockedUserByUser($user_id);
+        $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $criteria->addNotInCondition('t.user_id', $blocked_user);
         $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
@@ -432,10 +455,15 @@ class Posts extends BasePosts {
             $time_start = strtotime('-1 year');
         }
         $time_end = time();
-        $criteria->select = 't.post_id, COUNT(*) AS count_like';
+        $user_id = Yii::app()->session['user_id'];
+        $hidden_post = $this->getHiddenPostByUser($user_id);
+        $blocked_user = $this->getBlockedUserByUser($user_id);
+        $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $criteria->addNotInCondition('t.user_id', $blocked_user);
+        $criteria->select = 't.post_id, t.post_like_count';
         $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
         $criteria->join = 'JOIN tbl_like l ON t.user_id = l.to';
-        $criteria->order = 'count_like DESC';
+        $criteria->order = 'post_like_count DESC';
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);

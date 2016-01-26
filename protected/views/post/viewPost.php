@@ -70,9 +70,9 @@
                 </div>
                 <div class="post-footer single-post-footer">
                     <div class="footer-count">
-                        <span class="item-count"><a href="" id="post_like_count"><?php echo $data['post_like_count'] ?> thích</a></span>
-                        <span class="item-count"><a href="" id="post_view_count"><?php echo $data['post_view_count'] ?> lượt xem</a></span>
-                        <span class="item-count"><a href="" id="post_comment_count"><?php echo $data['post_comment_count'] ?> bình luận</a></span>
+                        <span class="item-count"><a href="" id="post_like_count"><span id='post_like_cnt'><?php echo $data['post_like_count'] ?></span> thích</a></span>
+                        <span class="item-count"><a href="" id="post_view_count"><span id='post_view_cnt'><?php echo $data['post_view_count'] ?></span> lượt xem</a></span>
+                        <span class="item-count"><a href="" id="post_comment_count"><span id='post_cmt_cnt'><?php echo $data['post_comment_count'] ?></span> bình luận</a></span>
 <!--                        <span class="item-count"><a href="">1234 chia sẻ</a></span>-->
                     </div>
                     <div class="footer-action">
@@ -95,7 +95,7 @@
                             <input name="user_id" type="hidden" value="<?php echo Yii::app()->session['user_id'] ?>" />
                             <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                             <button type="submit">Gửi bình luận</button>
-                            <img id="ajax-loader"src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/ajax-loader.gif">
+                            <img style="display: none" id="ajax-loader"src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/ajax-loader.gif">
                         </form>
 
                     </div>
@@ -124,6 +124,7 @@
 <?php $this->renderPartial('modal') ?>
 
 <script>
+
     $(document).ready(function () {
         $('#ajax-loader').hide();
         $(document).on('submit', '#form_comment', function (event) {
@@ -142,8 +143,12 @@
                     console.log(response);
                     $('#ajax-loader').hide();
                     $('#comment_content').val('');
+                    var post_cmt_cnt = parseInt($('#post_cmt_cnt').text());
+                        $('#post_cmt_cnt').text(post_cmt_cnt + 1);
                     if (response.status === 1)
                     {
+                        
+                      
                         $('#comment-list').prepend('<li class="comment-item clearfix">' +
                                 '<div class="avatar">' +
                                 '<img src="' + response.data.photo + '" alt="" width="40" height="40">' +

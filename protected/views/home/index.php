@@ -12,7 +12,7 @@
                                         <img src="<?php echo StringHelper::generateUrlImage($image['img_url']) ?>" class="img-fullwidth">
                                     <?php endif; ?>
                                     <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo StringHelper::generateUrlImage($image['img_url']) ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                                ?>');"></span>-->
+            <span style="background-image: url('<?php echo StringHelper::generateUrlImage($image['img_url']) ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                                   ?>');"></span>-->
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </a>
@@ -87,7 +87,6 @@
         'firstPageLabel' => 'Đầu tiên',
         'lastPageLabel' => 'Cuối cùng',
         'selectedPageCssClass' => 'active',
-        
             )
     )
     ?>
@@ -107,6 +106,17 @@
                 {
                     $.toast('Ẩn bài viết thành công !!');
                     $('#' + post_id).hide();
+                    $cardContainer = $('.cards-display-main-ctn');
+                    $cardItem = $('.card-item');
+                    $cardContainer.imagesLoaded().done(function () {
+                        $cardContainer.masonry({
+                            columnWidth: '.card-item',
+                            itemSelector: '.card-item',
+                            percentPosition: true,
+                            transitionDuration: 0
+                        });
+                    });
+                    // $cardContainer.data('masonry')['_reLayout']()
                 } else {
                     $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
                     $('#' + post_id).hide();
