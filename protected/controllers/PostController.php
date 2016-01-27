@@ -173,7 +173,7 @@ class PostController extends Controller {
             $location = StringHelper::filterString($request->getPost('location'));
             $cats_arr = StringHelper::filterArrayString($request->getPost('cats'));
             $cats = json_encode($cats_arr);
-            $url = $_SERVER['HTTP_REFERER'];
+            $url = Yii::app()->request->getUrlReferrer();
          //   $url_arr = NULL;
             $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
             // $album = StringHelper::filterString($request->getPost('album'));

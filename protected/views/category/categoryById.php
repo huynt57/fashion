@@ -23,7 +23,7 @@
                 <div class="card-item" id="<?php echo $item['post_id'] ?>">
                     <div class="card-item-inner">
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
-                            <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
+                            <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax" data-featherlight-loading=" <img class='ajax-loader-feather' src='<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/loader.gif'> ">
                                 <?php foreach ($item['images'] as $image): ?>
                                     <?php if (count($item['images']) == 1): ?>                                                                                                             <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                     ?>');"></span>-->
                                         <img src="<?php echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url'] ?>" class="img-fullwidth">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="post-header card-header">
                             <div class="header-avatar">
-                                <a href=""><img src="<?php echo $item['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web'=>'ref_web', 'user_id'=>$item['user_id']))?>"><img src="<?php echo $item['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
                             </div>
                             <div class="header-info">
                                 <h4 class="name">
@@ -216,6 +216,12 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    if ($('#bookmark-' + post_id).hasClass('active'))
+                    {
+                        $('#bookmark-' + post_id).removeClass('active');
+                    } else {
+                        $('#bookmark-' + post_id).addClass('active');
+                    }
                     $.toast('Đánh dấu thành công !!');
                 } else {
                     $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');

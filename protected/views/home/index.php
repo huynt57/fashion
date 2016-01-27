@@ -6,7 +6,7 @@
                 <div class="card-item" id="<?php echo $item['post_id'] ?>">
                     <div class="card-item-inner">
                         <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
-                            <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax">
+                            <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax" data-featherlight-loading=" <img class='ajax-loader-feather' src='<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/loader.gif'> ">
                                 <?php foreach ($item['images'] as $image): ?>
                                     <?php if (count($item['images']) == 1): ?>                                                                                                             <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                     ?>');"></span>-->
                                         <img src="<?php echo StringHelper::generateUrlImage($image['img_url']) ?>" class="img-fullwidth">
@@ -192,7 +192,7 @@
                     } else {
                         $('#like-' + post_id).addClass('active');
                     }
-                    $.toast('Thành công !!');
+                    $.toast('Đã thích !!');
                 } else {
                     $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
                 }
@@ -210,6 +210,12 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    if ($('#bookmark-' + post_id).hasClass('active'))
+                    {
+                        $('#bookmark-' + post_id).removeClass('active');
+                    } else {
+                        $('#bookmark-' + post_id).addClass('active');
+                    }
                     $.toast('Đánh dấu thành công !!');
                 } else {
                     $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');

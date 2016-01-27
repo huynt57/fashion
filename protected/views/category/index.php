@@ -36,7 +36,7 @@
                         </div>
                         <div class="post-header card-header">
                             <div class="header-avatar">
-                                <a href=""><img src="<?php echo $item['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web'=>'ref_web', 'user_id'=>$item['user_id']))?>"><img src="<?php echo $item['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
                             </div>
                             <div class="header-info">
                                 <h4 class="name">
@@ -206,7 +206,7 @@
         });
     }
 
-    function bookmark(post_id)
+     function bookmark(post_id)
     {
         $.ajax({
             url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
@@ -216,6 +216,12 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    if ($('#bookmark-' + post_id).hasClass('active'))
+                    {
+                        $('#bookmark-' + post_id).removeClass('active');
+                    } else {
+                        $('#bookmark-' + post_id).addClass('active');
+                    }
                     $.toast('Đánh dấu thành công !!');
                 } else {
                     $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
