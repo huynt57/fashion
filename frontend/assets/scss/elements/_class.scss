@@ -1,0 +1,157 @@
+// =================================================
+// CLASSES
+// pre-defined class for use in elements
+// =================================================
+
+// clear
+.clearfix{	@include clearfix(); }
+.clearall{	@include clearall(); }
+
+// float
+.f-left{ 	float: left; }
+.f-right{ float: right; }
+
+// display
+.block{ 	display: block; }
+.iblock{ 	display: inline-block; }
+.inline{ 	display: inline; }
+.hidden{ 	display: none; visibility: hidden; }
+
+// images
+.img-responsive{	display: block; max-width: 100%; height: auto; }
+.img-fullwidth{ 	display: block; width: 100%; height: auto; }
+.img-fullheight{ 	display: block; width: auto; height: 100%; }
+
+// box shadow
+.z-depth-0{	box-shadow: none !important;}
+.z-depth-1{	background-color: $white; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.18);}
+.z-depth-2{	background-color: $white; box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.24)}
+.z-depth-3{	background-color: $white; box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.32)}
+.z-depth-4{	background-color: $white; box-shadow: 0 7px 9px 0 rgba(0, 0, 0, 0.40)}
+
+// background
+.bg-cover{ @include background-size(cover); background-position: 50% 50%; }
+.bgc-white{ background-color: $white; }
+// input
+.hide-spinner{
+	input[type=number] {-moz-appearance: textfield;}
+	::-webkit-inner-spin-button { -webkit-appearance: none;}
+	::-webkit-outer-spin-button { -webkit-appearance: none;}
+}
+
+// cursor
+.cursor-default{ 	cursor: default; }
+.cursor-pointer{ 	cursor: pointer; }
+
+// border
+.bdc-transparent{ border-color: transparent; }
+.bd-none{ border: 0; }
+// border-radius
+.bdrs-2{ 		border-radius: 2px; }
+.bdrs-4{ 		border-radius: 4px; }
+.bdrs-6{ 		border-radius: 6px; }
+.bdrs-25{ 	border-radius: 25%; }
+.bdrs-50{ 	border-radius: 50%; }
+
+// margin
+.mg-auto{		margin: 0 auto; }
+.mg-none{		margin: 0; }
+.mg-a5{ 		margin: 5px; }
+.mg-a10{	margin: 10px; }
+.mg-a15{ 	margin: 15px; }
+.mg-a20{ 	margin: 20px; }
+.mg-a30{ 	margin: 30px; }
+.mg-t0{ 	margin-top: 0px; }
+.mg-t5{ 		margin-top: 5px; }
+.mg-t10{ 		margin-top: 10px; }
+.mg-t15{ 		margin-top: 15px; }
+.mg-t20{ 		margin-top: 20px; }
+.mg-t30{ 		margin-top: 30px; }
+.mg-r0{ 	margin-right: 0px; }
+.mg-r5{ 	margin-right: 5px; }
+.mg-r10{ 	margin-right: 10px; }
+.mg-r15{ 	margin-right: 15px; }
+.mg-r20{ 	margin-right: 20px; }
+.mg-r30{ 	margin-right: 30px; }
+.mg-b0{ 		margin-bottom: 0px; }
+.mg-b5{ 		margin-bottom: 5px; }
+.mg-b10{		margin-bottom: 10px; }
+.mg-b15{		margin-bottom: 15px; }
+.mg-b20{		margin-bottom: 20px; }
+.mg-b30{		margin-bottom: 30px; }
+.mg-l0{		margin-left: 0px; }
+.mg-l5{		margin-left: 5px; }
+.mg-l10{	margin-left: 10px; }
+.mg-l15{	margin-left: 15px; }
+.mg-l20{	margin-left: 20px; }
+.mg-l30{	margin-left: 30px; }
+
+.mg-t-20{ margin-top: -20px; }
+.mg-b-20{ margin-bottom: -20px; }
+
+// padding
+.pd-none{ 	padding: 0px; }
+.pd-a5{ 		padding: 5px; }
+.pd-a10{ 	padding: 10px; }
+.pd-a15{ 	padding: 15px; }
+.pd-a20{ 	padding: 20px; }
+.pd-a30{ 	padding: 30px; }
+.pd-t0{ 		padding-top: 0px; }
+.pd-t5{ 		padding-top: 5px; }
+.pd-t10{		padding-top: 10px; }
+.pd-t15{		padding-top: 15px; }
+.pd-t20{		padding-top: 20px; }
+.pd-t30{		padding-top: 30px; }
+.pd-r0{		padding-right: 0px; }
+.pd-r5{		padding-right: 5px; }
+.pd-r10{ 	padding-right: 10px; }
+.pd-r15{ 	padding-right: 15px; }
+.pd-r20{ 	padding-right: 20px; }
+.pd-r30{ 	padding-right: 30px; }
+.pd-b0{ 		padding-bottom: 0px; }
+.pd-b5{ 		padding-bottom: 5px; }
+.pd-b10{		padding-bottom: 10px; }
+.pd-b15{		padding-bottom: 15px; }
+.pd-b20{		padding-bottom: 20px; }
+.pd-b30{		padding-bottom: 30px; }
+.pd-l0{ 	padding-left: 0px; }
+.pd-l5{ 	padding-left: 5px; }
+.pd-l10{	padding-left: 10px; }
+.pd-l15{	padding-left: 15px; }
+.pd-l20{	padding-left: 20px; }
+.pd-l30{	padding-left: 30px; }
+.pd-l40{	padding-left: 40px; }
+
+// type
+a.no-deco{ &, &:hover, &:active, &:visited, &:focus{ text-decoration: none; } }
+.text-dot{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.underline{ text-decoration: underline; }
+.text-one-line{ @include textoneline(); }
+
+// font size
+.fz11{ font-size: 11px; }
+.fz12{ font-size: 12px; }
+.fz13{ font-size: 13px; }
+.fz14{ font-size: 14px; }
+.fz16{ font-size: 16px; }
+.fz18{ font-size: 18px; }
+.fz20{ font-size: 20px; }
+.fz22{ font-size: 22px; }
+.fz24{ font-size: 24px; }
+.fz28{ font-size: 28px; }
+.fz30{ font-size: 30px; }
+// font style
+.fsi{ font-style: italic; }
+.fsn{ font-style: normal; }
+// font weight
+.fw200{ font-weight: 200; }
+.fw300{ font-weight: 300; }
+.fw400{ font-weight: 400; }
+.fw500{ font-weight: 500; }
+.fw600{ font-weight: 600; }
+.fw700{ font-weight: 700; }
+.fw800{ font-weight: 800; }
+.fw900{ font-weight: 900; }
+
+
+

@@ -1,0 +1,61 @@
+// =================================================
+// BUTTON
+// =================================================
+
+.qh-btn{
+  display: inline-block;
+  margin: 0 2px 3px 0;
+	padding: 4px 12px;
+	line-height: 20px;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: $grey100;
+  background-image: none;
+  white-space: nowrap;	
+  border: 1px solid transparent;
+  border-radius: 4px;
+	@include user-select(none);
+	@include transition(background-color .2s ease, border-color, .2s ease, color .2s ease);
+	&, &:hover, &:focus, &.focus { text-decoration: none; }
+  &.qh-btn-full-width{ display: block; width: 100%; margin: 0;}
+  &.qh-btn-block{ display: block; margin: 0;}
+  &.qh-btn-icon{
+  	i,img{ display: inline-block; line-height: 100%; }
+		img{ max-height: 22px; width: auto; }
+  	&.left-icon{ i,img{ margin-right: 7px; } }
+  	&.right-icon{ i,img{ margin-left: 7px; } }
+  	&.both-icon{ 
+  		i:first-child,img:first-child{ margin-right: 7px; } 
+  		i:last-child,img:last-child{ margin-left: 7px; }
+  	}
+  }
+  // button size : $padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius
+  &.qh-btn-xs{ @include button-size(0, 6px, 11px, 18px, 2px) }
+	&.qh-btn-sm{ @include button-size(1px, 7px, 12px, 18px, 2px) }
+	&.qh-btn-md{ @include button-size(3px, 10px, 13px, 18px, 2px) }
+	&.qh-btn-lg{ @include button-size(6px, 15px, 14px, 20px, 2px) }
+	&.qh-btn-xl{ @include button-size(9px, 17px, 15px, 20px, 2px) }
+}
+// $color, $background, $border, $color-hover, $background-hover, $border-hover
+.qh-btn-facebook{ @include button-variant(#fff, $color_facebook, $color_facebook, #fff, darken($color_facebook,10%), darken($color_facebook,10%)); }
+.qh-btn-twitter{ 	@include button-variant(#fff, $color_twitter, $color_twitter, #fff, darken($color_twitter,10%), darken($color_twitter,10%)); }
+.qh-btn-ggplus{		@include button-variant(#fff, $color_ggplus, $color_ggplus, #fff, darken($color_ggplus,10%), darken($color_ggplus,10%)); }
+
+// $color, $background, $border
+.qh-btn-normal{		 @include button-variant($grey900, #fff, $grey400, $grey900, $grey200, $grey400); }
+.qh-btn-red400{ @include button-variant(#fff, $red400, transparent, #fff, $red500, transparent) }
+.qh-btn-red500{ @include button-variant(#fff, $red500, transparent, #fff, $red600, transparent) }
+.qh-btn-red600{ @include button-variant(#fff, $red600, transparent, #fff, $red700, transparent) }
+.qh-btn-red700{ @include button-variant(#fff, $red700, transparent, #fff, $red800, transparent) }
+.qh-btn-red800{ @include button-variant(#fff, $red800, transparent, #fff, $red900, transparent) }
+.qh-btn-red900{ @include button-variant(#fff, $red900, transparent, #fff, $red900, transparent) }
+
+// $color, $background, $border
+.qh-btn-red400-fix{ @include button-variant-fix(#fff, $red400, transparent) }
+.qh-btn-red500-fix{ @include button-variant-fix(#fff, $red500, transparent) }
+.qh-btn-red600-fix{ @include button-variant-fix(#fff, $red600, transparent) }
+.qh-btn-red700-fix{ @include button-variant-fix(#fff, $red700, transparent) }
+.qh-btn-red800-fix{ @include button-variant-fix(#fff, $red800, transparent) }
+.qh-btn-red900-fix{ @include button-variant-fix(#fff, $red900, transparent) }
