@@ -96,6 +96,7 @@
 							<div class="post-image">
 								<a href="" class="post-link" data-toggle="modal" data-target="#singlePostModal">
 									<img src="assets/stock/card04.jpg" alt="">
+									<span class="more-image">+ 3 ảnh</span>
 								</a>
 							</div>				
 						</div>
@@ -112,6 +113,8 @@
 								  <button class="user-option-btn" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
 								  <ul class="dropdown-menu user-option-list pull-right z-depth-2">
 								    <li><a href="#" data-toggle="modal" data-target="#postReportModal">Báo cáo sai phạm</a></li>
+								    <li><a href="#" data-toggle="modal" data-target="#hidePostFromUserModal">Ẩn bài đăng từ Thảo Trang</a></li>
+								    <li><a href="#" data-toggle="modal" data-target="#blockUserFromPostModal">Block Nguyễn Hoàng Thảo Trang Trang Trang</a></li>
 								  </ul>
 								</div>
 							</div>
@@ -124,10 +127,16 @@
 							</div>
 						</div>
 						<div class="c-footer">
-							<div class="item-buttons">
+							<div class="item-buttons left">
+								<a href="#" class="single-button item-button-comment">
+									<span class="icon"><i class="fa fa-share-square-o"></i></span>
+								</a>
+							</div>
+							<div class="item-buttons right">
 								<a href="#" class="single-button item-button-comment">
 									<span class="icon"><i class="fa fa-comments"></i></span>
 									<span class="count">12</span>
+								</a>
 								<a href="#" class="single-button item-button-pin">
 									<span class="icon"><i class="fa fa-thumb-tack"></i></span>
 									<span class="count">10</span>
@@ -135,7 +144,6 @@
 								<a href="#" class="single-button item-button-like active">
 									<span class="icon"><i class="fa fa-heart"></i></span>
 									<span class="count">123</span>
-								</a>
 								</a>
 							</div>
 						</div>
@@ -188,6 +196,31 @@
 				</form>
   		</div>
   	</div>
+  </div>
+
+  <!-- Modal Hide Post -->
+	<div class="modal fade" id="hidePostFromUserModal">
+		<div class="qh-modal-dialog qh-default-modal z-depth-2">
+			<button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+      <div class="qh-modal-content">
+      	<p>Ẩn cái bài đăng từ <b>Nguyễn Thảo Trang</b> ?</p>
+      	<p>Các bài đăng của Nguyễn Thảo Trang sẽ không hiện lên các trang khám phá của bạn nữa.</p>
+      	<hr>
+				<p><button class="qh-btn qh-btn-normal">Đồng ý</button></p>
+			</div>
+    </div>
+  </div>
+
+  <!-- Modal Hide Post -->
+	<div class="modal fade" id="blockUserFromPostModal">
+		<div class="qh-modal-dialog qh-default-modal z-depth-2">
+			<button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+      <div class="qh-modal-content">
+      	<p>Chặn Nguyễn Thảo Trang ?</p>
+      	<hr>
+				<p><button class="qh-btn qh-btn-normal">Chặn</button></p>
+			</div>
+    </div>
   </div>
 
 	<!-- Modal Tks -->
