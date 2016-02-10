@@ -84,5 +84,5 @@ return array(
         'fb_app_id' => '1639196766348460',
         'REF_API' => 'ref_api'
     ),
-    'theme' => 'frontend'
+    'theme' => 'frontend2'
 );

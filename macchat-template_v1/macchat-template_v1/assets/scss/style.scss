@@ -1,0 +1,32 @@
+/*
+Template for Fashion Social Network Project
+*/
+
+// compass
+@import "compass/css3";
+
+// modules
+@import "modules/variables";
+@import "modules/colors";
+
+// organisms
+@import "organisms/base";
+@import "organisms/type";
+@import "organisms/class";
+@import "organisms/form";
+@import "organisms/header";
+@import "organisms/post";
+@import "organisms/card";
+
+// libs
+@import "libraries/featherlight";
+
+// template
+@import "templates/site";
+@import "templates/elements";
+@import "templates/login";
+@import "templates/upload";
+@import "templates/single";
+@import "templates/profile";
+@import "templates/category";
+@import "templates/404";

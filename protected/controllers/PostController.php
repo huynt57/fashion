@@ -2,6 +2,9 @@
 
 class PostController extends Controller {
 
+    public $layout;
+    public $layoutPath;
+    
     public function actionIndex() {
         $this->render('index');
     }
@@ -159,6 +162,24 @@ class PostController extends Controller {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
                 $this->render('viewPost', array('data' => $data));
+            }
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+    
+    public function actionView()
+    {
+        $request = Yii::app()->request;
+         $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend2/views/layouts";
+        $this->layout = 'main_modal';
+        try {
+            $post_id = StringHelper::filterString($request->getQuery('post_id'));
+            $data = Posts::model()->getPostById($post_id, Yii::app()->session['user_id']);
+            if ($request->getQuery(Yii::app()->params['REF_API'])) {
+                ResponseHelper::JsonReturnSuccess($data, "Success");
+            } else {
+                $this->render('post_modal', array('data' => $data));
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());

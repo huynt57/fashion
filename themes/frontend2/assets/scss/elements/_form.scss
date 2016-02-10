@@ -1,0 +1,164 @@
+// =================================================
+// FORM
+// =================================================
+
+// default
+input[type="radio"],
+input[type="checkbox"],
+select{
+	cursor: pointer;
+}
+form{
+	
+}
+
+// helper
+
+
+// ez form
+.qh-form{
+	@include clearall;
+	.form-title{
+		padding: 0 10px;
+	}
+	.qh-form-row{
+		margin-bottom: 10px;
+		@include clearfix;
+		&:last-child{ margin-bottom: 0; }
+	}
+	label {
+    font-weight: 400;
+	}
+	label.qh-form-label{
+		display: block;
+	}
+	.qh-form-static-control{
+		display: block;
+		padding: 0 10px;
+		margin: 5px 0;
+		line-height: 20px;
+		font-size: 14px;
+	}
+	.qh-input-control{
+		width: 100%;	
+		display: block;
+		font-size: 14px;	
+		padding: 4px 12px;
+		line-height: 20px;
+		background-color: $grey100;
+		border: none;
+		border: 1px solid $grey400;
+		border-radius: 4px;
+		@include transition(border-color .2s ease, background .2s ease);
+		&:focus{
+			background-color: $grey50;
+		}
+		&.inline{
+			display: inline-block;
+			width: auto;
+		}
+	}
+	.checkbox,.radio{
+		margin: 5px 0 0 0;
+		input{
+			margin-top: 3px;
+			margin-left: -18px;
+		}
+		&.disabled{
+			color: $grey600;
+		}
+	}
+	// checkbox & radio
+	label.checkbox-inline,
+	label.radio-inline{
+		display: inline-block;
+		margin: 0 12px 0 0;
+		input[type="radio"],
+		input[type="checkbox"]{
+			margin-top: 3px;
+			margin-left: -18px;
+		}
+		&.disabled{
+			color: $grey600;
+		}
+	}
+	// normal form
+	&.qh-form-normal{
+		.qh-form-label{
+			padding: 0 10px;
+			margin-bottom: 5px;
+		}
+	}
+	// horizontal form
+	&.qh-form-horizontal{
+		.qh-form-row{
+			margin-left: -10px;
+			margin-right: -10px;
+		}
+		.qh-form-label{
+			font-size: 14px;	
+			padding: 5px 10px;
+			line-height: 20px;
+			margin-bottom: 0px;
+		}
+	}
+	// inline form
+	&.qh-form-inline{
+		.qh-form-label, 
+		.qh-input-control,
+		.qh-form-static-control{
+			width: auto;
+			display: inline-block;
+			vertical-align: middle;
+			margin: 0 5px 0 0;
+		}
+	}
+	&.header-advanced-search{
+		.qh-form-row{
+			margin-bottom: 7px;
+		}
+		.qh-form-label{
+			font-size: 13px;
+			line-height: 20px;
+			padding: 3px 10px;
+		}
+		.label-active-control{
+			cursor: default;
+			input[type="radio"],
+			input[type="checkbox"]{
+				display: none;
+				& + label{
+					@extend .qh-btn;
+					// @extend .qh-btn-normal;
+					@extend .qh-btn-md;
+					@include button-variant($grey500, $grey100, $grey300, $grey600, $grey200, $grey300);
+				}
+				&:checked + label{
+					@include button-variant-fix($grey900, $grey300, $grey400);
+				}
+			}
+		}
+		.custom-options{
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 10px;
+			.qh-form-static-control{
+				display: inline-block;
+				vertical-align: top;
+				padding: 0 3px;
+				margin: 4px 0;
+		    line-height: 18px;
+		    font-size: 13px;
+		    color: $grey800;
+			}
+			.qh-input-control{
+				display: inline-block;
+				vertical-align: top;
+				width: 60px;
+				padding: 3px 5px;
+		    line-height: 18px;
+			}
+		}
+	}
+}
+

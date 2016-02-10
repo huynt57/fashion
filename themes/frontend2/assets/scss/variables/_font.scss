@@ -1,0 +1,26 @@
+// =================================================
+// FONTS
+// main: Roboto by Google 
+// https://www.google.com/fonts/specimen/Roboto
+// =================================================
+
+// import from google source THIS IS A MUST WHEN ON LIVE SERVER
+// @import url(https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,400italic,500,500italic,700,700italic&subset=latin,vietnamese);
+
+// font-face JUST FOR TESTING ONLY
+// @font-face { font-family: "Roboto"; font-weight: 300; font-style: normal; src: url('../fonts/Roboto-Light.ttf'); }
+// @font-face { font-family: "Roboto"; font-weight: 300; font-style: italic; src: url('../fonts/Roboto-LightItalic.ttf'); }
+// @font-face { font-family: "Roboto"; font-weight: 400; font-style: normal; src: url('../fonts/Roboto-Regular.ttf'); }
+// @font-face { font-family: "Roboto"; font-weight: 400; font-style: italic; src: url('../fonts/Roboto-Italic.ttf'); }
+// @font-face { font-family: "Roboto"; font-weight: 500; font-style: normal; src: url('../fonts/Roboto-Medium.ttf'); }
+// @font-face { font-family: "Roboto"; font-weight: 500; font-style: italic; src: url('../fonts/Roboto-MediumItalic.ttf'); }
+// @font-face { font-family: "Roboto"; font-weight: 700; font-style: normal; src: url('../fonts/Roboto-Bold.ttf'); }
+// @font-face { font-family: "Roboto"; font-weight: 700; font-style: italic; src: url('../fonts/Roboto-BoldItalic.ttf'); }
+
+// $font-family-sans-serif:  "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif;
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base:        $font-family-sans-serif !default;
+
+$font-family-base: $font-family-sans-serif;

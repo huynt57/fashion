@@ -1,0 +1,91 @@
+// =================================================
+// COLORS 
+// https://www.google.com/design/spec/style/color.html
+// =================================================
+
+$black: #000;
+$white: #fff;
+
+// Grey: 500 #9E9E9E
+$grey50: #FAFAFA;
+$grey100: #F5F5F5;
+$grey200: #EEEEEE;
+$grey300: #E0E0E0;
+$grey400: #BDBDBD;
+$grey500: #9E9E9E;
+$grey600: #757575;
+$grey700: #616161;
+$grey800: #424242;
+$grey900: #212121;
+
+// Light Green: 500 #8BC34A
+$lgreen50: #F1F8E9;
+$lgreen100: #DCEDC8;
+$lgreen200: #C5E1A5;
+$lgreen300: #AED581;
+$lgreen400: #9CCC65;
+$lgreen500: #8BC34A;
+$lgreen600: #7CB342;
+$lgreen700: #689F38;
+$lgreen800: #558B2F;
+$lgreen900: #33691E;
+$lgreenA100: #CCFF90;
+$lgreenA200: #B2FF59;
+$lgreenA400: #76FF03;
+$lgreenA700: #64DD17;
+
+// Red: 500 #F44336
+$red50: #FFEBEE;
+$red100: #FFCDD2;
+$red200: #EF9A9A;
+$red300: #E57373;
+$red400: #EF5350;
+$red500: #F44336;
+$red600: #E53935;
+$red700: #D32F2F;
+$red800: #C62828;
+$red900: #B71C1C;
+$redA100: #FF8A80;
+$redA200: #FF5252;
+$redA400: #FF1744;
+$redA700: #D50000;
+
+// Blue: 500 #2196F3
+$blue50: #E3F2FD;
+$blue100: #BBDEFB;
+$blue200: #90CAF9;
+$blue300: #64B5F6;
+$blue400: #42A5F5;
+$blue500: #2196F3;
+$blue600: #1E88E5;
+$blue700: #1976D2;
+$blue800: #1565C0;
+$blue900: #0D47A1;
+$blueA100: #82B1FF;
+$blueA200: #448AFF;
+$blueA400: #2979FF;
+$blueA700: #2962FF;
+
+// Socials
+$color_facebook	: #3b5998;
+$color_twitter 	: #00aced;
+$color_ggplus		: #dd4b39;
+
+// =================================================
+
+$body-bg-color: $grey200;
+$body-text-color: $grey900;
+
+
+
+// old green (deprecated)
+$green-lighten-7 : lighten(#2a522d,70%);
+$green-lighten-6 : lighten(#2a522d,60%);
+$green-lighten-5 : lighten(#2a522d,50%);
+$green-lighten-4 : lighten(#2a522d,40%);
+$green-lighten-3 : lighten(#2a522d,30%);
+$green-lighten-2 : lighten(#2a522d,20%);
+$green-lighten-1 : lighten(#2a522d,10%);
+$green-lighten-0 : #2a522d;
+$green-darken-0 : #2a522d;
+$green : #2a522d;

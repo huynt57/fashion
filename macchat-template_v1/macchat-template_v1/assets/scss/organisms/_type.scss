@@ -1,0 +1,58 @@
+// type
+
+body{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1.42857;
+	color: $grey-darken-2;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight: 700;
+	color: $grey-darken-4;
+}
+h1{
+	font-size: 24px;
+}
+h2{
+	font-size: 20px;
+}
+h3{
+	font-size: 16px;
+}
+h4{
+	font-size: 13px;
+	
+}
+
+h1.feed-name{
+	margin: 20px 0;
+	@media (min-width: $screen-sm-min){
+		font-size: 36px;
+	}
+}
+
+p,dt,dd,address{ 
+	margin: 0; 
+}
+b{
+	font-weight: 700;
+}
+
+a{
+	@include transition(color,.15s,ease-in-out, background-color,.15s,ease-in-out, opacity .15s, ease-in-out);
+	color: $red-darken-2;
+	&:hover, &:focus {
+		// color: $lblue-darken-2;
+	}
+}
+
+.name{
+	&,a{
+		font-weight: 700;
+		color: $grey-darken-3;
+		&:hover{
+			color: $grey-darken-3;
+		}
+	}
+}

@@ -1,0 +1,123 @@
+.qh-pagination{
+  padding: 10px 0;
+  ul.list{
+    display: inline-block;
+    vertical-align: top;
+    background-color: $white;
+    @include linknodeco();
+    li{
+      float: left;
+      span.more{
+        padding: 0 7px;
+      }
+      a{
+        display: block;
+        font-size: 12px;
+        line-height: 22px;
+        padding: 2px 11px;
+        color: $grey800;
+        border: 1px solid $grey400;
+        border-left: 0; border-right: 0;
+      }
+      &:first-child{
+        a{
+          border-left: 1px solid $grey400;
+          border-radius: 2px 0 0 2px;
+        }
+      }
+      &:last-child{
+        a{
+          border-right: 1px solid $grey400;
+          border-radius: 0 2px 2px 0;
+        }
+      }
+      & a:hover{
+        background-color: $grey300;
+      }
+      &.active{
+        a{
+          color: #fff;
+          border-color: $grey700;
+          background-color: $grey700;
+        }
+      }
+      &.icon-nav{
+        a{
+          padding: 2px 11px;
+        }
+      }
+      &.page-nav{
+        a{
+          border-right: 0 !important;
+          @extend .qh-btn-red800;
+        }
+      }
+    }
+  }
+}
+
+// modal
+.modal {
+  &.fade .qh-modal-dialog {
+    @include translate(0, -25%);
+    @include transition(transform 0.3s ease-out);
+  }
+  &.in .qh-modal-dialog { @include translate(0, 0) }
+}
+
+.qh-modal-dialog{
+  margin: 45px auto 0;
+  border-radius: 8px;
+  position: relative;
+  .close-modal-button{
+    position: absolute;
+    display: block;
+    top: 0; right: 0;
+    line-height: 24px;
+    padding: 0; margin: 0;
+    width: 24px;
+    text-align: center;
+    color: $grey400;
+    background-color: transparent;
+    border: 0;
+    z-index: 1100;
+    @include transition(color .1s ease);
+    &:hover{
+      color: $grey600;
+    }
+  }
+  &.qh-default-modal{
+    width: 500px;
+    &.qh-modal-xs-size{
+      width: 340px;
+    }
+    &.qh-modal-sm-size{
+      width: 420px;
+    }
+    &.qh-modal-lg-size{
+      width: 600px;
+    }
+    .qh-modal-title{
+      margin: 0;
+      font-size: 18px;
+      border-bottom: 1px solid $grey300;
+      padding: 12px 20px;
+    }
+    .qh-modal-content{
+      padding: 10px 20px;
+      p{
+        margin: 5px 0;
+      }
+    }
+  }
+  &.qh-loading-modal{
+    width: 110px; height: 90px;
+    line-height: 90px;
+    text-align: center;
+    color: $red400;
+    i{
+      display: inline-block;
+      line-height: 90px;
+    }
+  }
+}

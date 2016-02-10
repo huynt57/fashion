@@ -1,96 +1,180 @@
-<div class="cards-display-main">
-    <div class="df-container" id="container">
-        <div class="cards-display-main-ctn" id="card-container">
-            <div class="card-sizer"></div>
-            <?php foreach ($data as $item): ?>
-                <div class="card-item" id="<?php echo $item['post_id'] ?>">
-                    <div class="card-item-inner">
-                        <div class="post-image card-image <?php echo StringHelper::returnClassForMultipleImages(count($item['images'])) ?>">
-                            <a href="<?php echo Yii::app()->createUrl('post/viewPost', array('post_id' => $item['post_id'])); ?> .lightbox-post" data-featherlight="ajax" data-featherlight-loading=" <img class='ajax-loader-feather' src='<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/loader.gif'> ">
-                                <?php foreach ($item['images'] as $image): ?>
-                                    <?php if (count($item['images']) == 1): ?>                                                                                                             <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                     ?>');"></span>-->
-                                        <img src="<?php echo StringHelper::generateUrlImage($image['img_url']) ?>" class="img-fullwidth">
-                                    <?php endif; ?>
-                                    <?php if (count($item['images']) > 1): ?>  
-            <span style="background-image: url('<?php echo StringHelper::generateUrlImage($image['img_url']) ?>');"></span>                                                                                                           <!--                                    <span style="background-image: url('<?php //echo Yii::app()->request->getBaseUrl(true) . '/' . $image['img_url']                                                                   ?>');"></span>-->
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </a>
-                        </div>
-                        <div class="post-header card-header">
-                            <div class="header-avatar">
-                                <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>"><img src="<?php echo $item['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
-                            </div>
-                            <div class="header-info">
-                                <h4 class="name">
-                                    <span class="name-original"><a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>"><?php echo $item['user'][0]['username'] ?></a></span>
-                                </h4>
-                                <p class="time"><?php echo Util::time_elapsed_string($item['created_at']); ?></p>
-                            </div>
-                            <div class="header-menu">
-                                <div class="dropdown">
-                                    <a id="post-header-menu" class="post-header-menu" href="#" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-angle-down fa-lg"></i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right" aria-labelledby="post-header-menu">
-                                        <li><a href="javascript: void(0)" onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này</a></li>
-                                        <li><a href="javascript: void(0)" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">Ẩn bài từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                        <li><a href="javascript: void(0)" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)"data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-content card-content">
-                            <div class="content-main">
-                                <p class="desc"><?php echo $item['post_content'] ?>
-                                <p class="cats">
+<div class="qh-container">
 
-                                    <?php foreach ($item['cat'] as $cat): ?>
-                                        <span><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a></span>
-                                    <?php endforeach; ?>
-                                </p>
-                            </div>
+    <!-- Post Card -->
+
+    <div class="post-cards-wrap clearfix">
+        <?php foreach ($data as $item): ?>
+            <div class="card-single">
+                <div class="card-single-inner">
+                    <div class="c-image">
+                        <div class="post-image">
+                            <a href="" class="post-link" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
+                                <img src="<?php echo Images::model()->getImagePreviewByPostId($item['post_id']) ?>" alt="">
+                                <?php if(count($item['images']) > 1):?>
+                                <span class="more-image">+ <?php echo count($item['images']) - 1?> ảnh</span>
+                                <?php endif; ?>
+                            </a>
+                        </div>				
+                    </div>
+                    <div class="c-header">
+                        <div class="user-image">
+                            <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo $item['user'][0]['photo'] ?>');"></a>
                         </div>
-                        <div class="post-footer card-footer">
-                            <div class="footer-count">
-                                <span class="item-count"><a href=""><?php echo $item['post_like_count'] ?> thích</a></span>
-                                <span class="item-count"><a href=""><?php echo $item['post_comment_count'] ?> bình luận</a></span>
+                        <div class="user-info">
+                            <div class="display-name"><a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>" class="display-name-link"><?php echo $item['user'][0]['username'] ?></a></div>
+                            <div class="post-info">
+                                <span class="time"><?php echo Util::time_elapsed_string($item['created_at']); ?></span>
                             </div>
-                            <div class="footer-action">
-                                <ul class="icon-container">
-                                    <li class="like-icon <?php if ($item['is_liked']): ?>active<?php endif; ?>" id="like-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
-                                    <li class="pin-icon <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" id="bookmark-<?php echo $item['post_id'] ?>"><a href="javascript: void(0)" onclick="bookmark(<?php echo $item['post_id'] ?>)"title="Đánh dấu"><i class="fa fa-thumb-tack"></i></a></li>
-                                    <li class="comment-icon"><a href="javascript: void(0)" title="Bình luận"><i class="fa fa-comment"></i></a></li>
-                                    <li class="share-icon"><a href="javascript: void(0)" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $item['post_id'])) ?>')" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
+                            <div class="dropdown user-option">
+                                <button class="user-option-btn" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
+                                <ul class="dropdown-menu user-option-list pull-right z-depth-2">
+                                    <li><a href="#" data-toggle="modal" data-target="#postReportModal">Báo cáo sai phạm</a></li>
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                    <div class="c-body">
+                        <div class="item-description"><?php echo $item['post_content'] ?></div>
+                        <div class="item-categories">
+                            <?php foreach ($item['cat'] as $cat): ?>
+                                <a class="single-category" href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat[1])) ?>"><?php echo $cat[0] ?></a>
+                            <?php endforeach; ?>
 
+                        </div>
+                    </div>
+                    <div class="c-footer">
+                        <div class="item-buttons">
+                            <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
+                                <span class="icon"><i class="fa fa-comments"></i></span>
+                                <span class="count"><?php echo $item['post_comment_count'] ?></span>
+                                <a href="#" class="single-button item-button-pin" <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>>
+                                    <span class="icon"><i class="fa fa-thumb-tack"></i></span>
+    <!--                                    <span class="count">10</span>-->
+                                </a>
+                                <a href="#" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>">
+                                    <span class="icon"><i class="fa fa-heart"></i></span>
+                                    <span class="count"><?php echo $item['post_like_count'] ?></span>
+                                </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        </div>
+            </div>
+        <?php endforeach; ?>
     </div>
-</div>
-<?php $this->renderPartial('modal'); ?>
 
-<div style="display: none;">
+
     <?php
     $this->widget('CLinkPager', array(
         'pages' => $pages,
         'maxButtonCount' => 1,
-        'htmlOptions' => array('class' => 'pagination',
+        'htmlOptions' => array('class' => 'msr-pagination',
         ),
         'header' => '',
-        'prevPageLabel' => 'Trước',
-        'nextPageLabel' => 'Sau',
-        'firstPageLabel' => 'Đầu tiên',
-        'lastPageLabel' => 'Cuối cùng',
+        'prevPageLabel' => '',
+        'nextPageLabel' => 'Loading ...',
+        'firstPageLabel' => '',
+        'lastPageLabel' => '',
         'selectedPageCssClass' => 'active',
             )
     )
     ?>
+    <div class="msr-loading"></div>
 </div>
+
+<!-- end SITE CONTENT -->
+
+<!-- ========================================================= -->
+<!-- Modal, có vài cái template modal ở dưới chưa ghép vào link nào cả (default) -->
+
+<!-- Modal Report -->
+<div class="modal fade" id="postReportModal">
+    <div class="qh-modal-dialog qh-default-modal z-depth-2">
+        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+        <h3 class="title"></h3>
+        <div class="qh-modal-title">Báo cáo sai phạm</div>
+        <div class="qh-modal-content">
+            <p>Vì sao bạn nghĩ bài đăng này vi phạm qui định?</p>
+            <form action="#" class="qh-form qh-form-normal">
+                <div class="qh-form-row">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" checked>
+                            Option one is this and that&mdash;be sure to include why it's great
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" checked>
+                            Option two is this and that&mdash;be sure to include why it's great
+                        </label>
+                    </div>
+                    <div class="radio disabled">
+                        <label>
+                            <input type="radio" name="optionsRadios" disabled>
+                            Option three is disabled
+                        </label>
+                    </div>
+                </div>
+                <div class="qh-form-row">
+                    <button class="qh-btn qh-btn-normal">Gửi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tks -->
+<div class="modal fade" id="postReportThanksModal">
+    <div class="qh-modal-dialog qh-default-modal z-depth-2">
+        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+        <div class="qh-modal-content">
+            <p>Cám ơn phản hồi của bạn.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Single Post -->
+<div class="modal fade" id="singlePostModal">
+    <div class="qh-modal-dialog qh-single-post-section z-depth-2" id="single-post-modal">
+
+    </div>
+</div>
+
+
+
+<!-- Modal Loading -->
+<div class="modal fade" id="modal-loading">
+    <div class="qh-modal-dialog qh-loading-modal z-depth-2">
+        <div class="loading-spin"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i></div>
+    </div>
+</div>
+
+<!-- Modal Default -->
+<div class="modal fade" id="">
+    <div class="qh-modal-dialog qh-default-modal z-depth-2">
+        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+        <div class="qh-modal-title">But I must explain to you how ...</div>
+        <div class="qh-modal-content">
+            <p>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.</p>
+            <p>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it?</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Default Sucess -->
+<div class="modal fade" id="">
+    <div class="qh-modal-dialog qh-default-modal qh-modal-xs-size z-depth-2">
+        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+        <div class="qh-modal-content">
+            <p>Đăng bài thành công.</p>
+        </div>
+    </div>
+</div>
+
+<?php $this->renderPartial('modal'); ?>
+
+
 
 <script>
 
@@ -232,6 +316,34 @@
     }
 </script>
 <script>
+    $(document).on('click', '.post-link', function () {
+        //alert('123');
+        var url = $(this).attr('data-href');
+        $.ajax({
+            url: url,
+            beforeSend: function (xhr) {
+                $('#single-post-modal').empty();
+                $('#single-post-modal').html('<img id="loading" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/loading.gif" alt="" style="' +
+                        'display: block;' +
+                        'margin: 0 auto;' +
+                        'margin-top: 15%;' +
+                        '">');
+
+            },
+            success: function (response)
+            {
+                //  $('#loading').hide();
+                $('#single-post-modal').html(response);
+                $('.qh-single-post-section .card-single-inner').slimScroll({
+                    height: '470px',
+                    size: '5px',
+                    color: '#9E9E9E',
+                    position: 'right'
+                });
+            }
+        });
+    });
+
     $(document).ready(function () {
 
         $(document).on('submit', '#form_comment', function (event) {
@@ -272,52 +384,9 @@
             })
         });
 
-        // masonry layout for cards
-        $cardContainer = $('.cards-display-main-ctn');
-        $cardItem = $('.card-item');
-        $cardContainer.imagesLoaded().done(function () {
-            $cardContainer.masonry({
-                columnWidth: '.card-item',
-                itemSelector: '.card-item',
-                percentPosition: true,
-                transitionDuration: 0
-            });
-        });
 
-        $cardContainer.infinitescroll({
-            navSelector: '.pagination',
-            nextSelector: '.next a:first',
-            itemSelector: '.cards-display-main-ctn',
-            loading: {
-                finishedMsg: 'Đã hết bài đăng',
-                img: 'http://loadinggif.com/images/image-selection/17.gif',
-                msgText: "Đang tải"
-            },
-            pixelsFromNavToBottom: '0',
-            animate: true,
-        },
-                // trigger Masonry as a callback
 
-                        function (newElements) {
-                            var $newElems = $(newElements).css({
-                                opacity: 0
-                            });
-                            $newElems.imagesLoaded(function () {
-                                $newElems.animate({
-                                    opacity: 1
-                                });
-                                $cardContainer.masonry('appended', $newElems, true);
-                            });
-                        }
-                );
-
-                // single post image slider
-                $('.carousel').carousel({
-                    interval: false,
-                    wrap: false
-                });
-
-            });
+    });
 </script>
 
 

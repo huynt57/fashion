@@ -1,0 +1,267 @@
+// classes & elements
+
+// container
+.df-container{
+  min-width: 604px;
+	margin: 0 auto;
+  padding: 0 10px;
+  width: 312px;
+  @media (min-width: $screen-xs-min){ width: 312px;}
+  @media (min-width: $screen-sm-min){ width: 604px;}
+  @media (min-width: $screen-md-min){ width: 896px;}
+  @media (min-width: $screen-lg-min){ width: 1188px;}
+  // @media (min-width: $screen-xl-min){ width: 1480px;}
+  // @media (min-width: $screen-yl-min){ width: 1772px;}
+  // @media (min-width: $screen-zl-min){ width: 2064px;}
+  &:after { clear: both; }
+  &:before, &:after { content: " "; display: table; visibility: hidden; }
+}
+
+// clearfix
+.df-clear{
+  &:before, &:after{ content: ""; display: table; clear: both; }
+}
+
+// transition
+.trans-clr{ @include transition(color,.2s, ease-in-out);}
+.trans-bgc{ @include transition(background-color,.2s, ease-in-out);}
+.trans-bdc{ @include transition(border-color,.2s, ease-in-out);}
+.trans-opc{ @include transition(opacity,.2s, ease-in-out);}
+
+// images
+.img-responsive{ display: block; max-width: 100%; height: auto;}
+.img-fullwidth{ display: block; width: 100%; height: auto;}
+.img-fullheight{ display: block; width: auto; height: 100%;}
+
+// background
+.background-cover{ @include background-size(cover); background-position: 50% 50%; }
+
+// color 
+.success-color{ color: $lblue-darken-0; }
+.success-bg-color{ background-color: $lblue-darken-0; color: #fff; }
+.error-color{ color: $red-darken-0; }
+.error-bg-color{ background-color: $red-darken-0; color: #fff;}
+
+.facebook-color{
+  &, &:hover, &:active, &:visited, &:focus{ color: $color_facebook; }
+}
+.twitter-color{
+  &, &:hover, &:active, &:visited, &:focus{ color: $color_twitter; }
+}
+.ggplus-color{
+  &, &:hover, &:active, &:visited, &:focus{ color: $color_ggplus; }
+}
+
+// link
+.link-remove-deco{
+  &, &:hover, &:active, &:visited, &:focus{
+    text-decoration: none;
+  }
+}
+
+// avatar
+.avatar{
+  img{ display: block; border-radius: 50%; }
+}
+
+// icon responsive
+i.icon-on-small{
+  display: inline-block;
+  @media (min-width: $screen-sm-min){ display: none; }
+}
+span.text-on-large{
+  display: none;
+  @media (min-width: $screen-sm-min){  display: inline-block; }
+}
+
+
+// shadows
+.shadow-none{ @include box-shadow(0 0 0 0 transparent);}
+.shadow-depth-nav{ @include box-shadow(1px 1px 2px 0 $grey-lighten-1, -1px 0px 2px 0 $grey-lighten-2);}
+.shadow-nav-dropdown{ @include box-shadow(1px 2px 4px 0 $grey-lighten-1, -1px 2px 4px 0 $grey-lighten-2);}
+.shadow-depth-1{ @include box-shadow(1px 1px 3px 0 $grey-lighten-1, -1px -1px 3px 0 $grey-lighten-2);}
+
+// menu breacrum
+.menu-section{
+  background-color: #fff;
+  @extend .shadow-depth-1;
+  @extend .df-clear;
+  .main-menu-section,
+  .other-menu-section{
+    & > ul{
+      & > li{
+        & > a{
+          display: block;
+          padding: 12px 10px 10px;
+          line-height: 24px;
+          font-size: 15px;
+          color: $grey-darken-1;
+          @extend .link-remove-deco;
+          @include box-sizing(border-box);
+          @include transition(border-bottom-color, 0.2s, ease-in-out);
+          @include transition(color, 0.2s, ease-in-out);
+        }
+      }
+    }
+    li a:hover,
+    li.active a,
+    li.dropdown.open > a{
+      color: $grey-darken-4;
+      border-bottom-color: $lblue-darken-2;
+    }
+  }
+  .main-menu-section{
+    float: left;
+    ul{
+      li{
+        float: left;
+        padding: 0 10px;
+        a{
+          border-bottom: 3px solid transparent;
+        }
+      }
+    }
+  }
+  .other-menu-section{
+    float: right;
+    ul.dropdown-menu{
+      top: 45px;
+      @extend .shadow-depth-1;
+      &:before{
+        right: 11px;
+      }
+    }
+  }
+}//.menu-section
+
+.title-card{
+  margin: 20px auto;
+  background-color: #fff;
+  @extend .shadow-depth-1;
+
+  .intro-text{
+    padding: 15px 4px;
+    .intro-title{
+      // font-weight: 400;
+      margin: 0 10px;
+    }
+    .intro-des{
+      margin: 12px 10px 0;
+    }
+    .keyword{
+      font-weight: 700;
+      color: $grey-darken-1;
+      &:after, &:before{
+        content: '"';
+        padding: 0 2px;
+      }
+    }
+  }
+  &.with-title-and-menu{
+    .intro-text{
+      border-bottom: 1px solid $grey-lighten-2;
+    }
+  }
+  .menu-section{
+    @extend .shadow-none;
+  }
+}
+
+
+// dropdown
+.dropdown-menu{
+  min-width: 120px;
+  padding: 5px 0;
+  border: none;
+  border-radius: 0;
+  background-color: #fff;
+  &:before{
+    position: absolute;
+    display: block;
+    top: -9px;
+    content: "\25b2";
+    line-height: 10px;
+    font-size: 12px;
+    color: #fff;
+    text-shadow: 0px -1px 2px $grey-darken-0;
+  }
+  li{
+    a{
+      display: block;
+      padding: 4px 15px;
+      line-height: 18px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $grey-darken-3;
+      i{
+        padding: 0 6px 0 0;
+        display: inline-block;
+        line-height: 18px;
+      }
+      &:hover, &:focus, &:active, &:visited{
+        background-color: transparent;
+      }
+      &:hover{
+        background-color: $lblue-lighten-4;
+      }
+    }
+  }
+}
+.dropdown-menu .divider{
+  background-color: $grey-lighten-2;
+}
+
+// carousel
+.carousel.fade{
+  @include opacity(1);
+  .item{
+    @include transition(opacity, ease-in-out, .4s);
+    @include opacity(0);
+    left: 0 !important; top: 0;
+    position: absolute;
+    width: 100%;
+    display:block !important;
+    &:first-child{
+      top:auto;
+      position:relative;
+    }
+    &.active{
+      @include opacity(1);
+      @include transition(opacity, ease-in-out, .4s);
+    }
+  }
+}
+
+// modal
+.modal{
+  &.fade .modal-dialog {
+    @include opacity(0);
+    @include transition(opacity, 0.1s ease-in-out);
+  }
+  &.in .modal-dialog { 
+    @include opacity(1);
+  }
+}
+.modal-content{
+  border: 0;
+  border-radius: 0;
+  @include box-shadow(6px 6px 10px 0 $grey-darken-1, -3px -2px 6px 0 $grey-darken-1);
+}
+
+.modal-dialog {
+  width: auto;
+  margin: 75px auto 30px;
+}
+.modal-xs { width: 200px; }
+.modal-sm,.modal-md,.modal-lg { width: 300px; }
+@media (min-width: $screen-sm-min){
+  .modal-md, .modal-lg { width: 540px; }
+}
+@media (min-width: $screen-lg-min){
+  .modal-lg { width: 780px; }
+}
+
+.modal-footer{
+  padding: 10px 15px;
+  text-align: left;
+}

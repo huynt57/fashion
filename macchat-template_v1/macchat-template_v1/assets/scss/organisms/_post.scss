@@ -1,0 +1,526 @@
+// post elements
+
+// ==============================
+// Post Image
+// ==============================
+
+.post-image{
+ //
+}//.post-image
+
+.card-image{
+	overflow: hidden;
+	a{
+		display: block;
+		img{
+			display: block;
+		}
+		&:hover{
+			@include opacity(.9);
+		}
+	}
+	&.has-one-image{
+		height: auto;
+	}
+	&.hasTwoImages,
+	&.hasThreeImages,
+	&.hasFourImages,
+	&.hasFiveImages{
+		a{
+			position: relative;
+			span{
+				display: block;
+				position: absolute;
+				overflow: hidden;
+				@include background-size(cover);
+				background-position: 50% 50%;
+				img{
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+	&.hasTwoImages{
+		a{
+			width: 272px;
+			height: 240px;
+			span{
+				width: 135px;
+				height: 240px;
+			}
+			span:first-child{
+				top: 0;
+				left: 0;
+			}
+			span:last-child{
+				top: 0;
+				right: 0;
+			}
+		}
+	}
+	&.hasThreeImages{
+		a{
+			width: 272px;
+			height: 272px;
+			span:first-child{
+				width: 180px;
+				height: 272px;
+				top: 0;
+				left: 0;
+			}
+			span:nth-child(2){
+				width: 90px;
+				height: 135px;
+				top: 0;
+				right: 0;
+			}
+			span:last-child{
+				width: 90px;
+				height: 135px;
+				bottom: 0;
+				right: 0;
+			}
+		}
+	}
+	&.hasFourImages{
+		a{
+			width: 272px;
+			height: 326px;
+			span{
+				width: 135px;
+				height: 162px;
+			}
+			span:first-child{
+				top: 0;
+				left: 0;
+			}
+			span:nth-child(2){
+				top: 0;
+				right: 0;
+			}
+			span:nth-child(3){
+				bottom: 0;
+				left: 0;
+			}
+			span:last-child{
+				bottom: 0;
+				right: 0;
+			}
+		}
+	}
+	&.hasFiveImages{
+		a{
+			width: 272px;
+			height: 302px;
+			span:first-child{
+				width: 135px;
+				height: 180px;
+				top: 0;
+				left: 0;
+			}
+			span:nth-child(2){
+				width: 135px;
+				height: 180px;
+				top: 0;
+				right: 0;
+			}
+			span:nth-child(3){
+				width: 89px;
+				height: 120px;
+				bottom: 0;
+				left: 0;
+			}
+			span:nth-child(4){
+				width: 90px;
+				height: 120px;
+				bottom: 0;
+				left: 91px;
+			}
+			span:last-child{
+				width: 89px;
+				height: 120px;
+				bottom: 0;
+				right: 0;
+			}
+		}
+	}
+}//.card-image
+
+.card-album-image{
+	a{
+		position: relative;
+		display: block;
+		height: 352px;
+		span.single-image{
+			position: absolute;
+			display: block;
+			@include background-size(cover);
+			background-position: 50% 50%;
+			background-color: $grey-darken-0;
+			&:first-child{
+				width: 256px;
+				height: 256px;
+				top: 8px;
+				left: 8px;
+			}
+			&:nth-child(n+2){
+				top: 269px;
+				width: 82px;
+				height: 82px;
+			}
+			&:nth-child(2){
+				left: 8px;
+			}
+			&:nth-child(3){
+				left: 95px;
+			}
+			&:nth-child(4){
+				top: 269px;
+				right: 8px;
+			}
+			&:nth-child(n+5){
+				display: none;
+			}
+		}
+		&:hover{
+			@include opacity(.9);
+		}
+	}
+}//.card-album-image
+
+.single-post-image{
+	//
+}//.single-post-image
+
+// ==============================
+// Post Header
+// ==============================
+
+.post-header{
+	position: relative;
+	margin: 12px 0 12px;
+	padding: 0 12px;
+	@extend .df-clear;
+	.header-avatar{
+		float: left;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		img{
+			border-radius: 50%;
+		}
+	}
+	.header-info{
+		padding: 0 6px 0 50px;
+		h4.name{
+			margin: 3px 0 2px;
+			padding: 0 0;
+			line-height: 18px;
+			a{
+				font-size: 14px;
+				font-weight: 700;
+			}
+			span[class^="name-"]{
+				display: block;
+				width: 180px;
+				overflow: hidden;
+			}
+			span.name-original{
+				a{
+					color: $grey-darken-3;
+				}
+			}
+			i{
+				padding-right: 6px;
+			}
+		}
+		p.time{
+			font-size: 11px;
+			color: $grey-darken-0;
+		}
+		p.info{
+			& > span{
+				display: inline-block;
+				font-size: 11px;
+				line-height: 18px;
+				color: $grey-darken-0;
+				&:after{
+					display: inline-block;
+					content: "\2022";
+					padding: 0 4px 0 7px;
+					color: $grey-lighten-1;
+					line-height: 18px;
+				}
+				&:last-child:after{
+					content: "";
+					padding: 0;
+				}
+			}
+		}
+	}
+	.header-menu{
+		position: absolute;
+		top: -2px; right: 8px;
+		a.post-header-menu{
+			@extend .link-remove-deco;
+			padding: 0 3px;
+			color: $grey-lighten-1;
+			&,i{
+				display: block;
+				line-height: 20px;
+			}
+		}
+		a.post-header-menu:hover,
+		.dropdown.open > a{
+			color: $grey-darken-2;
+		}
+		ul.dropdown-menu{
+			top: 22px;
+			@extend .shadow-depth-1;
+			&:before{
+				right: 3px;
+				color: white;
+			}
+			li{
+				width: 180px;
+				a{
+					font-size: 13px;
+					white-space: normal;
+				}
+			}
+		}	
+	}
+}
+
+.card-album-header{
+	margin: 12px 0 15px;
+	padding: 0 12px;
+	.header-info{
+		padding: 0 6px;
+		h4.name{
+			margin: 0 0 4px;
+			a{
+				font-size: 15px;
+			}
+		}
+	}
+}
+
+// ==============================
+// Post Content
+// ==============================
+
+.post-content{
+	margin: 15px 0 12px;
+	padding: 0 15px;
+	p.desc{
+		margin: 0;
+	}
+	p.cats{
+		margin: 8px 0 0;
+		&:before{
+			padding: 0 6px 0 0 ;
+			content: '\2014';
+			color: $grey-darken-0;
+		}
+		span:after{
+			content: ', ';
+		}
+		span:last-child:after{
+			content: '';
+		}
+		a{
+			font-size: 12px;
+			font-weight: 600;
+			color: $grey-darken-2;
+		}
+	}
+	// share card
+	// &.cardHasSharedContent{
+	// 	.itemCtnMain{
+	// 		margin: 12px 0 0 6px;
+	// 		padding: 4px 0 4px 12px;
+	// 		border-left: 3px solid $teal-lighten-4;
+	// 		p.itemCtnMain-desc{
+	// 			font-size: 12px;
+	// 			color: $teal;
+	// 		}
+	// 		p.itemCtnMain-cats{
+	// 			&:before,a{
+	// 				color: $teal-lighten-1;
+	// 			}
+	// 		}
+	// 	}
+	// }
+}
+
+// ==============================
+// Post Footer
+// ==============================
+
+.post-footer{
+	@extend .df-clear;
+	margin: 0 0 0;
+	border-top: 1px solid $grey-lighten-2;
+	&:hover{
+		cursor: default;
+	}
+	.footer-count{
+		float: left;
+		span.item-count{
+			display: inline-block;
+			line-height: 18px;
+			font-size: 11px;
+			vertical-align: top;
+			a{
+				color: $grey-darken-1;
+			}
+			&:after{
+				content: "\2022";
+				padding: 0 2px 0 5px;
+				color: $grey-darken-0;
+			}
+			&:last-child:after{
+				content: "";
+				padding: 0;
+			}
+		}
+	}
+	.footer-action{
+		float: right;
+		a{
+			@extend .link-remove-deco;
+		}
+		ul.icon-container{
+			margin: 0;
+			padding: 0;
+			height: 24px;
+			li{
+				display: block;
+				float: left;
+				a{
+					display: block;
+					line-height: 24px;
+					color: lighten($grey-lighten-1,6%);
+					padding: 0 4px;
+					@extend .trans-clr;
+					span,i{
+						display: inline-block;
+						line-height: 24px;
+						vertical-align: top;
+					}
+				}
+				&.like-icon a i{
+					font-size: 18px;
+				}
+				&.pin-icon a i{
+					font-size: 18px;
+				}
+				&.comment-icon a i{
+					font-size: 15px;
+					line-height: 21px;
+					padding-bottom: 3px;
+				}
+				&.share-icon a i{
+					font-size: 16px;
+				}
+				& a:hover,
+				&.active a{
+					color: $red-darken-2;
+				}
+				// &.cardAlbumEditAction{
+				// 	float: right;
+				// 	padding: 0;
+				// 	a{
+				// 		font-weight: 600;
+				// 	}
+				// }
+			}
+		}
+	}
+}
+
+.card-footer{
+	padding: 6px 15px;
+	.footer-count{
+		padding: 3px 0;
+		width: 145px;
+	}
+	.footer-action{
+		//
+	}
+}
+
+.single-post-footer{
+	padding: 10px 15px;
+	.footer-count{
+		width: 165px;
+	}
+	.footer-action{
+		padding: 5px 0;
+	}
+}
+
+// ==============================
+// Post Comment
+// ==============================
+
+.post-comment{
+	padding: 0 15px;
+	border-top: 1px solid $grey-lighten-2;
+	.avatar{
+		float: left;
+		img{
+			width: 40px;
+			height: 40px;
+		}
+	}
+	.enter-comment-form{
+		padding: 15px 0;
+		border-bottom: 1px solid $grey-lighten-2;
+		form{
+			float: left;
+			margin-left: 10px;
+			width: 200px;
+			textarea{
+				width: 200px;
+				height: 60px;
+				max-width: 200px;
+				min-width: 200px;
+				min-height: 40px;
+			}
+			button{
+				display: inline-block;
+				padding: 5px 8px 3px;
+				background-color: $red-darken-2;
+				font-size: 12px;
+				color: #fff;
+				border: 0;
+			}
+		}
+	}
+	ul.comment-list{
+		li.comment-item{
+			padding: 12px 0;
+			border-bottom: 1px solid $grey-lighten-2;
+			.content{
+				float: left;
+				width: 200px;
+				margin-left: 10px;
+				.content-header{
+					margin-bottom: 5px;
+					.time{
+						padding-left: 4px;
+						font-size: 11px;
+						white-space: nowrap;
+						color: $grey-darken-0;
+					}
+				}
+				.content-comment{
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}

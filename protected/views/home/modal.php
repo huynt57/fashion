@@ -75,20 +75,3 @@
     </div>
 </div>
 
-<script>
-//    $(document).ready(function() {
-//       $('#btnSubmitReport').click(function() {
-//           var form = $('#form-report');
-//           var data = form.serialize();
-//           $.ajax({
-//               url: '<?php echo Yii::app()->createUrl('post/reportPost'); ?>',
-//               data: data,
-//               type: 'POST',
-//               success: function(response)
-//               {
-//                   alert(response.message);
-//               }
-//           });
-//       }); 
-//    });
-</script>

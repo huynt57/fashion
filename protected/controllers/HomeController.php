@@ -24,6 +24,7 @@ class HomeController extends Controller {
     public function actionNewsFeed() {
         try {
             $user_id = Yii::app()->session['user_id'];
+            $user_id = 1;
             if (isset($user_id)) {
                // $feed = Posts::model()->getNewsFeedForWeb($user_id);
                 

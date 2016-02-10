@@ -35,15 +35,6 @@ class Comments extends BaseComments {
 
     public function getCommentByPost($post_id, $limit, $offset) {
 
-//        $data = Yii::app()->db->createCommand()
-//                ->select('tbl_comments.*, tbl_user.username')
-//                ->from('tbl_comments')
-//                ->join('tbl_user', '`tbl_comments`.`created_by`=`tbl_user`.`user_id`')
-//                ->where('`tbl_comments`.`post_id`=:post_id', array(':post_id' => $post_id))
-//                ->limit($limit)
-//                ->offset($offset)
-//                ->order('comment_id DESC')
-//                ->queryAll();
         $sql = "SELECT tbl_comments.*, tbl_user.username, tbl_user.photo FROM tbl_comments JOIN tbl_user ON tbl_comments.created_by = tbl_user.id WHERE tbl_comments.post_id = $post_id ORDER BY tbl_comments.comment_id DESC LIMIT $offset, $limit ";
         $data = Yii::app()->db->createCommand($sql)->queryAll();
         return $data;
