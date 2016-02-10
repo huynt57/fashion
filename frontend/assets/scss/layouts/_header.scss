@@ -638,6 +638,24 @@
 		}
 	}
 }
+.qh-form-user-body-quiz{
+	.qh-form-label{
+		margin-top: 18px;
+	}
+	.image-label{
+		width: 70px;
+		height: 70px;
+		border: 3px solid transparent;
+		cursor: pointer;
+	}
+	input[type="checkbox"],
+	input[type="radio"]{
+		display: none;
+		&:checked + .image-label{
+			border-color: $red600;
+		}
+	}
+}
 .qh-section-article{
 	margin: 20px 0;
 	padding: 25px 30px 40px;
