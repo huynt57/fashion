@@ -9,7 +9,7 @@ class Wishlist extends BaseWishlist {
     }
 
     public function addWishList($post_id, $user_id) {
-        $check = Wishlist::model()->findByAttributes(array('post_id' => $post_id));
+        $check = Wishlist::model()->findByAttributes(array('post_id' => $post_id, 'user_id' => $user_id));
         if ($check) {
             return FALSE;
         } else {

@@ -22,7 +22,6 @@ $(document).ready(function(){
 
 
 	// effect loading
-        //alert('123');
    var effect = 'animate fade-in';
 	// masonry post
 	var masonry_selector = '.post-cards-wrap';
@@ -99,6 +98,8 @@ $(document).ready(function(){
     color: '#9E9E9E',
     position: 'right'
   });
+
+	
 
 });
 
