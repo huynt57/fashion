@@ -1,0 +1,26 @@
+.qh-alert{
+	position: relative;
+	width: 350px;
+	height: auto;
+	padding: 10px 20px 10px 20px;
+	font-size: 14px;
+	border-radius: 12px;
+	@extend .z-depth-1;
+	.alert-title{
+		font-size: 14px;
+		font-weight: 700;
+		margin: 0 0 1px;
+	}
+	.alert-content{
+		font-size: 12px;
+	}
+	&.qh-alert-normal{
+		color: $grey800;
+	}
+	&.qh-alert-info{
+		color: $blue700;
+	}
+	&.qh-alert-error{
+		color: $red700;
+	}
+}

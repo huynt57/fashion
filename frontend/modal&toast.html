@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Template</title>
+	<!-- Favicon -->
+	<!-- <link rel="shortcut icon" href="assets/img/favicon.jpg" type="image/x-icon" /> -->
+	<!-- CSS libs -->
+	<link rel="stylesheet" href="assets/libs/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/libs/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="assets/libs/animate.css">
+	<!-- CSS main -->
+	<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+	<!-- SITE HEADER -->
+	<header id="site-header" class="site-header">
+		<div class="qh-container">
+			<div class="left-side">
+				<h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+			</div>
+		</div>
+	</header>
+	<!-- end SITE HEADER -->
+
+	<!-- SITE CONTENT -->
+	<div id="site-content" class="site-content">
+		<div class="qh-container">
+
+			<!-- Article -->
+			<div class="qh-section-article z-depth-1">
+				<h3>Modal</h3>
+				<p>
+					<a class="qh-btn qh-btn-normal" data-toggle="modal" data-target="#defaultStyleModal">Default</a>
+					<a class="qh-btn qh-btn-normal" data-toggle="modal" data-target="#loadingModal">Loading</a>
+					<a class="qh-btn qh-btn-normal" data-toggle="modal" data-target="#uploadNewPostModal">Upload</a>
+					<a class="qh-btn qh-btn-normal" data-toggle="modal" data-target="#uploadNewPostSuccessModal">Upload Success</a>
+					<a class="qh-btn qh-btn-normal" data-toggle="modal" data-target="#postReportModal">Report</a>
+					<a class="qh-btn qh-btn-normal" data-toggle="modal" data-target="#postReportThanksModal">Report Thanks</a>
+					<a class="qh-btn qh-btn-normal" data-toggle="modal" data-target="#">Upload</a>
+				</p>
+				<p>
+					<a class="qh-btn qh-btn-normal" data-toggle="modal" data-target="#userLoginModal">If not login ...</a>
+				</p>
+				<hr>
+				<h3>Notifi</h3>
+				<p>
+					<a id="defaultNotifiDisplay" class="qh-btn qh-btn-normal">Default</a>
+					<a id="errorNotifiDisplay" class="qh-btn qh-btn-normal">Error</a>
+					<a id="infoNotifiDisplay" class="qh-btn qh-btn-normal">Info</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- end SITE CONTENT -->
+
+	<!-- Modal Default -->
+	<div class="modal fade" id="defaultStyleModal">
+		<div class="qh-modal-dialog qh-default-modal z-depth-2">
+			<button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+	    <div class="qh-modal-title">But I must explain to you how ...</div>
+	    <div class="qh-modal-content">
+	    	<p>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.</p>
+				<p>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it?</p>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal Loading -->
+	<div class="modal fade" id="loadingModal">
+		<div class="qh-modal-dialog qh-loading-modal z-depth-2">
+	    <div class="loading-spin"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i></div>
+	  </div>
+	</div>
+	<!-- Modal Upload -->
+  <div class="modal fade" id="uploadNewPostModal">
+		<div class="qh-modal-dialog qh-upload-section z-depth-2">
+				<form action="#" class="qh-form qh-upload-post-form">
+					<div class="qh-form-row">
+						<textarea rows="4" placeholder="Miêu tả" class="post-description"></textarea>
+					</div>
+					<div class="qh-form-row clearfix text-center">
+						<div class="post-image-upload">
+							<div class="single-image" style="background-image: url('assets/stock/card01.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+							<div class="single-image" style="background-image: url('assets/stock/card02.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+							<div class="single-image" style="background-image: url('assets/stock/card03.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+							<div class="single-image" style="background-image: url('assets/stock/card04.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+							<div class="single-image" style="background-image: url('assets/stock/card05.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+						</div>
+						<div class="post-image-input">
+							<input type="file" class="hidden" id="inputPostImage">
+							<label for="inputPostImage" class="label-image-input text-center">
+								<div class="icon"><i class="fa fa-plus"></i></div>
+								<div class="text">Thêm ảnh</div>
+							</label>
+						</div>
+					</div>
+					<div class="qh-form-row clearfix text-center">
+						<div class="category-title">Chọn chuyên mục (tối đa: 2)</div>
+						<div class="category-choosing">
+							<div class="qh-form-row">
+								<label class="qh-form-label">Thời trang nam</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Quần nam
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Áo nam
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Phụ kiện nam
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Đồ nam khác
+								</label>
+								<label class="qh-form-label">Thời trang nữ</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Quần nữ
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Áo nữ
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Váy - Đầm
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Phụ kiện nữ
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox"> Đồ nữ khác
+								</label>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="qh-form-row clearfix text-center">
+						<button class="qh-btn qh-btn-red600">Đăng ảnh</button>
+						<div class="post-cancel"><a href="#">Hủy đăng ảnh</a></div>
+					</div>
+				</form>
+		</div>
+	</div>
+	<!-- Modal Upload Sucess -->
+	<div class="modal fade" id="uploadNewPostSuccessModal">
+		<div class="qh-modal-dialog qh-default-modal qh-modal-xs-size z-depth-2">
+			<button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+	    <div class="qh-modal-content">
+	    	<p>Đăng bài thành công.</p>
+			</div>
+	  </div>
+	</div>
+	<!-- Modal Report -->
+	<div class="modal fade" id="postReportModal">
+		<div class="qh-modal-dialog qh-default-modal z-depth-2">
+			<button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+      <h3 class="title"></h3>
+      <div class="qh-modal-title">Báo cáo sai phạm</div>
+      <div class="qh-modal-content">
+      	<p>Vì sao bạn nghĩ bài đăng này vi phạm qui định?</p>
+				<form action="#" class="qh-form qh-form-normal">
+					<div class="qh-form-row">
+						<div class="radio">
+						  <label>
+						    <input type="radio" name="optionsRadios" checked>
+						    Option one is this and that&mdash;be sure to include why it's great
+						  </label>
+						</div>
+						<div class="radio">
+						  <label>
+						    <input type="radio" name="optionsRadios" checked>
+						    Option two is this and that&mdash;be sure to include why it's great
+						  </label>
+						</div>
+						<div class="radio disabled">
+						  <label>
+						    <input type="radio" name="optionsRadios" disabled>
+						    Option three is disabled
+						  </label>
+						</div>
+					</div>
+					<div class="qh-form-row">
+						<button class="qh-btn qh-btn-normal">Gửi</button>
+					</div>
+				</form>
+  		</div>
+  	</div>
+  </div>
+  <!-- Modal Report Tks -->
+	<div class="modal fade" id="postReportThanksModal">
+		<div class="qh-modal-dialog qh-default-modal z-depth-2">
+			<button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+      <div class="qh-modal-content">
+      	<p>Cám ơn phản hồi của bạn.</p>
+			</div>
+    </div>
+  </div>
+  <!-- Modal Login -->
+	<div class="modal fade" id="userLoginModal">
+		<div class="qh-modal-dialog qh-default-modal qh-modal-xs-size text-center z-depth-2">
+			<button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+	    <div class="qh-modal-title">Bạn chưa đăng nhập</div>
+	    <div class="qh-modal-content">
+	    	<p><button class="qh-btn qh-btn-icon left-icon qh-btn-facebook"><i class="fa fa-facebook fa-lg"></i>Đăng nhập với Facebook</button></p>
+	    </div>
+	  </div>
+	</div>
+
+
+
+	<!-- SITE FOOTER -->
+	<footer id="site-footer" class="site-footer default-footer">
+		
+	</footer>
+	<!-- end SITE FOOTER -->
+
+
+	<!-- JS libs -->
+	<script src="assets/libs/jquery.min.js"></script>
+	<script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/libs/jquery.slimscroll.min.js"></script>
+	<script src="assets/libs/imagesloaded.pkgd.min.js"></script>
+	<script src="assets/libs/masonry.pkgd.min.js"></script>
+	<script src="assets/libs/jquery.infinitescroll.min.js"></script>
+	<script src="assets/libs/bootstrap-notify.min.js"></script>
+	<!-- JS main -->
+	<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -103,7 +103,7 @@ hr {
   box-shadow: none !important; }
 
 /* line 27, ../scss/elements/_class.scss */
-.z-depth-1 {
+.z-depth-1, .qh-alert {
   background-color: #fff;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18); }
 
@@ -1367,6 +1367,32 @@ select {
     .qh-modal-dialog.qh-loading-modal i {
       display: inline-block;
       line-height: 90px; }
+
+/* line 1, ../scss/elements/_notifi.scss */
+.qh-alert {
+  position: relative;
+  width: 350px;
+  height: auto;
+  padding: 10px 20px 10px 20px;
+  font-size: 14px;
+  border-radius: 12px; }
+  /* line 9, ../scss/elements/_notifi.scss */
+  .qh-alert .alert-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 1px; }
+  /* line 14, ../scss/elements/_notifi.scss */
+  .qh-alert .alert-content {
+    font-size: 12px; }
+  /* line 17, ../scss/elements/_notifi.scss */
+  .qh-alert.qh-alert-normal {
+    color: #424242; }
+  /* line 20, ../scss/elements/_notifi.scss */
+  .qh-alert.qh-alert-info {
+    color: #1976D2; }
+  /* line 23, ../scss/elements/_notifi.scss */
+  .qh-alert.qh-alert-error {
+    color: #D32F2F; }
 
 /* line 1, ../scss/layouts/_header.scss */
 .site-header {
