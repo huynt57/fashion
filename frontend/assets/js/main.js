@@ -43,7 +43,7 @@ $(document).ready(function(){
   $masonry
     .infinitescroll({
       navSelector: '.msr-pagination',
-      nextSelector: '.msr-pagination .next',
+      nextSelector: '.msr-pagination li a.next',
       itemSelector: masonry_item_selector,
       loading: {
         finishedMsg: 'Đã hết bài đăng',
@@ -109,7 +109,7 @@ $(document).ready(function(){
       offset: 20,
       spacing: 10,
       z_index: 1031,
-      delay: 1000000,
+      delay: 4000,
       timer: 1000,
       url_target: '_blank',
       mouse_over: null,
@@ -158,7 +158,7 @@ $(document).ready(function(){
       offset: 20,
       spacing: 10,
       z_index: 1031,
-      delay: 1000000,
+      delay: 4000,
       timer: 1000,
       url_target: '_blank',
       mouse_over: null,
@@ -207,7 +207,7 @@ $(document).ready(function(){
       offset: 20,
       spacing: 10,
       z_index: 1031,
-      delay: 1000000,
+      delay: 4000,
       timer: 1000,
       url_target: '_blank',
       mouse_over: null,
