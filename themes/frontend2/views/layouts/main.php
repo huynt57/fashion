@@ -17,6 +17,7 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/imagesloaded.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/masonry.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.infinitescroll.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap-notify.min.js"></script>
         <!-- JS main -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/main.js"></script>
     </head>
@@ -68,8 +69,8 @@
                         <ul class="list">
                             <li class="user-profile-link">
                                 <a href="#">
-<!--                                    <div class="user-avatar bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>-->
-                                    <div class="user-name"><?php echo Yii::app()->session['username']?></div>
+                                    <!--                                    <div class="user-avatar bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>-->
+                                    <div class="user-name"><?php echo Yii::app()->session['username'] ?></div>
                                 </a>
                             </li>
                             <li>
@@ -101,7 +102,7 @@
         </div>
 
 
-        
+
 
         <!-- Modal Upload -->
         <div class="modal fade" id="uploadNewPostModal">
@@ -112,11 +113,7 @@
                     </div>
                     <div class="qh-form-row clearfix text-center">
                         <div class="post-image-upload">
-                            <div class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/stock/card01.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-                            <div class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/stock/card02.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-                            <div class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/stock/card03.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-                            <div class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/stock/card04.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-                            <div class="single-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/stock/card05.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+                            
                         </div>
                         <div class="post-image-input">
                             <input type="file" class="hidden" id="inputPostImage">

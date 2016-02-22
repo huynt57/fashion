@@ -54,13 +54,13 @@
                             <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
                                 <span class="icon"><i class="fa fa-comments"></i></span>
                                 <span class="count"><?php echo $item['post_comment_count'] ?></span>
-                                <a href="javascript: void(0)" class="single-button item-button-pin" <?php if ($item['is_bookmarked']): ?>active<?php endif; ?> onclick="bookmark(<?php echo $item['post_id'] ?>)">
+                                <a href="javascript: void(0)" id="bookmark-<?php echo $item['post_id'] ?>" class="single-button item-button-pin <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark(<?php echo $item['post_id'] ?>)">
                                     <span class="icon"><i class="fa fa-thumb-tack"></i></span>
     <!--                                    <span class="count">10</span>-->
                                 </a>
-                                <a href="javascript: void(0)" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">
+                                <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">
                                     <span class="icon"><i class="fa fa-heart"></i></span>
-                                    <span class="count"><?php echo $item['post_like_count'] ?></span>
+                                    <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
                                 </a>
                             </a>
                         </div>
@@ -111,7 +111,7 @@
                     $('#' + post_id).hide();
                     // $cardContainer.data('masonry')['_reLayout']()
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                     $('#' + post_id).hide();
                 }
             }
@@ -132,7 +132,7 @@
                     $.toast('Chặn người dùng thành công !!');
 
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
 
                 }
             }
@@ -162,7 +162,7 @@
                     {
                         $.toast('Thành công !!');
                     } else {
-                        $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                        errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                     }
                 }
             });
@@ -179,15 +179,24 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    var cnt_like = parseInt($('#like-count-' + post_id).text());
+
                     if ($('#like-' + post_id).hasClass('active'))
                     {
                         $('#like-' + post_id).removeClass('active');
+                        $('#like-count-' + post_id).text(cnt_like - 1);
                     } else {
                         $('#like-' + post_id).addClass('active');
+                        $('#like-count-' + post_id).text(cnt_like + 1);
                     }
-                    $.toast('Đã thích !!');
+                    successNotifiDisplay({
+                        title: 'Thành công !',
+                        message: 'Bạn đã thích bài viết này :D'
+                    });
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
+
+
                 }
             }
         });
@@ -211,7 +220,7 @@
                     }
                     $.toast('Đánh dấu thành công !!');
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                 }
             }
         });
