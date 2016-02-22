@@ -15,7 +15,7 @@ class RecommendController extends Controller {
             if ($request->getQuery('ref') == Yii::app()->params['REF_API']) {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
-                $this->render('recommend', array('data' => $data));
+                $this->render('index', array('data' => $data));
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());

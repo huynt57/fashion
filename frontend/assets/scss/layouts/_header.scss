@@ -232,40 +232,20 @@
 	padding: 0 10px;
 	@include clearfix();
 }
-/*
-------------------------------------------------------------------------------------------------------------------------
-[.slide-in-up]
-------------------------------------------------------------------------------------------------------------------------
-*/
-.animate
-{
-    -webkit-animation-duration: .4s;
-       -moz-animation-duration: .4s;
-            animation-duration: .4s;
-    -webkit-animation-timing-function: ease;
-       -moz-animation-timing-function: ease;
-            animation-timing-function: ease;
-
-    -webkit-animation-fill-mode: both;
-       -moz-animation-fill-mode: both;
-            animation-fill-mode: both;
+.animate{
+  -webkit-animation-duration: .4s;
+     -moz-animation-duration: .4s;
+          animation-duration: .4s;
+  -webkit-animation-timing-function: ease;
+     -moz-animation-timing-function: ease;
+          animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+     -moz-animation-fill-mode: both;
+          animation-fill-mode: both;
 }
-/*
-------------------------------------------------------------------------------------------------------------------------
-[.fade-in]
-------------------------------------------------------------------------------------------------------------------------
-*/
-
-@-webkit-keyframes fade-in{
-  0%{opacity: 0;}
-}
-@-moz-keyframes fade-in{
-  0%{opacity: 0;}
-}
-@keyframes fade-in{
-  0%{opacity: 0;}
-}
-
+@-webkit-keyframes fade-in{ 0%{opacity: 0;} }
+@-moz-keyframes fade-in{ 0%{opacity: 0;} }
+@keyframes fade-in{ 0%{opacity: 0;} }
 .fade-in{
   -webkit-animation-name: fade-in;
   -moz-animation-name: fade-in;
@@ -289,9 +269,11 @@
 		position: relative;
 		border-radius: 12px 12px 0 0;
 		overflow: hidden;
-		img{
-			display: block;
-			border-radius: 12px 12px 0 0;
+		.post-image{
+			img{
+				display: block;
+				border-radius: 12px 12px 0 0;
+			}
 		}
 		.post-link{
 			position: relative;
@@ -305,6 +287,17 @@
 				color: $grey800;
 				background-color: rgba(#fff,.85);
 				border-radius: 4px;
+			}
+		}
+		.single-user-image{
+			width: 128px; height: 128px;
+			margin: 12px auto 0;
+			border-radius: 50%;
+			overflow: hidden;
+			img{
+				display: block;
+				border-radius: 50%;
+				width: 128px; height: 128px;
 			}
 		}
 	}
@@ -375,6 +368,23 @@
 						}
 					}
 				}
+			}
+		}
+		.single-user-info{
+			.display-name{
+				margin: 0;
+				font-size: 16px;
+				font-weight: 700;
+				line-height: 20px;
+				a{
+					display: inline-block;
+					color: $grey800;
+				}
+			}
+			.self-description{
+				margin: 5px 0;
+				font-size: 13px;
+				color: $grey600;
 			}
 		}
 	}

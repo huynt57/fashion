@@ -39,6 +39,7 @@
                                 </ul>
                                 <span class="border-hide"></span>
                             </li>
+                            <li><a href="#">Gợi ý</a></li>
                         </ul>
                     </div>
                 </div>

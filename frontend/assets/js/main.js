@@ -1,25 +1,9 @@
 // main js
 
-// main js
-
 
 $(document).ready(function(){
 
-	// masonry layout for cards
-	// $cardContainer = $('.post-cards-wrap');
-	// $cardItem = $('.card-item');
-
-	// $cardItem.hide();
-	// $cardContainer.imagesLoaded().done( function() {
-	// 	$cardItem.removeClass('card-hide').fadeIn();
-	// 	$cardContainer.masonry({
-	// 	  columnWidth: '.card-sizer',
-	// 	  itemSelector: '.card-item',
-	// 	  percentPosition: true,
-	// 	  transitionDuration: 0
-	// 	});
-	// });
-
+  // ==== CARD LOADING MASONRY ================
 
 	// effect loading
    var effect = 'animate fade-in';
@@ -59,7 +43,7 @@ $(document).ready(function(){
   $masonry
     .infinitescroll({
       navSelector: '.msr-pagination',
-      nextSelector: '.msr-pagination .next',
+      nextSelector: '.msr-pagination li a.next',
       itemSelector: masonry_item_selector,
       loading: {
         finishedMsg: 'Đã hết bài đăng',
@@ -83,15 +67,15 @@ $(document).ready(function(){
       });
     });
 
-  // =============================================
+  // ==== SINGLE POST MODAL =========================================
 
-	// single post image
+	// Single post image
 	$('.carousel').carousel({
 		interval: false,
 		wrap: false
 	});
 
-	// single post content scroll
+	// Single post content scroll
 	$('.qh-single-post-section .card-single-inner').slimScroll({
     height: '470px',
     size: '5px',
@@ -99,6 +83,155 @@ $(document).ready(function(){
     position: 'right'
   });
 
+  // ==== NOTIFICATION ================
+
+  // Default Toast
+  function defaultNotifiDisplay(){
+    $.notify({
+      // options
+      title: 'Default notify',
+      message: 'Turn ing st and ard Bo ots trap al erts in to "no tif y" li ke not i i ca ti o ns',
+      url: 'https://github.com/',
+      target: '_blank'
+    },
+    {
+      // settings
+      element: 'body',
+      position: null,
+      type: "normal",
+      allow_dismiss: true,
+      newest_on_top: false,
+      showProgressbar: false,
+      placement: {
+        from: "bottom",
+        align: "left"
+      },
+      offset: 20,
+      spacing: 10,
+      z_index: 1031,
+      delay: 4000,
+      timer: 1000,
+      url_target: '_blank',
+      mouse_over: null,
+      animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+      },
+      onShow: null,
+      onShown: null,
+      onClose: null,
+      onClosed: null,
+      icon_type: 'class',
+      template: 
+        '<div data-notify="container" class="qh-alert qh-alert-{0}" role="alert">' +
+          '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+          '<div data-notify="title" class="alert-title">{1}</div> ' +
+          '<div data-notify="message" class="alert-content">{2}</div>' +
+          '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>' 
+    });
+  }
+  $('#defaultNotifiDisplay').click(function(){
+    defaultNotifiDisplay()
+  });
+
+  function errorNotifiDisplay(){
+    $.notify({
+      // options
+      title: 'Có lỗi',
+      message: 'lỗi xảy ra cmnr',
+      url: 'https://github.com/',
+      target: '_blank'
+    },
+    {
+      // settings
+      element: 'body',
+      position: null,
+      type: "error",
+      allow_dismiss: true,
+      newest_on_top: false,
+      showProgressbar: false,
+      placement: {
+        from: "bottom",
+        align: "left"
+      },
+      offset: 20,
+      spacing: 10,
+      z_index: 1031,
+      delay: 4000,
+      timer: 1000,
+      url_target: '_blank',
+      mouse_over: null,
+      animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+      },
+      onShow: null,
+      onShown: null,
+      onClose: null,
+      onClosed: null,
+      icon_type: 'class',
+      template: 
+        '<div data-notify="container" class="qh-alert qh-alert-{0}" role="alert">' +
+          '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+          '<div data-notify="title" class="alert-title"><i class="fa fa-exclamation-triangle"></i> {1}</div> ' +
+          '<div data-notify="message" class="alert-content">{2}</div>' +
+          '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>' 
+    });
+  }
+  $('#errorNotifiDisplay').click(function(){
+    errorNotifiDisplay();
+  });
+
+  function infoNotifiDisplay(){
+    $.notify({
+      // options
+      title: 'Title Info',
+      message: 'Turn ing st and ard Bo ots trap al erts in to "no tif y" li ke not i i ca ti o ns',
+      url: 'https://github.com/',
+      target: '_blank'
+    },
+    {
+      // settings
+      element: 'body',
+      position: null,
+      type: "info",
+      allow_dismiss: true,
+      newest_on_top: false,
+      showProgressbar: false,
+      placement: {
+        from: "bottom",
+        align: "left"
+      },
+      offset: 20,
+      spacing: 10,
+      z_index: 1031,
+      delay: 4000,
+      timer: 1000,
+      url_target: '_blank',
+      mouse_over: null,
+      animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+      },
+      onShow: null,
+      onShown: null,
+      onClose: null,
+      onClosed: null,
+      icon_type: 'class',
+      template: 
+        '<div data-notify="container" class="qh-alert qh-alert-{0}" role="alert">' +
+          '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+          '<div data-notify="title" class="alert-title"><i class="fa fa-info-circle"></i> {1}</div> ' +
+          '<div data-notify="message" class="alert-content">{2}</div>' +
+          '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>' 
+    });
+  }
+  $('#infoNotifiDisplay').click(function(){
+    infoNotifiDisplay()
+  });
 	
 
 });
