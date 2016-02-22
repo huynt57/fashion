@@ -298,12 +298,12 @@
 			display: block;
 			.more-image{
 				position: absolute;
-				bottom: 7px; right: 10px;
-				padding: 0 3px;
+				bottom: 7px; right: 7px;
+				padding: 0 5px;
 				line-height: 18px;
 				font-size: 12px;
 				color: $grey800;
-				background-color: rgba(#fff,.5);
+				background-color: rgba(#fff,.85);
 				border-radius: 4px;
 			}
 		}
@@ -362,9 +362,13 @@
 			}
 			.user-option-list{
 				li{
+					max-width: 250px;
 					a{
 						padding: 2px 15px;
 						font-size: 13px;
+						max-width: 100%;
+						text-overflow: ellipsis;
+						overflow: hidden;
 						color: $grey700;
 						&:hover{
 							background-color: $grey200;
@@ -405,13 +409,23 @@
 		@include clearfix();
 		padding: 7px 15px;
 		.item-buttons{
-			float: right;
+			&.left{
+				float: left;
+				.single-button{
+					margin: 0 7px 0 0 ;
+				}
+			}
+			&.right{
+				float: right;
+				.single-button{
+					margin: 0 0 0 7px;
+				}
+			}
 			@include clearfix();
 			.single-button{
 				display: block;
 				float: left;
 				@include clearfix();
-				margin: 0 0 0 7px;
 				padding: 0 3px;
 				.icon{
 					float: left;
@@ -621,6 +635,24 @@
 					}
 				}
 			}
+		}
+	}
+}
+.qh-form-user-body-quiz{
+	.qh-form-label{
+		margin-top: 18px;
+	}
+	.image-label{
+		width: 70px;
+		height: 70px;
+		border: 3px solid transparent;
+		cursor: pointer;
+	}
+	input[type="checkbox"],
+	input[type="radio"]{
+		display: none;
+		&:checked + .image-label{
+			border-color: $red600;
 		}
 	}
 }

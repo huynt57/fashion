@@ -4,7 +4,7 @@ class PostController extends Controller {
 
     public $layout;
     public $layoutPath;
-    
+
     public function actionIndex() {
         $this->render('index');
     }
@@ -158,6 +158,7 @@ class PostController extends Controller {
         try {
             $post_id = StringHelper::filterString($request->getQuery('post_id'));
             $data = Posts::model()->getPostById($post_id, Yii::app()->session['user_id']);
+            // $data = Posts::model()->getPostById($post_id, '1');
             if ($request->getQuery(Yii::app()->params['REF_API'])) {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
@@ -167,15 +168,15 @@ class PostController extends Controller {
             var_dump($ex->getMessage());
         }
     }
-    
-    public function actionView()
-    {
+
+    public function actionView() {
         $request = Yii::app()->request;
-         $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend2/views/layouts";
+        $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend2/views/layouts";
         $this->layout = 'main_modal';
         try {
             $post_id = StringHelper::filterString($request->getQuery('post_id'));
-            $data = Posts::model()->getPostById($post_id, Yii::app()->session['user_id']);
+            //$data = Posts::model()->getPostById($post_id, Yii::app()->session['user_id']);
+            $data = Posts::model()->getPostById($post_id, '1');
             if ($request->getQuery(Yii::app()->params['REF_API'])) {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
@@ -185,7 +186,7 @@ class PostController extends Controller {
             var_dump($ex->getMessage());
         }
     }
-    
+
     public function actionAddPostForWeb() {
         $request = Yii::app()->request;
         try {
@@ -195,7 +196,7 @@ class PostController extends Controller {
             $cats_arr = StringHelper::filterArrayString($request->getPost('cats'));
             $cats = json_encode($cats_arr);
             $url = Yii::app()->request->getUrlReferrer();
-         //   $url_arr = NULL;
+            //   $url_arr = NULL;
             $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
             // $album = StringHelper::filterString($request->getPost('album'));
             $album = NULL;
