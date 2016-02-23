@@ -4,7 +4,7 @@
         <ul class="child-category-list">
             <?php foreach ($cats as $cat): ?>
                 <li><a href="<?php echo Yii::app()->createUrl('category/detailCategory', array('cat_id' => $cat->cat_id)); ?>">
-                        <div class="bg-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>assets/stock/card01.jpg')"></div>
+                        <div class="bg-image" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/stock/card01.jpg')"></div>
                         <div class="bg-gradient"></div>
                         <div class="cat-name">Quần nam</div>
                     </a></li>

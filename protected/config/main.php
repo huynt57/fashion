@@ -14,7 +14,7 @@ return array(
     'name' => 'MacChat',
     // preloading 'log' component
     'preload' => array('log'),
-   // 'defaultController' => $defaultControlelr,
+    'defaultController' => 'home/newsFeed',
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
