@@ -146,9 +146,7 @@
                     var post_cmt_cnt = parseInt($('#post_cmt_cnt').text());
                         $('#post_cmt_cnt').text(post_cmt_cnt + 1);
                     if (response.status === 1)
-                    {
-                        
-                      
+                    {                   
                         $('#comment-list').prepend('<li class="comment-item clearfix">' +
                                 '<div class="avatar">' +
                                 '<img src="' + response.data.photo + '" alt="" width="40" height="40">' +

@@ -1,3 +1,3 @@
 <?php $this->renderPartial('//home/index',
-        array('data'=>$data)
+        array('data'=>$data, 'pages'=>$pages)
 ); ?>
