@@ -20,8 +20,8 @@
                 <label class="qh-form-label">Cân nặng:</label>
             </div>
             <div class="col-xs-10">
-                <input type="radio" id="inputHeightShort" name="inputHeight"><label for="inputHeightShort" class="image-label"><img src="http://placehold.it/64?text=lun"></label>
-                <input type="radio" id="inputHeightLShort" name="inputHeight"><label for="inputHeightLShort" class="image-label"><img src="http://placehold.it/64?text=hl"></label>
+                <input type="radio" id="inputHeightShort" value="" name="inputHeight"><label for="inputHeightShort" class="image-label"><img src="http://placehold.it/64?text=lun"></label>
+                <input type="radio" id="inputHeightLShort" value="" name="inputHeight"><label for="inputHeightLShort" class="image-label"><img src="http://placehold.it/64?text=hl"></label>
                 <input type="radio" id="inputHeightNormal" name="inputHeight" checked><label for="inputHeightNormal" class="image-label"><img src="http://placehold.it/64?text=bt"></label>
                 <input type="radio" id="inputHeightLTall" name="inputHeight"><label for="inputHeightLTall" class="image-label"><img src="http://placehold.it/64?text=hc"></label>
                 <input type="radio" id="inputHeightTall" name="inputHeight"><label for="inputHeightTall" class="image-label"><img src="http://placehold.it/64?text=cao"></label>
@@ -30,7 +30,7 @@
         <hr>
         <div class="qh-form-row">
             <div class="col-xs-10 col-xs-offset-2">
-                <button class="qh-btn qh-btn-red600">Gửi kết quả</button>
+                <button class="qh-btn qh-btn-red600" type="submit">Gửi kết quả</button>
             </div>
         </div>
     </form>

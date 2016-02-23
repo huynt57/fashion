@@ -147,6 +147,8 @@ class PostController extends Controller {
     }
 
     public function actionUpload() {
+        $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend2/views/layouts";
+        $this->layout = 'main_modal';
         $male_cats = Categories::model()->getMaleCategory();
         $female_cats = Categories::model()->getFemaleCategory();
         $other_cats = Categories::model()->getOtherCategory();

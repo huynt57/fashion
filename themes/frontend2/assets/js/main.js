@@ -189,22 +189,52 @@ $(document).on('click', '.delete-image', function (e) {
 
 
 $(document).ready(function () {
+    $('#upload-post').click(function () {
+        var url = $(this).attr('data-url');
+        $.ajax({
+            url: url,
+            beforeSend: function (xhr) {
+                $('#uploadNewPostModal').empty();
+                $('#uploadNewPostModal').html('<img id="loading" src="/fashion/themes/frontend2/assets/img/loading.gif" alt="" style="' +
+                        'display: block;' +
+                        'margin: 0 auto;' +
+                        'margin-top: 15%;' +
+                        '">');
+
+            },
+            type: 'GET',
+            success: function (response)
+            {
+                $('#uploadNewPostModal').html(response);
+            }
+        });
+    });
+
     function readURL(input) {
+        //alert('3');
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
+                var cnt = $('.single-image').length;
+                if (cnt >= 5) {
+                    alert('Bạn chỉ được đăng tối đa 5 ảnh');
+                    return false;
+                }
                 $('.post-image-upload').append('<div class="single-image" style="margin-right: 5px;background-image: url(' + e.target.result + ');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>');
 
             }
-
-
             reader.readAsDataURL(input.files[0]);
         }
     }
 
+    $(document).on('change', "#inputPostImage", function() {
+      ///  alert('2');
+         readURL(this);
+    });
+    
     $("#inputPostImage").change(function () {
-        readURL(this);
+       
     });
 
 

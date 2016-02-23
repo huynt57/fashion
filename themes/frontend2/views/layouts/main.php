@@ -30,16 +30,16 @@
                     <div class="main-nav">
                         <ul class="list">
                             <li class="active"><a href="#">Trang chủ</a></li>
-                            <li><a href="<?php Yii::app()->createUrl('rank/rankPostByTime' , array('time' => 'DAY')) ?>">Xếp hạng</a></li>
+                            <li><a href="<?php Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Xếp hạng</a></li>
                             <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
                                 <ul class="inner-list category-list">
-                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 2)) ?>">Thời trang nữ</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 2)) ?>">Thời trang nữ</a></li>
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 1)) ?>">Thời trang nam</a></li>
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 0)) ?>">Đồ dùng khác</a></li>
                                 </ul>
                                 <span class="border-hide"></span>
                             </li>
-                            <li><a href="<?php echo Yii::app()->createUrl('recommend/index')?>">Gợi ý</a></li>
+                            <li><a href="<?php echo Yii::app()->createUrl('recommend/index') ?>">Gợi ý</a></li>
                         </ul>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="action-nav">
                         <ul class="list">
-                            <li class="upload-open-btn"><a href="#" title="Tải ảnh lên" data-toggle="modal" data-target="#uploadNewPostModal">
+                            <li class="upload-open-btn"><a href="#" id="upload-post" title="Tải ảnh lên" data-toggle="modal" data-target="#uploadNewPostModal" data-url="<?php echo Yii::app()->createUrl('post/upload') ?>">
                                     <i class="fa fa-cloud-upload"></i>
                                 </a></li>
                             <li class="notifi-open-btn"><a href="#" title="Thông báo">
@@ -105,66 +105,8 @@
 
         <!-- Modal Upload -->
         <div class="modal fade" id="uploadNewPostModal">
-            <div class="qh-modal-dialog qh-upload-section z-depth-2">
-                <form action="#" class="qh-form qh-upload-post-form">
-                    <div class="qh-form-row">
-                        <textarea rows="4" placeholder="Miêu tả" class="post-description"></textarea>
-                    </div>
-                    <div class="qh-form-row clearfix text-center">
-                        <div class="post-image-upload">
+         
 
-                        </div>
-                        <div class="post-image-input">
-                            <input type="file" class="hidden" id="inputPostImage">
-                            <label for="inputPostImage" class="label-image-input text-center">
-                                <div class="icon"><i class="fa fa-plus"></i></div>
-                                <div class="text">Thêm ảnh</div>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="qh-form-row clearfix text-center">
-                        <div class="category-title">Chọn chuyên mục (tối đa: 2)</div>
-                        <div class="category-choosing">
-                            <div class="qh-form-row">
-                                <label class="qh-form-label">Thời trang nam</label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Quần nam
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Áo nam
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Phụ kiện nam
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Đồ nam khác
-                                </label>
-                                <label class="qh-form-label">Thời trang nữ</label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Quần nữ
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Áo nữ
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Váy - Đầm
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Phụ kiện nữ
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> Đồ nữ khác
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="qh-form-row clearfix text-center">
-                        <button class="qh-btn qh-btn-red600">Đăng ảnh</button>
-                        <div class="post-cancel"><a href="#">Hủy đăng ảnh</a></div>
-                    </div>
-                </form>
-            </div>
         </div>
 
     </body>
