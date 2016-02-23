@@ -232,6 +232,55 @@ $(document).ready(function(){
   $('#infoNotifiDisplay').click(function(){
     infoNotifiDisplay()
   });
+
+  function successNotifiDisplay(){
+    $.notify({
+      // options
+      title: 'Thành công',
+      message: 'Turn ing st and ard Bo ots trap al erts in to "no tif y" li ke not i i ca ti o ns',
+      url: 'https://github.com/',
+      target: '_blank'
+    },
+    {
+      // settings
+      element: 'body',
+      position: null,
+      type: "success",
+      allow_dismiss: true,
+      newest_on_top: false,
+      showProgressbar: false,
+      placement: {
+        from: "bottom",
+        align: "left"
+      },
+      offset: 20,
+      spacing: 10,
+      z_index: 1031,
+      delay: 4000,
+      timer: 1000,
+      url_target: '_blank',
+      mouse_over: null,
+      animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+      },
+      onShow: null,
+      onShown: null,
+      onClose: null,
+      onClosed: null,
+      icon_type: 'class',
+      template: 
+        '<div data-notify="container" class="qh-alert qh-alert-{0}" role="alert">' +
+          '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+          '<div data-notify="title" class="alert-title"><i class="fa fa-check-circle"></i> {1}</div> ' +
+          '<div data-notify="message" class="alert-content">{2}</div>' +
+          '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>' 
+    });
+  }
+  $('#successNotifiDisplay').click(function(){
+    successNotifiDisplay()
+  });
 	
 
 });

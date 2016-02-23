@@ -1393,6 +1393,9 @@ select {
   /* line 23, ../scss/elements/_notifi.scss */
   .qh-alert.qh-alert-error {
     color: #D32F2F; }
+  /* line 26, ../scss/elements/_notifi.scss */
+  .qh-alert.qh-alert-success {
+    color: #689F38; }
 
 /* line 1, ../scss/layouts/_header.scss */
 .site-header {

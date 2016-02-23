@@ -10,8 +10,8 @@
                         <div class="post-image">
                             <a href="" class="post-link" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
                                 <img src="<?php echo Images::model()->getImagePreviewByPostId($item['post_id']) ?>" alt="">
-                                <?php if(count($item['images']) > 1):?>
-                                <span class="more-image">+ <?php echo count($item['images']) - 1?> ảnh</span>
+                                <?php if (count($item['images']) > 1): ?>
+                                    <span class="more-image">+ <?php echo count($item['images']) - 1 ?> ảnh</span>
                                 <?php endif; ?>
                             </a>
                         </div>				
@@ -28,7 +28,9 @@
                             <div class="dropdown user-option">
                                 <button class="user-option-btn" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
                                 <ul class="dropdown-menu user-option-list pull-right z-depth-2">
-                                    <li><a href="#" data-toggle="modal" data-target="#postReportModal">Báo cáo sai phạm</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
+                                    <li><a href="#"  onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng từ <?php echo $item['user'][0]['username'] ?></a></li>
+                                    <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)" >Block <?php echo $item['user'][0]['username'] ?></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -43,17 +45,22 @@
                         </div>
                     </div>
                     <div class="c-footer">
-                        <div class="item-buttons">
+                        <div class="item-buttons left">
+                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal">
+                                <span class="icon"><i class="fa fa-share-square-o"></i></span>
+                            </a>
+                        </div>
+                        <div class="item-buttons right">
                             <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
                                 <span class="icon"><i class="fa fa-comments"></i></span>
                                 <span class="count"><?php echo $item['post_comment_count'] ?></span>
-                                <a href="#" class="single-button item-button-pin" <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>>
+                                <a href="javascript: void(0)" id="bookmark-<?php echo $item['post_id'] ?>" class="single-button item-button-pin <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark(<?php echo $item['post_id'] ?>)">
                                     <span class="icon"><i class="fa fa-thumb-tack"></i></span>
     <!--                                    <span class="count">10</span>-->
                                 </a>
-                                <a href="#" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>">
+                                <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">
                                     <span class="icon"><i class="fa fa-heart"></i></span>
-                                    <span class="count"><?php echo $item['post_like_count'] ?></span>
+                                    <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
                                 </a>
                             </a>
                         </div>
@@ -84,94 +91,6 @@
 
 <!-- end SITE CONTENT -->
 
-<!-- ========================================================= -->
-<!-- Modal, có vài cái template modal ở dưới chưa ghép vào link nào cả (default) -->
-
-<!-- Modal Report -->
-<div class="modal fade" id="postReportModal">
-    <div class="qh-modal-dialog qh-default-modal z-depth-2">
-        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
-        <h3 class="title"></h3>
-        <div class="qh-modal-title">Báo cáo sai phạm</div>
-        <div class="qh-modal-content">
-            <p>Vì sao bạn nghĩ bài đăng này vi phạm qui định?</p>
-            <form action="#" class="qh-form qh-form-normal">
-                <div class="qh-form-row">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" checked>
-                            Option one is this and that&mdash;be sure to include why it's great
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" checked>
-                            Option two is this and that&mdash;be sure to include why it's great
-                        </label>
-                    </div>
-                    <div class="radio disabled">
-                        <label>
-                            <input type="radio" name="optionsRadios" disabled>
-                            Option three is disabled
-                        </label>
-                    </div>
-                </div>
-                <div class="qh-form-row">
-                    <button class="qh-btn qh-btn-normal">Gửi</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Tks -->
-<div class="modal fade" id="postReportThanksModal">
-    <div class="qh-modal-dialog qh-default-modal z-depth-2">
-        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
-        <div class="qh-modal-content">
-            <p>Cám ơn phản hồi của bạn.</p>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Single Post -->
-<div class="modal fade" id="singlePostModal">
-    <div class="qh-modal-dialog qh-single-post-section z-depth-2" id="single-post-modal">
-
-    </div>
-</div>
-
-
-
-<!-- Modal Loading -->
-<div class="modal fade" id="modal-loading">
-    <div class="qh-modal-dialog qh-loading-modal z-depth-2">
-        <div class="loading-spin"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i></div>
-    </div>
-</div>
-
-<!-- Modal Default -->
-<div class="modal fade" id="">
-    <div class="qh-modal-dialog qh-default-modal z-depth-2">
-        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
-        <div class="qh-modal-title">But I must explain to you how ...</div>
-        <div class="qh-modal-content">
-            <p>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.</p>
-            <p>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it?</p>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Default Sucess -->
-<div class="modal fade" id="">
-    <div class="qh-modal-dialog qh-default-modal qh-modal-xs-size z-depth-2">
-        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
-        <div class="qh-modal-content">
-            <p>Đăng bài thành công.</p>
-        </div>
-    </div>
-</div>
-
 <?php $this->renderPartial('modal'); ?>
 
 
@@ -190,19 +109,9 @@
                 {
                     $.toast('Ẩn bài viết thành công !!');
                     $('#' + post_id).hide();
-                    $cardContainer = $('.cards-display-main-ctn');
-                    $cardItem = $('.card-item');
-                    $cardContainer.imagesLoaded().done(function () {
-                        $cardContainer.masonry({
-                            columnWidth: '.card-item',
-                            itemSelector: '.card-item',
-                            percentPosition: true,
-                            transitionDuration: 0
-                        });
-                    });
                     // $cardContainer.data('masonry')['_reLayout']()
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                     $('#' + post_id).hide();
                 }
             }
@@ -223,7 +132,7 @@
                     $.toast('Chặn người dùng thành công !!');
 
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
 
                 }
             }
@@ -253,7 +162,7 @@
                     {
                         $.toast('Thành công !!');
                     } else {
-                        $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                        errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                     }
                 }
             });
@@ -270,15 +179,24 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    var cnt_like = parseInt($('#like-count-' + post_id).text());
+
                     if ($('#like-' + post_id).hasClass('active'))
                     {
                         $('#like-' + post_id).removeClass('active');
+                        $('#like-count-' + post_id).text(cnt_like - 1);
                     } else {
                         $('#like-' + post_id).addClass('active');
+                        $('#like-count-' + post_id).text(cnt_like + 1);
                     }
-                    $.toast('Đã thích !!');
+                    successNotifiDisplay({
+                        title: 'Thành công !',
+                        message: 'Bạn đã thích bài viết này :D'
+                    });
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
+
+
                 }
             }
         });
@@ -302,7 +220,7 @@
                     }
                     $.toast('Đánh dấu thành công !!');
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                 }
             }
         });
