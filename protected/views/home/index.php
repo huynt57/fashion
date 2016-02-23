@@ -4,7 +4,7 @@
 
     <div class="post-cards-wrap clearfix">
         <?php foreach ($data as $item): ?>
-            <div class="card-single">
+            <div class="card-single" id="<?php echo $item['post_id'] ?>">
                 <div class="card-single-inner">
                     <div class="c-image">
                         <div class="post-image">
@@ -28,8 +28,8 @@
                             <div class="dropdown user-option">
                                 <button class="user-option-btn" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
                                 <ul class="dropdown-menu user-option-list pull-right z-depth-2">
-                                    <li><a href="#" data-toggle="modal" data-target="#post-report-modal">Báo cáo sai phạm</a></li>
-                                    <li><a href="#"  onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng từ <?php echo $item['user'][0]['username'] ?></a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#post-report-modal" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)">Báo cáo sai phạm</a></li>
+                                    <li><a href="#"  onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này từ <?php echo $item['user'][0]['username'] ?></a></li>
                                     <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)" >Block <?php echo $item['user'][0]['username'] ?></a></li>
                                 </ul>
                             </div>
@@ -107,11 +107,21 @@
             success: function (response) {
                 if (response.status === 1)
                 {
-                   successNotifiDisplay({
+
+                    $('#' + post_id).hide();
+                    var masonry_selector = '.post-cards-wrap';
+                    var masonry_item_selector = '.card-single';
+
+                    // Initialize Masonry.
+                    var $masonry = $(masonry_selector)
+                            .masonry({
+                                itemSelector: masonry_item_selector
+                            });
+                    successNotifiDisplay({
                         title: 'Thành công !',
                         message: 'Ẩn bài viết thành công'
                     });
-                    $('#' + post_id).hide();
+
                     // $cardContainer.data('masonry')['_reLayout']()
                 } else {
                     errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
@@ -167,9 +177,9 @@
                     if (response.status === 1)
                     {
                         successNotifiDisplay({
-                        title: 'Thành công !',
-                        message: 'Bạn đã báo cáo thành công'
-                    });
+                            title: 'Thành công !',
+                            message: 'Bạn đã báo cáo thành công'
+                        });
                     } else {
                         errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                     }
@@ -225,7 +235,10 @@
                     } else {
                         $('#bookmark-' + post_id).addClass('active');
                     }
-                    $.toast('Đánh dấu thành công !!');
+                    successNotifiDisplay({
+                        title: 'Thành công !',
+                        message: 'Bạn đã đánh dấu bài viết này :D'
+                    });
                 } else {
                     errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                 }
