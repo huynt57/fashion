@@ -2,7 +2,7 @@
     <h3>Khảo sát</h3>
     <hr>
     <p>Thân hình của bạn thuộc loại nào sau đây:</p>
-    <form action="#" class="qh-form qh-form-horizontal qh-form-user-body-quiz">
+    <form action="<?php Yii::app()->createUrl('recommend/celeb') ?>" class="qh-form qh-form-horizontal qh-form-user-body-quiz">
         <div class="qh-form-row">
             <div class="col-xs-2">
                 <label class="qh-form-label">Chiều cao</label>

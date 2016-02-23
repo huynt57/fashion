@@ -30,17 +30,16 @@
                     <div class="main-nav">
                         <ul class="list">
                             <li class="active"><a href="#">Trang chủ</a></li>
-                            <li><a href="#">Khám phá</a></li>
-                            <li><a href="#">Xếp hạng</a></li>
+                            <li><a href="<?php Yii::app()->createUrl('rank/rankPostByTime' , array('time' => 'DAY')) ?>">Xếp hạng</a></li>
                             <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
                                 <ul class="inner-list category-list">
-                                    <li><a href="#">Thời trang nam</a></li>
-                                    <li><a href="#">Thời trang nữ</a></li>
-                                    <li><a href="#">Đồ dùng khác</a></li>
+                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 2)) ?>">Thời trang nữ</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 1)) ?>">Thời trang nam</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 0)) ?>">Đồ dùng khác</a></li>
                                 </ul>
                                 <span class="border-hide"></span>
                             </li>
-                            <li><a href="#">Gợi ý</a></li>
+                            <li><a href="<?php echo Yii::app()->createUrl('recommend/index')?>">Gợi ý</a></li>
                         </ul>
                     </div>
                 </div>
@@ -113,7 +112,7 @@
                     </div>
                     <div class="qh-form-row clearfix text-center">
                         <div class="post-image-upload">
-                            
+
                         </div>
                         <div class="post-image-input">
                             <input type="file" class="hidden" id="inputPostImage">

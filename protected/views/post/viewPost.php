@@ -144,9 +144,9 @@
                     $('#ajax-loader').hide();
                     $('#comment_content').val('');
                     var post_cmt_cnt = parseInt($('#post_cmt_cnt').text());
-                        $('#post_cmt_cnt').text(post_cmt_cnt + 1);
+                    $('#post_cmt_cnt').text(post_cmt_cnt + 1);
                     if (response.status === 1)
-                    {                   
+                    {
                         $('#comment-list').prepend('<li class="comment-item clearfix">' +
                                 '<div class="avatar">' +
                                 '<img src="' + response.data.photo + '" alt="" width="40" height="40">' +
@@ -251,15 +251,22 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    var cnt_like = parseInt($('#like-count-' + post_id).text());
+
                     if ($('#like-' + post_id).hasClass('active'))
                     {
                         $('#like-' + post_id).removeClass('active');
+                        $('#like-count-' + post_id).text(cnt_like - 1);
                     } else {
                         $('#like-' + post_id).addClass('active');
+                        $('#like-count-' + post_id).text(cnt_like + 1);
                     }
-                    $.toast('Thành công !!');
+                    successNotifiDisplay({
+                        title: 'Thành công !',
+                        message: 'Bạn đã thích bài viết này :D'
+                    });
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                 }
             }
         });

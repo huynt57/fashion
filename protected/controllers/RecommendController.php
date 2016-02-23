@@ -3,7 +3,7 @@
 class RecommendController extends Controller {
 
     public function actionIndex() {
-        $this->render('index');
+        $this->render('recommend');
     }
 
     public function actionCeleb() {

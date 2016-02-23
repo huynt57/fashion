@@ -107,7 +107,10 @@
             success: function (response) {
                 if (response.status === 1)
                 {
-                    $.toast('Ẩn bài viết thành công !!');
+                   successNotifiDisplay({
+                        title: 'Thành công !',
+                        message: 'Ẩn bài viết thành công'
+                    });
                     $('#' + post_id).hide();
                     // $cardContainer.data('masonry')['_reLayout']()
                 } else {
@@ -129,7 +132,10 @@
             success: function (response) {
                 if (response.status === 1)
                 {
-                    $.toast('Chặn người dùng thành công !!');
+                    successNotifiDisplay({
+                        title: 'Thành công !',
+                        message: 'Bạn đã chặn người dùng này'
+                    });
 
                 } else {
                     errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
@@ -160,7 +166,10 @@
                     $('#post-report-modal').modal('hide');
                     if (response.status === 1)
                     {
-                        $.toast('Thành công !!');
+                        successNotifiDisplay({
+                        title: 'Thành công !',
+                        message: 'Bạn đã báo cáo thành công'
+                    });
                     } else {
                         errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                     }
@@ -195,8 +204,6 @@
                     });
                 } else {
                     errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
-
-
                 }
             }
         });

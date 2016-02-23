@@ -61,9 +61,9 @@
                             <span class="icon"><i class="fa fa-thumb-tack"></i></span>
 <!--                                    <span class="count">10</span>-->
                         </a>
-                        <a href="#" class="single-button item-button-like <?php if ($data['is_liked']): ?>active<?php endif; ?>">
+                        <a id="like-modal-<?php echo $data['post_id'] ?>" href="javascript::void(0)" onclick="like(<?php echo Yii::app()->session['user_id'] ?>, <?php echo $data['post_id'] ?>)" class="single-button item-button-like <?php if ($data['is_liked']): ?>active<?php endif; ?>">
                             <span class="icon"><i class="fa fa-heart"></i></span>
-                            <span class="count"><?php echo $data['post_like_count'] ?></span>
+                            <span class="count" id="like-count-modal-<?php echo $data['post_id'] ?>"><?php echo $data['post_like_count'] ?></span>
                         </a>
                     </a>
                 </div>
@@ -73,7 +73,7 @@
                 <form action="javascript::void(0)" class="comment-post-form" id="form_comment">
                     <textarea class="comment-post-input-area" rows="2" placeholder="Viết bình luận" name="comment_content" id="comment_content"></textarea>
                     <div class="text-right">
-                        <input name="user_id" type="hidden" value="<?php echo '1'//Yii::app()->session['user_id']    ?>" />
+                        <input name="user_id" type="hidden" value="<?php echo '1'//Yii::app()->session['user_id']      ?>" />
                         <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                         <span class="loading" id="loading-comment" style="display: none"><i class="fa fa-spinner fa-pulse"></i></span>
                         <button type="button" class="comment-post-submit qh-btn qh-btn-red600 qh-btn-sm" id="submit-comment" onclick="comment()">Đăng</button>
@@ -111,11 +111,11 @@
             data: data,
             dataType: 'json',
             success: function (response) {
-                console.log(response);
+                //console.log(response);
                 $('#loading-comment').hide();
                 $('#comment_content').val('');
                 var post_cmt_cnt = parseInt($('#post_cmt_cnt').text());
-                $('#post_cmt_cnt').text(post_cmt_cnt + 1);
+                $('#post-cmt-cnt').text(post_cmt_cnt + 1);
                 if (response.status === 1)
                 {
                     $('#list-comment').prepend('<li class="single-comment">' +
@@ -215,15 +215,27 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    var cnt_like = parseInt($('#like-count-' + post_id).text());
+                    var cnt_like = parseInt($('#like-count-modal-' + post_id).text());
+
                     if ($('#like-' + post_id).hasClass('active'))
                     {
                         $('#like-' + post_id).removeClass('active');
+                        $('#like-modal-' + post_id).removeClass('active');
+                        $('#like-count-' + post_id).text(cnt_like - 1);
+                        $('#like-count-modal-' + post_id).text(cnt_like - 1);
                     } else {
                         $('#like-' + post_id).addClass('active');
+                        $('#like-modal-' + post_id).addClass('active');
+                        $('#like-count-' + post_id).text(cnt_like + 1);
+                        $('#like-count-modal-' + post_id).text(cnt_like + 1);
                     }
-                    $.toast('Thành công !!');
+                    successNotifiDisplay({
+                        title: 'Thành công !',
+                        message: 'Bạn đã thích bài viết này :D'
+                    });
                 } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
+                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                 }
             }
         });

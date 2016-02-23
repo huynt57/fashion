@@ -181,6 +181,11 @@ function successNotifiDisplay() {
             });
 }
 
+$(document).on('click', '.delete-image', function (e) {
+    e.preventDefault();
+    $(this).parent().remove();
+});
+
 
 
 $(document).ready(function () {
@@ -189,7 +194,7 @@ $(document).ready(function () {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('.post-image-upload').append('<div class="single-image" style="background-image: url(' + e.target.result + ');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>');
+                $('.post-image-upload').append('<div class="single-image" style="margin-right: 5px;background-image: url(' + e.target.result + ');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>');
 
             }
 
@@ -201,10 +206,7 @@ $(document).ready(function () {
     $("#inputPostImage").change(function () {
         readURL(this);
     });
-    $('.delete-image').click(function() {
-        alert('23');
-        $(this).parent().hide();
-    });
+
 
     // ==== CARD LOADING MASONRY ================
 
