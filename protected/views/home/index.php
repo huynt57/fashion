@@ -30,7 +30,7 @@
                                 <ul class="dropdown-menu user-option-list pull-right z-depth-2">
                                     <li><a href="#" data-toggle="modal" data-target="#post-report-modal" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)">Báo cáo sai phạm</a></li>
                                     <li><a href="#"  onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                    <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)" >Block <?php echo $item['user'][0]['username'] ?></a></li>
+                                    <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="c-footer">
                         <div class="item-buttons left">
-                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal">
+                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share()">
                                 <span class="icon"><i class="fa fa-share-square-o"></i></span>
                             </a>
                         </div>
@@ -99,60 +99,74 @@
 
     function hide_post(post_id)
     {
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl('post/hidePostForUser') ?>',
-            type: 'POST',
-            data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id},
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1)
+        $('#hidePostFromUserModal').modal('show');
+
+        $('#submitHidePost').click(function () {
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl('post/hidePostForUser') ?>',
+                beforeSend: function (xhr)
                 {
+                    $('#hidePostFromUserModal').modal('hide');
+                },
+                type: 'POST',
+                data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id},
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 1)
+                    {
 
-                    $('#' + post_id).hide();
-                    var masonry_selector = '.post-cards-wrap';
-                    var masonry_item_selector = '.card-single';
+                        $('#' + post_id).hide();
+                        var masonry_selector = '.post-cards-wrap';
+                        var masonry_item_selector = '.card-single';
 
-                    // Initialize Masonry.
-                    var $masonry = $(masonry_selector)
-                            .masonry({
-                                itemSelector: masonry_item_selector
-                            });
-                    successNotifiDisplay({
-                        title: 'Thành công !',
-                        message: 'Ẩn bài viết thành công'
-                    });
+                        // Initialize Masonry.
+                        var $masonry = $(masonry_selector)
+                                .masonry({
+                                    itemSelector: masonry_item_selector
+                                });
+                        successNotifiDisplay({
+                            title: 'Thành công !',
+                            message: 'Ẩn bài viết thành công'
+                        });
 
-                    // $cardContainer.data('masonry')['_reLayout']()
-                } else {
-                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
-                    $('#' + post_id).hide();
+                        // $cardContainer.data('masonry')['_reLayout']()
+                    } else {
+                        errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
+                        $('#' + post_id).hide();
+                    }
                 }
-            }
+            });
         });
-
     }
 
     function block_user(user_blocked, post_id)
     {
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl('user/blockUser') ?>',
-            type: 'POST',
-            data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked},
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1)
-                {
-                    successNotifiDisplay({
-                        title: 'Thành công !',
-                        message: 'Bạn đã chặn người dùng này'
-                    });
+        $('#blockUserFromPostModal').modal('show');
+        $('#submitBlockUser').click(function () {
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl('user/blockUser') ?>',
+                type: 'POST',
+                beforeSend: function (xhr) {
+                    $('#blockUserFromPostModal').modal('hide');
+                },
+                data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked},
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 1)
+                    {
+                        successNotifiDisplay({
+                            title: 'Thành công !',
+                            message: 'Bạn đã chặn người dùng này'
+                        });
 
-                } else {
-                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
+                    } else {
+                        errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
 
+                    }
                 }
-            }
+            });
         });
+
     }
 
     function report(post_id, user_id)
