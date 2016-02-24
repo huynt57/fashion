@@ -19,6 +19,7 @@
  * @property integer $comment_id
  * @property integer $album_id
  * @property integer $image_like_count
+ * @property integer $created_by_celeb
  *
  */
 abstract class BaseImages extends GxActiveRecord {
@@ -41,16 +42,15 @@ abstract class BaseImages extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count', 'numerical', 'integerOnly'=>true),
+			array('status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count, created_by_celeb', 'numerical', 'integerOnly'=>true),
 			array('img_url', 'length', 'max'=>255),
-			array('img_url, status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('img_id, img_url, status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count', 'safe', 'on'=>'search'),
+			array('img_url, status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count, created_by_celeb', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('img_id, img_url, status, created_at, updated_at, post_id, created_by, comment_id, album_id, image_like_count, created_by_celeb', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-                    'posts'=>array(self::BELONGS_TO, 'Posts', 'post_id'),
 		);
 	}
 
@@ -71,6 +71,7 @@ abstract class BaseImages extends GxActiveRecord {
 			'comment_id' => Yii::t('app', 'Comment'),
 			'album_id' => Yii::t('app', 'Album'),
 			'image_like_count' => Yii::t('app', 'Image Like Count'),
+			'created_by_celeb' => Yii::t('app', 'Created By Celeb'),
 		);
 	}
 
@@ -87,6 +88,7 @@ abstract class BaseImages extends GxActiveRecord {
 		$criteria->compare('comment_id', $this->comment_id);
 		$criteria->compare('album_id', $this->album_id);
 		$criteria->compare('image_like_count', $this->image_like_count);
+		$criteria->compare('created_by_celeb', $this->created_by_celeb);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

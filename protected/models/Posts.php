@@ -8,6 +8,64 @@ class Posts extends BasePosts {
         return parent::model($className);
     }
 
+    public function addPostCeleb($celeb_id, $post_content, $location, $url_arr, $album, $cats) {
+        $model = new Posts;
+        $model->post_content = $post_content;
+        $model->post_comment_count = 0;
+        $model->post_like_count = 0;
+        $model->post_view_count = 0;
+        $model->location = $location;
+        $model->created_at = time();
+        $model->status = 1;
+        $model->updated_at = time();
+        $model->celeb_id = $celeb_id;
+        if (!$model->save(FALSE)) {
+            return FALSE;
+        }
+      //  $cats = json_decode($cats, TRUE);
+        foreach ($cats as $cat) {
+            $cat_model = new CatPost();
+            $cat_model->cat_id = $cat;
+            $cat_model->post_id = $model->post_id;
+            $cat_model->status = 1;
+            $cat_model->created_at = time();
+            $cat_model->updated_at = time();
+            if (!$cat_model->save(FALSE)) {
+                return FALSE;
+            }
+        }
+        if (is_array($url_arr)) {
+            foreach ($url_arr as $url) {
+                $image = new Images;
+                $image->post_id = $model->post_id;
+                $image->created_at = time();
+                $image->created_by_celeb = $celeb_id;
+                $image->updated_at = time();
+                $image->status = 1;
+                $image->album_id = $album;
+                $image->image_like_count = 0;
+                $image->img_url = $url;
+                if (!$image->save(FALSE)) {
+                    return FALSE;
+                }
+            }
+        } else {
+            $image = new Images;
+            $image->post_id = $model->post_id;
+            $image->created_at = time();
+            $image->created_by_celeb = $celeb_id;
+            $image->updated_at = time();
+            $image->status = 1;
+            $image->album_id = $album;
+            $image->image_like_count = 0;
+            $image->img_url = $url_arr;
+            if (!$image->save(FALSE)) {
+                return FALSE;
+            }
+        }
+        return $model->post_id;
+    }
+
     public function addPost($user_id, $post_content, $location, $url_arr, $album, $cats) {
         $model = new Posts;
         $model->post_content = $post_content;

@@ -13,7 +13,7 @@ class Celebrities extends BaseCelebrities {
         $criteria = new CDbCriteria;
         $criteria->conditon = "celeb_heigt_rate = $rate_height AND celeb_weight_rate = $rate_weight";
         $celebs = Celebrities::model()->findAll($criteria);
-        if ($ref == 'api') {
+        if ($ref !== 'api') {
             $count = Posts::model()->count($celebs);
             $pages = new CPagination($count);
             $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
@@ -26,6 +26,24 @@ class Celebrities extends BaseCelebrities {
         }
 
         return array('data' => $returnArr, 'pages' => $pages);
+    }
+    
+    public function addCeleb($profile, $image, $cover)
+    {
+        $model = new Celebrities;
+        $model->setAttributes($profile);
+        $model->celeb_image = $image;
+        $model->celeb_image_cover = $cover;
+        if($model->save(FALSE))
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
+    public function addPostCeleb()
+    {
+        
     }
 
 }

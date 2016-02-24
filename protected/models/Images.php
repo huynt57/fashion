@@ -14,8 +14,8 @@ class Images extends BaseImages {
         $criteria->condition = "post_id = $post_id";
         $data = Images::model()->find($criteria);
         if ($data) {
-            $url = $data->img_url;    
-            return StringHelper::generateUrlImage($url);//Yii::app()->request->getBaseUrl(true) . '/' . $url;
+            $url = $data->img_url;
+            return StringHelper::generateUrlImage($url); //Yii::app()->request->getBaseUrl(true) . '/' . $url;
         } else {
             return '';
         }

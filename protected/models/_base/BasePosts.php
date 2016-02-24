@@ -19,6 +19,7 @@
  * @property integer $post_comment_count
  * @property integer $post_view_count
  * @property string $location
+ * @property integer $celeb_id
  *
  */
 abstract class BasePosts extends GxActiveRecord {
@@ -41,17 +42,16 @@ abstract class BasePosts extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count', 'numerical', 'integerOnly'=>true),
+			array('user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, celeb_id', 'numerical', 'integerOnly'=>true),
 			array('location', 'length', 'max'=>255),
 			array('post_content', 'safe'),
-			array('post_content, user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, location', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('post_id, post_content, user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, location', 'safe', 'on'=>'search'),
+			array('post_content, user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, location, celeb_id', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('post_id, post_content, user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, location, celeb_id', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-                    'images'=>array(self::HAS_MANY, 'Images', 'img_id'),
 		);
 	}
 
@@ -72,6 +72,7 @@ abstract class BasePosts extends GxActiveRecord {
 			'post_comment_count' => Yii::t('app', 'Post Comment Count'),
 			'post_view_count' => Yii::t('app', 'Post View Count'),
 			'location' => Yii::t('app', 'Location'),
+			'celeb_id' => Yii::t('app', 'Celeb'),
 		);
 	}
 
@@ -88,6 +89,7 @@ abstract class BasePosts extends GxActiveRecord {
 		$criteria->compare('post_comment_count', $this->post_comment_count);
 		$criteria->compare('post_view_count', $this->post_view_count);
 		$criteria->compare('location', $this->location, true);
+		$criteria->compare('celeb_id', $this->celeb_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
