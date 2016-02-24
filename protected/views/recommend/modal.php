@@ -13,26 +13,26 @@
                 <div class="qh-form-row">
                     <div class="radio">
                         <label>
-                            <input type="radio" name="optionsRadios" value="1">
+                            <input type="radio" name="type" value="1">
                             Nội dung không phù hợp, đồi trụy
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="optionsRadios" value="2">
+                            <input type="radio" name="type" value="2">
                             Vi phạm bản quyền
                         </label>
                     </div>
                     <input id="from" type="hidden" name="from" value="<?php echo Yii::app()->session['user_id'] ?>">
                     <div class="radio">
                         <label>
-                            <input type="radio" name="optionsRadios" value="3">
+                            <input type="radio" name="type" value="3">
                             Spam, virus
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="optionsRadios" value="5">
+                            <input type="radio" name="type" value="5">
                             Lý do khác
                         </label>
                     </div>
@@ -42,7 +42,7 @@
                     </div>
                     <!--                    <div class="radio disabled">
                                             <label>
-                                                <input type="radio" name="optionsRadios" disabled>
+                                                <input type="radio" name="type" disabled>
                                                 Option three is disabled
                                             </label>
                                         </div>-->
@@ -62,9 +62,9 @@
             <p class="text-center">Chia sẻ ảnh</p>
             <hr>
             <p class="text-center">
-                <a href="#" class="qh-btn qh-btn-icon left-icon qh-btn-facebook"><i class="fa fa-facebook fa-lg"></i>Facebook</a>
-                <a href="#" class="qh-btn qh-btn-icon left-icon qh-btn-twitter"><i class="fa fa-twitter fa-lg"></i>Twitter</a>
-                <a href="#" class="qh-btn qh-btn-icon left-icon qh-btn-ggplus"><i class="fa fa-google-plus fa-lg"></i>Google</a>
+                <a href="#" class="qh-btn qh-btn-icon left-icon qh-btn-facebook" id="fb-sharer"><i class="fa fa-facebook fa-lg"></i>Facebook</a>
+                <a href="#" class="qh-btn qh-btn-icon left-icon qh-btn-twitter" id="tt-sharer"><i class="fa fa-twitter fa-lg"></i>Twitter</a>
+                <a href="#" class="qh-btn qh-btn-icon left-icon qh-btn-ggplus" id="gg-sharer"><i class="fa fa-google-plus fa-lg"></i>Google</a>
             </p>
         </div>
     </div>
@@ -75,10 +75,10 @@
     <div class="qh-modal-dialog qh-default-modal z-depth-2">
         <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
         <div class="qh-modal-content">
-            <p>Ẩn cái bài đăng từ <b>Nguyễn Thảo Trang</b> ?</p>
-            <p>Các bài đăng của Nguyễn Thảo Trang sẽ không hiện lên các trang khám phá của bạn nữa.</p>
+            <p>Ẩn cái bài đăng này ? ?</p>
+            <p>Bài đăng này sẽ không hiện lên các trang khám phá của bạn nữa.</p>
             <hr>
-            <p><button class="qh-btn qh-btn-normal">Đồng ý</button></p>
+            <p><button class="qh-btn qh-btn-normal" id="submitHidePost">Đồng ý</button></p>
         </div>
     </div>
 </div>
@@ -88,9 +88,9 @@
     <div class="qh-modal-dialog qh-default-modal z-depth-2">
         <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
         <div class="qh-modal-content">
-            <p>Chặn Nguyễn Thảo Trang ?</p>
+            <p>Chặn người dùng này ?</p>
             <hr>
-            <p><button class="qh-btn qh-btn-normal">Chặn</button></p>
+            <p><button class="qh-btn qh-btn-normal" id="submitBlockUser">Chặn</button></p>
         </div>
     </div>
 </div>
@@ -155,32 +155,32 @@
                         <label>Lý do bạn cho rằng bài đăng vi phạm?</label>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="type" id="optionsRadios1" value="1">
+                                <input type="radio" name="type" id="type1" value="1">
                                 Sexual Content
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="type" id="optionsRadios1" value="2">
+                                <input type="radio" name="type" id="type1" value="2">
                                 Vi phạm bản quyền
                             </label>
                         </div>
                         <input id="from" type="hidden" name="from" value="<?php echo Yii::app()->session['user_id'] ?>">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="type" id="optionsRadios1" value="3">
+                                <input type="radio" name="type" id="type1" value="3">
                                 Spam, Virus
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="type" id="optionsRadios1" value="4">
+                                <input type="radio" name="type" id="type1" value="4">
                                 Option one is this and that—be sure to include why it's great
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="type" id="optionsRadios1" value="5">
+                                <input type="radio" name="type" id="type1" value="5">
                                 Lý do khác
                             </label>
                         </div>
