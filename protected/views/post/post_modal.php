@@ -56,7 +56,7 @@
                 <div class="item-buttons">
                     <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $data['post_id'])) ?>" >
                         <span class="icon"><i class="fa fa-comments"></i></span>
-                        <span class="count"><?php echo $data['post_comment_count'] ?></span>
+                        <span class="count" id="comment-count-modal-<?php echo $data['post_id'] ?>"><?php echo $data['post_comment_count'] ?></span>
                         <a href="#" class="single-button item-button-pin <?php if ($data['is_bookmarked']): ?>active<?php endif; ?>">
                             <span class="icon"><i class="fa fa-thumb-tack"></i></span>
 <!--                                    <span class="count">10</span>-->
@@ -73,8 +73,8 @@
                 <form action="javascript::void(0)" class="comment-post-form" id="form_comment">
                     <textarea class="comment-post-input-area" rows="2" placeholder="Viết bình luận" name="comment_content" id="comment_content"></textarea>
                     <div class="text-right">
-                        <input name="user_id" type="hidden" value="<?php echo '1'//Yii::app()->session['user_id']      ?>" />
-                        <input name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
+                        <input name="user_id" type="hidden" value="<?php echo '1'//Yii::app()->session['user_id']       ?>" />
+                        <input id="post-id" name="post_id" type="hidden" value="<?php echo $data['post_id'] ?>" />
                         <span class="loading" id="loading-comment" style="display: none"><i class="fa fa-spinner fa-pulse"></i></span>
                         <button type="button" class="comment-post-submit qh-btn qh-btn-red600 qh-btn-sm" id="submit-comment" onclick="comment()">Đăng</button>
                     </div>
@@ -101,6 +101,7 @@
     {
         //event.preventDefault();
         var form = $('#form_comment');
+        var post_id = form.find($('#post-id'));
         var data = form.serialize();
         $.ajax({
             beforeSend: function (xhr) {
@@ -114,10 +115,14 @@
                 //console.log(response);
                 $('#loading-comment').hide();
                 $('#comment_content').val('');
-                var post_cmt_cnt = parseInt($('#post_cmt_cnt').text());
-                $('#post-cmt-cnt').text(post_cmt_cnt + 1);
+               
                 if (response.status === 1)
                 {
+                    var cnt_like_modal = parseInt($('#comment-count-modal-' + post_id.val()).text());
+                    var cnt_like = parseInt($('#comment-count-' + post_id.val()).text());
+          
+                    $('#comment-count-modal-' + post_id.val()).text(cnt_like_modal + 1);
+                    $('#comment-count-' + post_id.val()).text(cnt_like + 1);
                     $('#list-comment').prepend('<li class="single-comment">' +
                             '<div class="avatar" style="background-image: url(' + response.data.photo + ');"></div>' +
                             '<div class="user-name"><a href="#">' + response.data.username + '</a></div>' +
@@ -133,138 +138,6 @@
     }
 </script>
 
-<script>
 
-    function hide_post(post_id)
-    {
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl('post/hidePostForUser') ?>',
-            type: 'POST',
-            data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id},
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1)
-                {
-                    $.toast('Ẩn bài viết thành công !!');
-                    $('#' + post_id).hide();
-                } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
-                    $('#' + post_id).hide();
-                }
-            }
-        });
-
-    }
-
-    function block_user(user_blocked, post_id)
-    {
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl('user/blockUser') ?>',
-            type: 'POST',
-            data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked},
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1)
-                {
-                    $.toast('Chặn người dùng thành công !!');
-                } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
-
-                }
-            }
-        });
-    }
-
-    function report(post_id, user_id)
-    {
-        var btnSubmitReport = $("[name=btnSubmitReport]");
-        btnSubmitReport.attr("id", "btnSubmitReport" + post_id);
-        $(document).on('click', '#btnSubmitReport' + post_id, function () {
-            var from = $('#from').val();
-            var type = $('input[name=type]:checked').val();
-            var content = $('#upload-des').val();
-            $.ajax({
-                url: '<?php echo Yii::app()->createUrl('post/reportPost'); ?>',
-                data: {post_id: post_id, from: from, type: type, user_id: user_id, content: content},
-                type: 'POST',
-                success: function (response)
-                {
-                    //  alert(response.message);
-                    //$('#from').val('');
-                    $('input[name=type]:checked').val('');
-                    $('#upload-des').val('');
-                    $('#post-report-modal').modal('hide');
-                    if (response.status === 1)
-                    {
-                        $.toast('Thành công !!');
-                    } else {
-                        $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
-                    }
-                }
-            });
-        });
-    }
-
-    function like(to, post_id)
-    {
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',
-            type: 'POST',
-            data: {from: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id, to: to},
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1)
-                {
-                    var cnt_like = parseInt($('#like-count-' + post_id).text());
-                    var cnt_like = parseInt($('#like-count-modal-' + post_id).text());
-
-                    if ($('#like-' + post_id).hasClass('active'))
-                    {
-                        $('#like-' + post_id).removeClass('active');
-                        $('#like-modal-' + post_id).removeClass('active');
-                        $('#like-count-' + post_id).text(cnt_like - 1);
-                        $('#like-count-modal-' + post_id).text(cnt_like - 1);
-                    } else {
-                        $('#like-' + post_id).addClass('active');
-                        $('#like-modal-' + post_id).addClass('active');
-                        $('#like-count-' + post_id).text(cnt_like + 1);
-                        $('#like-count-modal-' + post_id).text(cnt_like + 1);
-                    }
-                    successNotifiDisplay({
-                        title: 'Thành công !',
-                        message: 'Bạn đã thích bài viết này :D'
-                    });
-                } else {
-                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
-                }
-            }
-        });
-    }
-
-    function bookmark(post_id)
-    {
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
-            type: 'POST',
-            data: {user_id: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id},
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1)
-                {
-                    $.toast('Đánh dấu thành công !!');
-                } else {
-                    $.toast('Có lỗi xảy ra, vui lòng thử lại sau !!');
-                }
-            }
-        });
-    }
-
-    function share(url)
-    {
-        $('#fb-sharer').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url));
-        $('#gg-sharer').attr('href', 'https://plus.google.com/share?url=' + encodeURIComponent(url));
-        $('#tt-sharer').attr('href', 'http://www.twitter.com/share?url=' + encodeURIComponent(url));
-    }
-</script>
 
 

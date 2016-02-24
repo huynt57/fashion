@@ -53,7 +53,7 @@
                         <div class="item-buttons right">
                             <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
                                 <span class="icon"><i class="fa fa-comments"></i></span>
-                                <span class="count"><?php echo $item['post_comment_count'] ?></span>
+                                <span class="count" id="comment-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_comment_count'] ?></span>
                                 <a href="javascript: void(0)" id="bookmark-<?php echo $item['post_id'] ?>" class="single-button item-button-pin <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark(<?php echo $item['post_id'] ?>)">
                                     <span class="icon"><i class="fa fa-thumb-tack"></i></span>
     <!--                                    <span class="count">10</span>-->
