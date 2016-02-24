@@ -8,6 +8,31 @@ class Posts extends BasePosts {
         return parent::model($className);
     }
 
+    public function getPostBookmarkedByUser($user_id) {
+        $posts_bookmarked = Wishlist::model()->findAllByAttributes(array('user_id' => $user_id));
+        $post_bookmarked_arr = array();
+        foreach ($posts_bookmarked as $post) {
+            $post_bookmarked_arr[] = $post->post_id;
+        }
+        $returnArr = array();
+        $criteria = new CDbCriteria;
+        $criteria->select = 't.*, u.username';
+        $criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
+        $criteria->order = 't.post_id DESC';
+        $criteria->addInCondition("t.post_id", $post_bookmarked_arr);
+
+        $count = Posts::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
+        $data = Posts::model()->findAll($criteria);
+        foreach ($data as $item) {
+            $itemArr = $this->getPostById($item->post_id, $user_id);
+            $returnArr[] = $itemArr;
+        }
+        return array('data' => $returnArr, 'pages' => $pages);
+    }
+
     public function addPostCeleb($celeb_id, $post_content, $location, $url_arr, $album, $cats) {
         $model = new Posts;
         $model->post_content = $post_content;
@@ -148,17 +173,17 @@ class Posts extends BasePosts {
         $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
         $news_feed_criteria->order = 't.post_id DESC';
         $news_feed_criteria->addCondition("t.user_id = $user_id");
-        $data = Posts::model()->findAll($news_feed_criteria);
+
         $count = Posts::model()->count($news_feed_criteria);
         $pages = new CPagination($count);
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($news_feed_criteria);
+        $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, $user_id);
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages);
-        ;
     }
 
     public function getPostByCategory($cat_id, $limit, $offset) {
