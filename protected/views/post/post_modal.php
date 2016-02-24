@@ -34,10 +34,21 @@
         <div class="card-single-inner">
             <div class="c-header">
                 <div class="user-image">
-                    <a href="#" class="user-avatar" style="background-image: url('<?php echo $data['user'][0]['photo'] ?>');"></a>
-                </div>
+                            <?php if (!empty($data['user_id'])): ?>
+                                <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $data['user_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo $data['user'][0]['photo'] ?>');"></a>
+                            <?php endif; ?>
+                            <?php if (!empty($data['celeb_id'])): ?>
+                                <a href="<?php echo Yii::app()->createUrl('user/profileCeleb', array('ref_web' => 'ref_web', 'celeb_id' => $data['celeb_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo '/'.$data['photo_celeb'] ?>');"></a>
+                            <?php endif; ?>
+                        </div>
+                
                 <div class="user-info">
-                    <div class="display-name"><a href="#" class="display-name-link"><?php echo $data['user'][0]['username'] ?></a></div>
+                    <?php if (!empty($data['user_id'])): ?>
+                                <div class="display-name"><a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $data['user_id'])) ?>" class="display-name-link"><?php echo $data['user'][0]['username'] ?></a></div>
+                            <?php endif; ?>
+                            <?php if (!empty($data['celeb_id'])): ?>
+                                <div class="display-name"><a href="<?php echo Yii::app()->createUrl('user/profileCeleb', array('ref_web' => 'ref_web', 'celeb_id' => $data['celeb_id'])) ?>" class="display-name-link"><?php echo $data['username_celeb'] ?></a></div>
+                            <?php endif; ?>
                     <div class="post-info">
                         <span class="time"><?php echo Util::time_elapsed_string($data['created_at']) ?></span>
                     </div>
