@@ -167,6 +167,11 @@ class User extends BaseUser {
         return $data;
     }
 
+    public function getProfileCeleb($user_id) {
+        $data = Celebrities::model()->findByPk($user_id);
+        return $data;
+    }
+
     public function searchByUsername($username, $limit, $offset) {
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;

@@ -35,7 +35,7 @@ class Celebrities extends BaseCelebrities {
         $model = new Celebrities;
         $model->setAttributes($profile);
         $model->celeb_image = $image;
-        $model->celeb_image_cover = $cover;
+        $model->celeb_image_cover = '/themes/frontend2/assets/stock/cover1.jpg';
         if ($model->save(FALSE)) {
             return TRUE;
         }

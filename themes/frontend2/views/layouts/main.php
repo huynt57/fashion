@@ -3,7 +3,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Template</title>
+        <?php if (isset($this->pageTitle)): ?>
+            <title><?php echo $this->pageTitle ?></title>
+        <?php endif; ?>
+        <?php if (!isset($this->pageTitle)): ?>
+            <title>Template</title>
+        <?php endif; ?>
         <!-- Favicon -->
         <!-- <link rel="shortcut icon" href="assets/img/favicon.jpg" type="image/x-icon" /> -->
         <!-- CSS libs -->
@@ -29,7 +34,7 @@
                     <h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
                     <div class="main-nav">
                         <ul class="list">
-                            <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed')?>">Trang chủ</a></li>
+                            <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>">Trang chủ</a></li>
                             <li><a href="<?php echo Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Xếp hạng</a></li>
                             <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
                                 <ul class="inner-list category-list">
@@ -105,7 +110,7 @@
 
         <!-- Modal Upload -->
         <div class="modal fade" id="uploadNewPostModal">
-         
+
 
         </div>
 

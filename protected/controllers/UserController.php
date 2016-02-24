@@ -15,6 +15,31 @@ class UserController extends Controller {
         $this->render('login');
     }
 
+    public function actionProfileCeleb() {
+        try {
+            $request = Yii::app()->request;
+            if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
+                $user_id = $request->getQuery('celeb_id');
+            } else if ($request->getQuery('ref_web') == 'ref_web') {
+                $user_id = $request->getQuery('celeb_id');
+            }
+            $data = User::model()->getProfileCeleb($user_id);
+            $posts = Posts::model()->getPostByCelebForWeb($user_id);
+            $arr = array('profile' => $data, 'posts' => $posts['data'], 'pages' => $posts['pages']);
+            if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
+                ResponseHelper::JsonReturnSuccess($arr, 'Success');
+            } else {
+                $this->render('profile_celeb', $arr);
+            }
+        } catch (Exception $ex) {
+            //var_dump($ex->getMessage());
+            echo '<pre>';
+            var_dump($ex->getMessage());
+            var_dump($ex->getTrace());
+            echo '</pre>';
+        }
+    }
+
     public function actionProfile() {
         try {
             $request = Yii::app()->request;

@@ -186,6 +186,26 @@ class Posts extends BasePosts {
         return array('data' => $returnArr, 'pages' => $pages);
     }
 
+    public function getPostByCelebForWeb($user_id) {
+        $returnArr = array();
+        $news_feed_criteria = new CDbCriteria;
+        $news_feed_criteria->select = 't.*, c.celeb_name';
+        $news_feed_criteria->join = 'JOIN tbl_celebrities c ON t.celeb_id = c.id';
+        $news_feed_criteria->order = 't.post_id DESC';
+        $news_feed_criteria->addCondition("t.celeb_id = $user_id");
+
+        $count = Posts::model()->count($news_feed_criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($news_feed_criteria);
+        $data = Posts::model()->findAll($news_feed_criteria);
+        foreach ($data as $item) {
+            $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
+            $returnArr[] = $itemArr;
+        }
+        return array('data' => $returnArr, 'pages' => $pages);
+    }
+
     public function getPostByCategory($cat_id, $limit, $offset) {
         $data = Yii::app()->db->createCommand()
                 ->select('*')
@@ -320,11 +340,29 @@ class Posts extends BasePosts {
         return '';
     }
 
+    public function findCelebUsernameByPostId($post_id) {
+        $user_id = Posts::model()->findByPk($post_id);
+        $user = Celebrities::model()->findByPk($user_id->celeb_id);
+        if ($user) {
+            return $user->celeb_name;
+        }
+        return '';
+    }
+
     public function findUserPhotoByPostId($post_id) {
         $user_id = Posts::model()->findByPk($post_id);
         $user = User::model()->findByPk($user_id->user_id);
         if ($user) {
             return $user->photo;
+        }
+        return '';
+    }
+
+    public function findCelebPhotoByPostId($post_id) {
+        $user_id = Posts::model()->findByPk($post_id);
+        $user = Celebrities::model()->findByPk($user_id->celeb_id);
+        if ($user) {
+            return $user->celeb_image;
         }
         return '';
     }
@@ -407,6 +445,7 @@ class Posts extends BasePosts {
             // die();
             $itemArr['user'] = array($this->findUserByPostId($item->post_id));
             $itemArr['user_id'] = $item->user_id;
+            $itemArr['celeb_id'] = $item->celeb_id;
             $itemArr['username'] = $this->findUsernameByPostId($item->post_id);
             $itemArr['photo'] = $this->findUserPhotoByPostId($item->post_id);
             $itemArr['post_id'] = $item->post_id;
@@ -414,6 +453,10 @@ class Posts extends BasePosts {
             if (!empty($user_id)) {
                 $itemArr['is_liked'] = $this->checkIfPostIsLiked($post_id, $user_id);
                 $itemArr['is_bookmarked'] = $this->checkIfPostIsBookmarked($post_id, $user_id);
+            }
+            iF (!empty($item->celeb_id)) {
+                $itemArr['photo_celeb'] = $this->findCelebPhotoByPostId($item->post_id);
+                $itemArr['username_celeb'] = $this->findCelebUsernameByPostId($item->post_id);
             }
             $itemArr['created_at'] = $item->created_at;
             $itemArr['updated_at'] = $item->updated_at;

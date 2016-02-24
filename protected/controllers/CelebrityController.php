@@ -2,6 +2,8 @@
 
 class CelebrityController extends Controller {
 
+    public $pageTitile;
+    
     public function actionIndex() {
         $this->render('index');
     }
@@ -19,6 +21,7 @@ class CelebrityController extends Controller {
     }
 
     public function actionAddCeleb() {
+        $this->pageTitile = 'Thêm người nổi tiếng';
         $request = Yii::app()->request;
         try {
             $celeb_image = UploadHelper::getUrlUploadSingleImage($_FILES['celeb_image'], 'celebs_image');
@@ -36,6 +39,7 @@ class CelebrityController extends Controller {
     }
 
     public function actionInsertPostCeleb() {
+        $this->pageTitile = 'Thêm bài viết người nổi tiếng';
         $request = Yii::app()->request;
         try {
             $post_content = StringHelper::filterString($request->getPost('post_content'));
