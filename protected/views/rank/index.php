@@ -4,10 +4,10 @@
 
     <div class="page-header-nav">
         <ul class="nav nav-pills" role="tablist">
-            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('rank/rankPostBytime', array('time' => 'DAY')); ?>">Theo ngày</a></li>
-            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('rank/rankPostBytime', array('time' => 'WEEK')); ?>">Theo tuần</a></li>
-            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('rank/rankPostBytime', array('time' => 'MONTH')); ?>">Theo tháng</a></li>
-            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('rank/rankPostBytime', array('time' => 'YEAR')); ?>">Theo năm</a></li>
+            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('rank/rankPostByTime', array('time' => 'DAY')); ?>">Theo ngày</a></li>
+            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('rank/rankPostByTime', array('time' => 'WEEK')); ?>">Theo tuần</a></li>
+            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('rank/rankPostByTime', array('time' => 'MONTH')); ?>">Theo tháng</a></li>
+            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('rank/rankPostByTime', array('time' => 'YEAR')); ?>">Theo năm</a></li>
         </ul>
     </div>
 </div>

@@ -10,15 +10,14 @@ class RecommendController extends Controller {
         $request = Yii::app()->request;
         try {
             $rate_height = StringHelper::filterString($request->getQuery('rate_height'));
-            $rate_weight = StringHelper::filgetPostByIdterString($request->getQuery('rate_weight'));
+            $rate_weight = StringHelper::filterString($request->getQuery('rate_weight'));
             $data = Celebrities::model()->recommend($rate_height, $rate_weight);
-            if ($request->getQuery('ref') == Yii::app()->params['REF_API']) {
-                ResponseHelper::JsonReturnSuccess($data, "Success");
-            } else {
-                $this->render('index', array('data' => $data));
-            }
+         //   var_dump($data); die;
+            $this->render('index', $data);
         } catch (Exception $ex) {
-            var_dump($ex->getMessage());
+           echo '<pre>';
+            var_dump($ex->getTrace());
+            echo '</pre>';
         }
     }
 

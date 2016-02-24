@@ -22,7 +22,7 @@ class Posts extends BasePosts {
         if (!$model->save(FALSE)) {
             return FALSE;
         }
-      //  $cats = json_decode($cats, TRUE);
+        //  $cats = json_decode($cats, TRUE);
         foreach ($cats as $cat) {
             $cat_model = new CatPost();
             $cat_model->cat_id = $cat;
@@ -522,11 +522,7 @@ class Posts extends BasePosts {
         $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
         $criteria->join = 'JOIN tbl_like l ON t.user_id = l.to';
         $criteria->order = 'post_like_count DESC';
-        $data = Posts::model()->findAll($criteria);
-        foreach ($data as $item) {
-            $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
-            $returnArr[] = $itemArr;
-        }
+
         //    var_dump($returnArr);
         //  die();
         $count = Posts::model()->count($criteria);
@@ -534,6 +530,11 @@ class Posts extends BasePosts {
         $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
+        $data = Posts::model()->findAll($criteria);
+        foreach ($data as $item) {
+            $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
+            $returnArr[] = $itemArr;
+        }
         return array('data' => $returnArr, 'pages' => $pages);
     }
 

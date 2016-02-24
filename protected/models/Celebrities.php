@@ -8,41 +8,41 @@ class Celebrities extends BaseCelebrities {
         return parent::model($className);
     }
 
-    public function recommend($rate_height, $rate_weight, $ref) {
+    public function recommend($rate_height, $rate_weight) {
 
         $criteria = new CDbCriteria;
-        $criteria->conditon = "celeb_heigt_rate = $rate_height AND celeb_weight_rate = $rate_weight";
+        $criteria->condition = "t.celeb_height_rate = '".$rate_height."' AND t.celeb_weight_rate = '".$rate_weight."'";
         $celebs = Celebrities::model()->findAll($criteria);
-        if ($ref !== 'api') {
-            $count = Posts::model()->count($celebs);
-            $pages = new CPagination($count);
-            $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
-            $pages->applyLimit($criteria);
+        $celebs_arr = array();
+        foreach ($celebs as $celeb) {
+            $celebs_arr[] = $celeb->id;
         }
         $returnArr = array();
-        foreach ($celebs as $celeb) {
-            $post_id = Posts::model()->findByAttributes(array('celeb_id' => $celeb->id));
-            $returnArr[] = Posts::model()->getPostById($post_id->post_id, Yii::app()->session['user_id']);
+        $criteria_post = new CDbCriteria;
+        $criteria_post->addInCondition('t.celeb_id', $celebs_arr);
+        $count = Posts::model()->count($criteria_post);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria_post);
+        $posts = Posts::model()->findAll($criteria_post);
+        foreach ($posts as $post) {
+            $returnArr[] = Posts::model()->getPostById($post->post_id, Yii::app()->session['user_id']);
         }
-
         return array('data' => $returnArr, 'pages' => $pages);
     }
-    
-    public function addCeleb($profile, $image, $cover)
-    {
+
+    public function addCeleb($profile, $image, $cover) {
         $model = new Celebrities;
         $model->setAttributes($profile);
         $model->celeb_image = $image;
         $model->celeb_image_cover = $cover;
-        if($model->save(FALSE))
-        {
+        if ($model->save(FALSE)) {
             return TRUE;
         }
         return FALSE;
     }
-    
-    public function addPostCeleb()
-    {
+
+    public function addPostCeleb() {
         
     }
 

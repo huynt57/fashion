@@ -30,7 +30,7 @@
                     <div class="main-nav">
                         <ul class="list">
                             <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed')?>">Trang chủ</a></li>
-                            <li><a href="<?php Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Xếp hạng</a></li>
+                            <li><a href="<?php echo Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Xếp hạng</a></li>
                             <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
                                 <ul class="inner-list category-list">
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 2)) ?>">Thời trang nữ</a></li>

@@ -1,3 +1,13 @@
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('error'); ?>
+    </div>
+<?php endif; ?>
 <div class="qh-user-section qh-section-article z-depth-1">
     <form action="<?php echo Yii::app()->createUrl('celebrity/addCeleb') ?>" class="qh-form qh-form-horizontal" method="POST" enctype="multipart/form-data">
         <h3 class="form-title">Thông tin người nổi tiếng</h3>

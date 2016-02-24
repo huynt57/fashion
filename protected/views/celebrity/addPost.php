@@ -1,3 +1,13 @@
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('error'); ?>
+    </div>
+<?php endif; ?>
 <div class="qh-user-section qh-section-article z-depth-1">
     <form  action="<?php echo Yii::app()->createUrl('celebrity/insertPostCeleb') ?>" enctype="multipart/form-data" method="POST" class="qh-form qh-upload-post-form">
         <h3 class="form-title">Thêm bài viết cho người nổi tiếng</h3>
