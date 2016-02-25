@@ -207,16 +207,24 @@ class Posts extends BasePosts {
     }
 
     public function getPostByCategory($cat_id, $limit, $offset) {
-        $data = Yii::app()->db->createCommand()
-                ->select('*')
-                ->from('tbl_posts p')
-                ->join('tbl_cat_post c', 'p.post_id=c.post_id')
-                ->where('c.cat_id=:cat_id', array(':cat_id' => $cat_id))
-                ->limit($limit)
-                ->offset($offset)
-                ->order('p.post_id DESC')
-                ->queryAll();
-        return $data;
+        $returnArr = array();
+        $criteria = new CDbCriteria;
+        $criteria->join = 'JOIN tbl_cat_post c ON c.post_id = t.post_id';
+        // $criteria->join .= ' JOIN tbl_categories a ON a.cat_id = c.cat_id ';
+        $criteria->order = 't.post_id DESC';
+        $criteria->condition = "c.cat_id = $cat_id";
+        //   $hidden_post = $this->getHiddenPostByUser($user_id);
+        //  $blocked_user = $this->getBlockedUserByUser($user_id);
+        //  $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        //  $criteria->addNotInCondition('t.user_id', $blocked_user);
+        $criteria->limit = $limit;
+        $criteria->offset = $offset;
+        $data = Posts::model()->findAll($criteria);
+        foreach ($data as $item) {
+            $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
+            $returnArr[] = $itemArr;
+        }
+        return $returnArr;
     }
 
     public function reportPost($attr) {
@@ -514,7 +522,7 @@ class Posts extends BasePosts {
             $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
             $returnArr[] = $itemArr;
         }
-       
+
         return array('data' => $returnArr, 'pages' => $pages, 'cats' => $categories);
     }
 
