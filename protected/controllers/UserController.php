@@ -107,8 +107,11 @@ class UserController extends Controller {
         if ($request->isPostRequest && isset($_POST)) {
             try {
                 $post = StringHelper::filterArrayString($_POST);
-                $user_id = StringHelper::filterArrayString($request->getPost('user_id'));
-                if (User::model()->updateUserInfo($user_id, $post)) {
+                //$user_id = StringHelper::filterArrayString($request->getPost('user_id'));
+                $user_id = Yii::app()->session['user_id'];
+                $user_photo = UploadHelper::getUrlUploadSingleImage($_FILES['user_photo'], $user_id);
+                $user_cover = UploadHelper::getUrlUploadSingleImage($_FILES['user_cover'], $user_id);
+                if (User::model()->updateUserInfo($user_id, $post, $user_photo, $user_cover)) {
                     ResponseHelper::JsonReturnSuccess("", "Success");
                 } else {
                     ResponseHelper::JsonReturnError("", "Server Error");

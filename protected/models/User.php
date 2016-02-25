@@ -8,9 +8,11 @@ class User extends BaseUser {
         return parent::model($className);
     }
 
-    public function updateUserInfo($user_id, $post) {
+    public function updateUserInfo($user_id, $post, $user_photo, $user_cover) {
         $model = User::model()->findByAttributes(array('id' => $user_id));
         $model->setAttributes($post);
+        $model->photo = $user_photo;
+        $model->cover = $user_cover;
         $model->updated_at = time();
         if ($model->save(FALSE)) {
             return TRUE;
