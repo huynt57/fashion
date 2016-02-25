@@ -504,12 +504,16 @@ class Posts extends BasePosts {
         $blocked_user = $this->getBlockedUserByUser($user_id);
         $categories = $this->getCategoryByType($type);
         $criteria = new CDbCriteria;
+        $criteria->distinct  = true;
         $criteria->join = 'JOIN tbl_cat_post c ON c.post_id = t.post_id';
         $criteria->join .= ' JOIN tbl_categories a ON a.cat_id = c.cat_id ';
-        $criteria->order = 't.post_id DESC';
-        $criteria->condition = "a.type = $type";
+        
         $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
         $criteria->addNotInCondition('t.user_id', $blocked_user);
+        $criteria->order = 't.post_id DESC';
+        $criteria->condition = "a.type = $type";
+        //var_dump($criteria); die;
+     //   $criteria->group = 't.post_id';
         $count = Posts::model()->count($criteria);
         //echo $count; die;
         $pages = new CPagination($count);
@@ -517,7 +521,8 @@ class Posts extends BasePosts {
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
-        // var_dump($data); die;
+//        echo '<pre>';
+//         var_dump($data); echo '</pre>'; die;
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
             $returnArr[] = $itemArr;
