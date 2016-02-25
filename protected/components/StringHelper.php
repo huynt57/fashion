@@ -136,7 +136,7 @@ class StringHelper {
             case 1:
                 $class = 'Thời trang nam';
                 break;
-            case 2:
+            case 3:
                 $class = 'Thời trang nữ';
                 break;
             case 0:

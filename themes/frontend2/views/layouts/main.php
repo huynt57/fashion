@@ -38,7 +38,7 @@
                             <li><a href="<?php echo Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Xếp hạng</a></li>
                             <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
                                 <ul class="inner-list category-list">
-                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 2)) ?>">Thời trang nữ</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 3)) ?>">Thời trang nữ</a></li>
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 1)) ?>">Thời trang nam</a></li>
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 0)) ?>">Đồ dùng khác</a></li>
                                 </ul>

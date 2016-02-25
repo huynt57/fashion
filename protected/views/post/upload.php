@@ -45,7 +45,14 @@
         <hr>
         <div class="qh-form-row clearfix text-center">
             <button class="qh-btn qh-btn-red600" type="submit">Đăng ảnh</button>
-            <div class="post-cancel"><a href="#">Hủy đăng ảnh</a></div>
+            <div class="post-cancel"><a href="#" onclick="dismissModal()">Hủy đăng ảnh</a></div>
         </div>
     </form>
 </div>
+
+<script>
+    function dismissModal()
+    {
+        $('#uploadNewPostModal').modal('hide');
+    }
+</script>
