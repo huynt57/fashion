@@ -27,39 +27,55 @@ class Wishlist extends BaseWishlist {
     }
 
     public function getWishListAPI($user_id, $limit, $offset) {
-        $returnArr = array();
         $criteria = new CDbCriteria;
-        $criteria->limit = $limit;
-        $criteria->offset = $offset;
         $criteria->condition = "user_id = $user_id";
-        $posts = Wishlist::model()->findAll($criteria);
-        if ($posts) {
-            foreach ($posts as $post) {
-                $itemArr = Posts::model()->getPostById($post->post_id);
-                $returnArr[] = $itemArr;
-            }
-            return $returnArr;
+        $wishlists = Wishlist::model()->findAll($criteria);
+        $wishlist_arr = array();
+        foreach ($wishlists as $wishlist) {
+            $wishlist_arr[] = $wishlist->post_id;
         }
-        return FALSE;
+        //var_dump($wishlist_arr); die;
+        $returnArr = array();
+        $criteria_post = new CDbCriteria;
+        $criteria_post->addInCondition('t.post_id', $wishlist_arr);
+        $criteria_post->limit = $limit;
+        $criteria_post->offset = $offset;
+        $posts = Posts::model()->findAll($criteria_post);
+
+        foreach ($posts as $post) {
+            $itemArr = Posts::model()->getPostById($post->post_id, Yii::app()->session['user_id']);
+            $returnArr[] = $itemArr;
+        }
+        return $returnArr;
     }
 
     public function getWishListForWeb($user_id) {
-        $returnArr = array();
+        $profile = User::model()->findByPk($user_id);
         $criteria = new CDbCriteria;
         $criteria->condition = "user_id = $user_id";
-        $count = Posts::model()->count($criteria);
-        $pages = new CPagination($count);
-        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
-        $pages->applyLimit($criteria);
-        $posts = Wishlist::model()->findAll($criteria);
-        if ($posts) {
-            foreach ($posts as $post) {
-                $itemArr = Posts::model()->getPostById($post->post_id);
-                $returnArr[] = $itemArr;
-            }
-            return array('data' => $returnArr, 'pages' => $pages);
+        $wishlists = Wishlist::model()->findAll($criteria);
+        $wishlist_arr = array();
+        foreach ($wishlists as $wishlist) {
+            $wishlist_arr[] = $wishlist->post_id;
         }
-        return FALSE;
+        //var_dump($wishlist_arr); die;
+        $returnArr = array();
+        $criteria_post = new CDbCriteria;
+        $criteria_post->addInCondition('t.post_id', $wishlist_arr);
+        $count = Posts::model()->count($criteria_post);
+        $pages = new CPagination($count);
+        $pages->validateCurrentPage = FALSE;
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria_post);
+        $posts = Posts::model()->findAll($criteria_post);
+
+        foreach ($posts as $post) {
+            $itemArr = Posts::model()->getPostById($post->post_id, Yii::app()->session['user_id']);
+            $returnArr[] = $itemArr;
+        }
+        return array('data' => $returnArr, 'pages' => $pages, 'profile' => $profile);
+
+        // return FALSE;
     }
 
 }

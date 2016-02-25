@@ -79,7 +79,8 @@ class UserController extends Controller {
     }
 
     public function actionEditProfile() {
-        $this->render('editProfile');
+        $profile = User::model()->findByPk(Yii::app()->session['user_id']);
+        $this->render('editProfile', array('profile' => $profile));
     }
 
     public function actionLoginWithFacebook() {

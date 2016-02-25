@@ -9,10 +9,17 @@
     </div>
     <div class="user-page-nav">
         <ul class="list">
-            <li class="active"><a href="#">Bài đăng</a></li>
+            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/profile')?>">Bài đăng</a></li>
             <li><a href="#">Yêu thích</a></li>
-            <li><a href="#">Đánh dấu</a></li>
-            <li><a href="#">Thông tin</a></li>
+            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/wishlist')?>">Đánh dấu</a></li>
+            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/editProfile')?>">Thông tin</a></li>
         </ul>
     </div>
 </div>
+<script>
+    $('document').ready(function () {
+        var url = window.location.href;
+        $('a[href="' + url + '"]').parent().addClass('active');
+    });
+
+</script>
