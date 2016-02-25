@@ -1,6 +1,6 @@
 <div class="qh-page-header z-depth-1 text-center">
     <div class="page-title">Bảng xếp hạng</div>
-    <div class="page-subtitle">Bảng xếp hạng theo thời gian của hệ thống</div>
+    <div class="page-subtitle">Bảng xếp hạng các bài viết được thích nhiều nhất theo thời gian của hệ thống</div>
 
     <div class="page-header-nav">
         <ul class="nav nav-pills" role="tablist">
