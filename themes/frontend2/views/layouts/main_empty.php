@@ -1,17 +1,30 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Header Menu</title>
-        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/bootstrap.css">
-        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/font-awesome.css">
+        <?php if (isset($this->pageTitle)): ?>
+            <title><?php echo $this->pageTitle ?></title>
+        <?php endif; ?>
+        <?php if (!isset($this->pageTitle)): ?>
+            <title>Template</title>
+        <?php endif; ?>
+        <!-- Favicon -->
+        <!-- <link rel="shortcut icon" href="assets/img/favicon.jpg" type="image/x-icon" /> -->
+        <!-- CSS libs -->
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/font-awesome/css/font-awesome.css">
+        <!-- CSS main -->
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/style.css">
-        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/jquery.toast.min.css">
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/modernizr.js"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/jquery-2.1.4.min.js"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/jquery.toast.min.js"></script>
-
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.slimscroll.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/imagesloaded.pkgd.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/masonry.pkgd.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.infinitescroll.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap-notify.min.js"></script>
+        <!-- JS main -->
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/main.js"></script>
         <script>
             window.fbAsyncInit = function () {
                 FB.init({
@@ -74,64 +87,58 @@
         </script>
     </head>
     <body>
-
+        <!-- SITE HEADER -->
         <header id="site-header" class="site-header">
-            <div class="df-container">
+            <div class="qh-container">
                 <div class="left-side">
-                    <div class="site-logo">
-                        <h1><a href="#">PutLogoHere</a></h1>
-                    </div>
-                    <nav class="top-nav">
-                        <ul class="top-nav-ctn">
-                            <li class="top-nav-explore">
-                                <a href="#">
-                                    <i class="fa fa-compass fa-lg icon-on-small"></i>
-                                    <span class="text-on-large">Khám phá</span>
-                                </a>
-                            </li>
-                            <li class="top-nav-category dropdown">
-                                <a id="top-nav-category" href="#" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-list-ul fa-lg icon-on-small"></i>
-                                    <span class="text-on-large">Chuyên mục</span>
-                                    <i class="fa fa-angle-down"></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="top-nav-category">
-                                    <li><a href="#">Thời trang nữ</a></li>
-                                    <li><a href="#">Thời trang nam</a></li>
-                                    <li><a href="">Dịch vụ thời trang</a></li>
-                                    <li><a href="">Mỹ phẩm - Sức khỏe</a></li>
+                    <h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+
+                </div>
+                <div class="right-side">
+
+
+                    <!-- <div class="login-btn">
+                            <a href="#" class="facebook-login-btn qh-btn qh-btn-icon left-icon qh-btn-facebook qh-btn-md"><i class="fa fa-facebook"></i> Đăng nhập với Facebook</a>
+                    </div> -->
+                    <div class="user-nav">
+                        <ul class="list">
+
+                            <li>
+                                <a href="#"><i class="fa fa-caret-down"></i></a>
+                                <ul class="inner-list pull-right">
+                                    <li><a href="#">Về FitMe</a></li>
+                                    <li><a href="#">Điều khoản</a></li>
+                                    <li><a href="#">Bảo mật</a></li>
+                                    <li><a href="#">Quảng cáo</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">IOS App</a></li>
+                                    <li><a href="#">Android App</a></li>
+                                    <li class="divider"></li>
+
                                 </ul>
+                                <span class="border-hide"></span>
                             </li>
                         </ul>
-                    </nav>
-                </div><!-- left-side -->
-                <div class="right-side">
-                    <div class="search-form">
-                        <form action="#">
-                            <input type="text" placeholder="Ảnh, album hoặc mọi người ...">
-                            <button type="submit"><i class="fa fa-search fa-lg"></i></button>
-                        </form>
                     </div>
-                </div><!-- right-side -->
-                <div class="clearfix"></div>
+                </div>
             </div>
         </header>
+        <!-- end SITE HEADER -->
+
+
+        <div id="site-content" class="site-content">
+            <!-- site content here -->
+            <?php echo $content ?>
+        </div>
 
 
 
-        <!-- site content here -->
-        <?php echo $content ?>
+
+        <!-- Modal Upload -->
+        <div class="modal fade" id="uploadNewPostModal">
 
 
-
-
-
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/bootstrap.min.js"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/jquery.iframe-transport"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/imagesloaded.pkgd.min.js"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/masonry.pkgd.min.js"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/featherlight.js"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/main.js"></script>
+        </div>
 
     </body>
 </html>
