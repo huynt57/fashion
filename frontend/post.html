@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Template</title>
+	<!-- Favicon -->
+	<!-- <link rel="shortcut icon" href="assets/img/favicon.jpg" type="image/x-icon" /> -->
+	<!-- CSS libs -->
+	<link rel="stylesheet" href="assets/libs/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/libs/font-awesome/css/font-awesome.css">
+	<!-- CSS main -->
+	<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+	<!-- SITE HEADER -->
+	<header id="site-header" class="site-header">
+		<div class="qh-container">
+			<div class="left-side">
+				<h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+				<div class="main-nav">
+					<ul class="list">
+						<li class="active"><a href="#">Trang chủ</a></li>
+						<li><a href="#">Khám phá</a></li>
+						<li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
+							<ul class="inner-list category-list">
+								<li><a href="#">Thời trang nam</a></li>
+								<li><a href="#">Thời trang nữ</a></li>
+								<li><a href="#">Đồ dùng khác</a></li>
+							</ul>
+							<span class="border-hide"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="right-side">
+				<div class="search-bar">
+					<form action="#" class="header-search-form">
+						<input type="text" class="search-input" placeholder="Tìm kiếm ảnh, album hoặc mọi người ...">
+				    <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+					</form>
+				</div>
+				<div class="action-nav">
+					<ul class="list">
+						<li class="upload-open-btn"><a href="#" title="Tải ảnh lên" data-toggle="modal" data-target="#uploadNewPostModal">
+							<i class="fa fa-cloud-upload"></i>
+						</a></li>
+						<li class="notifi-open-btn"><a href="#" title="Thông báo">
+							<i class="fa fa-bell"></i>
+							<span class="notifi-badge">9</span>
+						</a></li>
+					</ul>
+				</div>
+				<!-- <div class="login-btn">
+					<a href="#" class="facebook-login-btn qh-btn qh-btn-icon left-icon qh-btn-facebook qh-btn-md"><i class="fa fa-facebook"></i> Đăng nhập với Facebook</a>
+				</div> -->
+				<div class="user-nav">
+					<ul class="list">
+						<li class="user-profile-link">
+							<a href="#">
+								<div class="user-avatar bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>
+								<div class="user-name">Thanh Nga</div>
+							</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-caret-down"></i></a>
+							<ul class="inner-list pull-right">
+								<li><a href="#">Về FitMe</a></li>
+								<li><a href="#">Điều khoản</a></li>
+								<li><a href="#">Bảo mật</a></li>
+								<li><a href="#">Quảng cáo</a></li>
+								<li class="divider"></li>
+								<li><a href="#">IOS App</a></li>
+								<li><a href="#">Android App</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Đăng xuất</a></li>
+							</ul>
+							<span class="border-hide"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- end SITE HEADER -->
+
+	<!-- SITE CONTENT -->
+	<div id="site-content" class="site-content">
+		<div class="qh-container">
+
+			<div class="single-post-page">
+				<!-- Modal Single Post -->
+				<div class="">
+					<div class="qh-single-post-section z-depth-1">
+						<div class="post-image-view">
+			      	<div id="singlePostImageCarousel" class="carousel slide" data-ride="carousel">
+							  <!-- Indicators -->
+							  <ol class="carousel-indicators">
+							    <li data-target="#singlePostImageCarousel" data-slide-to="0" style="background-image: url('assets/stock/card01.jpg');" class="active"></li>
+							    <li data-target="#singlePostImageCarousel" data-slide-to="1" style="background-image: url('assets/stock/card02.jpg');"></li>
+							    <li data-target="#singlePostImageCarousel" data-slide-to="2" style="background-image: url('assets/stock/card03.jpg');"></li>
+							    <li data-target="#singlePostImageCarousel" data-slide-to="3" style="background-image: url('assets/stock/card04.jpg');"></li>
+							    <li data-target="#singlePostImageCarousel" data-slide-to="4" style="background-image: url('assets/stock/card05.jpg');"></li>
+							  </ol>
+
+							  <!-- Wrapper for slides -->
+							  <div class="carousel-inner" role="listbox">
+							    <div class="item active"><img src="assets/stock/card01.jpg"></div>
+							    <div class="item"><img src="assets/stock/card02.jpg"></div>
+							    <div class="item"><img src="assets/stock/card03.jpg"></div>
+							    <div class="item"><img src="assets/stock/card04.jpg"></div>
+							    <div class="item"><img src="assets/stock/card05.jpg"></div>
+							  </div>
+
+							  <!-- Controls -->
+							  <a class="left qh-carousel-control" href="#singlePostImageCarousel" role="button" data-slide="prev"><i class="fa fa-angle-left fa-lg"></i></a>
+							  <a class="right qh-carousel-control" href="#singlePostImageCarousel" role="button" data-slide="next"><i class="fa fa-angle-right fa-lg"></i></a>
+							    
+							</div>
+			      </div>
+			      <div class="post-info-view">
+			      	<div class="card-single">
+								<div class="card-single-inner">
+									<div class="c-header">
+										<div class="user-image">
+											<a href="#" class="user-avatar" style="background-image: url('assets/stock/avatar.jpg');"></a>
+										</div>
+										<div class="user-info">
+											<div class="display-name"><a href="#" class="display-name-link">Nguyễn Hoàng Thảo</a></div>
+											<div class="post-info">
+												<span class="time">23/12/2015</span>
+											</div>
+										</div>
+									</div>
+									<div class="c-body">
+										<div class="item-description">Nếu bạn còn băn khoăn cách diện áo sơ mi thế nào thì những chiếc áo siêu dài hay kết hợp với chân váy là một sự lựa chọn đáng lưu tâm.</div>
+										<div class="item-categories">
+											<a href="#" class="single-category">Váy</a>
+											<a href="#" class="single-category">Áo nữ</a>
+										</div>
+									</div>
+									<div class="c-footer">
+										<div class="item-buttons">
+											<a href="#" class="single-button item-button-comment">
+												<span class="icon"><i class="fa fa-comments"></i></span>
+												<span class="count">12</span>
+											<a href="#" class="single-button item-button-pin">
+												<span class="icon"><i class="fa fa-thumb-tack"></i></span>
+												<span class="count">10</span>
+											</a>
+											<a href="#" class="single-button item-button-like">
+												<span class="icon"><i class="fa fa-heart"></i></span>
+												<span class="count">123</span>
+											</a>
+											</a>
+										</div>
+									</div>
+									<div class="c-comments">
+										<form action="#" class="comment-post-form">
+											<textarea class="comment-post-input-area" rows="2" placeholder="Viết bình luận"></textarea>
+											<div class="text-right">
+												<span class="loading"><i class="fa fa-spinner fa-pulse"></i></span>
+												<button type="submit" class="comment-post-submit qh-btn qh-btn-red600 qh-btn-sm">Đăng</button>
+											</div>
+										</form>
+										<div class="comment-list">
+											<ul class="list">
+												<li class="single-comment">
+													<div class="avatar" style="background-image: url('assets/stock/avatar.jpg');"></div>
+													<div class="user-name"><a href="#">Nguyễn Trà Giang</a></div>
+													<div class="time">4 giờ trước</div>
+													<div class="content">Những chiếc áo siêu dài hay kết hợp với chân váy là một sự lựa chọn đáng lưu tâm</div>
+												</li>
+												<li class="single-comment">
+													<div class="avatar" style="background-image: url('assets/stock/avatar.jpg');"></div>
+													<div class="user-name"><a href="#">Nguyễn Trà Giang</a></div>
+													<div class="time">4 giờ trước</div>
+													<div class="content">Những chiếc áo siêu dài hay kết hợp với chân váy là một sự lựa chọn đáng lưu tâm</div>
+												</li>
+												<li class="single-comment">
+													<div class="avatar" style="background-image: url('assets/stock/avatar.jpg');"></div>
+													<div class="user-name"><a href="#">Nguyễn Trà Giang</a></div>
+													<div class="time">4 giờ trước</div>
+													<div class="content">Những chiếc áo siêu dài hay kết hợp với chân váy là một sự lựa chọn đáng lưu tâm</div>
+												</li>
+												<li class="single-comment">
+													<div class="avatar" style="background-image: url('assets/stock/avatar.jpg');"></div>
+													<div class="user-name"><a href="#">Nguyễn Trà Giang</a></div>
+													<div class="time">4 giờ trước</div>
+													<div class="content">Những chiếc áo siêu dài hay kết hợp với chân váy là một sự lựa chọn đáng lưu tâm</div>
+												</li>
+												<li class="single-comment">
+													<div class="avatar" style="background-image: url('assets/stock/avatar.jpg');"></div>
+													<div class="user-name"><a href="#">Nguyễn Trà Giang</a></div>
+													<div class="time">4 giờ trước</div>
+													<div class="content">Những chiếc áo siêu dài hay kết hợp với chân váy là một sự lựa chọn đáng lưu tâm</div>
+												</li>
+												<li class="single-comment">
+													<div class="avatar" style="background-image: url('assets/stock/avatar.jpg');"></div>
+													<div class="user-name"><a href="#">Nguyễn Trà Giang</a></div>
+													<div class="time">4 giờ trước</div>
+													<div class="content">Những chiếc áo siêu dài hay kết hợp với chân váy là một sự lựa chọn đáng lưu tâm</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
+		</div>
+	</div>
+	<!-- end SITE CONTENT -->
+
+ 
+
+	
+
+	<!-- JS libs -->
+	<script src="assets/libs/jquery.min.js"></script>
+	<script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/libs/jquery.slimscroll.min.js"></script>
+	<script src="assets/libs/imagesloaded.pkgd.min.js"></script>
+	<script src="assets/libs/masonry.pkgd.min.js"></script>
+	<script src="assets/libs/jquery.infinitescroll.min.js"></script>
+	<!-- JS main -->
+	<script src="assets/js/main.js"></script>
+</body>
+</html>
