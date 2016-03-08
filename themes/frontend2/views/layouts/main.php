@@ -31,7 +31,7 @@
         <header id="site-header" class="site-header">
             <div class="qh-container">
                 <div class="left-side">
-                    <h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+                    <h1 class="main-logo"><a href="<?php echo Yii::app()->createUrl('home/newsFeed')?>" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
                     <div class="main-nav">
                         <ul class="list">
                             <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>">Trang chủ</a></li>
@@ -72,8 +72,8 @@
                     <div class="user-nav">
                         <ul class="list">
                             <li class="user-profile-link">
-                                <a href="#">
-                                    <!--                                    <div class="user-avatar bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>-->
+                                <a href="<?php echo Yii::app()->createUrl('user/profile')?>">
+                                    <div class="user-avatar bg-cover" style="background-image: url('<?php echo Yii::app()->session['user_avatar']?>');"></div>
                                     <div class="user-name"><?php echo Yii::app()->session['username'] ?></div>
                                 </a>
                             </li>

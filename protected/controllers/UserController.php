@@ -167,6 +167,21 @@ class UserController extends Controller {
         Yii::app()->session->destroy();
         $this->redirect(Yii::app()->createUrl('user/login'));
     }
+    
+    public function actionFollow()
+    {
+        $request = Yii::app()->request;
+        if ($request->isPostRequest && isset($_POST)) {
+            try {
+                $user_follow = StringHelper::filterString($request->getPost('user_follow'));
+                $user_followed = StringHelper::filterString($request->getPost('user_followed'));
+                
+            } catch (exception $e) {
+                var_dump($e->getMessage());
+            }
+            Yii::app()->end();
+        }
+    }
 
     // Uncomment the following methods and override them if needed
     /*

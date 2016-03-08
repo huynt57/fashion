@@ -87,56 +87,66 @@
         </script>
     </head>
     <body>
-        <!-- SITE HEADER -->
-        <header id="site-header" class="site-header">
-            <div class="qh-container">
-                <div class="left-side">
-                    <h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+        <div class="sign-in-page bg-cover" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/stock/bg-big2.jpg');">
 
-                </div>
-                <div class="right-side">
-
-
-                    <!-- <div class="login-btn">
-                            <a href="#" class="facebook-login-btn qh-btn qh-btn-icon left-icon qh-btn-facebook qh-btn-md"><i class="fa fa-facebook"></i> Đăng nhập với Facebook</a>
-                    </div> -->
-                    <div class="user-nav">
-                        <ul class="list">
-
-                            <li>
-                                <a href="#"><i class="fa fa-caret-down"></i></a>
-                                <ul class="inner-list pull-right">
-                                    <li><a href="#">Về FitMe</a></li>
-                                    <li><a href="#">Điều khoản</a></li>
-                                    <li><a href="#">Bảo mật</a></li>
-                                    <li><a href="#">Quảng cáo</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">IOS App</a></li>
-                                    <li><a href="#">Android App</a></li>
-                                    <li class="divider"></li>
-
+            <div class="sign-in-page-inner">
+                <header id="site-header" class="site-header">
+                    <div class="qh-container">
+                        <div class="left-side">
+                            <h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+                            <div class="main-nav">
+                                <ul class="list">
+                                    <li class="active"><a href="#">Trang chủ</a></li>
+                                    <li><a href="#">Khám phá</a></li>
+                                    <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
+                                        <ul class="inner-list category-list">
+                                            <li><a href="#">Thời trang nam</a></li>
+                                            <li><a href="#">Thời trang nữ</a></li>
+                                            <li><a href="#">Đồ dùng khác</a></li>
+                                        </ul>
+                                        <span class="border-hide"></span>
+                                    </li>
                                 </ul>
-                                <span class="border-hide"></span>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
+                        <div class="right-side">
+                            <div class="search-bar">
+                                <form action="#" class="header-search-form">
+                                    <input type="text" class="search-input" placeholder="Tìm kiếm ảnh, album hoặc mọi người ...">
+                                    <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
+                            <div class="user-nav">
+                                <ul class="list">
+                                    <!-- <li class="user-profile-link">
+                                            <a href="#">
+                                                    <div class="user-avatar bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>
+                                                    <div class="user-name">Thanh Nga</div>
+                                            </a>
+                                    </li> -->
+                                    <li>
+                                        <a href="#"><i class="fa fa-caret-down"></i></a>
+                                        <ul class="inner-list pull-right">
+                                            <li><a href="#">Về FitMe</a></li>
+                                            <li><a href="#">Điều khoản</a></li>
+                                            <li><a href="#">Bảo mật</a></li>
+                                            <li><a href="#">Quảng cáo</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">IOS App</a></li>
+                                            <li><a href="#">Android App</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Đăng xuất</a></li>
+                                        </ul>
+                                        <span class="border-hide"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </header>	
+
+                <?php echo $content ?>
             </div>
-        </header>
-        <!-- end SITE HEADER -->
-
-
-        <div id="site-content" class="site-content">
-            <!-- site content here -->
-            <?php echo $content ?>
-        </div>
-
-
-
-
-        <!-- Modal Upload -->
-        <div class="modal fade" id="uploadNewPostModal">
-
 
         </div>
 

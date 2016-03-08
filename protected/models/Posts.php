@@ -8,6 +8,24 @@ class Posts extends BasePosts {
         return parent::model($className);
     }
 
+    public function getFollowedUserByUser($user_id) {
+        $follows = Follow::model()->findAllByAttributes(array('user_follow' => $user_id, 'type' => 'USER'));
+        $follow_arr = array();
+        foreach ($follows as $item) {
+            $follow_arr[] = $item->user_followed;
+        }
+        return $follow_arr;
+    }
+
+    public function getFollowedCelebByUser($user_id) {
+        $follows = Follow::model()->findAllByAttributes(array('user_follow' => $user_id, 'type' => 'CELEB'));
+        $follow_arr = array();
+        foreach ($follows as $item) {
+            $follow_arr[] = $item->user_followed;
+        }
+        return $follow_arr;
+    }
+
     public function getPostBookmarkedByUser($user_id) {
         $posts_bookmarked = Wishlist::model()->findAllByAttributes(array('user_id' => $user_id));
         $post_bookmarked_arr = array();
@@ -28,6 +46,7 @@ class Posts extends BasePosts {
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, $user_id);
+            $itemArr['score'] = 1;
             $returnArr[] = $itemArr;
         }
         return array('data' => $returnArr, 'pages' => $pages);
@@ -283,9 +302,12 @@ class Posts extends BasePosts {
 
     public function getNewsFeedForUser($user_id, $limit, $offset) {
         $returnArr = array();
+
+
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
-        //    var_dump($blocked_user); die;
+
+
         $news_feed_criteria = new CDbCriteria;
         $news_feed_criteria->select = '*';
         $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
@@ -302,16 +324,55 @@ class Posts extends BasePosts {
         return $returnArr;
     }
 
-    public function getNewsFeedForWeb($user_id) {
+    function mySortScoreNewsFeed($a, $b) {
+
+        if ($a['score'] == $b['score']) {
+            // score is the same, sort by endgame
+            if ($a['post_id'] < $b['post_id'])
+                return 1;
+        }
+        // sort the higher score first:
+        return $a['score'] < $b['score'] ? 1 : -1;
+    }
+
+    public function getFollowedPost($user_id) {
         $returnArr = array();
+        $follows_user = $this->getFollowedUserByUser($user_id);
+        $follows_celeb = $this->getFollowedCelebByUser($user_id);
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $criteria->join = 'LEFT JOIN tbl_celebrities c ON t.celeb_id = c.id JOIN tbl_user u ON t.user_id = u.id';
+        $criteria->addInCondition('t.celeb_id', $follows_celeb);
+      //  $criteria->addInCondition('t.user_id', $follows_user);
+        $data = Posts::model()->findAll($criteria);
+        // var_dump($data); die;
+        foreach ($data as $item) {
+            $itemArr = $this->getPostById($item->post_id, $user_id);
+            if (!empty($itemArr['celeb_id'])) {
+                $itemArr['score'] = 2;
+            } else {
+                $itemArr['score'] = 1.5;
+            }
+            $returnArr[] = $itemArr;
+        }
+        return $returnArr;
+    }
+
+    public function getNewsFeedForWeb($user_id) {
+
+        $returnArr = array();
+        //  $retVal = array();
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
-        $news_feed_criteria = new CdbCriteria;
-        $news_feed_criteria->select = 't.*, u.username';
+
+        //    var_dump($blocked_user); die;
+        $news_feed_criteria = new CDbCriteria;
+        $news_feed_criteria->select = '*';
         $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
         $news_feed_criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
         $news_feed_criteria->addNotInCondition('t.user_id', $blocked_user);
         $news_feed_criteria->order = 't.post_id DESC';
+
         $count = Posts::model()->count($news_feed_criteria);
         $pages = new CPagination($count);
         $pages->validateCurrentPage = FALSE;
@@ -320,8 +381,22 @@ class Posts extends BasePosts {
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, $user_id);
+            if (!empty($itemArr['celeb_id'])) {
+                $itemArr['score'] = 2;
+            } else {
+                $itemArr['score'] = 1;
+            }
             $returnArr[] = $itemArr;
         }
+        $follows_arr = $this->getFollowedPost($user_id);
+
+        if (!empty($follows_arr)) {
+            foreach ($follows_arr as $item) {
+                $returnArr[] = $item;
+            }
+        }
+
+        usort($returnArr, array($this, "mySortScoreNewsFeed"));
         return array('data' => $returnArr, 'pages' => $pages);
     }
 
@@ -504,16 +579,16 @@ class Posts extends BasePosts {
         $blocked_user = $this->getBlockedUserByUser($user_id);
         $categories = $this->getCategoryByType($type);
         $criteria = new CDbCriteria;
-        $criteria->distinct  = true;
+        $criteria->distinct = true;
         $criteria->join = 'JOIN tbl_cat_post c ON c.post_id = t.post_id';
         $criteria->join .= ' JOIN tbl_categories a ON a.cat_id = c.cat_id ';
-        
+
         $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
         $criteria->addNotInCondition('t.user_id', $blocked_user);
         $criteria->order = 't.post_id DESC';
         $criteria->condition = "a.type = $type";
         //var_dump($criteria); die;
-     //   $criteria->group = 't.post_id';
+        //   $criteria->group = 't.post_id';
         $count = Posts::model()->count($criteria);
         //echo $count; die;
         $pages = new CPagination($count);
@@ -602,11 +677,11 @@ class Posts extends BasePosts {
         $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
         $criteria->addNotInCondition('t.user_id', $blocked_user);
         $criteria->select = 't.post_id, t.post_like_count';
-        
+
         $criteria->join = 'JOIN tbl_like l ON t.user_id = l.to';
         $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
         $criteria->group = 't.post_id';
-        
+
         $criteria->order = 't.post_like_count DESC';
 
         //    var_dump($returnArr);

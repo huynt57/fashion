@@ -7,7 +7,7 @@
 				</div>
 				<hr>
 				<div class="social-login-btn">
-					<a href="#" class="facebook-login-btn qh-btn qh-btn-icon left-icon qh-btn-facebook"><i class="fa fa-facebook"></i> Đăng nhập với Facebook</a>
+                                    <a onclick="myFacebookLogin()"chref="#" class="facebook-login-btn qh-btn qh-btn-icon left-icon qh-btn-facebook"><i class="fa fa-facebook"></i> Đăng nhập với Facebook</a>
 				</div>
 			</div>
 
