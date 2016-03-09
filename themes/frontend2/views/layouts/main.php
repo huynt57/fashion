@@ -50,8 +50,8 @@
                 </div>
                 <div class="right-side">
                     <div class="search-bar">
-                        <form action="#" class="header-search-form">
-                            <input type="text" class="search-input" placeholder="Tìm kiếm ảnh, album hoặc mọi người ...">
+                        <form action="<?php echo Yii::app()->createUrl('search/searchPostWeb')?>" method="GET" class="header-search-form">
+                            <input name="query" type="text" class="search-input" placeholder="Tìm kiếm ảnh, album hoặc mọi người ...">
                             <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>

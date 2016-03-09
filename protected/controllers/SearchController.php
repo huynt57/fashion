@@ -11,6 +11,18 @@ class SearchController extends Controller {
         return $data;
     }
 
+    public function actionSearchPostWeb() {
+        $request = Yii::app()->request;
+        try {
+            $query = StringHelper::filterString($request->getQuery('query'));       
+            $data = Posts::model()->searchPost($query, Yii::app()->session['user_id']);
+            //   var_dump($data); die;
+            $this->render('index', $data);
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
     public function searchByUsername($username, $limit, $offset) {
         $data = User::model()->searchByUsername($username, $limit, $offset);
         return $data;

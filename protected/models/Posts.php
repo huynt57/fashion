@@ -734,7 +734,8 @@ class Posts extends BasePosts {
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;
         $criteria->offset = $offset;
-        $criteria->addSearchCondition('post_content', $content);
+        $criteria->addSearchCondition('post_content', $content, 'OR');
+        $criteria->addSearchCondition('post_title', $content);
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
             $returnArr[] = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
@@ -742,7 +743,7 @@ class Posts extends BasePosts {
         return $returnArr;
     }
 
-    public function searchPost($query) {
+    public function searchPost($query, $user_id) {
         $returnArr = array();
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
@@ -752,13 +753,18 @@ class Posts extends BasePosts {
         $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
         $criteria->addNotInCondition('t.user_id', $blocked_user);
         $criteria->order = 't.post_id DESC';
-        $criteria->addSearchCondition('post_content', $content, 'OR');
-        $criteria->addSeachCondition('post_title', $content, 'OR');
+        $criteria->addSearchCondition('t.post_content', $query, true, 'AND');
+        //$criteria->addSearchCondition('t.post_title', $query, true, 'OR');
+        $count = Posts::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->validateCurrentPage = FALSE;
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
-            $returnArr[] = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
+            $returnArr[] = $this->getPostById($item->post_id, $user_id);
         }
-        return $returnArr;
+        return array('data' => $returnArr, 'pages' => $pages);
     }
 
 }
