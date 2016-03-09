@@ -335,17 +335,41 @@ class Posts extends BasePosts {
         return $a['score'] < $b['score'] ? 1 : -1;
     }
 
-    public function getFollowedPost($user_id) {
-        $returnArr = array();
-        $follows_user = $this->getFollowedUserByUser($user_id);
+    public function getFollowedPostCeleb($user_id) {
         $follows_celeb = $this->getFollowedCelebByUser($user_id);
         $criteria = new CDbCriteria;
         $criteria->select = '*';
-        $criteria->join = 'LEFT JOIN tbl_celebrities c ON t.celeb_id = c.id JOIN tbl_user u ON t.user_id = u.id';
         $criteria->addInCondition('t.celeb_id', $follows_celeb);
-      //  $criteria->addInCondition('t.user_id', $follows_user);
+        //$criteria->addInCondition('t.user_id', $follows_user);
+        $count = Posts::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->validateCurrentPage = FALSE;
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
         $data = Posts::model()->findAll($criteria);
         // var_dump($data); die;
+        return $this->getInfoAndScore($data, $user_id);
+    }
+
+    public function getFollowedPostUser($user_id) {
+        $follows_user = $this->getFollowedUserByUser($user_id);
+        //$follows_celeb = $this->getFollowedCelebByUser($user_id);
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $criteria->addInCondition('t.user_id', $follows_user);
+        //$criteria->addInCondition('t.user_id', $follows_user);
+        $count = Posts::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->validateCurrentPage = FALSE;
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
+        $data = Posts::model()->findAll($criteria);
+        // var_dump($data); die;
+        return $this->getInfoAndScore($data, $user_id);
+    }
+
+    public function getInfoAndScore($data, $user_id) {
+        $returnArr = array();
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, $user_id);
             if (!empty($itemArr['celeb_id'])) {
@@ -388,10 +412,16 @@ class Posts extends BasePosts {
             }
             $returnArr[] = $itemArr;
         }
-        $follows_arr = $this->getFollowedPost($user_id);
+        $follows_arr_celeb = $this->getFollowedPostCeleb($user_id);
+        $follows_arr_user = $this->getFollowedPostUser($user_id);
 
-        if (!empty($follows_arr)) {
-            foreach ($follows_arr as $item) {
+        if (!empty($follows_arr_celeb)) {
+            foreach ($follows_arr_celeb as $item) {
+                $returnArr[] = $item;
+            }
+        }
+        if (!empty($follows_arr_user)) {
+            foreach ($follows_arr_user as $item) {
                 $returnArr[] = $item;
             }
         }
