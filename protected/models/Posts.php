@@ -729,12 +729,31 @@ class Posts extends BasePosts {
         return array('data' => $returnArr, 'pages' => $pages);
     }
 
-    public function searchByPostContent($content, $limit, $offset) {
+    public function searchByPostContentAPI($content, $limit, $offset) {
         $returnArr = array();
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;
         $criteria->offset = $offset;
         $criteria->addSearchCondition('post_content', $content);
+        $data = Posts::model()->findAll($criteria);
+        foreach ($data as $item) {
+            $returnArr[] = $this->getPostById($item->post_id, Yii::app()->session['user_id']);
+        }
+        return $returnArr;
+    }
+
+    public function searchPost($query) {
+        $returnArr = array();
+        $hidden_post = $this->getHiddenPostByUser($user_id);
+        $blocked_user = $this->getBlockedUserByUser($user_id);
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
+        $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
+        $criteria->addNotInCondition('t.user_id', $blocked_user);
+        $criteria->order = 't.post_id DESC';
+        $criteria->addSearchCondition('post_content', $content, 'OR');
+        $criteria->addSeachCondition('post_title', $content, 'OR');
         $data = Posts::model()->findAll($criteria);
         foreach ($data as $item) {
             $returnArr[] = $this->getPostById($item->post_id, Yii::app()->session['user_id']);

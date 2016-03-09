@@ -34,8 +34,8 @@
                     <h1 class="main-logo"><a href="<?php echo Yii::app()->createUrl('home/newsFeed')?>" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
                     <div class="main-nav">
                         <ul class="list">
-                            <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>">Trang chủ</a></li>
-                            <li><a href="<?php echo Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Xếp hạng</a></li>
+                            <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>">Bảng tin</a></li>
+                            <li><a href="<?php echo Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Phổ biến</a></li>
                             <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
                                 <ul class="inner-list category-list">
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 3)) ?>">Thời trang nữ</a></li>
