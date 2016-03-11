@@ -10,7 +10,7 @@
             <input type="hidden" value="<?php echo Yii::app()->request->url ?>" name="previous_url">
             <input type="hidden" value="<?php echo Yii::app()->session['user_id'] ?>" name="user_id" >
             <div class="post-image-input">
-                <input type="file" class="hidden" id="inputPostImage" name="images[]">
+                <input type="file" class="hidden" id="inputPostImage" name="images[]" multiple="">
                 <label for="inputPostImage" class="label-image-input text-center">
                     <div class="icon"><i class="fa fa-plus"></i></div>
                     <div class="text">Thêm ảnh</div>

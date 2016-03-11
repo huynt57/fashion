@@ -14,12 +14,12 @@ class Categories extends BaseCategories {
     }
 
     public function getFemaleCategory() {
-        $data = Categories::model()->findAllByAttributes(array('type' => 2));
+        $data = Categories::model()->findAllByAttributes(array('type' => 3));
         return $data;
     }
 
     public function getOtherCategory() {
-        $data = Categories::model()->findAllByAttributes(array('type' => 3));
+        $data = Categories::model()->findAllByAttributes(array('type' => 2));
         return $data;
     }
 
@@ -34,4 +34,5 @@ class Categories extends BaseCategories {
         }
         return FALSE;
     }
+
 }
