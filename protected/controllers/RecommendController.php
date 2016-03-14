@@ -15,9 +15,9 @@ class RecommendController extends Controller {
          //   var_dump($data); die;
             $this->render('index', $data);
         } catch (Exception $ex) {
-           echo '<pre>';
-            var_dump($ex->getTrace());
-            echo '</pre>';
+//           echo '<pre>';
+//            var_dump($ex->getTrace());
+//            echo '</pre>';
         }
     }
 

@@ -12,15 +12,18 @@ class UploadHelper {
         $ext_arr = array('png', 'jpg', 'jpeg', 'bmp');
         $name = StringHelper::filterString($obj['name']);
         $storeFolder = Yii::getPathOfAlias('webroot') . '/images/' . date('Y-m-d', time()) . '/' . $user_id . '/';
-        $pathUrl = 'images/' . date('Y-m-d', time()) . '/' . $user_id . '/' . time() . $name;
         if (!file_exists($storeFolder)) {
             mkdir($storeFolder, 0777, true);
         }
         $tempFile = $obj['tmp_name'];
-        $targetFile = $storeFolder . time() . $name;
         $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+        $random_string = StringHelper::generateRandomString(15);
+        $targetFile = $storeFolder . time() . $random_string . '.' . $ext;
+        $pathUrl = 'images/' . date('Y-m-d', time()) . '/' . $user_id . '/' . time() . $random_string . '.' . $ext;
         if (in_array($ext, $ext_arr)) {
             if (move_uploaded_file($tempFile, $targetFile)) {
+                //  ImageResize::resize_image($pathUrl, '', 1400, 470);
+
                 return $pathUrl;
             } else {
                 return NULL;
@@ -43,6 +46,7 @@ class UploadHelper {
             $tempFile = $obj['tmp_name'][$key];
             $targetFile = $storeFolder . time() . $name;
             $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+          //  $size = $obj['name']['size'];
             if (in_array($ext, $ext_arr)) {
                 if (move_uploaded_file($tempFile, $targetFile)) {
                     array_push($url_arr, $pathUrl);

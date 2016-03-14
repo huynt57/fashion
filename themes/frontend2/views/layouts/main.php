@@ -31,11 +31,11 @@
         <header id="site-header" class="site-header">
             <div class="qh-container">
                 <div class="left-side">
-                    <h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+                    <h1 class="main-logo"><a href="<?php echo Yii::app()->createUrl('home/newsFeed')?>" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
                     <div class="main-nav">
                         <ul class="list">
-                            <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>">Trang chủ</a></li>
-                            <li><a href="<?php echo Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Xếp hạng</a></li>
+                            <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>">Bảng tin</a></li>
+                            <li><a href="<?php echo Yii::app()->createUrl('rank/rankPostByTime', array('time' => 'DAY')) ?>">Phổ biến</a></li>
                             <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
                                 <ul class="inner-list category-list">
                                     <li><a href="<?php echo Yii::app()->createUrl('category/index', array('type' => 3)) ?>">Thời trang nữ</a></li>
@@ -50,8 +50,8 @@
                 </div>
                 <div class="right-side">
                     <div class="search-bar">
-                        <form action="#" class="header-search-form">
-                            <input type="text" class="search-input" placeholder="Tìm kiếm ảnh, album hoặc mọi người ...">
+                        <form action="<?php echo Yii::app()->createUrl('search/searchPostWeb')?>" method="GET" class="header-search-form">
+                            <input name="query" type="text" class="search-input" placeholder="Tìm kiếm ảnh, album hoặc mọi người ...">
                             <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -72,8 +72,8 @@
                     <div class="user-nav">
                         <ul class="list">
                             <li class="user-profile-link">
-                                <a href="#">
-                                    <!--                                    <div class="user-avatar bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>-->
+                                <a href="<?php echo Yii::app()->createUrl('user/profile')?>">
+                                    <div class="user-avatar bg-cover" style="background-image: url('<?php echo Yii::app()->session['user_avatar']?>');"></div>
                                     <div class="user-name"><?php echo Yii::app()->session['username'] ?></div>
                                 </a>
                             </li>

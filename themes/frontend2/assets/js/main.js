@@ -195,7 +195,7 @@ $(document).ready(function () {
             url: url,
             beforeSend: function (xhr) {
                 $('#uploadNewPostModal').empty();
-                $('#uploadNewPostModal').html('<img id="loading" src="/fashion/themes/frontend2/assets/img/loading.gif" alt="" style="' +
+                $('#uploadNewPostModal').html('<img id="loading" src="/themes/frontend2/assets/img/loading.gif" alt="" style="' +
                         'display: block;' +
                         'margin: 0 auto;' +
                         'margin-top: 15%;' +
@@ -212,7 +212,28 @@ $(document).ready(function () {
 
     function readURL(input) {
         //alert('3');
-        if (input.files && input.files[0]) {
+        if (input.files) {
+            for (var i = 0; i < input.files.length; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var cnt = $('.single-image').length;
+                    if (cnt >= 5) {
+                        alert('Bạn chỉ được đăng tối đa 5 ảnh');
+                        return false;
+                    }
+                    $('.post-image-upload').append('<div class="single-image" style="margin-right: 5px;background-image: url(' + e.target.result + ');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>');
+
+                }
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    }
+
+    $(document).on('change', "#inputPostImage", function () {
+        ///  alert('2');
+        var files = $("#inputPostImage")[0].files;
+        for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
@@ -224,17 +245,13 @@ $(document).ready(function () {
                 $('.post-image-upload').append('<div class="single-image" style="margin-right: 5px;background-image: url(' + e.target.result + ');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>');
 
             }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+            reader.readAsDataURL(files[i]);
 
-    $(document).on('change', "#inputPostImage", function() {
-      ///  alert('2');
-         readURL(this);
+        }
     });
-    
+
     $("#inputPostImage").change(function () {
-       
+
     });
 
 
@@ -282,7 +299,7 @@ $(document).ready(function () {
                 itemSelector: masonry_item_selector,
                 loading: {
                     finishedMsg: 'Đã hết bài đăng',
-                    img: '/fashion/themes/frontend2/assets/img/loading.gif',
+                    img: '/themes/frontend2/assets/img/loading.gif',
                     msgText: 'Đang tải',
                     selector: '.msr-loading'
                 }
