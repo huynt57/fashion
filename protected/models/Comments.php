@@ -21,7 +21,17 @@ class Comments extends BaseComments {
         $post = Posts::model()->findByPk($post_id);
         $post->post_comment_count++;
         $user = User::model()->findByPk($model->created_by);
-        if ($model->save(FALSE) && $post->save(FALSE)) {
+        $user_commented = User::model()->findByPk($post->user_id);
+//        if ($user->id != Yii::app()->session['user_id']) {
+//            $arr_noti = array('user_id' => Yii::app()->session['user_id'],
+//                'content' => "$user->username vừa bình luận ở bài post của $user_commented->username",
+//                'type' => 'post',
+//                'recipient_id' => $user_commented->id,
+//                'url' => Yii::app()->createAbsoulteUrl('post/view'));
+//            $noti = Notifications::model()->add($arr_noti);
+//        }
+
+        if ($model->save(FALSE) && $post->save(FALSE) && $noti) {
             $returnArr = array();
             $returnArr['created_by'] = $model->created_by;
             $returnArr['username'] = $user->username;
