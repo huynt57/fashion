@@ -1,0 +1,339 @@
+.qh-form-user-body-quiz{
+	.qh-form-label{
+		margin-top: 18px;
+	}
+	.image-label{
+		width: 70px;
+		height: 70px;
+		border: 3px solid transparent;
+		cursor: pointer;
+	}
+	input[type="checkbox"],
+	input[type="radio"]{
+		display: none;
+		&:checked + .image-label{
+			border-color: $red600;
+		}
+	}
+}
+.qh-section-article{
+	margin: 20px 0;
+	padding: 25px 30px 40px;
+	border-radius: 12px;
+	& > h1:first-child,
+	& > h2:first-child,
+	& > h3:first-child,
+	& > h4:first-child,
+	& > h5:first-child,
+	& > h6:first-child,
+	& > p:first-child,
+	& > div:first-child{
+		margin-top: 0;
+	}
+	& > h1:last-child,
+	& > h2:last-child,
+	& > h3:last-child,
+	& > h4:last-child,
+	& > h5:last-child,
+	& > h6:last-child,
+	& > p:last-child,
+	& > div:last-child{
+		margin-bottom: 0;
+	}
+}
+.qh-user-page-header{
+	background-color: #fff;
+	border-radius: 0 0 12px 12px;
+	.image-cover{
+		position: relative;
+		height: 360px;
+		.cover-gradient{
+			position: absolute;
+			top: 0; bottom: 0; left: 0; right: 0;
+			@include background-image(linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0.03) 8%,rgba(0,0,0,0.11) 21%,rgba(0,0,0,0.61) 78%,rgba(0,0,0,0.7) 95%,rgba(0,0,0,0.7) 100%));
+		}
+		.user-info{
+			position: absolute;
+			bottom: 20px; left: 0; right: 0;
+			.avatar{
+				width: 128px; height: 128px;
+				margin: 0 auto;
+				border-radius: 12px;
+			}
+			.username{
+				font-size: 24px;
+				font-weight: 700;
+				margin: 15px auto 0;
+				width: 40%;
+				text-align: center;
+				color: #fff;
+			}
+			.description{
+				margin: 5px auto;
+				font-size: 12px;
+				color: $grey400;
+				text-align: center;
+				width: 40%;
+			}
+			.user-follow-btn{
+				margin: 10px auto 0;
+				text-align: center;
+			}
+		}
+	}
+	.user-page-nav{
+		ul.list{
+			text-align: center;
+			li{
+				display: inline-block;
+				a{
+					display: block;
+					padding: 10px 15px 7px;
+					line-height: 30px;
+					white-space: nowrap;
+					color: $grey700;
+					border-bottom: 2px solid transparent;
+				}
+				& a:hover, &.active a{
+					color: $grey900;
+					border-bottom-color: $red600;
+				}
+			}
+		}
+	}
+}
+.qh-user-section{
+	.user-avatar-upload{
+		margin: 0 0 10px;
+		.avatar-image{
+			width: 128px; height: 128px;
+			border-radius: 12px;
+		}
+	}
+	.user-cover-upload{
+		margin: 0 0 10px;
+		img{
+			display: block;
+			max-width: 400px;
+			max-height: 200px;
+		}
+	}
+	.user-notifi-section{
+		.all-notifi-list{
+			padding: 10px 0;
+			.notifi-single{
+				display: block;
+				position: relative;
+				padding: 7px 5px;
+				border-bottom: 1px solid $grey300;
+				a{
+					&:hover{ text-decoration: underline; }
+				}
+				.content{
+					color: $grey900;
+					font-size: 13px;
+					line-height: 17px;
+				}
+				.info{
+					margin-top: 2px;
+					line-height: 14px;
+					font-size: 12px;
+					color: $grey600;
+					cursor: default;
+					span{
+						&.view-detail{ 
+							cursor: pointer;
+							&:hover{ text-decoration: underline; }
+						}
+						&:after{ content: " \2022"; padding: 0 2px; }
+						&:last-child:after{ content: ""; }
+					}
+				}
+				.detail-content{
+					font-size: 12px;
+					margin: 5px 10px 0;
+					padding: 5px 10px;
+					background-color: $grey200;
+					border-radius: 2px;
+				}
+				&.notifi-unread-item{
+					padding-left: 10px;
+					border-left: 3px solid $lgreen300;
+				}
+				&:nth-child(2n+1){
+					background-color: $grey50;
+				}
+			}
+		}
+	}
+}
+.qh-section-404{
+	padding: 50px 20px;
+}
+.qh-upload-section{
+	width: 650px;
+	padding: 10px;
+	background-color: #fff;
+	.post-description{
+		display: block;
+		width: 100%;
+		background-color: $grey200;
+		border: 0;
+		border-radius: 8px;
+		padding: 10px;
+	}
+	.post-image-upload{
+		display: inline-block;
+		vertical-align: top;
+		.single-image{
+			display: inline-block;
+			vertical-align: top;
+			position: relative;
+			width: 96px; height: 96px;
+			border-radius: 8px;
+			@extend .bg-cover;
+			.delete-image{
+				position: absolute;
+				display: block;
+				bottom: 0; right: 0;
+				width: 18px; height: 18px;
+				text-align: center;
+				color: $grey800;
+				background-color: rgba(#fff,.5);
+				border-radius: 4px 0 0 0;
+				i{
+					display: inline-block;
+					line-height: 18px;
+				}
+				&:hover{
+					background-color: rgba(#fff,.75);
+				}
+			}
+		}
+	}
+	.post-image-input{
+		display: inline-block;
+		vertical-align: top;
+		.label-image-input{
+			width: 96px; height: 96px;
+			padding-top: 30px;
+			border: 2px dashed $grey400;
+			color: $grey600;
+			background-color: $grey200;
+			border-radius: 8px;
+			cursor: pointer;
+			.text{
+				font-size: 11px;
+			}
+		}
+	}
+	.category-title{
+		font-size: 13px;
+		font-style: italic;
+		color: $grey700;
+	}
+	.category-choosing{
+		.qh-form-label{
+			margin: 7px 0 5px;
+			font-size: 16px;
+			color: $grey900;
+		}
+		.checkbox-inline{
+			color: $grey800;
+		}
+	}
+	.post-cancel{
+		margin-top: 5px;
+		a{
+			font-size: 12px;
+			font-style: italic;
+			color: $grey600;
+			&:hover{
+				color: $red600;
+			}
+		}
+	}
+}
+.qh-single-post-section{
+	width: 900px;
+	height: 500px;
+	overflow: hidden;
+	.post-image-view{
+		width: 600px;
+		height: 500px;
+		float: left;
+		background-color: $grey100;
+		.carousel-indicators{
+			bottom: 10px;
+			li{
+				display: inline-block;
+				vertical-align: top;
+				margin: 0 2px;
+				width: 64px;
+				height: 64px;
+				border-radius: 4px;
+				border: 2px solid #fff;
+				@extend .bg-cover;
+				opacity: .5;
+				&.active{
+					opacity: 1;
+				}
+			}
+		}
+		.carousel-inner{
+			.item{
+				width: 600px;
+				height: 500px;
+				line-height: 500px;
+				text-align: center;
+				img{
+					display: inline-block;
+					vertical-align: middle;
+					max-width: 600px;
+					max-height: 500px;
+					line-height: 500px;
+				}
+			}
+		}
+		.qh-carousel-control{
+			position: absolute;
+			display: block;
+			top: 50%;
+			margin-top: -20px;
+			background-image: none;
+			background-repeat: no-repeat;
+			width: 40px;
+			height: 40px;
+			border-radius: 12px;
+			color: #fff;
+			background-color: rgba(#000,.25);
+			text-shadow: 0;
+			text-align: center;
+			i{
+				display: inline-block;
+				line-height: 40px;
+			}
+			&:hover{
+				background-color: rgba(#000,.4);
+			}
+			&:active{
+				background-color: rgba(#000,.3);
+			}
+			&.left{
+				left: 10px;
+			}
+			&.right{
+				right: 10px;
+			}
+		}
+
+	}
+	.post-info-view{
+		width: 300px;
+		float: right;
+		.card-single-inner{
+			border-radius: 0;
+			@extend .z-depth-0;
+		}
+	}
+}

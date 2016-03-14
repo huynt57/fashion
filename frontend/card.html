@@ -45,10 +45,21 @@
 						<li class="upload-open-btn"><a href="#" title="Tải ảnh lên" data-toggle="modal" data-target="#uploadNewPostModal">
 							<i class="fa fa-cloud-upload"></i>
 						</a></li>
-						<li class="notifi-open-btn"><a href="#" title="Thông báo">
-							<i class="fa fa-bell"></i>
-							<span class="notifi-badge">9</span>
-						</a></li>
+						<li class="notifi-open-btn">
+							<a href="#" title="Thông báo">
+								<i class="fa fa-bell"></i>
+								<span class="notifi-badge">9</span>
+							</a>
+							<div class="dropdown notifi-header-list">
+							  <button class="user-option-btn" data-toggle="dropdown">
+							  	<i class="fa fa-bell"></i>
+									<span class="notifi-badge">9</span>
+							  </button>
+							  <ul class="dropdown-menu user-option-list pull-right z-depth-2">
+							    <li><a href="#">1</a></li>
+							  </ul>
+							</div>
+					</li>
 					</ul>
 				</div>
 				<!-- <div class="login-btn">
@@ -108,6 +119,8 @@
 								<div class="display-name"><a href="#" class="display-name-link">Nguyễn Hoàng Thảo</a></div>
 								<div class="post-info">
 									<span class="time">23/12/2015</span>
+									<!-- <span class="follow-btn"><a href="#"><i class="fa fa-user"></i> Theo dõi</a></span> -->
+									<span class="follow-btn active"><a href="#"><i class="fa fa-check"></i> Đã theo dõi</a></span>
 								</div>
 								<div class="dropdown user-option">
 								  <button class="user-option-btn" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
@@ -162,6 +175,7 @@
 								<div class="display-name">
 									<a href="#" class="display-name-link">Nguyễn Hoàng Thảo</a>
 								</div>
+								<div class="follow-btn"><a href="#"><i class="fa fa-user"></i> Theo dõi</a></div>
 								<div class="self-description">Fashionista, Designer and Developer. Manager at New Kid in Town Shop. </div>
 							</div>
 						</div>
