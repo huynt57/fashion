@@ -83,6 +83,16 @@ $(document).ready(function(){
     position: 'right'
   });
 
+  // ==== NOTIFICATION on header ================
+
+  // List notifications scroll
+  $('.site-header .user-option-list .user-option-list-inner').slimScroll({
+    height: '380px',
+    size: '5px',
+    color: '#9E9E9E',
+    position: 'right'
+  });
+
   // ==== NOTIFICATION ================
 
   // Default Toast

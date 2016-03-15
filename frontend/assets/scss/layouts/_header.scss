@@ -161,7 +161,13 @@
 					}
 				}
 				&.notifi-open-btn{
-					a{
+					.notifi-open-btn-drd{
+						background-color: transparent;
+						color: $grey500;
+						border: none;
+						&:hover{
+							color: $grey700;
+						}
 						i{
 							padding-top: 2px;
 							line-height: 38px;
@@ -178,6 +184,95 @@
 						color: #fff;
 						background-color: $red700;
 						border-radius: 4px;
+					}
+					.user-option-list{
+						width: 320px;
+						height: 407px;
+						max-height: 407px;
+						overflow: hidden;
+						right: -5px;
+						margin: 0;
+						padding: 0;
+						border: none;
+						border: 1px solid $grey300;
+						border-radius: 0 0 4px 4px;	
+						.user-option-list-inner{
+							width: 320px;
+							height: 380px;
+							max-height: 380px;
+							overflow: hidden;
+						}
+						.notifi-item{
+							border-bottom: 1px solid $grey300;
+							&.unread{
+								border-left: 3px solid $red200;
+							}
+							.notifi-link{
+								position: relative;
+								display: block;
+								white-space: normal;
+								font-size: 12px;
+								padding: 7px 10px;
+								color: $grey700;
+								line-height: 16px;
+								min-height: 62px;
+								.image{
+									width: 48px;
+									height: 48px;
+									position: absolute;
+									top: 7px; left: 10px;
+									border-radius: 4px;
+								}
+								.info{
+									margin-top: 2px;
+									font-size: 11px;
+									color: $grey500;
+									span{
+										display: inline-block;
+										&:after{
+											content: "\2022";
+											display: inline-block;
+											padding: 0 2px 0 5px;
+											color: $grey400;
+										}
+										&:last-child:after{
+											content: "";
+											padding: 0;
+										}
+									}				
+								}
+								.image + .content{
+									padding: 0 0 0 60px;
+								}
+								.image + .content + .info{
+									padding: 0 0 0 60px;
+								}
+								.notifi-like{ color: $red600; }
+								.notifi-comment{ color: $blue600; }
+								.notifi-follower-add{ color: $grey600; }
+								.notifi-following-post{ color: $lgreen600; }
+							}
+						}	
+						.loading-icon{
+							color: $grey500;
+							padding: 10px 0;
+						}
+						.view-all{
+							margin-top: 3px;
+							font-size: 12px;
+							a{
+								line-height: 22px;
+								padding: 0 0 2px;
+								font-size: 11px;
+								display: block;
+								text-align: center;
+								background-color: $grey300;
+								color: $grey700;
+								&:hover{
+									color: $grey800;
+								}
+							}
+						}
 					}
 				}
 			}
