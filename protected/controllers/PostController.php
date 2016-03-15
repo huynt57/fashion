@@ -164,7 +164,7 @@ class PostController extends Controller {
             if ($request->getQuery(Yii::app()->params['REF_API'])) {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
-                $this->render('viewPost', array('data' => $data));
+                $this->render('view', array('data' => $data));
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
