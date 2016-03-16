@@ -16,6 +16,7 @@
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $user_type
  *
  */
 abstract class BaseRelationship extends GxActiveRecord {
@@ -39,9 +40,9 @@ abstract class BaseRelationship extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('user_id_1, user_id_2, status, created_at, updated_at', 'numerical', 'integerOnly'=>true),
-			array('type', 'length', 'max'=>255),
-			array('user_id_1, user_id_2, type, status, created_at, updated_at', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, user_id_1, user_id_2, type, status, created_at, updated_at', 'safe', 'on'=>'search'),
+			array('type, user_type', 'length', 'max'=>255),
+			array('user_id_1, user_id_2, type, status, created_at, updated_at, user_type', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, user_id_1, user_id_2, type, status, created_at, updated_at, user_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +65,7 @@ abstract class BaseRelationship extends GxActiveRecord {
 			'status' => Yii::t('app', 'Status'),
 			'created_at' => Yii::t('app', 'Created At'),
 			'updated_at' => Yii::t('app', 'Updated At'),
+			'user_type' => Yii::t('app', 'User Type'),
 		);
 	}
 
@@ -77,6 +79,7 @@ abstract class BaseRelationship extends GxActiveRecord {
 		$criteria->compare('status', $this->status);
 		$criteria->compare('created_at', $this->created_at);
 		$criteria->compare('updated_at', $this->updated_at);
+		$criteria->compare('user_type', $this->user_type, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -120,7 +120,8 @@ class PostController extends Controller {
             $post_id = StringHelper::filterString(Yii::app()->request->getPost('post_id'));
             $from = StringHelper::filterString(Yii::app()->request->getPost('from'));
             $to = StringHelper::filterString(Yii::app()->request->getPost('to'));
-            $result = Posts::model()->likePost($from, $to, $post_id);
+            $type = StringHelper::filterString(Yii::app()->request->getPost('type'));
+            $result = Posts::model()->likePost($from, $to, $post_id, $type);
             if ($result) {
                 ResponseHelper::JsonReturnSuccess("", "Success");
             } else {

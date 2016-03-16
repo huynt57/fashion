@@ -22,7 +22,7 @@
                                 <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo $item['user'][0]['photo'] ?>');"></a>
                             <?php endif; ?>
                             <?php if (!empty($item['celeb_id'])): ?>
-                                <a href="<?php echo Yii::app()->createUrl('user/profileCeleb', array('ref_web' => 'ref_web', 'celeb_id' => $item['celeb_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo '/'.$item['photo_celeb'] ?>');"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profileCeleb', array('ref_web' => 'ref_web', 'celeb_id' => $item['celeb_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo '/' . $item['photo_celeb'] ?>');"></a>
                             <?php endif; ?>
                         </div>
                         <div class="user-info">
@@ -69,11 +69,16 @@
                                     <span class="icon"><i class="fa fa-thumb-tack"></i></span>
     <!--                                    <span class="count">10</span>-->
                                 </a>
-                                <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">
-                                    <span class="icon"><i class="fa fa-heart"></i></span>
-                                    <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
+                                <?php if (!empty($item['user_id'])): ?>
+                                    <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'], 'USER' ?>)">
+                                    <?php endif; ?>
+                                    <?php if (!empty($item['celeb_id'])): ?>
+                                        <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['celeb_id'] ?>, <?php echo $item['post_id']. 'CELEB' ?>)">
+                                        <?php endif; ?>
+                                        <span class="icon"><i class="fa fa-heart"></i></span>
+                                        <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
+                                    </a>
                                 </a>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -213,12 +218,12 @@
         });
     }
 
-    function like(to, post_id)
+    function like(to, post_id, type)
     {
         $.ajax({
             url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',
             type: 'POST',
-            data: {from: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id, to: to},
+            data: {from: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id, to: to, type: type},
             dataType: 'json',
             success: function (response) {
                 if (response.status === 1)

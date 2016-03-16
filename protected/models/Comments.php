@@ -31,7 +31,7 @@ class Comments extends BaseComments {
 //            $noti = Notifications::model()->add($arr_noti);
 //        }
 
-        if ($model->save(FALSE) && $post->save(FALSE) && $noti) {
+        if ($model->save(FALSE) && $post->save(FALSE)) {
             $returnArr = array();
             $returnArr['created_by'] = $model->created_by;
             $returnArr['username'] = $user->username;

@@ -67,7 +67,7 @@
                                 },
                                 dataType: 'json',
                                 success: function (response) {
-                                    console.log(response);
+                                    //console.log(response);
                                     if (response.status === 1)
                                     {
                                         window.location = '<?php echo Yii::app()->createAbsoluteUrl('home/newsFeed') ?>';

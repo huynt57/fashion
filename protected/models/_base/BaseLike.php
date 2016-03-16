@@ -17,6 +17,7 @@
  * @property integer $updated_at
  * @property integer $status
  * @property integer $to
+ * @property string $type
  *
  */
 abstract class BaseLike extends GxActiveRecord {
@@ -34,14 +35,15 @@ abstract class BaseLike extends GxActiveRecord {
 	}
 
 	public static function representingColumn() {
-		return 'id';
+		return 'type';
 	}
 
 	public function rules() {
 		return array(
 			array('from, post_id, image_id, created_at, updated_at, status, to', 'numerical', 'integerOnly'=>true),
-			array('from, post_id, image_id, created_at, updated_at, status, to', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, from, post_id, image_id, created_at, updated_at, status, to', 'safe', 'on'=>'search'),
+			array('type', 'length', 'max'=>255),
+			array('from, post_id, image_id, created_at, updated_at, status, to, type', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, from, post_id, image_id, created_at, updated_at, status, to, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +67,7 @@ abstract class BaseLike extends GxActiveRecord {
 			'updated_at' => Yii::t('app', 'Updated At'),
 			'status' => Yii::t('app', 'Status'),
 			'to' => Yii::t('app', 'To'),
+			'type' => Yii::t('app', 'Type'),
 		);
 	}
 
@@ -79,6 +82,7 @@ abstract class BaseLike extends GxActiveRecord {
 		$criteria->compare('updated_at', $this->updated_at);
 		$criteria->compare('status', $this->status);
 		$criteria->compare('to', $this->to);
+		$criteria->compare('type', $this->type, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

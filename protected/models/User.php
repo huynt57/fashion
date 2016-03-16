@@ -8,6 +8,14 @@ class User extends BaseUser {
         return parent::model($className);
     }
 
+    public function isFollowedByUser($user_1, $user_2, $type) {
+        $check = Follow::model()->findByAttributes(array('user_follow' => $user_1, 'user_followed' => $user_2, 'type' => $type));
+        if ($check) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
     public function updateUserInfo($user_id, $post, $user_photo, $user_cover) {
         $model = User::model()->findByAttributes(array('id' => $user_id));
         $model->setAttributes($post);
@@ -53,8 +61,9 @@ class User extends BaseUser {
         }
     }
 
-    public function blockUser($user_block, $user_blocked) {
-        $model = Relationship::model()->findByAttributes(array('user_id_1' => $user_block, 'user_id_2' => $user_blocked));
+    public function blockUser($user_block, $user_blocked, $user_type) {
+        $model = Relationship::model()->findByAttributes(array('user_id_1' => $user_block, 'user_id_2' => $user_blocked, 'user_type' => $user_type));
+        Follow::model()->deleteAllByAttributes(array('user_follow' => $user_block, 'user_followed' => $user_blocked, 'type' => $user_type));
         if ($model) {
             return 1;
         } else {
@@ -65,6 +74,7 @@ class User extends BaseUser {
             $rel->created_at = time();
             $rel->updated_at = time();
             $rel->type = Yii::app()->params['USER_BLOCK'];
+            $rel->user_type = $user_type;
             if ($rel->save(FALSE)) {
                 return 2;
             } else {
@@ -137,32 +147,6 @@ class User extends BaseUser {
         $pages->applyLimit($criteria);
         return array('data' => $data, 'pages' => $pages);
     }
-
-//    public function rankByMonth() {
-//        $criteria = new CDbCriteria;
-//        $time_start = strtotime('-1 month');
-//        $time_end = time();
-//        $criteria->select = 'COUNT(*) AS count_like';
-//        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
-//        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
-//        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
-//        $criteria->order = 'count_like DESC';
-//        $data = User::model()->findAll($criteria);
-//        return $data;
-//    }
-//
-//    public function rankByWeek() {
-//        $criteria = new CDbCriteria;
-//        $time_start = strtotime('-1 week');
-//        $time_end = time();
-//        $criteria->select = 'COUNT(*) AS count_like';
-//        $criteria->addBetweenCondition('tbl_like.created_at', $time_start, $time_end);
-//        $criteria->join = 'JOIN tbl_like ON tbl_user.id = tbl_like.to';
-//        $criteria->limit = Yii::app()->params['RESULT_PER_PAGE'];
-//        $criteria->order = 'count_like DESC';
-//        $data = User::model()->findAll($criteria);
-//        return $data;
-//    }
 
     public function getProfile($user_id) {
         $data = User::model()->findByPk($user_id);

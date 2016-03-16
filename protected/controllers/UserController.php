@@ -25,7 +25,14 @@ class UserController extends Controller {
             }
             $data = User::model()->getProfileCeleb($user_id);
             $posts = Posts::model()->getPostByCelebForWeb($user_id);
-            $arr = array('profile' => $data, 'posts' => $posts['data'], 'pages' => $posts['pages']);
+            if ($user_id != Yii::app()->session['user_id']) {
+                $check_block = Relationship::model()->findByAttributes(array('user_id_2' => Yii::app()->session['user_id'], 'user_id_1' => $user_id, 'user_type' => 'CELEB'));
+                $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
+                if ($check_block) {
+                    return;
+                }
+            }
+            $arr = array('profile' => $data, 'posts' => $posts['data'], 'pages' => $posts['pages'], 'is_followed' => $is_followed);
             if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
                 ResponseHelper::JsonReturnSuccess($arr, 'Success');
             } else {
@@ -42,6 +49,7 @@ class UserController extends Controller {
 
     public function actionProfile() {
         try {
+            $is_followed = FALSE;
             $request = Yii::app()->request;
             if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
                 $user_id = $request->getQuery('user_id');
@@ -50,9 +58,18 @@ class UserController extends Controller {
             } else {
                 $user_id = Yii::app()->session['user_id'];
             }
+
+
             $data = User::model()->getProfile($user_id);
             $posts = Posts::model()->getPostByUserForWeb($user_id);
-            $arr = array('profile' => $data, 'posts' => $posts['data'], 'pages' => $posts['pages']);
+            if ($user_id != Yii::app()->session['user_id']) {
+                $check_block = Relationship::model()->findByAttributes(array('user_id_2' => Yii::app()->session['user_id'], 'user_id_1' => $user_id, 'user_type' => 'USER'));
+                $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
+                if ($check_block) {
+                    return;
+                }
+            }
+            $arr = array('profile' => $data, 'posts' => $posts['data'], 'pages' => $posts['pages'], 'is_followed' => $is_followed);
             if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
                 ResponseHelper::JsonReturnSuccess($arr, 'Success');
             } else {
@@ -129,9 +146,10 @@ class UserController extends Controller {
             try {
                 $user_blocked = StringHelper::filterString($request->getPost('user_blocked'));
                 $user_block = StringHelper::filterString($request->getPost('user_block'));
-                if (User::model()->blockUser($user_block, $user_blocked) == 1) {
+                $type = StringHelper::filterString($request->getPost('type'));
+                if (User::model()->blockUser($user_block, $user_blocked, $type) == 1) {
                     ResponseHelper::JsonReturnSuccess("", "Blocked before");
-                } else if (User::model()->blockUser($user_block, $user_blocked) == 0) {
+                } else if (User::model()->blockUser($user_block, $user_blocked, $type) == 0) {
                     ResponseHelper::JsonReturnError("", "Server Error");
                 } else {
                     ResponseHelper::JsonReturnSuccess("", "Success");
@@ -167,15 +185,37 @@ class UserController extends Controller {
         Yii::app()->session->destroy();
         $this->redirect(Yii::app()->createUrl('user/login'));
     }
-    
-    public function actionFollow()
-    {
+
+    public function actionFollow() {
         $request = Yii::app()->request;
         if ($request->isPostRequest && isset($_POST)) {
             try {
                 $user_follow = StringHelper::filterString($request->getPost('user_follow'));
                 $user_followed = StringHelper::filterString($request->getPost('user_followed'));
-                
+                if (Follow::model()->add($user_follow, $user_followed)) {
+                    ResponseHelper::JsonReturnSuccess('', 'Thành công');
+                } else {
+                    ResponseHelper::JsonReturnError('', 'Có lỗi xảy ra');
+                }
+            } catch (exception $e) {
+                var_dump($e->getMessage());
+            }
+            Yii::app()->end();
+        }
+    }
+
+    public function actionUnFollow() {
+        $request = Yii::app()->request;
+        if ($request->isPostRequest && isset($_POST)) {
+            try {
+                $user_follow = StringHelper::filterString($request->getPost('user_follow'));
+                $user_followed = StringHelper::filterString($request->getPost('user_followed'));
+                $user_type = StringHelper::filterString($request->getPost('user_type'));
+                if (Follow::model()->remove($user_follow, $user_followed, $user_type)) {
+                    ResponseHelper::JsonReturnSuccess('', 'Thành công');
+                } else {
+                    ResponseHelper::JsonReturnError('', 'Có lỗi xảy ra');
+                }
             } catch (exception $e) {
                 var_dump($e->getMessage());
             }

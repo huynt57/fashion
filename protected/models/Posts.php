@@ -8,6 +8,29 @@ class Posts extends BasePosts {
         return parent::model($className);
     }
 
+    public function getExplore() {
+        $returnArr = array();
+        //  $retVal = array();
+        //    var_dump($blocked_user); die;
+        $news_feed_criteria = new CDbCriteria;
+        $news_feed_criteria->select = '*';
+        $news_feed_criteria->join = 'JOIN tbl_user u ON t.user_id = u.id';
+        $news_feed_criteria->order = 't.post_id DESC';
+
+        $count = Posts::model()->count($news_feed_criteria);
+        $pages = new CPagination($count);
+        $pages->validateCurrentPage = FALSE;
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($news_feed_criteria);
+        $data = Posts::model()->findAll($news_feed_criteria);
+        foreach ($data as $item) {
+            $itemArr = $this->getPostById($item->post_id);
+            $returnArr[] = $itemArr;
+        }
+
+        return array('data' => $returnArr, 'pages' => $pages);
+    }
+
     public function getFollowedUserByUser($user_id) {
         $follows = Follow::model()->findAllByAttributes(array('user_follow' => $user_id, 'type' => 'USER'));
         $follow_arr = array();
@@ -498,8 +521,8 @@ class Posts extends BasePosts {
         return $returnArr;
     }
 
-    public function likePost($from, $to, $post_id) {
-        $check = Like::model()->findByAttributes(array('from' => $from, 'to' => $to, 'post_id' => $post_id));
+    public function likePost($from, $to, $post_id, $type) {
+        $check = Like::model()->findByAttributes(array('from' => $from, 'to' => $to, 'post_id' => $post_id, 'type' => $type));
         $model = Posts::model()->findByPk($post_id);
         if ($check && $check->status == 1 && $model->post_like_count > 0) {
             $model->post_like_count--;
@@ -526,7 +549,7 @@ class Posts extends BasePosts {
                 return TRUE;
             }
         }
-        
+
         if ($to != Yii::app()->session['user_id']) {
 //            $arr_noti = array('user_id' => $from,
 //                'content' => "$user->username vừa bình luận ở bài post của $user_commented->username",

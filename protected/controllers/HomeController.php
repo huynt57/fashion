@@ -24,20 +24,27 @@ class HomeController extends Controller {
     public function actionNewsFeed() {
         try {
             $user_id = Yii::app()->session['user_id'];
-           // $user_id = 1;
+            // $user_id = 1;
             if (isset($user_id)) {
-               // $feed = Posts::model()->getNewsFeedForWeb($user_id);
-                
+                // $feed = Posts::model()->getNewsFeedForWeb($user_id);
                 //for testing
                 $feed = Posts::model()->getNewsFeedForWeb($user_id);
-                
+
                 $this->render('index', $feed);
             }
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
         }
     }
-    
+
+    public function actionExplore() {
+        try {
+            $feed = Posts::model()->getExplore();
+            $this->render('explore', $feed);
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
 
     // Uncomment the following methods and override them if needed
     /*

@@ -22,7 +22,7 @@
                                 <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo $item['user'][0]['photo'] ?>');"></a>
                             <?php endif; ?>
                             <?php if (!empty($item['celeb_id'])): ?>
-                                <a href="<?php echo Yii::app()->createUrl('user/profileCeleb', array('ref_web' => 'ref_web', 'celeb_id' => $item['celeb_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo '/'.$item['photo_celeb'] ?>');"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profileCeleb', array('ref_web' => 'ref_web', 'celeb_id' => $item['celeb_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo '/' . $item['photo_celeb'] ?>');"></a>
                             <?php endif; ?>
                         </div>
                         <div class="user-info">
@@ -41,7 +41,12 @@
                                 <ul class="dropdown-menu user-option-list pull-right z-depth-2">
                                     <li><a href="#" data-toggle="modal" data-target="#post-report-modal" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)">Báo cáo sai phạm</a></li>
                                     <li><a href="#"  onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                    <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
+                                    <?php if (!empty($item['user_id'])): ?>
+                                        <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'USER')" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
+                                    <?php endif; ?>
+                                    <?php if (!empty($item['celeb_id'])): ?>
+                                        <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'CELEB')" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </div>
@@ -57,7 +62,7 @@
                     </div>
                     <div class="c-footer">
                         <div class="item-buttons left">
-                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share()">
+                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost') ?>')">
                                 <span class="icon"><i class="fa fa-share-square-o"></i></span>
                             </a>
                         </div>
@@ -69,11 +74,16 @@
                                     <span class="icon"><i class="fa fa-thumb-tack"></i></span>
     <!--                                    <span class="count">10</span>-->
                                 </a>
-                                <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)">
-                                    <span class="icon"><i class="fa fa-heart"></i></span>
-                                    <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
+                                <?php if (!empty($item['user_id'])): ?>
+                                    <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'USER')">
+                                    <?php endif; ?>
+                                    <?php if (!empty($item['celeb_id'])): ?>
+                                        <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['celeb_id'] ?>, <?php echo $item['post_id'] ?>, 'CELEB')">
+                                        <?php endif; ?>
+                                        <span class="icon"><i class="fa fa-heart"></i></span>
+                                        <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
+                                    </a>
                                 </a>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -150,7 +160,7 @@
         });
     }
 
-    function block_user(user_blocked, post_id)
+    function block_user(user_blocked, post_id, type)
     {
         $('#blockUserFromPostModal').modal('show');
         $('#submitBlockUser').click(function () {
@@ -160,7 +170,7 @@
                 beforeSend: function (xhr) {
                     $('#blockUserFromPostModal').modal('hide');
                 },
-                data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked},
+                data: {'user_block': '<?php echo Yii::app()->session['user_id'] ?>', 'post_id': post_id, 'user_blocked': user_blocked, 'type': type},
                 dataType: 'json',
                 success: function (response) {
                     if (response.status === 1)
@@ -213,12 +223,12 @@
         });
     }
 
-    function like(to, post_id)
+    function like(to, post_id, type)
     {
         $.ajax({
             url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',
             type: 'POST',
-            data: {from: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id, to: to},
+            data: {from: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id, to: to, type: type},
             dataType: 'json',
             success: function (response) {
                 if (response.status === 1)
