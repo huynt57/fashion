@@ -549,14 +549,15 @@ class Posts extends BasePosts {
                 return TRUE;
             }
         }
-
-        if ($to != Yii::app()->session['user_id']) {
-//            $arr_noti = array('user_id' => $from,
-//                'content' => "$user->username vừa bình luận ở bài post của $user_commented->username",
-//                'type' => 'post',
-//                'recipient_id' => $user_commented->id,
-//                'url' => Yii::app()->createAbsoulteUrl('post/view'));
-//            Notifications::model()->add($arr_noti);
+        $user_from = User::model()->findByPk($from);
+      //  $user_to = User::model()->findByPk($to);
+        if ($from != Yii::app()->session['user_id']) {
+            $arr_noti = array('user_id' => $from,
+                'content' => "$user_from->username vừa thích bài post của bạn",
+                'type' => 'like',
+                'recipient_id' => $to,
+                'url' => Yii::app()->createAbsoulteUrl('post/view'));
+            Notifications::model()->add($arr_noti);
         }
         return FALSE;
     }

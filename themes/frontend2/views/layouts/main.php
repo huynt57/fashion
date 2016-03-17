@@ -23,38 +23,26 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/masonry.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.infinitescroll.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap-notify.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.slimscroll.min.js"></script>
         <!-- JS main -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/main.js"></script>
         <script>
 
-//            if (typeof (EventSource) !== "undefined") {
-//                // var timestamp = getCurrentTimestamp();
-//                var source = new EventSource("<?php echo Yii::app()->createUrl('notification/getNotification') ?>");
-//                source.onmessage = function (event) {
-//                    //  document.getElementById("response").innerHTML += event.data + "<br>";
-//                    //  var cloned = $('#message-right').clone().show();
-//                    //   console.log(event.data);
-//                    var response = JSON.parse(event.data);
-//                    $('#message_list').prepend('<div class="row">' +
-//                            '<li style="float: left; ; background-color: #EDEFED;">' +
-//                            '<div class="comment_info">' +
-//                            'Gửi bởi <a href="#">' + response.username + '</a><span>|</span> ' + response.date + ' <span>' +
-//                            '</div>' +
-//                            '<div class="avatar" ><a href="#"><img src="' + response.avatar + '" alt="" style="height:68px; width:68px;"></a></div>' +
-//                            '<div class="comment_right clearfix">' +
-//                            '<p>' +
-//                            response.data +
-//                            '</p>' +
-//                            '</div>' +
-//                            '</li>' +
-//                            '</div>');
-//                    $('#response').prepend(event.data);
-//
-//                    // $('#message_left').clone().prependTo('#message_list');
-//                };
-//            } else {
-//                alert("Xin lỗi, trình duyệt của bạn không hỗ trợ chức năng chat của chúng tôi. Bạn vui lòng sử dụng Chrome hoặc Firefox thay thế !");
-//            }
+            if (typeof (EventSource) !== "undefined") {
+                // var timestamp = getCurrentTimestamp();
+                var source = new EventSource("<?php echo Yii::app()->createUrl('notification/getNotificationWeb') ?>");
+                source.onmessage = function (event) {
+                    //  document.getElementById("response").innerHTML += event.data + "<br>";
+                    //  var cloned = $('#message-right').clone().show();
+                    //   console.log(event.data);
+                    var response = JSON.parse(event.data);
+                    console.log(response);
+
+                    // $('#message_left').clone().prependTo('#message_list');
+                };
+            } else {
+                alert("Xin lỗi, trình duyệt của bạn không hỗ trợ chức năng chat của chúng tôi. Bạn vui lòng sử dụng Chrome hoặc Firefox thay thế !");
+            }
         </script>
 
     </head>
@@ -99,7 +87,7 @@
                                         <span class="notifi-badge">9</span>
                                     </button>
                                     <ul class="dropdown-menu user-option-list pull-right z-depth-0">
-                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 380px;"><div class="user-option-list-inner" style="overflow: hidden; width: auto; height: 380px;">
+                                        <div id="notify-scroll" class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 380px;"><div class="user-option-list-inner" style="overflow: hidden; width: auto; height: 380px;">
                                                 <li class="notifi-item unread">
                                                     <a href="#" class="notifi-link">
                                                         <div class="content">Đây là unread notifi. Vince Gill - "Peaceful Easy Feeling" (Glenn Frey Tribute)</div>
@@ -211,6 +199,23 @@
 
 
         </div>
+        <script>
+            function loadMore()
+            {
+                console.log("More loaded");
+                $("body").append("<div>");
+                $(window).bind('scroll', bindScroll);
+            }
+
+            function bindScroll() {
+                if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+                    $(window).unbind('scroll');
+                    loadMore();
+                }
+            }
+
+            $('#notify-scroll').scroll(bindScroll);
+        </script>
 
     </body>
 </html>

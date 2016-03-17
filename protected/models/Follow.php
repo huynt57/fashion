@@ -22,7 +22,7 @@ class Follow extends BaseFollow {
         $check = Relationship::model()->findAllByAttributes(array('user_id_1' => $user_follow, 'user_id_2' => $user_followed));
         $check_2 = Relationship::model()->findAllByAttributes(array('user_id_2' => $user_follow, 'user_id_1' => $user_followed));
         $check_3 = Follow::model()->findByAttributes(array('user_follow' => $user_follow, 'user_followed' => $user_followed));
-        if ($check || $check_2 || $check_3) {
+        if ($check || $check_2 || $check_3 || ($user_followed == Yii::app()->session['user_id'])) {
             return FALSE;
         }
         $model = new Follow;
@@ -32,14 +32,16 @@ class Follow extends BaseFollow {
         $model->update_at = time();
         $model->type = $type;
 
-        // if ($to != Yii::app()->session['user_id']) {
-//            $arr_noti = array('user_id' => $from,
-//                'content' => "$user->username vừa bình luận ở bài post của $user_commented->username",
-//                'type' => 'post',
-//                'recipient_id' => $user_commented->id,
-//                'url' => Yii::app()->createAbsoulteUrl('post/view'));
-//            Notifications::model()->add($arr_noti);
-        // }
+        $user_follow_data = User::model()->findByPk($user_follow);
+        $user_followed_data = User::model()->findByPk($user_followed);
+        if ($user_follow != Yii::app()->session['user_id']) {
+            $arr_noti = array('user_id' => $from,
+                'content' => "$user_follow_data->username vừa theo dõi bạn",
+                'type' => 'follow',
+                'recipient_id' => $user_followed_data->id,
+                'url' => Yii::app()->createAbsoulteUrl('user/profile', array('user_id' => $user_follow_data->id)));
+            Notifications::model()->add($arr_noti);
+        }
 
         if ($model->save(FALSE)) {
             return TRUE;
