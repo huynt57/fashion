@@ -9,11 +9,28 @@ class NotificationController extends Controller {
     public function actionGetNotification() {
         $request = Yii::app()->request;
         try {
-            $user_id = StringHelper::filterString($request->getPost('user_id'));
+            $user_id = Yii::app()->session['user_id'];
             $limit = StringHelper::filterString($request->getPost('limit'));
             $offset = StringHelper::filterString($request->getPost('offset'));
             $data = Notifications::model()->getNotification($user_id, $limit, $offset);
             ResponseHelper::JsonReturnSuccess($data, "Success");
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
+    public function actionGetNotificationWeb() {
+        // $request = Yii::app()->request;
+        try {
+            header('Content-Type: text/event-stream');
+            header('Cache-Control: no-cache');
+            echo "retry: 10000\n";
+            $user_id = Yii::app()->session['user_id'];
+            // $pages = StringHelper::filterString($request->getPost('pages'));
+            $data = Notifications::model()->getNotificationWeb($user_id);
+            echo "data: ".CJSON::encode($data);
+            flush();
+           // ResponseHelper::JsonReturnSuccess($data, "Success");
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
         }

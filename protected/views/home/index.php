@@ -62,7 +62,7 @@
                     </div>
                     <div class="c-footer">
                         <div class="item-buttons left">
-                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost') ?>')">
+                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id'=>$item['post_id'])) ?>')">
                                 <span class="icon"><i class="fa fa-share-square-o"></i></span>
                             </a>
                         </div>
