@@ -236,6 +236,48 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="card-single">
+					<div class="card-single-inner">
+						<div class="c-image">
+							<div class="post-image">
+								<a href="" class="post-link" data-toggle="modal" data-target="#singlePostModal">
+									<div class="album-behind-border first-border"></div>
+									<div class="album-behind-border second-border"></div>
+									<div class="album-behind-border third-border"></div>
+									<div class="single-album-image"><img src="assets/stock/card01.jpg" alt=""></div>
+								</a>
+							</div>				
+						</div>
+						<div class="c-body">
+							<div class="album-info">
+								<span class="single-info">Album gồm 13 bài đăng</span>
+								<span class="single-info"><a href="#">Chỉnh sửa</a></span>
+							</div>
+							<div class="item-description album-description">Album description. Take me to churd, i'll worship like a dog at the shrine of your lie.</div>
+						</div>
+						<div class="c-header">
+							<div class="user-image">
+								<a href="#" class="user-avatar" style="background-image: url('assets/stock/avatar.jpg');"></a>
+							</div>
+							<div class="user-info">
+								<div class="display-name"><a href="#" class="display-name-link">Nguyễn Hoàng Thảo</a></div>
+								<div class="post-info">
+									<span class="time">Album cập nhật lúc 23/12/2015</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-single">
+					<div class="card-single-inner">
+						<div class="add-new-album-btn">
+							<a href="" class="post-link" data-toggle="modal" data-target="#addNewAlbumModal">
+								<img src="assets/img/add-album.jpg" alt="">
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<ul class="msr-pagination">
@@ -509,10 +551,42 @@
 					</div>
 					<hr>
 					<div class="qh-form-row clearfix text-center">
+						<div class="category-title">Chọn album</div>
+						<div class="col-xs-8 col-xs-offset-2">
+							<select class="qh-input-control">
+							  <option>Uncategoried</option>
+							  <option>Quần áo nữ đẹp</option>
+							  <option>Thời trang thu đông</option>
+							  <option>Take it easy</option>
+							  <option>Such a find sign to see</option>
+							</select>
+						</div>
+					</div>
+					<hr>
+					<div class="qh-form-row clearfix text-center">
 						<button class="qh-btn qh-btn-red600">Đăng ảnh</button>
 						<div class="post-cancel"><a href="#">Hủy đăng ảnh</a></div>
 					</div>
 				</form>
+		</div>
+	</div>
+
+	<!-- Modal New Album -->
+  <div class="modal fade" id="addNewAlbumModal">
+		<div class="qh-modal-dialog qh-upload-section qh-add-album-section z-depth-2">
+			<form action="#" class="qh-form qh-form-normal">
+				<div class="qh-form-row">
+					<input type="text" class="qh-input-control" placeholder="Tên album">
+				</div>
+				<div class="qh-form-row">
+					<textarea row="3" class="qh-input-control" placeholder="Mô tả"></textarea>
+				</div>
+				<hr>
+				<div class="qh-form-row clearfix text-center">
+					<button class="qh-btn qh-btn-red600">Thêm Album</button>
+					<div class="post-cancel"><a href="#">Hủy</a></div>
+				</div>
+			</form>
 		</div>
 	</div>
 

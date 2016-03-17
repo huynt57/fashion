@@ -72,6 +72,27 @@
 				width: 128px; height: 128px;
 			}
 		}
+		.single-album-image{
+			padding: 25px 25px 0 15px;
+			img{
+				border-radius: 12px;
+			}
+		}
+		.album-behind-border{
+			position: absolute;
+			border: 1px solid $grey400;
+			border-radius: 12px;
+			background-color: $grey100;	
+			&.first-border{
+				top: 10px; right: 10px; left: 30px; bottom: 15px;
+			}	
+			&.second-border{
+				top: 15px; right: 15px; left: 25px; bottom: 10px;
+			}
+			&.third-border{
+				top: 20px; right: 20px; left: 20px; bottom: 5px;
+			}	
+		}
 	}
 	.c-header{
 		position: relative;
@@ -186,9 +207,30 @@
 	.c-body{
 		margin: 12px 0;
 		padding: 0 15px;
+		.album-info{
+			font-size: 12px;
+			margin-bottom: 5px;
+			.single-info{
+				display: inline-block;
+				color: $grey600;
+				&:first-child:before{
+					content: '\2022';
+					padding: 0 3px 0 0;
+					color: $grey500;
+				}
+				&:after{
+					content: '\2022';
+					padding: 0 2px 0 4px;
+					color: $grey500;
+				}
+			}
+		}
 		.item-description{
 			font-size: 14px;
 			color: $grey800;
+			&.album-description{
+				padding: 0 3px;
+			}
 		}
 		.item-categories{
 			margin-top: 5px;
