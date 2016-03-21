@@ -15,69 +15,73 @@
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $user_id
+ * @property string $description
  *
  */
 abstract class BaseAlbums extends GxActiveRecord {
 
-	public static function model($className=__CLASS__) {
-		return parent::model($className);
-	}
+    public static function model($className = __CLASS__) {
+        return parent::model($className);
+    }
 
-	public function tableName() {
-		return 'tbl_albums';
-	}
+    public function tableName() {
+        return 'tbl_albums';
+    }
 
-	public static function label($n = 1) {
-		return Yii::t('app', 'Albums|Albums', $n);
-	}
+    public static function label($n = 1) {
+        return Yii::t('app', 'Albums|Albums', $n);
+    }
 
-	public static function representingColumn() {
-		return 'album_name';
-	}
+    public static function representingColumn() {
+        return 'album_name';
+    }
 
-	public function rules() {
-		return array(
-			array('album_id', 'required'),
-			array('album_id, status, created_at, updated_at, user_id', 'numerical', 'integerOnly'=>true),
-			array('album_name', 'safe'),
-			array('album_name, status, created_at, updated_at, user_id', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('album_id, album_name, status, created_at, updated_at, user_id', 'safe', 'on'=>'search'),
-		);
-	}
+    public function rules() {
+        return array(
+            array('album_id', 'required'),
+            array('album_id, status, created_at, updated_at, user_id', 'numerical', 'integerOnly' => true),
+            array('album_name, description', 'safe'),
+            array('album_name, status, created_at, updated_at, user_id, description', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('album_id, album_name, status, created_at, updated_at, user_id, description', 'safe', 'on' => 'search'),
+        );
+    }
 
-	public function relations() {
-		return array(
-		);
-	}
+    public function relations() {
+        return array(
+        );
+    }
 
-	public function pivotModels() {
-		return array(
-		);
-	}
+    public function pivotModels() {
+        return array(
+        );
+    }
 
-	public function attributeLabels() {
-		return array(
-			'album_id' => Yii::t('app', 'Album'),
-			'album_name' => Yii::t('app', 'Album Name'),
-			'status' => Yii::t('app', 'Status'),
-			'created_at' => Yii::t('app', 'Created At'),
-			'updated_at' => Yii::t('app', 'Updated At'),
-			'user_id' => Yii::t('app', 'User'),
-		);
-	}
+    public function attributeLabels() {
+        return array(
+            'album_id' => Yii::t('app', 'Album'),
+            'album_name' => Yii::t('app', 'Album Name'),
+            'status' => Yii::t('app', 'Status'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
+            'user_id' => Yii::t('app', 'User'),
+            'description' => Yii::t('app', 'Description'),
+        );
+    }
 
-	public function search() {
-		$criteria = new CDbCriteria;
+    public function search() {
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('album_id', $this->album_id);
-		$criteria->compare('album_name', $this->album_name, true);
-		$criteria->compare('status', $this->status);
-		$criteria->compare('created_at', $this->created_at);
-		$criteria->compare('updated_at', $this->updated_at);
-		$criteria->compare('user_id', $this->user_id);
+        $criteria->compare('album_id', $this->album_id);
+        $criteria->compare('album_name', $this->album_name, true);
+        $criteria->compare('status', $this->status);
+        $criteria->compare('created_at', $this->created_at);
+        $criteria->compare('updated_at', $this->updated_at);
+        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('description', $this->description, true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+
 }

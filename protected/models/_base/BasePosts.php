@@ -20,6 +20,7 @@
  * @property integer $post_view_count
  * @property string $location
  * @property integer $celeb_id
+ * @property integer $album_id
  *
  */
 abstract class BasePosts extends GxActiveRecord {
@@ -42,11 +43,11 @@ abstract class BasePosts extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, celeb_id', 'numerical', 'integerOnly'=>true),
+			array('user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, celeb_id, album_id', 'numerical', 'integerOnly'=>true),
 			array('location', 'length', 'max'=>255),
 			array('post_content', 'safe'),
-			array('post_content, user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, location, celeb_id', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('post_id, post_content, user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, location, celeb_id', 'safe', 'on'=>'search'),
+			array('post_content, user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, location, celeb_id, album_id', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('post_id, post_content, user_id, status, created_at, updated_at, post_like_count, post_comment_count, post_view_count, location, celeb_id, album_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,6 +74,7 @@ abstract class BasePosts extends GxActiveRecord {
 			'post_view_count' => Yii::t('app', 'Post View Count'),
 			'location' => Yii::t('app', 'Location'),
 			'celeb_id' => Yii::t('app', 'Celeb'),
+			'album_id' => Yii::t('app', 'Album'),
 		);
 	}
 
@@ -90,6 +92,7 @@ abstract class BasePosts extends GxActiveRecord {
 		$criteria->compare('post_view_count', $this->post_view_count);
 		$criteria->compare('location', $this->location, true);
 		$criteria->compare('celeb_id', $this->celeb_id);
+		$criteria->compare('album_id', $this->album_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

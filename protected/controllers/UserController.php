@@ -80,6 +80,21 @@ class UserController extends Controller {
         }
     }
 
+    public function actionGetAlbum() {
+        $request = Yii::app()->request;
+        try {
+            if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
+                $user_id = $request->getQuery('user_id');
+            } else {
+                $user_id = Yii::app()->session['user_id'];
+            }
+            $data = Albums::model()->getAlbumByUser($user_id);
+            $this->render('albums', array('data' => $data));
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
     public function actionWishList() {
         $request = Yii::app()->request;
         try {
@@ -220,6 +235,25 @@ class UserController extends Controller {
                 var_dump($e->getMessage());
             }
             Yii::app()->end();
+        }
+    }
+
+    public function actionAddCategoryForUser() {
+        $users = User::model()->findAll();
+        foreach ($users as $user) {
+            $album = new Albums;
+            $album->user_id = $user->id;
+            $album->album_name = 'Album chưa phân loại';
+            $album->created_at = time();
+            $album->updated_at = time();
+            $album->status = 1;
+            if ($album->save(FALSE)) {
+                $posts = Posts::model()->findAllByAttributes(array('user_id' => $user->id));
+                foreach ($posts as $post) {
+                    $post->album_id = $album->album_id;
+                    $post->save(FALSE);
+                }
+            }
         }
     }
 

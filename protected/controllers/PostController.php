@@ -153,7 +153,8 @@ class PostController extends Controller {
         $male_cats = Categories::model()->getMaleCategory();
         $female_cats = Categories::model()->getFemaleCategory();
         $other_cats = Categories::model()->getOtherCategory();
-        $this->render('upload', array('male_cats' => $male_cats, 'female_cats' => $female_cats, 'other_cats' => $other_cats));
+        $albums = Albums::model()->getAlbumByUser(Yii::app()->session['user_id']);
+        $this->render('upload', array('male_cats' => $male_cats, 'female_cats' => $female_cats, 'other_cats' => $other_cats, 'albums' => $albums));
     }
 
     public function actionViewPost() {
@@ -205,8 +206,8 @@ class PostController extends Controller {
             $url = Yii::app()->request->getUrlReferrer();
             //   $url_arr = NULL;
             $url_arr = UploadHelper::getUrlUploadMultiImages($_FILES['images'], $user_id);
-            // $album = StringHelper::filterString($request->getPost('album'));
-            $album = NULL;
+            $album = StringHelper::filterString($request->getPost('album'));
+            //$album = NULL;
             if (Posts::model()->addPost($user_id, $post_content, $location, $url_arr, $album, $cats)) {
                 $this->redirect($url);
             } else {

@@ -51,10 +51,21 @@ class User extends BaseUser {
             $model->created_at = time();
             $model->updated_at = time();
             $model->status = 1;
+
             if ($model->save(FALSE)) {
                 Yii::app()->session['user_id'] = $model->id;
                 Yii::app()->session['user_avatar'] = $model->photo;
-                ResponseHelper::JsonReturnSuccess($model, "Success");
+                $album = new Albums;
+                $album->user_id = $model->id;
+                $album->album_name = 'Album chưa phân loại';
+                $album->created_at = time();
+                $album->updated_at = time();
+                $album->status = 1;
+                if ($album->save(FALSE)) {
+                    ResponseHelper::JsonReturnSuccess($model, "Success");
+                } else {
+                    ResponseHelper::JsonReturnError("", "Server Error");
+                }
             } else {
                 ResponseHelper::JsonReturnError("", "Server Error");
             }

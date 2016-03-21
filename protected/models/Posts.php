@@ -144,6 +144,7 @@ class Posts extends BasePosts {
         $model->status = 1;
         $model->updated_at = time();
         $model->user_id = $user_id;
+        $model->album_id = $album;
         if (!$model->save(FALSE)) {
             return FALSE;
         }
@@ -167,7 +168,7 @@ class Posts extends BasePosts {
                 $image->created_by = $user_id;
                 $image->updated_at = time();
                 $image->status = 1;
-                $image->album_id = $album;
+               // $image->album_id = $album;
                 $image->image_like_count = 0;
                 $image->img_url = $url;
                 if (!$image->save(FALSE)) {
@@ -181,7 +182,7 @@ class Posts extends BasePosts {
             $image->created_by = $user_id;
             $image->updated_at = time();
             $image->status = 1;
-            $image->album_id = $album;
+          //  $image->album_id = $album;
             $image->image_like_count = 0;
             $image->img_url = $url_arr;
             if (!$image->save(FALSE)) {

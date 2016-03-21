@@ -44,6 +44,17 @@
         </div>
         <hr>
         <div class="qh-form-row clearfix text-center">
+            <div class="category-title">Chọn album</div>
+            <div class="col-xs-8 col-xs-offset-2">
+                <select class="qh-input-control" name="album">
+                    <?php foreach ($albums as $album): ?>
+                        <option value=""><?php echo $album->album_name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class="qh-form-row clearfix text-center">
             <button class="qh-btn qh-btn-red600" type="submit">Đăng ảnh</button>
             <div class="post-cancel"><a href="#" onclick="dismissModal()">Hủy đăng ảnh</a></div>
         </div>
