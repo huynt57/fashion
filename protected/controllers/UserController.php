@@ -88,12 +88,16 @@ class UserController extends Controller {
             } else {
                 $user_id = Yii::app()->session['user_id'];
             }
-            $data = Albums::model()->getAlbumByUser($user_id);
+            $data = Albums::model()->getDetailAlbumByUser($user_id);
             $this->render('albums', array('data' => $data));
         } catch (Exception $ex) {
+              echo '<pre>';
             var_dump($ex->getMessage());
+            var_dump($ex->getTrace());
+            echo '</pre>';
         }
     }
+    
 
     public function actionWishList() {
         $request = Yii::app()->request;
@@ -235,6 +239,17 @@ class UserController extends Controller {
                 var_dump($e->getMessage());
             }
             Yii::app()->end();
+        }
+    }
+    
+    public function actionAddAlbum()
+    {
+        $post = StringHelper::filterArrayString($_POST);
+        if(Albums::model()->add($post))
+        {
+            ResponseHelper::JsonReturnSuccess('', 'Success');
+        } else {
+            ResponseHelper::JsonReturnError('', 'Error');
         }
     }
 

@@ -30,7 +30,7 @@ class Comments extends BaseComments {
         $model->status = 1;
         $model->created_at = time();
         $model->updated_at = time();
-
+        $model->save(FALSE);
         $post = Posts::model()->findByPk($post_id);
         $post->post_comment_count++;
         $user = User::model()->findByPk($model->created_by);

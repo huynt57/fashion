@@ -8,10 +8,12 @@ class Albums extends BaseAlbums {
         return parent::model($className);
     }
 
-    public function actionAdd($post) {
+    public function add($post) {
         $model = new Albums;
         $model->setAttributes($post);
         $model->created_at = time();
+        $model->status = 1;
+        $model->user_id = Yii::app()->session['user_id'];
         $model->updated_at = time();
         if ($model->save(FALSE)) {
             return TRUE;
@@ -49,11 +51,16 @@ class Albums extends BaseAlbums {
 
     public function getRandomPostOfAlbum($album_id) {
         $criteria = new CDbCriteria;
-        $criteria->order = 'RANDOM()';
-        $criteria->condition = "album_id => $album_id";
+        $criteria->select = '*';
+        $criteria->order = 'RAND()';
+        $criteria->condition = "album_id = $album_id";
         $criteria->limit = 1;
-        $post = Posts::model()->findByAttributes($criteria);
+        $post = Posts::model()->find($criteria);
+        if($post) {
         $image = Images::model()->getImagePreviewByPostId($post->post_id);
+        } else {
+            $image = 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97300&w=200&h=300';
+        }
         return $image;
     }
 

@@ -48,7 +48,7 @@
             <div class="col-xs-8 col-xs-offset-2">
                 <select class="qh-input-control" name="album">
                     <?php foreach ($albums as $album): ?>
-                        <option value=""><?php echo $album->album_name ?></option>
+                        <option value="<?php echo $album->album_id?>"><?php echo $album->album_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

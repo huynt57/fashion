@@ -68,12 +68,13 @@ class Wishlist extends BaseWishlist {
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria_post);
         $posts = Posts::model()->findAll($criteria_post);
+        $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
 
         foreach ($posts as $post) {
             $itemArr = Posts::model()->getPostById($post->post_id, Yii::app()->session['user_id']);
             $returnArr[] = $itemArr;
         }
-        return array('data' => $returnArr, 'pages' => $pages, 'profile' => $profile);
+        return array('data' => $returnArr, 'pages' => $pages, 'profile' => $profile, 'is_followed'=>$is_followed);
 
         // return FALSE;
     }

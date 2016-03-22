@@ -1894,13 +1894,43 @@ select {
         border-radius: 50%;
         width: 128px;
         height: 128px; }
-  /* line 76, ../scss/layouts/_post.scss */
+    /* line 75, ../scss/layouts/_post.scss */
+    .card-single .c-image .single-album-image {
+      padding: 25px 25px 0 15px; }
+      /* line 77, ../scss/layouts/_post.scss */
+      .card-single .c-image .single-album-image img {
+        border-radius: 12px; }
+    /* line 81, ../scss/layouts/_post.scss */
+    .card-single .c-image .album-behind-border {
+      position: absolute;
+      border: 1px solid #BDBDBD;
+      border-radius: 12px;
+      background-color: #F5F5F5; }
+      /* line 86, ../scss/layouts/_post.scss */
+      .card-single .c-image .album-behind-border.first-border {
+        top: 10px;
+        right: 10px;
+        left: 30px;
+        bottom: 15px; }
+      /* line 89, ../scss/layouts/_post.scss */
+      .card-single .c-image .album-behind-border.second-border {
+        top: 15px;
+        right: 15px;
+        left: 25px;
+        bottom: 10px; }
+      /* line 92, ../scss/layouts/_post.scss */
+      .card-single .c-image .album-behind-border.third-border {
+        top: 20px;
+        right: 20px;
+        left: 20px;
+        bottom: 5px; }
+  /* line 97, ../scss/layouts/_post.scss */
   .card-single .c-header {
     position: relative;
     min-height: 36px;
     margin: 12px 0;
     padding: 0 15px; }
-    /* line 81, ../scss/layouts/_post.scss */
+    /* line 102, ../scss/layouts/_post.scss */
     .card-single .c-header .user-image {
       position: absolute;
       top: 0;
@@ -1908,62 +1938,62 @@ select {
       width: 36px;
       height: 36px;
       display: block; }
-      /* line 86, ../scss/layouts/_post.scss */
+      /* line 107, ../scss/layouts/_post.scss */
       .card-single .c-header .user-image .user-avatar {
         display: block;
         width: 100%;
         height: 100%;
         border-radius: 4px; }
-    /* line 93, ../scss/layouts/_post.scss */
+    /* line 114, ../scss/layouts/_post.scss */
     .card-single .c-header .user-info {
       padding: 0 5px 0 46px; }
-      /* line 95, ../scss/layouts/_post.scss */
+      /* line 116, ../scss/layouts/_post.scss */
       .card-single .c-header .user-info .display-name {
         margin: 0;
         font-size: 14px;
         font-weight: 700;
         line-height: 20px; }
-        /* line 100, ../scss/layouts/_post.scss */
+        /* line 121, ../scss/layouts/_post.scss */
         .card-single .c-header .user-info .display-name a {
           display: inline-block;
           color: #424242; }
-      /* line 105, ../scss/layouts/_post.scss */
+      /* line 126, ../scss/layouts/_post.scss */
       .card-single .c-header .user-info .post-info {
         margin-top: 2px;
         line-height: 13px;
         font-size: 11px;
         color: #757575;
         cursor: default; }
-        /* line 112, ../scss/layouts/_post.scss */
+        /* line 133, ../scss/layouts/_post.scss */
         .card-single .c-header .user-info .post-info span:after {
           display: inline-block;
           content: "-";
           padding: 0 3px 0 6px; }
-        /* line 117, ../scss/layouts/_post.scss */
+        /* line 138, ../scss/layouts/_post.scss */
         .card-single .c-header .user-info .post-info span:last-child:after {
           content: "";
           padding: 0; }
-    /* line 124, ../scss/layouts/_post.scss */
+    /* line 145, ../scss/layouts/_post.scss */
     .card-single .c-header .user-option {
       position: absolute;
       top: 0;
       right: 3px; }
-      /* line 127, ../scss/layouts/_post.scss */
+      /* line 148, ../scss/layouts/_post.scss */
       .card-single .c-header .user-option .user-option-btn {
         border: 0;
         background-color: transparent;
         display: block;
         line-height: 16px;
         color: #9E9E9E; }
-        /* line 133, ../scss/layouts/_post.scss */
+        /* line 154, ../scss/layouts/_post.scss */
         .card-single .c-header .user-option .user-option-btn i {
           display: inline-block;
           vertical-align: top;
           line-height: 16px; }
-      /* line 140, ../scss/layouts/_post.scss */
+      /* line 161, ../scss/layouts/_post.scss */
       .card-single .c-header .user-option .user-option-list li {
         max-width: 250px; }
-        /* line 142, ../scss/layouts/_post.scss */
+        /* line 163, ../scss/layouts/_post.scss */
         .card-single .c-header .user-option .user-option-list li a {
           padding: 2px 15px;
           font-size: 13px;
@@ -1971,66 +2001,87 @@ select {
           text-overflow: ellipsis;
           overflow: hidden;
           color: #616161; }
-          /* line 149, ../scss/layouts/_post.scss */
+          /* line 170, ../scss/layouts/_post.scss */
           .card-single .c-header .user-option .user-option-list li a:hover {
             background-color: #EEEEEE; }
-    /* line 157, ../scss/layouts/_post.scss */
+    /* line 178, ../scss/layouts/_post.scss */
     .card-single .c-header .single-user-info .display-name {
       margin: 0;
       font-size: 16px;
       font-weight: 700;
       line-height: 20px; }
-      /* line 162, ../scss/layouts/_post.scss */
+      /* line 183, ../scss/layouts/_post.scss */
       .card-single .c-header .single-user-info .display-name a {
         display: inline-block;
         color: #424242; }
-    /* line 167, ../scss/layouts/_post.scss */
+    /* line 188, ../scss/layouts/_post.scss */
     .card-single .c-header .single-user-info .follow-btn {
       font-size: 11px;
       margin: 5px 0; }
-    /* line 171, ../scss/layouts/_post.scss */
+    /* line 192, ../scss/layouts/_post.scss */
     .card-single .c-header .single-user-info .self-description {
       margin: 5px 0;
       font-size: 13px;
       color: #757575; }
-    /* line 178, ../scss/layouts/_post.scss */
+    /* line 199, ../scss/layouts/_post.scss */
     .card-single .c-header .follow-btn.active a {
       color: #9E9E9E; }
-      /* line 180, ../scss/layouts/_post.scss */
+      /* line 201, ../scss/layouts/_post.scss */
       .card-single .c-header .follow-btn.active a:hover {
         color: #616161; }
-  /* line 186, ../scss/layouts/_post.scss */
+  /* line 207, ../scss/layouts/_post.scss */
   .card-single .c-body {
     margin: 12px 0;
     padding: 0 15px; }
-    /* line 189, ../scss/layouts/_post.scss */
+    /* line 210, ../scss/layouts/_post.scss */
+    .card-single .c-body .album-info {
+      font-size: 12px;
+      margin-bottom: 5px; }
+      /* line 213, ../scss/layouts/_post.scss */
+      .card-single .c-body .album-info .single-info {
+        display: inline-block;
+        color: #757575; }
+        /* line 216, ../scss/layouts/_post.scss */
+        .card-single .c-body .album-info .single-info:first-child:before {
+          content: '\2022';
+          padding: 0 3px 0 0;
+          color: #9E9E9E; }
+        /* line 221, ../scss/layouts/_post.scss */
+        .card-single .c-body .album-info .single-info:after {
+          content: '\2022';
+          padding: 0 2px 0 4px;
+          color: #9E9E9E; }
+    /* line 228, ../scss/layouts/_post.scss */
     .card-single .c-body .item-description {
       font-size: 14px;
       color: #424242; }
-    /* line 193, ../scss/layouts/_post.scss */
+      /* line 231, ../scss/layouts/_post.scss */
+      .card-single .c-body .item-description.album-description {
+        padding: 0 3px; }
+    /* line 235, ../scss/layouts/_post.scss */
     .card-single .c-body .item-categories {
       margin-top: 5px;
       cursor: default; }
-      /* line 196, ../scss/layouts/_post.scss */
+      /* line 238, ../scss/layouts/_post.scss */
       .card-single .c-body .item-categories:before {
         display: inline-block;
         content: "\2014 ";
         padding: 0 5px 0 0;
         color: #80CBC4; }
-      /* line 202, ../scss/layouts/_post.scss */
+      /* line 244, ../scss/layouts/_post.scss */
       .card-single .c-body .item-categories .single-category {
         display: inline-block;
         font-size: 13px;
         font-weight: 700;
         color: #757575; }
-        /* line 207, ../scss/layouts/_post.scss */
+        /* line 249, ../scss/layouts/_post.scss */
         .card-single .c-body .item-categories .single-category:after {
           color: #757575;
           content: ", "; }
-        /* line 208, ../scss/layouts/_post.scss */
+        /* line 250, ../scss/layouts/_post.scss */
         .card-single .c-body .item-categories .single-category:last-child:after {
           content: ""; }
-  /* line 212, ../scss/layouts/_post.scss */
+  /* line 254, ../scss/layouts/_post.scss */
   .card-single .c-footer {
     border-top: 1px solid #E0E0E0;
     padding: 7px 15px; }
@@ -2041,16 +2092,16 @@ select {
     /* line 8, ../scss/variables/_mixin.scss */
     .card-single .c-footer:after {
       clear: both; }
-    /* line 217, ../scss/layouts/_post.scss */
+    /* line 259, ../scss/layouts/_post.scss */
     .card-single .c-footer .item-buttons.left {
       float: left; }
-      /* line 219, ../scss/layouts/_post.scss */
+      /* line 261, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons.left .single-button {
         margin: 0 7px 0 0; }
-    /* line 223, ../scss/layouts/_post.scss */
+    /* line 265, ../scss/layouts/_post.scss */
     .card-single .c-footer .item-buttons.right {
       float: right; }
-      /* line 225, ../scss/layouts/_post.scss */
+      /* line 267, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons.right .single-button {
         margin: 0 0 0 7px; }
     /* line 7, ../scss/variables/_mixin.scss */
@@ -2060,7 +2111,7 @@ select {
     /* line 8, ../scss/variables/_mixin.scss */
     .card-single .c-footer .item-buttons:after {
       clear: both; }
-    /* line 230, ../scss/layouts/_post.scss */
+    /* line 272, ../scss/layouts/_post.scss */
     .card-single .c-footer .item-buttons .single-button {
       display: block;
       float: left;
@@ -2072,17 +2123,17 @@ select {
       /* line 8, ../scss/variables/_mixin.scss */
       .card-single .c-footer .item-buttons .single-button:after {
         clear: both; }
-      /* line 235, ../scss/layouts/_post.scss */
+      /* line 277, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons .single-button .icon {
         float: left;
         display: block;
         line-height: 22px;
         color: #BDBDBD; }
-        /* line 240, ../scss/layouts/_post.scss */
+        /* line 282, ../scss/layouts/_post.scss */
         .card-single .c-footer .item-buttons .single-button .icon i {
           display: block;
           line-height: 22px; }
-      /* line 245, ../scss/layouts/_post.scss */
+      /* line 287, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons .single-button .count {
         float: left;
         display: block;
@@ -2090,26 +2141,26 @@ select {
         padding: 0 0 0 3px;
         font-size: 13px;
         color: #9E9E9E; }
-      /* line 253, ../scss/layouts/_post.scss */
+      /* line 295, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons .single-button.item-button-like .icon i {
         font-size: 16px; }
-      /* line 254, ../scss/layouts/_post.scss */
+      /* line 296, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons .single-button.item-button-pin .icon i {
         font-size: 18px; }
-      /* line 255, ../scss/layouts/_post.scss */
+      /* line 297, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons .single-button.item-button-comment .icon i {
         font-size: 18px; }
-      /* line 257, ../scss/layouts/_post.scss */
+      /* line 299, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons .single-button:hover .icon, .card-single .c-footer .item-buttons .single-button.active .icon {
         color: #E53935; }
-      /* line 258, ../scss/layouts/_post.scss */
+      /* line 300, ../scss/layouts/_post.scss */
       .card-single .c-footer .item-buttons .single-button:hover .count, .card-single .c-footer .item-buttons .single-button.active .count {
         color: #616161; }
-  /* line 263, ../scss/layouts/_post.scss */
+  /* line 305, ../scss/layouts/_post.scss */
   .card-single .c-comments {
     padding: 12px 15px;
     border-top: 1px solid #E0E0E0; }
-    /* line 267, ../scss/layouts/_post.scss */
+    /* line 309, ../scss/layouts/_post.scss */
     .card-single .c-comments .comment-post-form .comment-post-input-area {
       display: block;
       width: 100%;
@@ -2117,21 +2168,21 @@ select {
       border: 0;
       border-radius: 4px;
       padding: 7px 10px; }
-    /* line 275, ../scss/layouts/_post.scss */
+    /* line 317, ../scss/layouts/_post.scss */
     .card-single .c-comments .comment-post-form .comment-post-submit {
       margin: 0 0 0 10px; }
-    /* line 279, ../scss/layouts/_post.scss */
+    /* line 321, ../scss/layouts/_post.scss */
     .card-single .c-comments .comment-list {
       margin-top: 10px;
       padding: 0 7px;
       background-color: #F5F5F5;
       border-radius: 4px; }
-      /* line 284, ../scss/layouts/_post.scss */
+      /* line 326, ../scss/layouts/_post.scss */
       .card-single .c-comments .comment-list .single-comment {
         padding: 7px 0;
         position: relative;
         border-bottom: 1px solid #fff; }
-        /* line 288, ../scss/layouts/_post.scss */
+        /* line 330, ../scss/layouts/_post.scss */
         .card-single .c-comments .comment-list .single-comment .avatar {
           position: absolute;
           top: 7px;
@@ -2139,39 +2190,39 @@ select {
           width: 32px;
           height: 32px;
           border-radius: 4px; }
-        /* line 295, ../scss/layouts/_post.scss */
+        /* line 337, ../scss/layouts/_post.scss */
         .card-single .c-comments .comment-list .single-comment .user-name {
           padding: 0 0 0 40px;
           line-height: 16px;
           font-size: 13px;
           font-weight: 700;
           color: #424242; }
-          /* line 301, ../scss/layouts/_post.scss */
+          /* line 343, ../scss/layouts/_post.scss */
           .card-single .c-comments .comment-list .single-comment .user-name a {
             color: #424242; }
-            /* line 303, ../scss/layouts/_post.scss */
+            /* line 345, ../scss/layouts/_post.scss */
             .card-single .c-comments .comment-list .single-comment .user-name a:hover {
               color: #F44336; }
-        /* line 308, ../scss/layouts/_post.scss */
+        /* line 350, ../scss/layouts/_post.scss */
         .card-single .c-comments .comment-list .single-comment .time {
           padding: 0 0 0 40px;
           line-height: 14px;
           font-size: 11px;
           color: #757575; }
-        /* line 314, ../scss/layouts/_post.scss */
+        /* line 356, ../scss/layouts/_post.scss */
         .card-single .c-comments .comment-list .single-comment .content {
           padding: 3px 0 0 40px;
           font-size: 12px;
           color: #424242; }
 
-/* line 323, ../scss/layouts/_post.scss */
+/* line 365, ../scss/layouts/_post.scss */
 .msr-pagination {
   margin: 0 0 20px;
   padding: 0;
   list-style: none;
   text-align: center; }
 
-/* line 329, ../scss/layouts/_post.scss */
+/* line 371, ../scss/layouts/_post.scss */
 .msr-pagination a {
   -webkit-transition: all .3s ease-in;
   -moz-transition: all .3s ease-in;
@@ -2179,7 +2230,7 @@ select {
   color: #9E9E9E;
   font-style: italic; }
 
-/* line 336, ../scss/layouts/_post.scss */
+/* line 378, ../scss/layouts/_post.scss */
 .msr-loading {
   position: fixed;
   z-index: 9999;
@@ -2193,7 +2244,7 @@ select {
 [#infscr-loading]
 ------------------------------------------------------------------------------------------------------------------------
 */
-/* line 351, ../scss/layouts/_post.scss */
+/* line 393, ../scss/layouts/_post.scss */
 #infscr-loading {
   display: inline-block;
   padding: 20px;
@@ -2204,11 +2255,11 @@ select {
   border-radius: 3px;
   background: #000; }
 
-/* line 363, ../scss/layouts/_post.scss */
+/* line 405, ../scss/layouts/_post.scss */
 #infscr-loading img {
   margin-bottom: 9px; }
 
-/* line 368, ../scss/layouts/_post.scss */
+/* line 410, ../scss/layouts/_post.scss */
 .single-post-page .qh-single-post-section {
   margin: 30px auto; }
 
@@ -2446,6 +2497,9 @@ select {
   padding: 10px;
   background-color: #fff; }
   /* line 177, ../scss/layouts/_user.scss */
+  .qh-upload-section.qh-add-album-section {
+    width: 420px; }
+  /* line 180, ../scss/layouts/_user.scss */
   .qh-upload-section .post-description {
     display: block;
     width: 100%;
@@ -2453,11 +2507,11 @@ select {
     border: 0;
     border-radius: 8px;
     padding: 10px; }
-  /* line 185, ../scss/layouts/_user.scss */
+  /* line 188, ../scss/layouts/_user.scss */
   .qh-upload-section .post-image-upload {
     display: inline-block;
     vertical-align: top; }
-    /* line 188, ../scss/layouts/_user.scss */
+    /* line 191, ../scss/layouts/_user.scss */
     .qh-upload-section .post-image-upload .single-image {
       display: inline-block;
       vertical-align: top;
@@ -2465,7 +2519,7 @@ select {
       width: 96px;
       height: 96px;
       border-radius: 8px; }
-      /* line 195, ../scss/layouts/_user.scss */
+      /* line 198, ../scss/layouts/_user.scss */
       .qh-upload-section .post-image-upload .single-image .delete-image {
         position: absolute;
         display: block;
@@ -2477,18 +2531,18 @@ select {
         color: #424242;
         background-color: rgba(255, 255, 255, 0.5);
         border-radius: 4px 0 0 0; }
-        /* line 204, ../scss/layouts/_user.scss */
+        /* line 207, ../scss/layouts/_user.scss */
         .qh-upload-section .post-image-upload .single-image .delete-image i {
           display: inline-block;
           line-height: 18px; }
-        /* line 208, ../scss/layouts/_user.scss */
+        /* line 211, ../scss/layouts/_user.scss */
         .qh-upload-section .post-image-upload .single-image .delete-image:hover {
           background-color: rgba(255, 255, 255, 0.75); }
-  /* line 214, ../scss/layouts/_user.scss */
+  /* line 217, ../scss/layouts/_user.scss */
   .qh-upload-section .post-image-input {
     display: inline-block;
     vertical-align: top; }
-    /* line 217, ../scss/layouts/_user.scss */
+    /* line 220, ../scss/layouts/_user.scss */
     .qh-upload-section .post-image-input .label-image-input {
       width: 96px;
       height: 96px;
@@ -2498,49 +2552,49 @@ select {
       background-color: #EEEEEE;
       border-radius: 8px;
       cursor: pointer; }
-      /* line 225, ../scss/layouts/_user.scss */
+      /* line 228, ../scss/layouts/_user.scss */
       .qh-upload-section .post-image-input .label-image-input .text {
         font-size: 11px; }
-  /* line 230, ../scss/layouts/_user.scss */
+  /* line 233, ../scss/layouts/_user.scss */
   .qh-upload-section .category-title {
     font-size: 13px;
     font-style: italic;
     color: #616161; }
-  /* line 236, ../scss/layouts/_user.scss */
+  /* line 239, ../scss/layouts/_user.scss */
   .qh-upload-section .category-choosing .qh-form-label {
     margin: 7px 0 5px;
     font-size: 16px;
     color: #212121; }
-  /* line 241, ../scss/layouts/_user.scss */
+  /* line 244, ../scss/layouts/_user.scss */
   .qh-upload-section .category-choosing .checkbox-inline {
     color: #424242; }
-  /* line 245, ../scss/layouts/_user.scss */
+  /* line 248, ../scss/layouts/_user.scss */
   .qh-upload-section .post-cancel {
     margin-top: 5px; }
-    /* line 247, ../scss/layouts/_user.scss */
+    /* line 250, ../scss/layouts/_user.scss */
     .qh-upload-section .post-cancel a {
       font-size: 12px;
       font-style: italic;
       color: #757575; }
-      /* line 251, ../scss/layouts/_user.scss */
+      /* line 254, ../scss/layouts/_user.scss */
       .qh-upload-section .post-cancel a:hover {
         color: #E53935; }
 
-/* line 257, ../scss/layouts/_user.scss */
+/* line 260, ../scss/layouts/_user.scss */
 .qh-single-post-section {
   width: 900px;
   height: 500px;
   overflow: hidden; }
-  /* line 261, ../scss/layouts/_user.scss */
+  /* line 264, ../scss/layouts/_user.scss */
   .qh-single-post-section .post-image-view {
     width: 600px;
     height: 500px;
     float: left;
     background-color: #F5F5F5; }
-    /* line 266, ../scss/layouts/_user.scss */
+    /* line 269, ../scss/layouts/_user.scss */
     .qh-single-post-section .post-image-view .carousel-indicators {
       bottom: 10px; }
-      /* line 268, ../scss/layouts/_user.scss */
+      /* line 271, ../scss/layouts/_user.scss */
       .qh-single-post-section .post-image-view .carousel-indicators li {
         display: inline-block;
         vertical-align: top;
@@ -2550,23 +2604,23 @@ select {
         border-radius: 4px;
         border: 2px solid #fff;
         opacity: .5; }
-        /* line 278, ../scss/layouts/_user.scss */
+        /* line 281, ../scss/layouts/_user.scss */
         .qh-single-post-section .post-image-view .carousel-indicators li.active {
           opacity: 1; }
-    /* line 284, ../scss/layouts/_user.scss */
+    /* line 287, ../scss/layouts/_user.scss */
     .qh-single-post-section .post-image-view .carousel-inner .item {
       width: 600px;
       height: 500px;
       line-height: 500px;
       text-align: center; }
-      /* line 289, ../scss/layouts/_user.scss */
+      /* line 292, ../scss/layouts/_user.scss */
       .qh-single-post-section .post-image-view .carousel-inner .item img {
         display: inline-block;
         vertical-align: middle;
         max-width: 600px;
         max-height: 500px;
         line-height: 500px; }
-    /* line 298, ../scss/layouts/_user.scss */
+    /* line 301, ../scss/layouts/_user.scss */
     .qh-single-post-section .post-image-view .qh-carousel-control {
       position: absolute;
       display: block;
@@ -2581,26 +2635,26 @@ select {
       background-color: rgba(0, 0, 0, 0.25);
       text-shadow: 0;
       text-align: center; }
-      /* line 312, ../scss/layouts/_user.scss */
+      /* line 315, ../scss/layouts/_user.scss */
       .qh-single-post-section .post-image-view .qh-carousel-control i {
         display: inline-block;
         line-height: 40px; }
-      /* line 316, ../scss/layouts/_user.scss */
+      /* line 319, ../scss/layouts/_user.scss */
       .qh-single-post-section .post-image-view .qh-carousel-control:hover {
         background-color: rgba(0, 0, 0, 0.4); }
-      /* line 319, ../scss/layouts/_user.scss */
+      /* line 322, ../scss/layouts/_user.scss */
       .qh-single-post-section .post-image-view .qh-carousel-control:active {
         background-color: rgba(0, 0, 0, 0.3); }
-      /* line 322, ../scss/layouts/_user.scss */
+      /* line 325, ../scss/layouts/_user.scss */
       .qh-single-post-section .post-image-view .qh-carousel-control.left {
         left: 10px; }
-      /* line 325, ../scss/layouts/_user.scss */
+      /* line 328, ../scss/layouts/_user.scss */
       .qh-single-post-section .post-image-view .qh-carousel-control.right {
         right: 10px; }
-  /* line 331, ../scss/layouts/_user.scss */
+  /* line 334, ../scss/layouts/_user.scss */
   .qh-single-post-section .post-info-view {
     width: 300px;
     float: right; }
-    /* line 334, ../scss/layouts/_user.scss */
+    /* line 337, ../scss/layouts/_user.scss */
     .qh-single-post-section .post-info-view .card-single-inner {
       border-radius: 0; }
