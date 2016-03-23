@@ -318,6 +318,7 @@ $(document).ready(function () {
 
     // ==== NOTIFICATION ================
 
+
     // Default Toast
 
     $('#defaultNotifiDisplay').click(function () {

@@ -15,6 +15,7 @@
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $user_id
+ * @property string $description
  *
  */
 abstract class BaseAlbums extends GxActiveRecord {
@@ -37,11 +38,10 @@ abstract class BaseAlbums extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('album_id', 'required'),
-			array('album_id, status, created_at, updated_at, user_id', 'numerical', 'integerOnly'=>true),
-			array('album_name', 'safe'),
-			array('album_name, status, created_at, updated_at, user_id', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('album_id, album_name, status, created_at, updated_at, user_id', 'safe', 'on'=>'search'),
+			array('status, created_at, updated_at, user_id', 'numerical', 'integerOnly'=>true),
+			array('album_name, description', 'safe'),
+			array('album_name, status, created_at, updated_at, user_id, description', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('album_id, album_name, status, created_at, updated_at, user_id, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +63,7 @@ abstract class BaseAlbums extends GxActiveRecord {
 			'created_at' => Yii::t('app', 'Created At'),
 			'updated_at' => Yii::t('app', 'Updated At'),
 			'user_id' => Yii::t('app', 'User'),
+			'description' => Yii::t('app', 'Description'),
 		);
 	}
 
@@ -75,6 +76,7 @@ abstract class BaseAlbums extends GxActiveRecord {
 		$criteria->compare('created_at', $this->created_at);
 		$criteria->compare('updated_at', $this->updated_at);
 		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('description', $this->description, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -40,8 +40,7 @@ abstract class BaseNotifications extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('id', 'required'),
-			array('id, user_id, created_at, is_read, recipient_id', 'numerical', 'integerOnly'=>true),
+			array('user_id, created_at, is_read, recipient_id', 'numerical', 'integerOnly'=>true),
 			array('action, type, url', 'length', 'max'=>255),
 			array('content', 'safe'),
 			array('user_id, action, created_at, type, is_read, content, recipient_id, url', 'default', 'setOnEmpty' => true, 'value' => null),

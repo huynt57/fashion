@@ -25,6 +25,7 @@
             <li><a href="Javascript::void(0)" onclick="follow()">Yêu thích</a></li>
             <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/wishlist') ?>">Đánh dấu</a></li>
             <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/editProfile') ?>">Thông tin</a></li>
+            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/getAlbum') ?>">Albums</a></li>
         </ul>
     </div>
 </div>
