@@ -56,8 +56,8 @@ class Albums extends BaseAlbums {
         $criteria->condition = "album_id = $album_id";
         $criteria->limit = 1;
         $post = Posts::model()->find($criteria);
-        if($post) {
-        $image = Images::model()->getImagePreviewByPostId($post->post_id);
+        if ($post) {
+            $image = Images::model()->getImagePreviewByPostId($post->post_id);
         } else {
             $image = 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97300&w=200&h=300';
         }

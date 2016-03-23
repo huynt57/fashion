@@ -86,9 +86,11 @@ class Posts extends BasePosts {
         $model->status = 1;
         $model->updated_at = time();
         $model->celeb_id = $celeb_id;
+
         if (!$model->save(FALSE)) {
             return FALSE;
         }
+        $this->addNotificationCelebWhenAddPost($celeb_id, $model->post_id);
         //  $cats = json_decode($cats, TRUE);
         foreach ($cats as $cat) {
             $cat_model = new CatPost();
@@ -148,6 +150,7 @@ class Posts extends BasePosts {
         if (!$model->save(FALSE)) {
             return FALSE;
         }
+        $this->addNotificationUserWhenAddPost($user_id, $model->post_id);
         $cats = json_decode($cats, TRUE);
         foreach ($cats as $cat) {
             $cat_model = new CatPost();
@@ -168,7 +171,7 @@ class Posts extends BasePosts {
                 $image->created_by = $user_id;
                 $image->updated_at = time();
                 $image->status = 1;
-               // $image->album_id = $album;
+                // $image->album_id = $album;
                 $image->image_like_count = 0;
                 $image->img_url = $url;
                 if (!$image->save(FALSE)) {
@@ -182,7 +185,7 @@ class Posts extends BasePosts {
             $image->created_by = $user_id;
             $image->updated_at = time();
             $image->status = 1;
-          //  $image->album_id = $album;
+            //  $image->album_id = $album;
             $image->image_like_count = 0;
             $image->img_url = $url_arr;
             if (!$image->save(FALSE)) {
@@ -522,6 +525,46 @@ class Posts extends BasePosts {
         return $returnArr;
     }
 
+    public function addNotificationUserWhenAddPost($user_id, $post_id) {
+        $user = User::model()->findByPk($user_id);
+        $followers = Follow::model()->findAllByAttributes(array('user_followed' => $user_id, 'type' => 'USER'));
+        foreach ($followers as $follower) {
+            $arr_noti = array('user_id' => $user_id,
+                'content' => "$user->username vừa thích đăng một bài viết mới",
+                'type' => 'follow_user',
+                'recipient_id' => $follower->id,
+                'url' => Yii::app()->createAbsoluteUrl('post/view', array('post_id' => $post_id)));
+            Notifications::model()->add($arr_noti);
+        }
+    }
+
+    public function addNotificationCelebWhenAddPost($celeb_id, $post_id) {
+        $celeb = Celebrities::model()->findByPk($celeb_id);
+        $followers = Follow::model()->findAllByAttributes(array('user_followed' => $celeb_id, 'type' => 'CELEB'));
+        foreach ($followers as $follower) {
+            $arr_noti = array('user_id' => $celeb_id,
+                'content' => "$celeb->celeb_name vừa đăng một bài viết mới",
+                'type' => 'follow_celeb',
+                'recipient_id' => $follower->id,
+                'url' => Yii::app()->createAbsoluteUrl('post/view', array('post_id' => $post_id)));
+            Notifications::model()->add($arr_noti);
+        }
+    }
+
+    public function addLikeNotification($from, $post_id, $to) {
+        $user_from = User::model()->findByPk($from);
+        //  $user_to = User::model()->findByPk($to);
+        if ($from != Yii::app()->session['user_id']) {
+            $arr_noti = array('user_id' => $from,
+                'content' => "$user_from->username vừa thích bài post của bạn",
+                'type' => 'like',
+                'recipient_id' => $to,
+                'url' => Yii::app()->createAbsoluteUrl('post/view', array('post_id' => $post_id)));
+            Notifications::model()->add($arr_noti);
+            //  var_dump($res); die;
+        }
+    }
+
     public function likePost($from, $to, $post_id, $type) {
         $check = Like::model()->findByAttributes(array('from' => $from, 'to' => $to, 'post_id' => $post_id, 'type' => $type));
         $model = Posts::model()->findByPk($post_id);
@@ -535,31 +578,25 @@ class Posts extends BasePosts {
             $model->post_like_count++;
             $check->status = 1;
             if ($model->save(FALSE) && $check->save(FALSE)) {
+                $this->addLikeNotification($from, $post_id, $to);
                 return TRUE;
             }
         } else {
             $model->post_like_count++;
             $like = new Like();
             $like->from = $from;
+            $like->type = $type;
             $like->to = $to;
             $like->post_id = $post_id;
             $like->status = 1;
             $like->created_at = time();
             $like->updated_at = time();
             if ($model->save(FALSE) && $like->save(FALSE)) {
+                $this->addLikeNotification($from, $post_id, $to);
                 return TRUE;
             }
         }
-        $user_from = User::model()->findByPk($from);
-      //  $user_to = User::model()->findByPk($to);
-        if ($from != Yii::app()->session['user_id']) {
-            $arr_noti = array('user_id' => $from,
-                'content' => "$user_from->username vừa thích bài post của bạn",
-                'type' => 'like',
-                'recipient_id' => $to,
-                'url' => Yii::app()->createAbsoulteUrl('post/view'));
-            Notifications::model()->add($arr_noti);
-        }
+
         return FALSE;
     }
 

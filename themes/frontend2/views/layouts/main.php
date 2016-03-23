@@ -23,14 +23,14 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/masonry.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.infinitescroll.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap-notify.min.js"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.slimscroll.min.js"></script>
+
         <!-- JS main -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/main.js"></script>
         <script>
 
             if (typeof (EventSource) !== "undefined") {
                 // var timestamp = getCurrentTimestamp();
-                var source = new EventSource("<?php echo Yii::app()->createUrl('notification/getNotificationWeb') ?>");
+                var source = new EventSource("<?php echo Yii::app()->createUrl('notification/getLatestNotification') ?>");
                 source.onmessage = function (event) {
                     //  document.getElementById("response").innerHTML += event.data + "<br>";
                     //  var cloned = $('#message-right').clone().show();
@@ -81,7 +81,7 @@
                                     <i class="fa fa-cloud-upload"></i>
                                 </a></li>
                             <li class="notifi-open-btn">
-                                <div class="dropdown notifi-header-list open">
+                                <div class="dropdown notifi-header-list">
                                     <button class="notifi-open-btn-drd" data-toggle="dropdown" aria-expanded="true">
                                         <i class="fa fa-bell"></i>
                                         <span class="notifi-badge">9</span>

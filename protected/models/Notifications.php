@@ -41,10 +41,33 @@ class Notifications extends BaseNotifications {
     public function add($post) {
         $model = new Notifications;
         $model->setAttributes($post);
+        $model->created_at = time();
+        $model->is_read = 0;
         if ($model->save(FALSE)) {
             return TRUE;
         }
         return FALSE;
+    }
+
+    public function markNotificationAsRead($noti_id) {
+        $model = Notifications::model()->findByPk($noti_id);
+        $model->is_read = 1;
+        if ($model->save(FALSE)) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    public function markAllNotificationAsSeen() {
+        $flag = TRUE;
+        $notis = Notifications::model()->findAllByAttributes(array('status' => 1));
+        foreach ($notis as $noti) {
+            $noti->status = 2;
+            if (!$noti->save(FALSE)) {
+                $flag = FALSE;
+            }
+        }
+        return $flag;
     }
 
 }

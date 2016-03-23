@@ -22,15 +22,32 @@ class NotificationController extends Controller {
     public function actionGetNotificationWeb() {
         // $request = Yii::app()->request;
         try {
+//            header('Content-Type: text/event-stream');
+//            header('Cache-Control: no-cache');
+//            echo "retry: 10000\n";
+            $user_id = Yii::app()->session['user_id'];
+            // $pages = StringHelper::filterString($request->getPost('pages'));
+            $data = Notifications::model()->getNotificationWeb($user_id);
+//            echo "data: " . CJSON::encode($data);
+//            flush();
+            $html = $this->renderPartial('notification', $data, true);
+            echo $html;
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
+    public function actionGetLatestNotification() {
+        try {
             header('Content-Type: text/event-stream');
             header('Cache-Control: no-cache');
             echo "retry: 10000\n";
             $user_id = Yii::app()->session['user_id'];
             // $pages = StringHelper::filterString($request->getPost('pages'));
-            $data = Notifications::model()->getNotificationWeb($user_id);
-            echo "data: ".CJSON::encode($data);
+            $data = Notifications::model()->getLatestNotification($user_id);
+            echo "data: " . CJSON::encode($data);
             flush();
-           // ResponseHelper::JsonReturnSuccess($data, "Success");
+            // ResponseHelper::JsonReturnSuccess($data, "Success");
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
         }

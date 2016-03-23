@@ -153,29 +153,29 @@ function successNotifiDisplay() {
     });
 }
 
-$(document).on('click', '.delete-image', function(e) {
+$(document).on('click', '.delete-image', function (e) {
     e.preventDefault();
     $(this).parent().remove();
 });
 
 
 
-$(document).ready(function() {
-    $('#upload-post').click(function() {
+$(document).ready(function () {
+    $('#upload-post').click(function () {
         var url = $(this).attr('data-url');
         $.ajax({
             url: url,
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 $('#uploadNewPostModal').empty();
                 $('#uploadNewPostModal').html('<img id="loading" src="/themes/frontend2/assets/img/loading.gif" alt="" style="' +
-                    'display: block;' +
-                    'margin: 0 auto;' +
-                    'margin-top: 15%;' +
-                    '">');
+                        'display: block;' +
+                        'margin: 0 auto;' +
+                        'margin-top: 15%;' +
+                        '">');
 
             },
             type: 'GET',
-            success: function(response) {
+            success: function (response) {
                 $('#uploadNewPostModal').html(response);
             }
         });
@@ -187,7 +187,7 @@ $(document).ready(function() {
             for (var i = 0; i < input.files.length; i++) {
                 var reader = new FileReader();
 
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     var cnt = $('.single-image').length;
                     if (cnt >= 5) {
                         alert('Bạn chỉ được đăng tối đa 5 ảnh');
@@ -201,13 +201,13 @@ $(document).ready(function() {
         }
     }
 
-    $(document).on('change', "#inputPostImage", function() {
+    $(document).on('change', "#inputPostImage", function () {
         ///  alert('2');
         var files = $("#inputPostImage")[0].files;
         for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 var cnt = $('.single-image').length;
                 if (cnt >= 5) {
                     alert('Bạn chỉ được đăng tối đa 5 ảnh');
@@ -221,7 +221,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#inputPostImage").change(function() {
+    $("#inputPostImage").change(function () {
 
     });
 
@@ -236,59 +236,59 @@ $(document).ready(function() {
 
     // Initialize Masonry.
     var $masonry = $(masonry_selector)
-        .masonry({
-            itemSelector: masonry_item_selector
-        });
+            .masonry({
+                itemSelector: masonry_item_selector
+            });
 
     // Find and hide the items.
     var $masonry_items = $masonry
-        .find(masonry_item_selector)
-        .hide();
+            .find(masonry_item_selector)
+            .hide();
 
     // Wait for the images to load.
     $masonry
-        .imagesLoaded()
-    // An image has been loaded.
-    .progress(function(instance, image) {
-        // Add the effect.
-        var $image = $(image.img)
-            .addClass(effect);
-        // Find and show the item.
-        var $item = $image
-            .parents(masonry_item_selector)
-            .show();
-        // Lay out Masonry.
-        $masonry
-            .masonry();
-    });
+            .imagesLoaded()
+            // An image has been loaded.
+            .progress(function (instance, image) {
+                // Add the effect.
+                var $image = $(image.img)
+                        .addClass(effect);
+                // Find and show the item.
+                var $item = $image
+                        .parents(masonry_item_selector)
+                        .show();
+                // Lay out Masonry.
+                $masonry
+                        .masonry();
+            });
 
     // Load more items.
     $masonry
-        .infinitescroll({
-            navSelector: '.msr-pagination',
-            nextSelector: '.msr-pagination .next > a',
-            itemSelector: masonry_item_selector,
-            loading: {
-                finishedMsg: 'Đã hết bài đăng',
-                img: '/themes/frontend2/assets/img/loading.gif',
-                msgText: 'Đang tải',
-                selector: '.msr-loading'
-            }
-        }, function(items, data, url) {
-            var $items = $(items)
-                .hide()
-                .imagesLoaded()
-                .progress(function(instance, image) {
-                    var $image = $(image.img)
-                        .addClass(effect);
-                    var $item = $image
-                        .parents(masonry_item_selector)
-                        .addClass('infinite-scroll-item')
-                        .show();
-                    $masonry
-                        .masonry('appended', $item);
-                });
-        });
+            .infinitescroll({
+                navSelector: '.msr-pagination',
+                nextSelector: '.msr-pagination .next > a',
+                itemSelector: masonry_item_selector,
+                loading: {
+                    finishedMsg: 'Đã hết bài đăng',
+                    img: '/themes/frontend2/assets/img/loading.gif',
+                    msgText: 'Đang tải',
+                    selector: '.msr-loading'
+                }
+            }, function (items, data, url) {
+                var $items = $(items)
+                        .hide()
+                        .imagesLoaded()
+                        .progress(function (instance, image) {
+                            var $image = $(image.img)
+                                    .addClass(effect);
+                            var $item = $image
+                                    .parents(masonry_item_selector)
+                                    .addClass('infinite-scroll-item')
+                                    .show();
+                            $masonry
+                                    .masonry('appended', $item);
+                        });
+            });
 
     // ==== SINGLE POST MODAL =========================================
 
@@ -318,24 +318,25 @@ $(document).ready(function() {
 
     // ==== NOTIFICATION ================
 
+
     // Default Toast
 
-    $('#defaultNotifiDisplay').click(function() {
+    $('#defaultNotifiDisplay').click(function () {
         defaultNotifiDisplay()
     });
 
 
-    $('#errorNotifiDisplay').click(function() {
+    $('#errorNotifiDisplay').click(function () {
         errorNotifiDisplay();
     });
 
 
-    $('#infoNotifiDisplay').click(function() {
+    $('#infoNotifiDisplay').click(function () {
         infoNotifiDisplay()
     });
 
 
-    $('#successNotifiDisplay').click(function() {
+    $('#successNotifiDisplay').click(function () {
         successNotifiDisplay()
     });
 
