@@ -205,7 +205,7 @@
 									<span class="icon"><i class="fa fa-comments"></i></span>
 									<span class="count">12</span>
 								</a>
-								<a href="#" class="single-button item-button-pin">
+								<a href="#" class="single-button item-button-pin" data-toggle="modal" data-target="#postPinToAlbumModal">
 									<span class="icon"><i class="fa fa-thumb-tack"></i></span>
 									<span class="count">10</span>
 								</a>
@@ -493,81 +493,82 @@
   <!-- Modal Upload -->
   <div class="modal fade" id="uploadNewPostModal">
 		<div class="qh-modal-dialog qh-upload-section z-depth-2">
-				<form action="#" class="qh-form qh-upload-post-form">
-					<div class="qh-form-row">
-						<textarea rows="4" placeholder="Miêu tả" class="post-description"></textarea>
+			<form action="#" class="qh-form qh-upload-post-form">
+				<div class="qh-form-row">
+					<textarea rows="4" placeholder="Miêu tả" class="post-description"></textarea>
+				</div>
+				<div class="qh-form-row clearfix text-center">
+					<div class="post-image-upload">
+						<div class="single-image" style="background-image: url('assets/stock/card01.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+						<div class="single-image" style="background-image: url('assets/stock/card02.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+						<div class="single-image" style="background-image: url('assets/stock/card03.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+						<div class="single-image" style="background-image: url('assets/stock/card04.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
+						<div class="single-image" style="background-image: url('assets/stock/card05.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
 					</div>
-					<div class="qh-form-row clearfix text-center">
-						<div class="post-image-upload">
-							<div class="single-image" style="background-image: url('assets/stock/card01.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-							<div class="single-image" style="background-image: url('assets/stock/card02.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-							<div class="single-image" style="background-image: url('assets/stock/card03.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-							<div class="single-image" style="background-image: url('assets/stock/card04.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-							<div class="single-image" style="background-image: url('assets/stock/card05.jpg');"><a href="#" class="delete-image"><i class="fa fa-close"></i></a></div>
-						</div>
-						<div class="post-image-input">
-							<input type="file" class="hidden" id="inputPostImage">
-							<label for="inputPostImage" class="label-image-input text-center">
-								<div class="icon"><i class="fa fa-plus"></i></div>
-								<div class="text">Thêm ảnh</div>
+					<div class="post-image-input">
+						<input type="file" class="hidden" id="inputPostImage">
+						<label for="inputPostImage" class="label-image-input text-center">
+							<div class="icon"><i class="fa fa-plus"></i></div>
+							<div class="text">Thêm ảnh</div>
+						</label>
+					</div>
+				</div>
+				<div class="qh-form-row clearfix text-center">
+					<div class="category-title">Chọn chuyên mục (tối đa: 2)</div>
+					<div class="category-choosing">
+						<div class="qh-form-row">
+							<label class="qh-form-label">Thời trang nam</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Quần nam
+							</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Áo nam
+							</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Phụ kiện nam
+							</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Đồ nam khác
+							</label>
+							<label class="qh-form-label">Thời trang nữ</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Quần nữ
+							</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Áo nữ
+							</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Váy - Đầm
+							</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Phụ kiện nữ
+							</label>
+							<label class="checkbox-inline">
+							  <input type="checkbox"> Đồ nữ khác
 							</label>
 						</div>
 					</div>
-					<div class="qh-form-row clearfix text-center">
-						<div class="category-title">Chọn chuyên mục (tối đa: 2)</div>
-						<div class="category-choosing">
-							<div class="qh-form-row">
-								<label class="qh-form-label">Thời trang nam</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Quần nam
-								</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Áo nam
-								</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Phụ kiện nam
-								</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Đồ nam khác
-								</label>
-								<label class="qh-form-label">Thời trang nữ</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Quần nữ
-								</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Áo nữ
-								</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Váy - Đầm
-								</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Phụ kiện nữ
-								</label>
-								<label class="checkbox-inline">
-								  <input type="checkbox"> Đồ nữ khác
-								</label>
-							</div>
-						</div>
+				</div>
+				<hr>
+				<div class="qh-form-row clearfix text-center">
+					<div class="category-title">Chọn album</div>
+					<div class="col-xs-8 col-xs-offset-2">
+						<select class="qh-input-control">
+						  <option>Uncategoried</option>
+						  <option>Quần áo nữ đẹp</option>
+						  <option>Thời trang thu đông</option>
+						  <option>Take it easy</option>
+						  <option>Such a find sign to see</option>
+						</select>
+						<div class="add-new-album-btn"><a href="#" data-toggle="modal" data-target="#addNewAlbumModal">Tạo album mới</a></div>
 					</div>
-					<hr>
-					<div class="qh-form-row clearfix text-center">
-						<div class="category-title">Chọn album</div>
-						<div class="col-xs-8 col-xs-offset-2">
-							<select class="qh-input-control">
-							  <option>Uncategoried</option>
-							  <option>Quần áo nữ đẹp</option>
-							  <option>Thời trang thu đông</option>
-							  <option>Take it easy</option>
-							  <option>Such a find sign to see</option>
-							</select>
-						</div>
-					</div>
-					<hr>
-					<div class="qh-form-row clearfix text-center">
-						<button class="qh-btn qh-btn-red600">Đăng ảnh</button>
-						<div class="post-cancel"><a href="#">Hủy đăng ảnh</a></div>
-					</div>
-				</form>
+				</div>
+				<hr>
+				<div class="qh-form-row clearfix text-center">
+					<button class="qh-btn qh-btn-red600">Đăng ảnh</button>
+					<div class="post-cancel"><a href="#">Hủy đăng ảnh</a></div>
+				</div>
+			</form>
 		</div>
 	</div>
 
@@ -584,11 +585,40 @@
 				<hr>
 				<div class="qh-form-row clearfix text-center">
 					<button class="qh-btn qh-btn-red600">Thêm Album</button>
-					<div class="post-cancel"><a href="#">Hủy</a></div>
 				</div>
 			</form>
 		</div>
 	</div>
+
+	<!-- Modal New Pin -->
+	<div class="modal fade" id="postPinToAlbumModal">
+		<div class="qh-modal-dialog qh-default-modal qh-modal-sm-size z-depth-2">
+			<button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+      <div class="qh-modal-content">
+      	<h3 class="text-center">Ghim bài</h3>
+      	<hr>
+      	<form action="#" class="qh-form qh-upload-post-form">
+					<div class="qh-form-row clearfix text-center">
+						<div class="category-title">Chọn album để lưu bài đăng</div>
+						<div class="col-xs-10 col-xs-offset-1">
+							<select class="qh-input-control">
+							  <option>Uncategoried</option>
+							  <option>Quần áo nữ đẹp</option>
+							  <option>Thời trang thu đông</option>
+							  <option>Take it easy</option>
+							  <option>Such a find sign to see</option>
+							</select>
+							<div class="add-new-album-btn"><a href="#" data-toggle="modal" data-target="#addNewAlbumModal">Tạo album mới</a></div>
+						</div>
+					</div>
+					<hr>
+					<div class="qh-form-row clearfix text-center">
+						<button class="qh-btn qh-btn-red600">Ghim ảnh</button>
+					</div>
+				</form>
+			</div>
+    </div>
+  </div>
 
 	
 

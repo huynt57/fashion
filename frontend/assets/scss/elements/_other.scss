@@ -120,4 +120,20 @@
       line-height: 90px;
     }
   }
+  .add-new-album-btn{
+    margin: 5px 0;
+    font-size: 12px;
+    font-style: italic;
+    a{
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+  }
+  .category-title{
+    margin: 5px 0 ;
+    font-size: 13px;
+    font-style: italic;
+    color: $grey700;
+  }
 }

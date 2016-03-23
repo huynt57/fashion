@@ -83,16 +83,15 @@ $(document).ready(function(){
     position: 'right'
   });
 
-  // ==== NOTIFICATION on header ================
+  // Modal z-index fix (for multiple modals open at once)
+  $(document).on('show.bs.modal', '.modal', function () {
+    var zIndex = 1040 + (10 * $('.modal:visible').length);
+    $(this).css('z-index', zIndex);
+    setTimeout(function() {
+        $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+    }, 0);
+});
 
-  // List notifications scroll
-  // $('.site-header .user-option-list .user-option-list-inner').slimScroll({
-  //   height: '380px',
-  //   size: '5px',
-  //   color: '#9E9E9E',
-  //   position: 'right',
-  //   alwaysVisible: true
-  // });
 
   // ==== NOTIFICATION ================
 
