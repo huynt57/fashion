@@ -186,7 +186,7 @@
 						border-radius: 4px;
 					}
 					.user-option-list{
-						width: 320px;
+						width: 337px;
 						height: 407px;
 						max-height: 407px;
 						overflow: hidden;
@@ -196,13 +196,27 @@
 						border: none;
 						border: 1px solid $grey300;
 						border-radius: 0 0 4px 4px;	
+						::-webkit-scrollbar {
+							width: 9px;
+							height: 9px;
+						}
+						::-webkit-scrollbar-track-piece  {
+							background-color: $grey200;
+						}
+						::-webkit-scrollbar-thumb:vertical {
+							// height: 30px;
+							background-color: $grey400;
+							border-radius: 0;
+						}
 						.user-option-list-inner{
-							width: 320px;
+							width: 337px;
 							height: 380px;
 							max-height: 380px;
-							overflow: hidden;
+							overflow-x: hidden;
+							overflow-y: scroll;
 						}
 						.notifi-item{
+							width: 320px;
 							border-bottom: 1px solid $grey300;
 							&.unread{
 								border-left: 3px solid $red200;
