@@ -39,4 +39,9 @@ class Util {
         }
     }
 
+    public static function getCategoryByUser($user_id) {
+        $albums = Albums::model()->findAllByAttributes(array('user_id' => $user_id));
+        return $albums;
+    }
+
 }

@@ -45,8 +45,8 @@
         <hr>
         <div class="qh-form-row clearfix text-center">
             <div class="category-title">Chọn album</div>
-            <div class="col-xs-8 col-xs-offset-2">
-                <select class="qh-input-control" name="album">
+            <div class="col-xs-8 col-xs-offset-2" id="select-album">
+                <select class="qh-input-control" name="album" id="album">
                     <?php foreach ($albums as $album): ?>
                         <option value="<?php echo $album->album_id?>"><?php echo $album->album_name ?></option>
                     <?php endforeach; ?>

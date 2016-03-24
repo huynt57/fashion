@@ -8,7 +8,7 @@ class Wishlist extends BaseWishlist {
         return parent::model($className);
     }
 
-    public function addWishList($post_id, $user_id) {
+    public function addWishList($post_id, $user_id, $album_id) {
         $check = Wishlist::model()->findByAttributes(array('post_id' => $post_id, 'user_id' => $user_id));
         if ($check) {
             return FALSE;
@@ -16,6 +16,7 @@ class Wishlist extends BaseWishlist {
             $model = new Wishlist;
             $model->post_id = $post_id;
             $model->user_id = $user_id;
+            $model->album_id = $album_id;
             $model->status = 1;
             $model->created_at = time();
             $model->updated_at = time();

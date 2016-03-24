@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/style.css">
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap/js/bootstrap.min.js"></script>
-        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.slimscroll.min.js"></script>
+      
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/imagesloaded.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/masonry.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.infinitescroll.min.js"></script>
@@ -87,7 +87,7 @@
                                         <span class="notifi-badge">9</span>
                                     </button>
                                     <ul class="dropdown-menu user-option-list pull-right z-depth-0">
-                                        <div id="notify-scroll" class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 380px;"><div class="user-option-list-inner" style="overflow: hidden; width: auto; height: 380px;">
+                                        <div id="notify-scroll" class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 380px;"><div class="user-option-list-wrap" style="overflow: hidden; width: auto; height: 380px;">
                                                 <li class="notifi-item unread">
                                                     <a href="#" class="notifi-link">
                                                         <div class="content">Đây là unread notifi. Vince Gill - "Peaceful Easy Feeling" (Glenn Frey Tribute)</div>

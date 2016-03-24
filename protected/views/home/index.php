@@ -62,7 +62,7 @@
                     </div>
                     <div class="c-footer">
                         <div class="item-buttons left">
-                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id'=>$item['post_id'])) ?>')">
+                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $item['post_id'])) ?>')">
                                 <span class="icon"><i class="fa fa-share-square-o"></i></span>
                             </a>
                         </div>
@@ -70,7 +70,7 @@
                             <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
                                 <span class="icon"><i class="fa fa-comments"></i></span>
                                 <span class="count" id="comment-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_comment_count'] ?></span>
-                                <a href="javascript: void(0)" id="bookmark-<?php echo $item['post_id'] ?>" class="single-button item-button-pin <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark(<?php echo $item['post_id'] ?>)">
+                                <a href="javascript: void(0)" id="bookmark-<?php echo $item['post_id'] ?>" data-toggle="modal" data-target="#postPinToAlbumModal" class="single-button item-button-pin <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark(<?php echo $item['post_id'] ?>)">
                                     <span class="icon"><i class="fa fa-thumb-tack"></i></span>
     <!--                                    <span class="count">10</span>-->
                                 </a>
@@ -256,29 +256,36 @@
 
     function bookmark(post_id)
     {
-        $.ajax({
-            url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
-            type: 'POST',
-            data: {user_id: '<?php echo Yii::app()->session['user_id'] ?>', post_id: post_id},
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1)
-                {
-                    if ($('#bookmark-' + post_id).hasClass('active'))
+        $('#post_id_pin').val(post_id);
+        $('#user_id_pin').val('<?php echo Yii::app()->session['user_id'] ?>');
+        var form = $('#formPinPost');
+        var data = form.serialize();
+        $('#btnPinPost').click(function () {
+            $.ajax({
+                url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 1)
                     {
-                        $('#bookmark-' + post_id).removeClass('active');
+                        if ($('#bookmark-' + post_id).hasClass('active'))
+                        {
+                            $('#bookmark-' + post_id).removeClass('active');
+                        } else {
+                            $('#bookmark-' + post_id).addClass('active');
+                        }
+                        successNotifiDisplay({
+                            title: 'Thành công !',
+                            message: 'Bạn đã đánh dấu bài viết này :D'
+                        });
                     } else {
-                        $('#bookmark-' + post_id).addClass('active');
+                        errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                     }
-                    successNotifiDisplay({
-                        title: 'Thành công !',
-                        message: 'Bạn đã đánh dấu bài viết này :D'
-                    });
-                } else {
-                    errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                 }
-            }
+            });
         });
+
     }
 
     function share(url)
@@ -318,6 +325,33 @@
     });
 
     $(document).ready(function () {
+        $(document).on('submit', 'formAddAlbum', function (event) {
+            event.preventDefault();
+            var form = $('#formAddAlbum');
+            var data = form.serialize();
+            $.ajax({
+                beforeSend: function (xhr) {
+                    $('#ajax-loader').show();
+                },
+                type: 'POST',
+                url: '',
+                data: data,
+                success: function (response) {
+                    $('#ajax-loader').hide();
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?php echo Yii::app()->createUrl('post/getAlbumByUser') ?>',
+                        success: function (response)
+                        {
+                            $('#listAlbums').html(response);
+                        },
+                        error: function (response)
+                        {
+                        }
+                    });
+                }
+            });
+        });
 
         $(document).on('submit', '#form_comment', function (event) {
             event.preventDefault();

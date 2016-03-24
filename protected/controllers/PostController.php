@@ -218,6 +218,13 @@ class PostController extends Controller {
         }
     }
 
+    public function actionGetAlbumByUser() {
+        $albums = Albums::model()->getAlbumByUser(Yii::app()->session['user_id']);
+        //ResponseHelper::JsonReturnSuccess($albums, 'Success');
+        $html = $this->renderPartial('listAlbums', array('albums'=>$albums), true);
+        echo $html;
+    }
+
     // Uncomment the following methods and override them if needed
     /*
       public function filters()

@@ -15,6 +15,7 @@
  * @property integer $updated_at
  * @property integer $status
  * @property integer $user_id
+ * @property integer $album_id
  *
  */
 abstract class BaseWishlist extends GxActiveRecord {
@@ -37,9 +38,9 @@ abstract class BaseWishlist extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('post_id, created_at, updated_at, status, user_id', 'numerical', 'integerOnly'=>true),
-			array('post_id, created_at, updated_at, status, user_id', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, post_id, created_at, updated_at, status, user_id', 'safe', 'on'=>'search'),
+			array('post_id, created_at, updated_at, status, user_id, album_id', 'numerical', 'integerOnly'=>true),
+			array('post_id, created_at, updated_at, status, user_id, album_id', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, post_id, created_at, updated_at, status, user_id, album_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +62,7 @@ abstract class BaseWishlist extends GxActiveRecord {
 			'updated_at' => Yii::t('app', 'Updated At'),
 			'status' => Yii::t('app', 'Status'),
 			'user_id' => Yii::t('app', 'User'),
+			'album_id' => Yii::t('app', 'Album'),
 		);
 	}
 
@@ -73,6 +75,7 @@ abstract class BaseWishlist extends GxActiveRecord {
 		$criteria->compare('updated_at', $this->updated_at);
 		$criteria->compare('status', $this->status);
 		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('album_id', $this->album_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -218,3 +218,54 @@
     </div>
 </div>
 
+<!-- Modal New Pin -->
+<div class="modal fade" id="postPinToAlbumModal">
+    <div class="qh-modal-dialog qh-default-modal qh-modal-sm-size z-depth-2">
+        <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+        <div class="qh-modal-content">
+            <h3 class="text-center">Ghim bài</h3>
+            <hr>
+            <form action="#" class="qh-form qh-upload-post-form" id="formPinPost">
+                <div class="qh-form-row clearfix text-center">
+                    <div class="category-title">Chọn album để lưu bài đăng</div>
+                    <input type="hidden" name="post_id" value="" id="post_id_pin">
+                    <input type="hidden" name="user_id" value="" id="user_id_pin">
+                    <div class="col-xs-10 col-xs-offset-1" id="listAlbums">
+                        <?php $albums = Util::getCategoryByUser(Yii::app()->session['user_id']) ?>
+                        <select class="qh-input-control" name="album">
+                            <?php foreach ($albums as $album): ?>
+                                <option value="<?php echo $album->album_id ?>"><?php echo $album->album_name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="add-new-album-btn"><a href="#" data-toggle="modal" data-target="#addNewAlbumModal">Tạo album mới</a></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="qh-form-row clearfix text-center">
+                    <button class="qh-btn qh-btn-red600" id="btnPinPost">Ghim ảnh</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal New Album -->
+<div class="modal fade" id="addNewAlbumModal">
+    <div class="qh-modal-dialog qh-upload-section qh-add-album-section z-depth-2">
+        <form action="#" class="qh-form qh-form-normal" id="formAddAlbum">
+            <div class="qh-form-row">
+                <input type="text" class="qh-input-control" placeholder="Tên album">
+            </div>
+            <div class="qh-form-row">
+                <textarea row="3" class="qh-input-control" placeholder="Mô tả"></textarea>
+            </div>
+            <hr>
+            <div class="qh-form-row clearfix text-center">
+                <button class="qh-btn qh-btn-red600" id="btnAddAlbum" type="submit">Thêm Album</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
