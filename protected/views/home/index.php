@@ -258,9 +258,13 @@
     {
         $('#post_id_pin').val(post_id);
         $('#user_id_pin').val('<?php echo Yii::app()->session['user_id'] ?>');
-        var form = $('#formPinPost');
-        var data = form.serialize();
-        $('#btnPinPost').click(function () {
+
+        $('#btnPinPost').attr('id', 'btnPinPost' + post_id);
+
+        $(document).on('click', '#btnPinPost' + post_id, function (e) {
+            var form = $('#formPinPost');
+            var data = form.serialize();
+            e.preventDefault();
             $.ajax({
                 url: '<?php echo Yii::app()->createUrl('wishlist/add') ?>',
                 type: 'POST',
@@ -325,7 +329,7 @@
     });
 
     $(document).ready(function () {
-        $(document).on('submit', 'formAddAlbum', function (event) {
+        $(document).on('submit', '#formAddAlbum', function (event) {
             event.preventDefault();
             var form = $('#formAddAlbum');
             var data = form.serialize();
@@ -334,7 +338,7 @@
                     $('#ajax-loader').show();
                 },
                 type: 'POST',
-                url: '',
+                url: '<?php echo Yii::app()->createUrl('user/addAlbum') ?>',
                 data: data,
                 success: function (response) {
                     $('#ajax-loader').hide();

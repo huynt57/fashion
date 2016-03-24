@@ -252,12 +252,12 @@
 <!-- Modal New Album -->
 <div class="modal fade" id="addNewAlbumModal">
     <div class="qh-modal-dialog qh-upload-section qh-add-album-section z-depth-2">
-        <form action="#" class="qh-form qh-form-normal" id="formAddAlbum">
+        <form action="Javascript::void(0)" class="qh-form qh-form-normal" id="formAddAlbum">
             <div class="qh-form-row">
-                <input type="text" class="qh-input-control" placeholder="Tên album">
+                <input type="text" class="qh-input-control" placeholder="Tên album" name="album_name">
             </div>
             <div class="qh-form-row">
-                <textarea row="3" class="qh-input-control" placeholder="Mô tả"></textarea>
+                <textarea row="3" class="qh-input-control" placeholder="Mô tả" name="description"></textarea>
             </div>
             <hr>
             <div class="qh-form-row clearfix text-center">
