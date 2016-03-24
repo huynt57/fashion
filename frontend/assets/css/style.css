@@ -1624,7 +1624,7 @@ select {
         background-color: #BDBDBD;
         border-radius: 0; }
       /* line 211, ../scss/layouts/_header.scss */
-      .site-header .action-nav ul.list > li.notifi-open-btn .user-option-list .user-option-list-inner {
+      .site-header .action-nav ul.list > li.notifi-open-btn .user-option-list .user-option-list-wrap {
         width: 337px;
         height: 380px;
         max-height: 380px;
