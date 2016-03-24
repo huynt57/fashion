@@ -1622,7 +1622,7 @@ select {
       /* line 206, ../scss/layouts/_header.scss */
       .site-header .action-nav ul.list > li.notifi-open-btn .user-option-list ::-webkit-scrollbar-thumb:vertical {
         background-color: #BDBDBD;
-        border-radius: 0; }
+        border-radius: 2px; }
       /* line 211, ../scss/layouts/_header.scss */
       .site-header .action-nav ul.list > li.notifi-open-btn .user-option-list .user-option-list-wrap {
         width: 337px;
