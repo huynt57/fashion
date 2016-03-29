@@ -42,9 +42,9 @@ class Comments extends BaseComments {
                 if ($item->created_by != Yii::app()->session['user_id']) {
                     $arr_noti_others = array('user_id' => $user->id,
                         'content' => "$user->username cũng đã bình luận bài viết của $user_commented->username",
-                        'type' => 'comment',
+                        'type' => 'comment_also',
                         'recipient_id' => $item->created_by,
-                        'url' => Yii::app()->createAbsoulteUrl('post/view', array('post_id' => $post_id)));
+                        'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
                     Notifications::model()->add($arr_noti_others);
                 }
             }
@@ -53,7 +53,7 @@ class Comments extends BaseComments {
                 'content' => "$user->username vừa bình luận bài viết của bạn",
                 'type' => 'comment',
                 'recipient_id' => $user_commented->id,
-                'url' => Yii::app()->createAbsoulteUrl('post/view'));
+                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
             Notifications::model()->add($arr_noti);
         }
 

@@ -530,10 +530,10 @@ class Posts extends BasePosts {
         $followers = Follow::model()->findAllByAttributes(array('user_followed' => $user_id, 'type' => 'USER'));
         foreach ($followers as $follower) {
             $arr_noti = array('user_id' => $user_id,
-                'content' => "$user->username vừa thích đăng một bài viết mới",
+                'content' => "$user->username vừa đăng một bài viết mới",
                 'type' => 'follow_user',
                 'recipient_id' => $follower->id,
-                'url' => Yii::app()->createAbsoluteUrl('post/view', array('post_id' => $post_id)));
+               'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
             Notifications::model()->add($arr_noti);
         }
     }
@@ -546,7 +546,7 @@ class Posts extends BasePosts {
                 'content' => "$celeb->celeb_name vừa đăng một bài viết mới",
                 'type' => 'follow_celeb',
                 'recipient_id' => $follower->id,
-                'url' => Yii::app()->createAbsoluteUrl('post/view', array('post_id' => $post_id)));
+                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
             Notifications::model()->add($arr_noti);
         }
     }
@@ -559,7 +559,7 @@ class Posts extends BasePosts {
                 'content' => "$user_from->username vừa thích bài post của bạn",
                 'type' => 'like',
                 'recipient_id' => $to,
-                'url' => Yii::app()->createAbsoluteUrl('post/view', array('post_id' => $post_id)));
+                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
             Notifications::model()->add($arr_noti);
             //  var_dump($res); die;
         }

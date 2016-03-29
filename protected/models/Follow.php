@@ -35,11 +35,11 @@ class Follow extends BaseFollow {
         $user_follow_data = User::model()->findByPk($user_follow);
         $user_followed_data = User::model()->findByPk($user_followed);
         if ($user_follow != Yii::app()->session['user_id']) {
-            $arr_noti = array('user_id' => $from,
+            $arr_noti = array('user_id' => $user_follow,
                 'content' => "$user_follow_data->username vừa theo dõi bạn",
                 'type' => 'follow',
                 'recipient_id' => $user_followed_data->id,
-                'url' => Yii::app()->createAbsoulteUrl('user/profile', array('user_id' => $user_follow_data->id)));
+                'url' => Yii::app()->createAbsoulteUrl('user/profile', array('user_id' => $user_follow_data->id, 'ref' => 'noti')));
             Notifications::model()->add($arr_noti);
         }
 

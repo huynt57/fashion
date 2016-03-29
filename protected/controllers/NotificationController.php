@@ -45,9 +45,57 @@ class NotificationController extends Controller {
             $user_id = Yii::app()->session['user_id'];
             // $pages = StringHelper::filterString($request->getPost('pages'));
             $data = Notifications::model()->getLatestNotification($user_id);
-            echo "data: " . CJSON::encode($data);
+            $html = NULL;
+            $retVal = NULL;
+            foreach ($data['data'] as $item) {
+                switch ($item->type) {
+                    case 'like':
+                        $html = $this->renderPartial('like', array('data' => $item), true);
+                        break;
+                    case 'follow_user':
+                        $html = $this->renderPartial('post', array('data' => $item), true);
+                        break;
+                    case 'follow_celeb':
+                        $html = $this->renderPartial('post', array('data' => $item), true);
+                        break;
+                    case 'comment_also':
+                        $html = $this->renderPartial('comment', array('data' => $item), true);
+                        break;
+                    case 'comment':
+                        $html = $this->renderPartial('comment', array('data' => $item), true);
+                        break;
+                    case 'follow':
+                        $html = $this->renderPartial('follow', array('data' => $item), true);
+                        break;
+                    default:
+                        break;
+                }
+                $retVal.= $html;
+            }
+            echo "data: " . CJSON::encode(array('data' => $retVal, 'count' => $data['count'])) . "\n\n";
             flush();
             // ResponseHelper::JsonReturnSuccess($data, "Success");
+        } catch (Exception $ex) {
+            var_dump($ex->getMessage());
+        }
+    }
+
+    public function actionUpdateSeen() {
+        $res = Notifications::model()->markAllNotificationAsSeen();
+        if ($res) {
+            ResponseHelper::JsonReturnSuccess('', 'Success');
+        } else {
+            ResponseHelper::JsonReturnError('', 'Error');
+        }
+    }
+    
+    public function actionMarkSeen()
+    {
+        $request = Yii::app()->request;
+        try {
+            $noti_id = StringHelper::filterString($request->getPost('noti_id'));
+            $data = Notifications::model()->markSeen($noti_id);
+            ResponseHelper::JsonReturnSuccess($data, "Success");
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
         }

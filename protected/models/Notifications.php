@@ -20,6 +20,17 @@ class Notifications extends BaseNotifications {
         $data = Notifications::model()->findAll($criteria);
         return $data;
     }
+    
+    public function markSeen($noti_id)
+    {
+        $noti = Notifications::model()->findByPk($noti_id);
+        $noti->is_read = 1;
+        if($noti->save(FALSE))
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
 
     public function getNotification($user_id, $limit, $offset) {
         $criteria = new CDbCriteria;
@@ -60,9 +71,9 @@ class Notifications extends BaseNotifications {
 
     public function markAllNotificationAsSeen() {
         $flag = TRUE;
-        $notis = Notifications::model()->findAllByAttributes(array('status' => 1));
+        $notis = Notifications::model()->findAllByAttributes(array('is_read' => 0));
         foreach ($notis as $noti) {
-            $noti->status = 2;
+            $noti->is_read = 2;
             if (!$noti->save(FALSE)) {
                 $flag = FALSE;
             }

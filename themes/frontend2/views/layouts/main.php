@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/assets/css/style.css">
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap/js/bootstrap.min.js"></script>
-      
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.slimscroll.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/imagesloaded.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/masonry.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.infinitescroll.min.js"></script>
@@ -36,12 +36,43 @@
                     //  var cloned = $('#message-right').clone().show();
                     //   console.log(event.data);
                     var response = JSON.parse(event.data);
-                    console.log(response);
-
+                    $('#notify-scroll').prepend(response.data);
+                    if (response.count == '0')
+                    {
+                        $('#noti-badge').html('');
+                    } else {
+                        $('#noti-badge').html(response.count);
+                    }
                     // $('#message_left').clone().prependTo('#message_list');
                 };
             } else {
-                alert("Xin lỗi, trình duyệt của bạn không hỗ trợ chức năng chat của chúng tôi. Bạn vui lòng sử dụng Chrome hoặc Firefox thay thế !");
+                alert("Xin lỗi, trình duyệt của bạn không hỗ trợ SSE. Bạn vui lòng sử dụng Chrome hoặc Firefox thay thế !");
+            }
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#noti-see').click(function () {
+                    $.ajax({
+                        url: '<?php echo Yii::app()->createUrl('notification/updateSeen') ?>',
+                        type: 'GET',
+                        success: function (response) {
+                            console.log('success');
+                        }
+                    });
+                });
+            });
+
+            function markSeen(noti)
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo Yii::app()->createUrl('notification/markSeen') ?>',
+                    data: {noti_id: noti},
+                    success: function (response)
+                    {
+                        console.log('success');
+                    }
+                });
             }
         </script>
 
@@ -82,68 +113,13 @@
                                 </a></li>
                             <li class="notifi-open-btn">
                                 <div class="dropdown notifi-header-list">
-                                    <button class="notifi-open-btn-drd" data-toggle="dropdown" aria-expanded="true">
+                                    <button class="notifi-open-btn-drd" data-toggle="dropdown" aria-expanded="true" id="noti-see">
                                         <i class="fa fa-bell"></i>
-                                        <span class="notifi-badge">9</span>
+                                        <span class="notifi-badge" id="noti-badge"></span>
                                     </button>
                                     <ul class="dropdown-menu user-option-list pull-right z-depth-0">
-                                        <div id="notify-scroll" class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 380px;"><div class="user-option-list-wrap" style="overflow: hidden; width: auto; height: 380px;">
-                                                <li class="notifi-item unread">
-                                                    <a href="#" class="notifi-link">
-                                                        <div class="content">Đây là unread notifi. Vince Gill - "Peaceful Easy Feeling" (Glenn Frey Tribute)</div>
-                                                        <div class="info">
-                                                            <span class="date">23/02/2016</span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="notifi-item">
-                                                    <a href="#" class="notifi-link">
-                                                        <div class="content">Đây là default notifi. Không phải ai cũng biết người Thái Lan là chủ sở hữu đội Leicester, đang dẫn đầu giải Premier League.</div>
-                                                        <div class="info">
-                                                            <span class="date">23/02/2016</span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="notifi-item">
-                                                    <a href="#" class="notifi-link">
-                                                        <div class="image bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>
-                                                        <div class="content"><b>Vichai Srivadd</b> thích bài đăng của bạn: "Bộ này hơi bị mát, chất liệu làm từ ..." .</div>
-                                                        <div class="info">
-                                                            <span class="icon"><i class="fa fa-heart notifi-like"></i></span>
-                                                            <span class="date">23/02/2016</span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="notifi-item">
-                                                    <a href="#" class="notifi-link">
-                                                        <div class="image bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>
-                                                        <div class="content"><b>Nguyễn Hoàng Thảo</b> bình luận trong bài đăng của bạn: "Bộ này hơi bị mát, chất liệu làm từ ..." .</div>
-                                                        <div class="info">
-                                                            <span class="icon"><i class="fa fa-comment notifi-comment"></i></span>
-                                                            <span class="date">23/02/2016</span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="notifi-item">
-                                                    <a href="#" class="notifi-link">
-                                                        <div class="image bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>
-                                                        <div class="content"><b>Hoàng Lê Trung</b> theo dõi bạn.</div>
-                                                        <div class="info">
-                                                            <span class="icon"><i class="fa fa-user-plus notifi-follower-add"></i></span>
-                                                            <span class="date">23/02/2016</span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="notifi-item notifi-following-post">
-                                                    <a href="#" class="notifi-link">
-                                                        <div class="image bg-cover" style="background-image: url('assets/stock/avatar.jpg');"></div>
-                                                        <div class="content"><b>Lê Trà My</b> có 2 bài đăng mới.</div>
-                                                        <div class="info">
-                                                            <span class="icon"><i class="fa fa-picture-o notifi-following-post"></i></span>
-                                                            <span class="date">23/02/2016</span>
-                                                        </div>
-                                                    </a>
-                                                </li>
+                                        <div id="notify-scroll" style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div class="user-option-list-wrap" style="overflow: hidden; width: auto">
+
                                                 <div class="loading-icon text-center"><i class="fa fa-spinner fa-spin fa-lg"></i></div>
                                             </div><div class="slimScrollBar" style="width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 315.974px; background: rgb(158, 158, 158);"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
                                         <div class="view-all"><a href="#">Xem tất cả</a></div>
