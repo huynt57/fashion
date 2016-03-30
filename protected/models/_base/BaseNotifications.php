@@ -18,6 +18,7 @@
  * @property string $content
  * @property integer $recipient_id
  * @property string $url
+ * @property integer $is_get
  *
  */
 abstract class BaseNotifications extends GxActiveRecord {
@@ -40,11 +41,11 @@ abstract class BaseNotifications extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_id, created_at, is_read, recipient_id', 'numerical', 'integerOnly'=>true),
+			array('user_id, created_at, is_read, recipient_id, is_get', 'numerical', 'integerOnly'=>true),
 			array('action, type, url', 'length', 'max'=>255),
 			array('content', 'safe'),
-			array('user_id, action, created_at, type, is_read, content, recipient_id, url', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, user_id, action, created_at, type, is_read, content, recipient_id, url', 'safe', 'on'=>'search'),
+			array('user_id, action, created_at, type, is_read, content, recipient_id, url, is_get', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, user_id, action, created_at, type, is_read, content, recipient_id, url, is_get', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +70,7 @@ abstract class BaseNotifications extends GxActiveRecord {
 			'content' => Yii::t('app', 'Content'),
 			'recipient_id' => Yii::t('app', 'Recipient'),
 			'url' => Yii::t('app', 'Url'),
+			'is_get' => Yii::t('app', 'Is Get'),
 		);
 	}
 
@@ -84,6 +86,7 @@ abstract class BaseNotifications extends GxActiveRecord {
 		$criteria->compare('content', $this->content, true);
 		$criteria->compare('recipient_id', $this->recipient_id);
 		$criteria->compare('url', $this->url, true);
+		$criteria->compare('is_get', $this->is_get);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

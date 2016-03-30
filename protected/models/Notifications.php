@@ -43,9 +43,16 @@ class Notifications extends BaseNotifications {
 
     public function getLatestNotification($user_id) {
         $criteria = new CDbCriteria;
-        $criteria->condition = "recipient_id = $user_id AND is_read = 0";
-        $cnt = Notifications::model()->count($criteria);
+        $criteria->condition = "recipient_id = $user_id AND is_read = 0 AND is_get = 0";
+        $cnt_criteria = new CDbCriteria;
+        $cnt_criteria->condition = "recipient_id = $user_id AND is_read = 0";
+        $cnt = Notifications::model()->count($cnt_criteria);
         $data = Notifications::model()->findAll($criteria);
+        foreach($data as $item)
+        {
+            $item->is_get = 1;
+            $item->save(FALSE);
+        }
         return array('count' => $cnt, 'data' => $data);
     }
 
