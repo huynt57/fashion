@@ -5,26 +5,29 @@
             <div class="avatar" style="background-image: url('<?php echo StringHelper::generateUrlImage($profile->photo) ?>');"></div>
             <div class="username"><?php echo $profile->username ?></div>
             <div class="description">24 | HCMC | Fashionista | Vegatarian | Love Cats</div>
-            <?php if($is_followed == FALSE):?>
-            <div class="user-follow-btn">
-                <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon" id="follow" onclick="follow()"><i class="fa fa-user"></i>Theo dõi</button>
-                <!-- <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon"><i class="fa fa-check"></i>Đang theo dõi</button> -->
-            </div>
-            <?php endif;?>
-            <?php if($is_followed == TRUE):?>
-            <div class="user-follow-btn">
-                <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon" id="unfollow" onclick="unfollow()"><i class="fa fa-user"></i>Bỏ theo dõi</button>
-                <!-- <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon"><i class="fa fa-check"></i>Đang theo dõi</button> -->
-            </div>
-            <?php endif;?>
+            <?php if ($profile->id != Yii::app()->session['user_id']): ?>
+                <?php if ($is_followed == FALSE): ?>
+                    <div class="user-follow-btn">
+                        <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon" id="follow" onclick="follow()"><i class="fa fa-user"></i>Theo dõi</button>
+                        <!-- <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon"><i class="fa fa-check"></i>Đang theo dõi</button> -->
+                    </div>
+                <?php endif; ?>
+                <?php if ($is_followed == TRUE): ?>
+                    <div class="user-follow-btn">
+                        <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon" id="unfollow" onclick="unfollow()"><i class="fa fa-user"></i>Bỏ theo dõi</button>
+                        <!-- <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon"><i class="fa fa-check"></i>Đang theo dõi</button> -->
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
         </div>
     </div>
     <div class="user-page-nav">
         <ul class="list">
             <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/profile') ?>">Bài đăng</a></li>
-            <li><a href="Javascript::void(0)" onclick="follow()">Yêu thích</a></li>
             <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/wishlist') ?>">Đánh dấu</a></li>
-            <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/editProfile') ?>">Thông tin</a></li>
+            <?php if ($profile->id == Yii::app()->session['user_id']): ?>
+                <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/editProfile') ?>">Thông tin</a></li>
+            <?php endif; ?>
             <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/getAlbum') ?>">Albums</a></li>
         </ul>
     </div>
@@ -55,7 +58,7 @@
             }
         });
     }
-    
+
     function unfollow()
     {
         $.ajax({

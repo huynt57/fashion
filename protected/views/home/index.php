@@ -279,11 +279,13 @@
                         } else {
                             $('#bookmark-' + post_id).addClass('active');
                         }
+                        $('#postPinToAlbumModal').modal('hide');
                         successNotifiDisplay({
                             title: 'Thành công !',
                             message: 'Bạn đã đánh dấu bài viết này :D'
                         });
                     } else {
+                        $('#postPinToAlbumModal').modal('hide');
                         errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                     }
                 }
@@ -348,9 +350,16 @@
                         success: function (response)
                         {
                             $('#listAlbums').html(response);
+                            $('#addNewAlbumModal').modal('hide');
+                            successNotifiDisplay({
+                                title: 'Thành công !',
+                                message: 'Thêm album thành công'
+                            });
                         },
                         error: function (response)
                         {
+                            $('#addNewAlbumModal').hide();
+                            errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
                         }
                     });
                 }

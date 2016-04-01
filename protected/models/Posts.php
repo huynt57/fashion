@@ -151,6 +151,14 @@ class Posts extends BasePosts {
             return FALSE;
         }
         $this->addNotificationUserWhenAddPost($user_id, $model->post_id);
+        $alb_post = new PostAlbum;
+        $alb_post->album_id = $model->post_id;
+        $alb_post->album_id = $album;
+        $alb_post->updated_at = time();
+        $alb_post->created_at = time();
+        if (!$alb_post->save(FALSE)) {
+            return FALSE;
+        }
         $cats = json_decode($cats, TRUE);
         foreach ($cats as $cat) {
             $cat_model = new CatPost();
@@ -533,7 +541,7 @@ class Posts extends BasePosts {
                 'content' => "$user->username vừa đăng một bài viết mới",
                 'type' => 'follow_user',
                 'recipient_id' => $follower->id,
-               'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
+                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
             Notifications::model()->add($arr_noti);
         }
     }
@@ -546,7 +554,7 @@ class Posts extends BasePosts {
                 'content' => "$celeb->celeb_name vừa đăng một bài viết mới",
                 'type' => 'follow_celeb',
                 'recipient_id' => $follower->id,
-                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
+                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
             Notifications::model()->add($arr_noti);
         }
     }
@@ -559,7 +567,7 @@ class Posts extends BasePosts {
                 'content' => "$user_from->username vừa thích bài post của bạn",
                 'type' => 'like',
                 'recipient_id' => $to,
-                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
+                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
             Notifications::model()->add($arr_noti);
             //  var_dump($res); die;
         }

@@ -21,6 +21,29 @@ class Albums extends BaseAlbums {
         return FALSE;
     }
 
+    public function getPostOfAlbum($album_id) {
+        $albums = PostAlbum::model()->findAllByAttributes(array('album_id' => $album_id));
+        $post_arr = array();
+        foreach ($albums as $album) {
+            $post_arr[] = $album->post_id;
+        }
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('t.post_id', $post_arr);
+        $count = Posts::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
+        $pages->applyLimit($criteria);
+        $data = Posts::model()->findAll($criteria);
+        $returnArr = array();
+        foreach ($data as $item) {
+            $returnArr[] = Posts::model()->getPostById($item->post_id, Yii::app()->session['user_id']);
+        }
+        $user_id = Albums::model()->findByPk($album_id)->user_id;
+        $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
+        $profile = User::model()->findByPk(Yii::app()->session['user_id']);
+        return array('data' => $returnArr, 'pages' => $pages, 'is_followed' => $is_followed, 'profile' => $profile);
+    }
+
     public function getAlbumByUser($user_id) {
         $data = Albums::model()->findAllByAttributes(array('user_id' => $user_id));
         return $data;

@@ -13,6 +13,11 @@ class Wishlist extends BaseWishlist {
         if ($check) {
             return FALSE;
         } else {
+            $alb_post = new PostAlbum;
+            $alb_post->album_id = $post_id;
+            $alb_post->album_id = $album_id;
+            $alb_post->created_at = time();
+            $alb_post->updated_at = time();
             $model = new Wishlist;
             $model->post_id = $post_id;
             $model->user_id = $user_id;
@@ -20,7 +25,7 @@ class Wishlist extends BaseWishlist {
             $model->status = 1;
             $model->created_at = time();
             $model->updated_at = time();
-            if ($model->save(FALSE)) {
+            if ($model->save(FALSE) && $alb_post->save(FALSE)) {
                 return TRUE;
             }
         }
@@ -51,7 +56,7 @@ class Wishlist extends BaseWishlist {
     }
 
     public function getWishListForWeb($user_id) {
-        $profile = User::model()->findByPk($user_id);
+        
         $criteria = new CDbCriteria;
         $criteria->condition = "user_id = $user_id";
         $wishlists = Wishlist::model()->findAll($criteria);
@@ -70,12 +75,13 @@ class Wishlist extends BaseWishlist {
         $pages->applyLimit($criteria_post);
         $posts = Posts::model()->findAll($criteria_post);
         $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
-
+        $profile = User::model()->findByPk($user_id);
         foreach ($posts as $post) {
             $itemArr = Posts::model()->getPostById($post->post_id, Yii::app()->session['user_id']);
             $returnArr[] = $itemArr;
         }
-        return array('data' => $returnArr, 'pages' => $pages, 'profile' => $profile, 'is_followed'=>$is_followed);
+
+        return array('data' => $returnArr, 'pages' => $pages, 'profile' => $profile, 'is_followed' => $is_followed);
 
         // return FALSE;
     }

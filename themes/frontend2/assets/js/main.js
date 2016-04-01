@@ -117,7 +117,7 @@ function infoNotifiDisplay() {
     });
 }
 
-function successNotifiDisplay() {
+function successNotifiDisplay(title) {
     $.notify({
         // options
         title: 'Thành công',
