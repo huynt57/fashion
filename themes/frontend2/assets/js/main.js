@@ -306,12 +306,12 @@ $(document).ready(function () {
     });
 
     // Single post content scroll
-//    $('.qh-single-post-section .card-single-inner').slimScroll({
-//        height: '470px',
-//        size: '5px',
-//        color: '#9E9E9E',
-//        position: 'right'
-//    });
+    $('.qh-single-post-section .card-single-inner').slimScroll({
+        height: '470px',
+        size: '5px',
+        color: '#9E9E9E',
+        position: 'right'
+    });
 
     // ==== NOTIFICATION on header ================
 

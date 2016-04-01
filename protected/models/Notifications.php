@@ -20,13 +20,11 @@ class Notifications extends BaseNotifications {
         $data = Notifications::model()->findAll($criteria);
         return $data;
     }
-    
-    public function markSeen($noti_id)
-    {
+
+    public function markSeen($noti_id) {
         $noti = Notifications::model()->findByPk($noti_id);
         $noti->is_read = 1;
-        if($noti->save(FALSE))
-        {
+        if ($noti->save(FALSE)) {
             return TRUE;
         }
         return FALSE;
@@ -48,8 +46,7 @@ class Notifications extends BaseNotifications {
         $cnt_criteria->condition = "recipient_id = $user_id AND is_read = 0";
         $cnt = Notifications::model()->count($cnt_criteria);
         $data = Notifications::model()->findAll($criteria);
-        foreach($data as $item)
-        {
+        foreach ($data as $item) {
             $item->is_get = 1;
             $item->save(FALSE);
         }

@@ -36,6 +36,7 @@
                     //  var cloned = $('#message-right').clone().show();
                     //   console.log(event.data);
                     var response = JSON.parse(event.data);
+                    // console.log(response.data);
                     $('#notify-scroll').prepend(response.data);
                     if (response.count == '0')
                     {
@@ -118,8 +119,7 @@
                                         <span class="notifi-badge" id="noti-badge"></span>
                                     </button>
                                     <ul class="dropdown-menu user-option-list pull-right z-depth-0">
-                                        <div id="notify-scroll" style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div class="user-option-list-wrap" style="overflow: hidden; width: auto">
-
+                                        <div style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div id="notify-scroll" class="user-option-list-wrap" style="overflow: hidden; width: auto">
                                                 <div class="loading-icon text-center"><i class="fa fa-spinner fa-spin fa-lg"></i></div>
                                             </div><div class="slimScrollBar" style="width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 315.974px; background: rgb(158, 158, 158);"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
                                         <div class="view-all"><a href="#">Xem tất cả</a></div>

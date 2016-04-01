@@ -10,10 +10,7 @@
                         <ol class="carousel-indicators">
                             <?php foreach ($data['images'] as $key => $image): ?>
                                 <li data-target="#singlePostImageCarousel" data-slide-to="<?php echo $key ?>" style="background-image: url('<?php echo StringHelper::generateUrlImage($image['img_url']) ?>');" class="<?php if ($key == 0): ?>active<?php endif; ?>"></li>
-
                             <?php endforeach; ?>
-
-
                         </ol>
 
                         <!-- Wrapper for slides -->
@@ -95,7 +92,7 @@
                                         <?php foreach ($data['comments'] as $comment): ?>
                                             <li class="single-comment">
                                                 <div class="avatar" style="background-image: url('<?php echo $comment['photo'] ?>');"></div>
-                                                <div class="user-name"><a href="#"><?php echo $comment['username'] ?></a></div>
+                                                <div class="user-name"><a href="<?php echo Yii::app()->createUrl('user/profile', array('user_id' => $comment['created_by'], 'ref_web' => 'ref_web')) ?>"><?php echo $comment['username'] ?></a></div>
                                                 <div class="time"><?php echo Util::time_elapsed_string($comment['created_at']) ?></div>
                                                 <div class="content"><?php echo $comment['comment_content'] ?></div>
                                             </li>

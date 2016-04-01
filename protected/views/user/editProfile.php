@@ -1,7 +1,7 @@
 <!-- User Section -->
 <?php $this->renderPartial('header', array('profile' => $profile)) ?>
 <div class="qh-user-section qh-section-article z-depth-1">
-    <form action="<?php echo Yii::app()->createUrl('user/updateInfo')?>" class="qh-form qh-form-horizontal" enctype="multipart/form-data">
+    <form method="POST" action="<?php echo Yii::app()->createUrl('user/updateInfo')?>" class="qh-form qh-form-horizontal" enctype="multipart/form-data">
         <h3 class="form-title">Thông tin cá nhân</h3>
         <hr>
         <div class="qh-form-row">
