@@ -1930,7 +1930,7 @@ select {
       position: absolute;
       border: 1px solid #BDBDBD;
       border-radius: 12px;
-      background-color: #F5F5F5; }
+      background-color: #EEEEEE; }
       /* line 84, ../scss/layouts/_post.scss */
       .card-single .c-image .album-image:first-child {
         top: 10px;
