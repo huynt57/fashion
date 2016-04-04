@@ -44,4 +44,31 @@ class Util {
         return $albums;
     }
 
+    public static function getTypeNotificationHtml($type) {
+        $html = null;
+        switch ($type) {
+            case 'like':
+                $html = '<span class="icon"><i class="fa fa-heart notifi-like"></i></span>';
+                break;
+            case 'follow_user':
+                $html = '<span class="icon"><i class="fa fa-picture-o notifi-following-post"></i></span>';
+                break;
+            case 'follow_celeb':
+                $html = '<span class="icon"><i class="fa fa-picture-o notifi-following-post"></i></span>';
+                break;
+            case 'comment_also':
+                $html = '<span class="icon"><i class="fa fa-comment notifi-comment"></i></span>';
+                break;
+            case 'comment':
+                $html = '<span class="icon"><i class="fa fa-comment notifi-comment"></i></span>';
+                break;
+            case 'follow':
+                $html = '<span class="icon"><i class="fa fa-user-plus notifi-follower-add"></i></span>';
+                break;
+            default:
+                break;
+        }
+        return $html;
+    }
+
 }

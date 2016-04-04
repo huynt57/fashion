@@ -11,14 +11,16 @@ class Notifications extends BaseNotifications {
     public function getNotificationWeb($user_id) {
         $criteria = new CDbCriteria;
         $criteria->condition = "recipient_id = $user_id";
+        $criteria->order = "created_at DESC";
         $count = Notifications::model()->count($criteria);
         //echo $count; die;
         $pages = new CPagination($count);
         $pages->validateCurrentPage = FALSE;
-        $pages->pageSize = 4;
+        $pages->pageSize = 8;
         $pages->applyLimit($criteria);
         $data = Notifications::model()->findAll($criteria);
-        return $data;
+        //var_dump($data);die;
+        return array('data' => $data, 'pages' => $pages);
     }
 
     public function markSeen($noti_id) {

@@ -17,7 +17,7 @@ class Comments extends BaseComments {
     }
 
     public function getListUserCommentedOnPost($post_id) {
-        $data = Comments::model()->findByAttributes(array('post_id' => $post_id));
+        $data = Comments::model()->findAllByAttributes(array('post_id' => $post_id));
         return $data;
     }
 
@@ -38,22 +38,23 @@ class Comments extends BaseComments {
 
         if ($user->id != Yii::app()->session['user_id']) {
             $users_have_commented = $this->getListUserCommentedOnPost($post_id);
-            foreach ($users_have_commented as $item) {
-                if ($item->created_by != Yii::app()->session['user_id']) {
-                    $arr_noti_others = array('user_id' => $user->id,
-                        'content' => "$user->username cũng đã bình luận bài viết của $user_commented->username",
-                        'type' => 'comment_also',
-                        'recipient_id' => $item->created_by,
-                        'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
-                    Notifications::model()->add($arr_noti_others);
+            if ($users_have_commented) {
+                foreach ($users_have_commented as $item) {
+                    if ($item->created_by != Yii::app()->session['user_id']) {
+                        $arr_noti_others = array('user_id' => $user->id,
+                            'content' => "$user->username cũng đã bình luận bài viết của $user_commented->username",
+                            'type' => 'comment_also',
+                            'recipient_id' => $item->created_by,
+                            'url' => Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
+                        Notifications::model()->add($arr_noti_others);
+                    }
                 }
             }
-
             $arr_noti = array('user_id' => $user->id,
                 'content' => "$user->username vừa bình luận bài viết của bạn",
                 'type' => 'comment',
                 'recipient_id' => $user_commented->id,
-                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref'=>'noti'))));
+                'url' => Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
             Notifications::model()->add($arr_noti);
         }
 

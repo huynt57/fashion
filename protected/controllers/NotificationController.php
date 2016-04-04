@@ -2,6 +2,9 @@
 
 class NotificationController extends Controller {
 
+    public $layout;
+    public $layoutPath;
+
     public function actionIndex() {
         $this->render('index');
     }
@@ -22,16 +25,13 @@ class NotificationController extends Controller {
     public function actionGetNotificationWeb() {
         // $request = Yii::app()->request;
         try {
-//            header('Content-Type: text/event-stream');
-//            header('Cache-Control: no-cache');
-//            echo "retry: 10000\n";
             $user_id = Yii::app()->session['user_id'];
-            // $pages = StringHelper::filterString($request->getPost('pages'));
             $data = Notifications::model()->getNotificationWeb($user_id);
-//            echo "data: " . CJSON::encode($data);
-//            flush();
-            $html = $this->renderPartial('notification', $data, true);
-            echo $html;
+            // var_dump($data);die;
+            $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend2/views/layouts";
+            $this->layout = 'main_modal';
+            $this->render('list', $data);
+            //echo $html;
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
         }
@@ -88,9 +88,8 @@ class NotificationController extends Controller {
             ResponseHelper::JsonReturnError('', 'Error');
         }
     }
-    
-    public function actionMarkSeen()
-    {
+
+    public function actionMarkSeen() {
         $request = Yii::app()->request;
         try {
             $noti_id = StringHelper::filterString($request->getPost('noti_id'));

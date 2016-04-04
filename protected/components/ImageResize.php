@@ -101,15 +101,15 @@ class ImageResize {
             case 'return':
                 return $image_resized;
                 break;
-            case 'preview':
+            case 'avatar':
                 $name = basename($file);
-                $preview = 'preview-' . $name;
-                $output = 'images/preview/' . $preview;
+                $preview = 'avatar-' . $name;
+                $output = 'avatar/' . $preview;
                 break;
-            case 'preview-grid':
+            case 'cover':
                 $name = basename($file);
-                $preview = 'preview-grid-' . $name;
-                $output = 'images/preview/' . $preview;
+                $preview = 'cover-' . $name;
+                $output = 'cover/' . $preview;
                 break;
             case 'preview-list':
                 $name = basename($file);
