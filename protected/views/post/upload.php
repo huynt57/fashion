@@ -5,7 +5,6 @@
         </div>
         <div class="qh-form-row clearfix text-center">
             <div class="post-image-upload">
-
             </div>
             <input type="hidden" value="<?php echo Yii::app()->request->url ?>" name="previous_url">
             <input type="hidden" value="<?php echo Yii::app()->session['user_id'] ?>" name="user_id" >

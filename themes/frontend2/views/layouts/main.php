@@ -36,6 +36,7 @@
                     //  var cloned = $('#message-right').clone().show();
                     //   console.log(event.data);
                     var response = JSON.parse(event.data);
+                    // console.log(response.data);
                     $('#notify-scroll').prepend(response.data);
                     if (response.count == '0')
                     {
@@ -82,7 +83,7 @@
         <header id="site-header" class="site-header">
             <div class="qh-container">
                 <div class="left-side">
-                    <h1 class="main-logo"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+                    <h1 class="main-logo"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>" class="bg-cover" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/logo.png');">Fitme</a></h1>
                     <div class="main-nav">
                         <ul class="list">
                             <li class="active"><a href="<?php echo Yii::app()->createUrl('home/newsFeed') ?>">Bảng tin</a></li>
@@ -118,9 +119,8 @@
                                         <span class="notifi-badge" id="noti-badge"></span>
                                     </button>
                                     <ul class="dropdown-menu user-option-list pull-right z-depth-0">
-                                        <div id="notify-scroll" style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div class="user-option-list-wrap" style="overflow: hidden; width: auto">
-
-                                                <div class="loading-icon text-center"><i class="fa fa-spinner fa-spin fa-lg"></i></div>
+                                        <div style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div id="notify-scroll" class="user-option-list-wrap">
+                                                <div id="loading-notify" class="loading-icon text-center"><i class="fa fa-spinner fa-spin fa-lg"></i></div>
                                             </div><div class="slimScrollBar" style="width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 315.974px; background: rgb(158, 158, 158);"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
                                         <div class="view-all"><a href="#">Xem tất cả</a></div>
                                     </ul>
@@ -135,7 +135,7 @@
                         <ul class="list">
                             <li class="user-profile-link">
                                 <a href="<?php echo Yii::app()->createUrl('user/profile') ?>">
-                                    <div class="user-avatar bg-cover" style="background-image: url('<?php echo Yii::app()->session['user_avatar'] ?>');"></div>
+                                    <div class="user-avatar bg-cover" style="background-image: url('<?php echo StringHelper::generateUrlImage(Yii::app()->session['user_avatar']) ?>');"></div>
                                     <div class="user-name"><?php echo Yii::app()->session['username'] ?></div>
                                 </a>
                             </li>
@@ -176,21 +176,56 @@
 
         </div>
         <script>
-            function loadMore()
-            {
-                console.log("More loaded");
-                $("body").append("<div>");
-                $(window).bind('scroll', bindScroll);
-            }
+            $(document).on('ready', function () {
+                $('#notify-scroll').infinitescroll({
+                    navSelector: '.msr-pagination',
+                    nextSelector: '.msr-pagination .next > a',
+                    itemSelector: '.notifi-item',
+//                    loading: {
+//                        finishedMsg: 'Đã hết bài đăng',
+//                        //img: '/themes/frontend2/assets/img/loading.gif',
+//                        msgText: 'Đang tải',
+//                        selector: '#loading-notify'
+//                    }
+                });
+            });
+        </script>
+        <script>
 
-            function bindScroll() {
-                if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-                    $(window).unbind('scroll');
-                    loadMore();
-                }
-            }
+            $(document).ready(function () {
+                $.get("<?php echo Yii::app()->createUrl("notification/GetNotificationWeb") ?>", function (data) {
+                    $("#notify-scroll").html(data);
+                    // alert("Load was performed.");
+                    $('#notify-scroll').infinitescroll({
+                        navSelector: '.msr-pagination',
+                        nextSelector: '.msr-pagination .next > a',
+                        itemSelector: '.notifi-item',
+                        loading: {
+                            finishedMsg: 'Đã hết bài đăng',
+                            img: '<i class="fa fa-spinner fa-spin fa-lg"></i>',
+                            msgText: 'Đang tải',
+                            selector: '#loading-notify'
+                        }
+                    });
+                });
 
-            $('#notify-scroll').scroll(bindScroll);
+//                function loadMore()
+//                {
+//                    console.log("More loaded");
+//                    $("body").append("<div>");
+//                    $(window).bind('scroll', bindScroll);
+//                }
+//
+//                function bindScroll() {
+//                    if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+//                        $(window).unbind('scroll');
+//                        loadMore();
+//                    }
+//                }
+//
+//                $('#notify-scroll').scroll(bindScroll);
+            });
+
         </script>
 
     </body>

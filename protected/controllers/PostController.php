@@ -161,12 +161,13 @@ class PostController extends Controller {
         $request = Yii::app()->request;
         try {
             $post_id = StringHelper::filterString($request->getQuery('post_id'));
-            $data = Posts::model()->getPostById($post_id, Yii::app()->session['user_id']);
+
             Yii::app()->clientScript->registerMetaTag("fitme.vn - Khám phá thời trang", null, null, array('property' => 'og:title'));
             Yii::app()->clientScript->registerMetaTag(Images::model()->getImagePreviewByPostId($post_id), null, null, array('property' => 'og:image'));
             Yii::app()->clientScript->registerMetaTag("website", null, null, array('property' => 'og:type'));
             Yii::app()->clientScript->registerMetaTag(Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $post_id)), null, null, array('property' => 'og:url'));
             // $data = Posts::model()->getPostById($post_id, '1');
+            $data = Posts::model()->getPostById($post_id, Yii::app()->session['user_id']);
             if ($request->getQuery(Yii::app()->params['REF_API'])) {
                 ResponseHelper::JsonReturnSuccess($data, "Success");
             } else {
@@ -221,7 +222,7 @@ class PostController extends Controller {
     public function actionGetAlbumByUser() {
         $albums = Albums::model()->getAlbumByUser(Yii::app()->session['user_id']);
         //ResponseHelper::JsonReturnSuccess($albums, 'Success');
-        $html = $this->renderPartial('listAlbums', array('albums'=>$albums), true);
+        $html = $this->renderPartial('listAlbums', array('albums' => $albums), true);
         echo $html;
     }
 

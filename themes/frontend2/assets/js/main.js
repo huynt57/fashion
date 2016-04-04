@@ -117,7 +117,7 @@ function infoNotifiDisplay() {
     });
 }
 
-function successNotifiDisplay() {
+function successNotifiDisplay(title) {
     $.notify({
         // options
         title: 'Thành công',
@@ -228,9 +228,37 @@ $(document).ready(function () {
         }
     });
 
-    $("#inputPostImage").change(function () {
 
+    $("#inputAvatarUpload").change(function () {
+        var files = $("#inputAvatarUpload")[0].files;
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                $('#avatar-reader').html('<div class="avatar-image bg-cover" style="background-image: url(' + e.target.result + ');"></div>');
+
+            }
+            reader.readAsDataURL(files[i]);
+
+        }
     });
+
+    $("#inputCoverUpload").change(function () {
+        var files = $("#inputCoverUpload")[0].files;
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                $('#cover-reader').html('<img src="' + e.target.result + '" alt="">');
+
+            }
+            reader.readAsDataURL(files[i]);
+
+        }
+    });
+
 
 
     // ==== CARD LOADING MASONRY ================
@@ -306,12 +334,12 @@ $(document).ready(function () {
     });
 
     // Single post content scroll
-//    $('.qh-single-post-section .card-single-inner').slimScroll({
-//        height: '470px',
-//        size: '5px',
-//        color: '#9E9E9E',
-//        position: 'right'
-//    });
+    $('.qh-single-post-section .card-single-inner').slimScroll({
+        height: '470px',
+        size: '5px',
+        color: '#9E9E9E',
+        position: 'right'
+    });
 
     // ==== NOTIFICATION on header ================
 

@@ -88,16 +88,31 @@ class UserController extends Controller {
             } else {
                 $user_id = Yii::app()->session['user_id'];
             }
+            $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
             $data = Albums::model()->getDetailAlbumByUser($user_id);
-            $this->render('albums', array('data' => $data));
+            $profile = User::model()->findByPk($user_id);
+            $this->render('albums', array('data' => $data, 'is_followed' => $is_followed, 'profile' => $profile));
         } catch (Exception $ex) {
-              echo '<pre>';
+            echo '<pre>';
             var_dump($ex->getMessage());
             var_dump($ex->getTrace());
             echo '</pre>';
         }
     }
-    
+
+    public function actionListPostAlbums() {
+        $request = Yii::app()->request;
+        try {
+            $album_id = StringHelper::filterString($request->getQuery('album_id'));
+            $data = Albums::model()->getPostOfAlbum($album_id);
+            $this->render('listAlbums', $data);
+        } catch (Exception $ex) {
+            echo '<pre>';
+            var_dump($ex->getMessage());
+            var_dump($ex->getTrace());
+            echo '</pre>';
+        }
+    }
 
     public function actionWishList() {
         $request = Yii::app()->request;
@@ -116,6 +131,7 @@ class UserController extends Controller {
 
     public function actionEditProfile() {
         $profile = User::model()->findByPk(Yii::app()->session['user_id']);
+        //  $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
         $this->render('editProfile', array('profile' => $profile));
     }
 
@@ -145,12 +161,22 @@ class UserController extends Controller {
                 $post = StringHelper::filterArrayString($_POST);
                 //$user_id = StringHelper::filterArrayString($request->getPost('user_id'));
                 $user_id = Yii::app()->session['user_id'];
-                $user_photo = UploadHelper::getUrlUploadSingleImage($_FILES['user_photo'], $user_id);
-                $user_cover = UploadHelper::getUrlUploadSingleImage($_FILES['user_cover'], $user_id);
+                $user_photo = null;
+                $user_cover = null;
+                if ($_FILES["user_photo"]["error"] != 4) {
+                    $user_photo = UploadHelper::getUrlUploadSingleImage($_FILES['user_photo'], $user_id);
+                }
+                if ($_FILES["user_cover"]["error"] != 4) {
+                    $user_cover = UploadHelper::getUrlUploadSingleImage($_FILES['user_cover'], $user_id);
+                }
                 if (User::model()->updateUserInfo($user_id, $post, $user_photo, $user_cover)) {
-                    ResponseHelper::JsonReturnSuccess("", "Success");
+                    // ResponseHelper::JsonReturnSuccess("", "Success");
+                    Yii::app()->user->setFlash('success', 'Lưu thông tin thành công');
+                    $this->redirect(Yii::app()->createUrl('user/editProfile'));
                 } else {
-                    ResponseHelper::JsonReturnError("", "Server Error");
+                    //ResponseHelper::JsonReturnError("", "Server Error");
+                    Yii::app()->user->setFlash('error', 'Lưu thông tin thất bại');
+                    $this->redirect(Yii::app()->createUrl('user/editProfile'));
                 }
             } catch (exception $e) {
                 var_dump($e->getMessage());
@@ -211,7 +237,8 @@ class UserController extends Controller {
             try {
                 $user_follow = StringHelper::filterString($request->getPost('user_follow'));
                 $user_followed = StringHelper::filterString($request->getPost('user_followed'));
-                if (Follow::model()->add($user_follow, $user_followed)) {
+                $type = StringHelper::filterString($request->getPost('type'));
+                if (Follow::model()->add($user_follow, $user_followed, $type)) {
                     ResponseHelper::JsonReturnSuccess('', 'Thành công');
                 } else {
                     ResponseHelper::JsonReturnError('', 'Có lỗi xảy ra');
@@ -229,7 +256,7 @@ class UserController extends Controller {
             try {
                 $user_follow = StringHelper::filterString($request->getPost('user_follow'));
                 $user_followed = StringHelper::filterString($request->getPost('user_followed'));
-                $user_type = StringHelper::filterString($request->getPost('user_type'));
+                $user_type = StringHelper::filterString($request->getPost('type'));
                 if (Follow::model()->remove($user_follow, $user_followed, $user_type)) {
                     ResponseHelper::JsonReturnSuccess('', 'Thành công');
                 } else {
@@ -241,12 +268,10 @@ class UserController extends Controller {
             Yii::app()->end();
         }
     }
-    
-    public function actionAddAlbum()
-    {
+
+    public function actionAddAlbum() {
         $post = StringHelper::filterArrayString($_POST);
-        if(Albums::model()->add($post))
-        {
+        if (Albums::model()->add($post)) {
             ResponseHelper::JsonReturnSuccess('', 'Success');
         } else {
             ResponseHelper::JsonReturnError('', 'Error');
@@ -271,7 +296,34 @@ class UserController extends Controller {
             }
         }
     }
-    
+
+    public function actionPostToAlbum() {
+        $posts = Posts::model()->findAll();
+        foreach ($posts as $item) {
+            $check = PostAlbum::model()->findByAttributes(array('album_id' => $item->album_id, 'post_id' => $item->post_id));
+            if (!$check) {
+                $model = new PostAlbum;
+                $model->post_id = $item->post_id;
+                $model->album_id = $item->album_id;
+                $model->created_at = time();
+                $model->updated_at = time();
+                $model->save(FALSE);
+            }
+        }
+        $wishilist = Wishlist::model()->findAll();
+        foreach ($wishilist as $item) {
+            $check = PostAlbum::model()->findByAttributes(array('album_id' => $item->album_id, 'post_id' => $item->post_id));
+            if (!$check) {
+                $model = new PostAlbum;
+                $model->post_id = $item->post_id;
+                $model->album_id = $item->album_id;
+                $model->created_at = time();
+                $model->updated_at = time();
+                $model->save(FALSE);
+            }
+        }
+    }
+
     // Uncomment the following methods and override them if needed
     /*
       public function filters()
