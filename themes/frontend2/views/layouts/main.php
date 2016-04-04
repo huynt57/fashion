@@ -119,8 +119,8 @@
                                         <span class="notifi-badge" id="noti-badge"></span>
                                     </button>
                                     <ul class="dropdown-menu user-option-list pull-right z-depth-0">
-                                        <div style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div id="notify-scroll" class="user-option-list-wrap" style="overflow: hidden; width: auto">
-                                                <div class="loading-icon text-center"><i class="fa fa-spinner fa-spin fa-lg"></i></div>
+                                        <div style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div id="notify-scroll" class="user-option-list-wrap">
+                                                <div id="loading-notify" class="loading-icon text-center"><i class="fa fa-spinner fa-spin fa-lg"></i></div>
                                             </div><div class="slimScrollBar" style="width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 315.974px; background: rgb(158, 158, 158);"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
                                         <div class="view-all"><a href="#">Xem tất cả</a></div>
                                     </ul>
@@ -176,17 +176,17 @@
 
         </div>
         <script>
-            $(document).ready(function () {
+            $(document).on('ready', function () {
                 $('#notify-scroll').infinitescroll({
                     navSelector: '.msr-pagination',
                     nextSelector: '.msr-pagination .next > a',
                     itemSelector: '.notifi-item',
-                    loading: {
-                        finishedMsg: 'Đã hết bài đăng',
-                        img: '/themes/frontend2/assets/img/loading.gif',
-                        msgText: 'Đang tải',
-                        selector: '.msr-loading'
-                    }
+//                    loading: {
+//                        finishedMsg: 'Đã hết bài đăng',
+//                        //img: '/themes/frontend2/assets/img/loading.gif',
+//                        msgText: 'Đang tải',
+//                        selector: '#loading-notify'
+//                    }
                 });
             });
         </script>
@@ -196,23 +196,36 @@
                 $.get("<?php echo Yii::app()->createUrl("notification/GetNotificationWeb") ?>", function (data) {
                     $("#notify-scroll").html(data);
                     // alert("Load was performed.");
+                    $('#notify-scroll').infinitescroll({
+                        navSelector: '.msr-pagination',
+                        nextSelector: '.msr-pagination .next > a',
+                        itemSelector: '.notifi-item',
+                        loading: {
+                            finishedMsg: 'Đã hết bài đăng',
+                            img: '<i class="fa fa-spinner fa-spin fa-lg"></i>',
+                            msgText: 'Đang tải',
+                            selector: '#loading-notify'
+                        }
+                    });
                 });
+
+//                function loadMore()
+//                {
+//                    console.log("More loaded");
+//                    $("body").append("<div>");
+//                    $(window).bind('scroll', bindScroll);
+//                }
+//
+//                function bindScroll() {
+//                    if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+//                        $(window).unbind('scroll');
+//                        loadMore();
+//                    }
+//                }
+//
+//                $('#notify-scroll').scroll(bindScroll);
             });
-            function loadMore()
-            {
-                console.log("More loaded");
-                $("body").append("<div>");
-                $(window).bind('scroll', bindScroll);
-            }
 
-            function bindScroll() {
-                if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-                    $(window).unbind('scroll');
-                    loadMore();
-                }
-            }
-
-            $('#notify-scroll').scroll(bindScroll);
         </script>
 
     </body>

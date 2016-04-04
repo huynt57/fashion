@@ -243,7 +243,7 @@ $(document).ready(function () {
 
         }
     });
-    
+
     $("#inputCoverUpload").change(function () {
         var files = $("#inputCoverUpload")[0].files;
         for (var i = 0; i < files.length; i++) {
@@ -251,7 +251,7 @@ $(document).ready(function () {
 
             reader.onload = function (e) {
 
-                $('#cover-reader').html('<img src="'+e.target.result+'" alt="">');
+                $('#cover-reader').html('<img src="' + e.target.result + '" alt="">');
 
             }
             reader.readAsDataURL(files[i]);
