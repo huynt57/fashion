@@ -228,9 +228,37 @@ $(document).ready(function () {
         }
     });
 
-    $("#inputPostImage").change(function () {
 
+    $("#inputAvatarUpload").change(function () {
+        var files = $("#inputAvatarUpload")[0].files;
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                $('#avatar-reader').html('<div class="avatar-image bg-cover" style="background-image: url(' + e.target.result + ');"></div>');
+
+            }
+            reader.readAsDataURL(files[i]);
+
+        }
     });
+    
+    $("#inputCoverUpload").change(function () {
+        var files = $("#inputCoverUpload")[0].files;
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                $('#cover-reader').html('<img src="'+e.target.result+'" alt="">');
+
+            }
+            reader.readAsDataURL(files[i]);
+
+        }
+    });
+
 
 
     // ==== CARD LOADING MASONRY ================

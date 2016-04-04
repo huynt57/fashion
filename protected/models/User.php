@@ -17,13 +17,23 @@ class User extends BaseUser {
     }
 
     public function updateUserInfo($user_id, $post, $user_photo, $user_cover) {
+        if (!empty($user_photo)) {
+            $user_photo_res = Yii::app()->request->getBaseUrl(true) . '/' . $user_photo;
+        }
+        if (!empty($user_cover)) {
+            $user_cover_res = Yii::app()->request->getBaseUrl(true) . '/' . $user_cover;
+        }
         $model = User::model()->findByAttributes(array('id' => $user_id));
         $model->setAttributes($post);
         //echo $user_photo; die;
-        $photo = ImageResize::resize_image($user_photo, '', 128, 128, false, 'avatar', false, false, 100);
-        $cover = ImageResize::resize_image($user_cover, '', 1800, 1200, false, 'cover', false, false, 80);
-        $model->photo = $photo;
-        $model->cover = $cover;
+        if (!empty($user_photo_res)) {
+            $photo = ImageResize::resize_image($user_photo_res, '', 128, 128, false, 'avatar', false, false, 100);
+            $model->photo = $photo;
+        }
+        if (!empty($user_cover_res)) {
+            $cover = ImageResize::resize_image($user_cover_res, '', 1800, 1200, false, 'cover', false, false, 80);
+            $model->cover = $cover;
+        }
         $model->updated_at = time();
         if ($model->save(FALSE)) {
             return TRUE;

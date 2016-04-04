@@ -52,7 +52,7 @@ class Albums extends BaseAlbums {
     public function countNumberPostAlbum($album_id) {
         $criteria = new CDbCriteria;
         $criteria->condition = "album_id = $album_id";
-        $cnt = Posts::model()->count($criteria);
+        $cnt = PostAlbum::model()->count($criteria);
         return $cnt;
     }
 

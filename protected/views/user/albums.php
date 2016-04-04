@@ -32,7 +32,7 @@
         <div class="card-single-inner">
             <div class="c-image">
                 <div class="post-image">
-                    <a href="" class="post-link" data-toggle="modal" data-target="#singlePostModal">
+                    <a href="<?php echo Yii::app()->createUrl('user/listPostAlbums', array('album_id'=>$item['album_id']))?>" class="post-link">
                         <div class="album-behind-border first-border"></div>
                         <div class="album-behind-border second-border"></div>
                         <div class="album-behind-border third-border"></div>

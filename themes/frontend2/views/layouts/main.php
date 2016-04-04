@@ -135,7 +135,7 @@
                         <ul class="list">
                             <li class="user-profile-link">
                                 <a href="<?php echo Yii::app()->createUrl('user/profile') ?>">
-                                    <div class="user-avatar bg-cover" style="background-image: url('<?php echo Yii::app()->session['user_avatar'] ?>');"></div>
+                                    <div class="user-avatar bg-cover" style="background-image: url('<?php echo StringHelper::generateUrlImage(Yii::app()->session['user_avatar']) ?>');"></div>
                                     <div class="user-name"><?php echo Yii::app()->session['username'] ?></div>
                                 </a>
                             </li>
