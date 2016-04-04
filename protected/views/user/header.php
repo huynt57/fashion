@@ -7,13 +7,13 @@
             <div class="description">24 | HCMC | Fashionista | Vegatarian | Love Cats</div>
             <?php if ($profile->id != Yii::app()->session['user_id']): ?>
                 <?php if ($is_followed == FALSE): ?>
-                    <div class="user-follow-btn">
+                    <div class="user-follow-btn" id="div-follow">
                         <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon" id="follow" onclick="follow()"><i class="fa fa-user"></i>Theo dõi</button>
                         <!-- <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon"><i class="fa fa-check"></i>Đang theo dõi</button> -->
                     </div>
                 <?php endif; ?>
                 <?php if ($is_followed == TRUE): ?>
-                    <div class="user-follow-btn">
+                    <div class="user-follow-btn" id="div-follow">
                         <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon" id="unfollow" onclick="unfollow()"><i class="fa fa-user"></i>Bỏ theo dõi</button>
                         <!-- <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon"><i class="fa fa-check"></i>Đang theo dõi</button> -->
                     </div>
@@ -48,6 +48,7 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    $('#div-follow').html('<button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon" id="unfollow" onclick="unfollow()"><i class="fa fa-user"></i>Bỏ theo dõi</button>');
                     successNotifiDisplay({
                         title: 'Thành công !',
                         message: 'Từ giờ bạn sẽ theo dõi người dùng này !'
@@ -69,6 +70,7 @@
             success: function (response) {
                 if (response.status === 1)
                 {
+                    $('#div-follow').html(' <button class="qh-btn qh-btn-normal qh-btn-sm qh-btn-icon left-icon" id="follow" onclick="follow()"><i class="fa fa-user"></i>Theo dõi</button>');
                     successNotifiDisplay({
                         title: 'Thành công !',
                         message: 'Từ giờ bạn sẽ theo dõi người dùng này !'

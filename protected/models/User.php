@@ -19,7 +19,7 @@ class User extends BaseUser {
     public function updateUserInfo($user_id, $post, $user_photo, $user_cover) {
         $model = User::model()->findByAttributes(array('id' => $user_id));
         $model->setAttributes($post);
-        echo $user_photo; die;
+        //echo $user_photo; die;
         $photo = ImageResize::resize_image($user_photo, '', 128, 128, false, 'avatar', false, false, 100);
         $cover = ImageResize::resize_image($user_cover, '', 1800, 1200, false, 'cover', false, false, 80);
         $model->photo = $photo;

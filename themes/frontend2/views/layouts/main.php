@@ -176,6 +176,28 @@
 
         </div>
         <script>
+            $(document).ready(function () {
+                $('#notify-scroll').infinitescroll({
+                    navSelector: '.msr-pagination',
+                    nextSelector: '.msr-pagination .next > a',
+                    itemSelector: '.notifi-item',
+                    loading: {
+                        finishedMsg: 'Đã hết bài đăng',
+                        img: '/themes/frontend2/assets/img/loading.gif',
+                        msgText: 'Đang tải',
+                        selector: '.msr-loading'
+                    }
+                });
+            });
+        </script>
+        <script>
+
+            $(document).ready(function () {
+                $.get("<?php echo Yii::app()->createUrl("notification/GetNotificationWeb") ?>", function (data) {
+                    $("#notify-scroll").html(data);
+                    // alert("Load was performed.");
+                });
+            });
             function loadMore()
             {
                 console.log("More loaded");

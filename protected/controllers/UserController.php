@@ -231,7 +231,8 @@ class UserController extends Controller {
             try {
                 $user_follow = StringHelper::filterString($request->getPost('user_follow'));
                 $user_followed = StringHelper::filterString($request->getPost('user_followed'));
-                if (Follow::model()->add($user_follow, $user_followed)) {
+                $type = StringHelper::filterString($request->getPost('type'));
+                if (Follow::model()->add($user_follow, $user_followed, $type)) {
                     ResponseHelper::JsonReturnSuccess('', 'Thành công');
                 } else {
                     ResponseHelper::JsonReturnError('', 'Có lỗi xảy ra');
@@ -249,7 +250,7 @@ class UserController extends Controller {
             try {
                 $user_follow = StringHelper::filterString($request->getPost('user_follow'));
                 $user_followed = StringHelper::filterString($request->getPost('user_followed'));
-                $user_type = StringHelper::filterString($request->getPost('user_type'));
+                $user_type = StringHelper::filterString($request->getPost('type'));
                 if (Follow::model()->remove($user_follow, $user_followed, $user_type)) {
                     ResponseHelper::JsonReturnSuccess('', 'Thành công');
                 } else {
@@ -316,8 +317,6 @@ class UserController extends Controller {
             }
         }
     }
-    
-    
 
     // Uncomment the following methods and override them if needed
     /*
