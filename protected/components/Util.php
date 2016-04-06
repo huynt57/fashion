@@ -71,4 +71,8 @@ class Util {
         return $html;
     }
 
+    public static function generateRandomPointInRange($min, $max) {
+        return mt_rand($min, $max);
+    }
+
 }

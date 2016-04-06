@@ -408,9 +408,9 @@ class Posts extends BasePosts {
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, $user_id);
             if (!empty($itemArr['celeb_id'])) {
-                $itemArr['score'] = 2;
+                $itemArr['score'] = Util::generateRandomPointInRange(9, 12);
             } else {
-                $itemArr['score'] = 1.5;
+                $itemArr['score'] = Util::generateRandomPointInRange(5, 8);
             }
             $returnArr[] = $itemArr;
         }
@@ -441,9 +441,9 @@ class Posts extends BasePosts {
         foreach ($data as $item) {
             $itemArr = $this->getPostById($item->post_id, $user_id);
             if (!empty($itemArr['celeb_id'])) {
-                $itemArr['score'] = 2;
+                $itemArr['score'] = Util::generateRandomPointInRange(9, 12);
             } else {
-                $itemArr['score'] = 1;
+                $itemArr['score'] = Util::generateRandomPointInRange(1, 4);
             }
             $returnArr[] = $itemArr;
         }
