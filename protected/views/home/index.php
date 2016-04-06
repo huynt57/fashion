@@ -19,7 +19,7 @@
                     <div class="c-header">
                         <div class="user-image">
                             <?php if (!empty($item['user_id'])): ?>
-                                <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo $item['user'][0]['photo'] ?>');"></a>
+                            <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo StringHelper::generateUrlImage($item['user'][0]['photo']) ?>');"></a>
                             <?php endif; ?>
                             <?php if (!empty($item['celeb_id'])): ?>
                                 <a href="<?php echo Yii::app()->createUrl('user/profileCeleb', array('ref_web' => 'ref_web', 'celeb_id' => $item['celeb_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo '/' . $item['photo_celeb'] ?>');"></a>
