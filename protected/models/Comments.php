@@ -17,7 +17,11 @@ class Comments extends BaseComments {
     }
 
     public function getListUserCommentedOnPost($post_id) {
-        $data = Comments::model()->findAllByAttributes(array('post_id' => $post_id));
+        $criteria = new CDbCriteria;
+        $criteria->select = 't.created_by';
+        $criteria->condition = "t.post_id = $post_id";
+        $criteria->distinct = true;
+        $data = Comments::model()->findAll($criteria);
         return $data;
     }
 
@@ -36,11 +40,11 @@ class Comments extends BaseComments {
         $user = User::model()->findByPk($model->created_by);
         $user_commented = User::model()->findByPk($post->user_id);
 
-        if ($user->id != Yii::app()->session['user_id']) {
+        if ($user->id != $post->user_id) {
             $users_have_commented = $this->getListUserCommentedOnPost($post_id);
             if ($users_have_commented) {
                 foreach ($users_have_commented as $item) {
-                    if ($item->created_by != $post->user_id) {
+                    if ($user_id != $item->created_by && ($post->user_id != $item->created_by)) {
                         $arr_noti_others = array('user_id' => $user->id,
                             'content' => "$user->username cũng đã bình luận bài viết của $user_commented->username",
                             'type' => 'comment_also',
@@ -60,7 +64,7 @@ class Comments extends BaseComments {
             $users_have_commented = $this->getListUserCommentedOnPost($post_id);
             if ($users_have_commented) {
                 foreach ($users_have_commented as $item) {
-                    if ($item->created_by != $post->user_id) {
+                    if ($user_id != $item->created_by) {
                         $arr_noti_others = array('user_id' => $user->id,
                             'content' => "$user->username cũng đã bình luận bài viết của họ",
                             'type' => 'comment_also',

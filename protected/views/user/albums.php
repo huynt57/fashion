@@ -1,5 +1,5 @@
 <?php $this->renderPartial('header', array('profile' => $profile, 'is_followed' => $is_followed)) ?>
-<?php //var_dump($data); die; ?>
+<?php //var_dump($data); die;  ?>
 <!-- Modal New Album -->
 <div class="modal fade" id="addNewAlbumModal">
     <div class="qh-modal-dialog qh-upload-section qh-add-album-section z-depth-2">
@@ -75,10 +75,19 @@
             type: 'POST',
             url: '<?php echo Yii::app()->createUrl('user/addAlbum') ?>',
             data: data,
-            success: function (response) {
+            success: function (response)
+            {
+
+                $('#addNewAlbumModal').modal('hide');
+                successNotifiDisplay({
+                    title: 'Thành công !',
+                    message: 'Thêm album thành công'
+                });
             },
             error: function (response)
             {
+                $('#addNewAlbumModal').hide();
+                errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
             }
         });
     });
