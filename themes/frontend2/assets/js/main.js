@@ -1,13 +1,7 @@
 // main js
 
-function defaultNotifiDisplay() {
-    $.notify({
-        // options
-        title: 'Default notify',
-        message: 'Turn ing st and ard Bo ots trap al erts in to "no tif y" li ke not i i ca ti o ns',
-        url: 'https://github.com/',
-        target: '_blank'
-    }, {
+function defaultNotifiDisplay(message) {
+    $.notify(message, {
         // settings
         element: 'body',
         position: null,
@@ -39,14 +33,8 @@ function defaultNotifiDisplay() {
     });
 }
 
-function errorNotifiDisplay() {
-    $.notify({
-        // options
-        title: 'Có lỗi',
-        message: 'lỗi xảy ra cmnr',
-        url: 'https://github.com/',
-        target: '_blank'
-    }, {
+function errorNotifiDisplay(message) {
+    $.notify(message, {
         // settings
         element: 'body',
         position: null,
@@ -78,14 +66,8 @@ function errorNotifiDisplay() {
     });
 }
 
-function infoNotifiDisplay() {
-    $.notify({
-        // options
-        title: 'Title Info',
-        message: 'Turn ing st and ard Bo ots trap al erts in to "no tif y" li ke not i i ca ti o ns',
-        url: 'https://github.com/',
-        target: '_blank'
-    }, {
+function infoNotifiDisplay(message) {
+    $.notify(message, {
         // settings
         element: 'body',
         position: null,
@@ -117,11 +99,8 @@ function infoNotifiDisplay() {
     });
 }
 
-function successNotifiDisplay(title) {
-    $.notify({
-        // options
-        title: 'Thành công',
-    }, {
+function successNotifiDisplay(message) {
+    $.notify(message, {
         // settings
         element: 'body',
         position: null,
