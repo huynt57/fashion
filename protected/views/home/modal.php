@@ -75,7 +75,7 @@
     <div class="qh-modal-dialog qh-default-modal z-depth-2">
         <button class="close-modal-button" data-dismiss="modal"><i class="fa fa-close"></i></button>
         <div class="qh-modal-content">
-            <p>Ẩn cái bài đăng này ? ?</p>
+            <p>Ẩn bài đăng này ? ?</p>
             <p>Bài đăng này sẽ không hiện lên các trang khám phá của bạn nữa.</p>
             <hr>
             <p><button class="qh-btn qh-btn-normal" id="submitHidePost">Đồng ý</button></p>

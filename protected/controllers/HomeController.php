@@ -5,6 +5,8 @@ class HomeController extends Controller {
 //    public function actionIndex() {
 //        $this->render('index');
 //    }
+    public $layout;
+    public $layoutPath;
 
     public function actionNewsFeedApi() {
         $request = Yii::app()->request;
@@ -39,6 +41,8 @@ class HomeController extends Controller {
 
     public function actionExplore() {
         try {
+//            $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend2/views/layouts";
+//            $this->layout = 'main_empty_2';
             $feed = Posts::model()->getExplore();
             $this->render('explore', $feed);
         } catch (Exception $ex) {

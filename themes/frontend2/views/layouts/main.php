@@ -23,6 +23,7 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/masonry.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.infinitescroll.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap-notify.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jscroll.js"></script>
 
         <!-- JS main -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/main.js"></script>
@@ -57,7 +58,7 @@
                         url: '<?php echo Yii::app()->createUrl('notification/updateSeen') ?>',
                         type: 'GET',
                         success: function (response) {
-                            console.log('success');
+                            // console.log('success');
                         }
                     });
                 });
@@ -71,7 +72,7 @@
                     data: {noti_id: noti},
                     success: function (response)
                     {
-                        console.log('success');
+                        //  console.log('success');
                     }
                 });
             }
@@ -119,8 +120,8 @@
                                         <span class="notifi-badge" id="noti-badge"></span>
                                     </button>
                                     <ul class="dropdown-menu user-option-list pull-right z-depth-0">
-                                        <div style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div id="notify-scroll" class="user-option-list-wrap">
-                                                <div id="loading-notify" class="loading-icon text-center"><i class="fa fa-spinner fa-spin fa-lg"></i></div>
+                                        <div id="notify-scroll-2" style="position: relative; overflow-x: hidden; overflow-y: auto; width: auto; height: 380px;"><div id="notify-scroll" class="user-option-list-wrap">
+
                                             </div><div class="slimScrollBar" style="width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 315.974px; background: rgb(158, 158, 158);"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
                                         <div class="view-all"><a href="#">Xem tất cả</a></div>
                                     </ul>
@@ -150,7 +151,7 @@
                                     <li><a href="#">IOS App</a></li>
                                     <li><a href="#">Android App</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo Yii::app()->createUrl('user/logout')?>">Đăng xuất</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('user/logout') ?>">Đăng xuất</a></li>
                                 </ul>
                                 <span class="border-hide"></span>
                             </li>
@@ -175,58 +176,33 @@
 
 
         </div>
-        <script>
-            $(document).on('ready', function () {
-                $('#notify-scroll').infinitescroll({
-                    navSelector: '.msr-pagination',
-                    nextSelector: '.msr-pagination .next > a',
-                    itemSelector: '.notifi-item',
-//                    loading: {
-//                        finishedMsg: 'Đã hết bài đăng',
-//                        //img: '/themes/frontend2/assets/img/loading.gif',
-//                        msgText: 'Đang tải',
-//                        selector: '#loading-notify'
-//                    }
-                });
-            });
-        </script>
+
         <script>
 
             $(document).ready(function () {
+                
                 $.get("<?php echo Yii::app()->createUrl("notification/GetNotificationWeb") ?>", function (data) {
                     $("#notify-scroll").html(data);
-                    // alert("Load was performed.");
-                    $('#notify-scroll').infinitescroll({
-                        navSelector: '.msr-pagination',
-                        nextSelector: '.msr-pagination .next > a',
-                        itemSelector: '.notifi-item',
-                        loading: {
-                            finishedMsg: 'Đã hết bài đăng',
-                            img: '<i class="fa fa-spinner fa-spin fa-lg"></i>',
-                            msgText: 'Đang tải',
-                            selector: '#loading-notify'
-                        }
+                    $('.msr-pagination-notify').hide();
+                    $('.notify-scroll').jscroll({
+                        loadingHtml: '<img src="loading.gif" alt="Loading" /> Loading...',
+                        padding: 20,
+                        nextSelector: '.msr-pagination-notify .next > a',
+                       // contentSelector: 'li'
                     });
                 });
 
-//                function loadMore()
-//                {
-//                    console.log("More loaded");
-//                    $("body").append("<div>");
-//                    $(window).bind('scroll', bindScroll);
-//                }
-//
-//                function bindScroll() {
-//                    if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-//                        $(window).unbind('scroll');
-//                        loadMore();
-//                    }
-//                }
-//
-//                $('#notify-scroll').scroll(bindScroll);
+
+
+
             });
 
         </script>
-
+        <style>
+            #notify-scroll.infinite-loading:after {
+                content: ' <div id="loading-notify" class="loading-icon text-center"><i class="fa fa-spinner fa-spin fa-lg"></i></div>';
+                // display: block;
+            }
+        </style>
     </body>
 </html>

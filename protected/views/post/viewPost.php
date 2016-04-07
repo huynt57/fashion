@@ -241,7 +241,7 @@
         });
     }
 
-    function like(to, post_id)
+    function like_modal(to, post_id)
     {
         $.ajax({
             url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',

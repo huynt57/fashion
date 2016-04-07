@@ -161,7 +161,10 @@ class PostController extends Controller {
         $request = Yii::app()->request;
         try {
             $post_id = StringHelper::filterString($request->getQuery('post_id'));
-
+            if (empty(Yii::app()->session['user_id'])) {
+                $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend2/views/layouts";
+                $this->layout = 'main_empty_2';
+            }
             Yii::app()->clientScript->registerMetaTag("fitme.vn - Khám phá thời trang", null, null, array('property' => 'og:title'));
             Yii::app()->clientScript->registerMetaTag(Images::model()->getImagePreviewByPostId($post_id), null, null, array('property' => 'og:image'));
             Yii::app()->clientScript->registerMetaTag("website", null, null, array('property' => 'og:type'));

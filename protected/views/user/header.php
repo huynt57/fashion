@@ -36,7 +36,7 @@
                 <?php if ($profile->id == Yii::app()->session['user_id']): ?>
                     <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/editProfile') ?>">Thông tin</a></li>
                 <?php endif; ?>
-                <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/getAlbum') ?>">Albums</a></li>
+                <li><a href="<?php echo Yii::app()->createAbsoluteUrl('user/getAlbum', array('user_id' => $profile->id)) ?>">Albums</a></li>
             </ul>
         </div>
     </div>

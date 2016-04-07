@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <?php if (isset($this->pageTitle)): ?>
+       <?php if (isset($this->pageTitle)): ?>
             <title><?php echo $this->pageTitle ?></title>
         <?php endif; ?>
         <?php if (!isset($this->pageTitle)): ?>
@@ -23,6 +23,8 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/masonry.pkgd.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jquery.infinitescroll.min.js"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/bootstrap-notify.min.js"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/libs/jscroll.js"></script>
+
         <!-- JS main -->
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/js/main.js"></script>
         <script>
@@ -87,7 +89,7 @@
         </script>
     </head>
     <body>
-        <div class="sign-in-page bg-cover" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/stock/bg-big2.jpg');">
+        <div class="sign-in-page bg-cover">
 
             <div class="sign-in-page-inner">
                 <header id="site-header" class="site-header">

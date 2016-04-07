@@ -63,6 +63,7 @@
 
                 </div>
             </div>
+             <?php if (!empty(Yii::app()->session['user_id'])): ?>
             <div class="c-footer">
                 <div class="item-buttons">
                     <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $data['post_id'])) ?>" >
@@ -94,8 +95,8 @@
                     <ul class="list" id="list-comment">
                         <?php foreach ($data['comments'] as $comment): ?>
                             <li class="single-comment">
-                                <div class="avatar" style="background-image: url('<?php echo $comment['photo'] ?>');"></div>
-                                <div class="user-name"><a href="#"><?php echo $comment['username'] ?></a></div>
+                                <div class="avatar" style="background-image: url('<?php echo StringHelper::generateUrlImage($comment['photo']) ?>');"></div>
+                                <div class="user-name"><a href="<?php echo Yii::app()->createUrl('user/profile', array('user_id' => $comment['created_by'], 'ref_web' => 'ref_web')) ?>"><?php echo $comment['username'] ?></a></div>
                                 <div class="time"><?php echo Util::time_elapsed_string($comment['created_at']) ?></div>
                                 <div class="content"><?php echo $comment['comment_content'] ?></div>
                             </li>
@@ -103,6 +104,7 @@
                     </ul>
                 </div>
             </div>
+            <?php endif;?>
         </div>
     </div>
 </div>
