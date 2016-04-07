@@ -36,14 +36,7 @@
                             <div class="post-info">
                                 <span class="time"><?php echo Util::time_elapsed_string($item['created_at']); ?></span>
                             </div>
-                            <div class="dropdown user-option">
-                                <button class="user-option-btn" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
-                                <ul class="dropdown-menu user-option-list pull-right z-depth-2">
-                                    <li><a href="#" data-toggle="modal" data-target="#post-report-modal" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)">Báo cáo sai phạm</a></li>
-                                    <li><a href="#"  onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                    <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>)" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="c-body">
@@ -61,25 +54,7 @@
                                 <span class="icon"><i class="fa fa-share-square-o"></i></span>
                             </a>
                         </div>
-                        <div class="item-buttons right">
-                            <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
-                                <span class="icon"><i class="fa fa-comments"></i></span>
-                                <span class="count" id="comment-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_comment_count'] ?></span>
-                                <a href="javascript: void(0)" id="bookmark-<?php echo $item['post_id'] ?>" class="single-button item-button-pin <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark(<?php echo $item['post_id'] ?>)">
-                                    <span class="icon"><i class="fa fa-thumb-tack"></i></span>
-    <!--                                    <span class="count">10</span>-->
-                                </a>
-                                <?php if (!empty($item['user_id'])): ?>
-                                    <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'], 'USER' ?>)">
-                                    <?php endif; ?>
-                                    <?php if (!empty($item['celeb_id'])): ?>
-                                        <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['celeb_id'] ?>, <?php echo $item['post_id'] . 'CELEB' ?>)">
-                                        <?php endif; ?>
-                                        <span class="icon"><i class="fa fa-heart"></i></span>
-                                        <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
-                                    </a>
-                                </a>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

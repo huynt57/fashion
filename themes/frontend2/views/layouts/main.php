@@ -150,7 +150,7 @@
                                     <li><a href="#">IOS App</a></li>
                                     <li><a href="#">Android App</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Đăng xuất</a></li>
+                                    <li><a href="<?php echo Yii::app()->createUrl('user/logout')?>">Đăng xuất</a></li>
                                 </ul>
                                 <span class="border-hide"></span>
                             </li>

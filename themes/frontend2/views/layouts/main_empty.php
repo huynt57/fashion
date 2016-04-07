@@ -96,16 +96,9 @@
                             <h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
                             <div class="main-nav">
                                 <ul class="list">
-                                    <li class="active"><a href="#">Trang chủ</a></li>
-                                    <li><a href="#">Khám phá</a></li>
-                                    <li><a href="#">Chuyên mục <i class="fa fa-angle-down"></i></a>
-                                        <ul class="inner-list category-list">
-                                            <li><a href="#">Thời trang nam</a></li>
-                                            <li><a href="#">Thời trang nữ</a></li>
-                                            <li><a href="#">Đồ dùng khác</a></li>
-                                        </ul>
-                                        <span class="border-hide"></span>
-                                    </li>
+                                   
+                                    <li><a href="<?php echo Yii::app()->createUrl('home/explore')?>">Khám phá</a></li>
+                                    
                                 </ul>
                             </div>
                         </div>

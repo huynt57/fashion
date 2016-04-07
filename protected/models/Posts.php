@@ -24,7 +24,7 @@ class Posts extends BasePosts {
         $pages->applyLimit($news_feed_criteria);
         $data = Posts::model()->findAll($news_feed_criteria);
         foreach ($data as $item) {
-            $itemArr = $this->getPostById($item->post_id);
+            $itemArr = $this->getPostById($item->post_id, NULL);
             $returnArr[] = $itemArr;
         }
 
@@ -540,8 +540,8 @@ class Posts extends BasePosts {
             $arr_noti = array('user_id' => $user_id,
                 'content' => "$user->username vừa đăng một bài viết mới",
                 'type' => 'follow_user',
-                'recipient_id' => $follower->id,
-                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
+                'recipient_id' => $follower->user_follow,
+                'url' => Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
             Notifications::model()->add($arr_noti);
         }
     }
@@ -553,8 +553,8 @@ class Posts extends BasePosts {
             $arr_noti = array('user_id' => $celeb_id,
                 'content' => "$celeb->celeb_name vừa đăng một bài viết mới",
                 'type' => 'follow_celeb',
-                'recipient_id' => $follower->id,
-                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
+                'recipient_id' => $follower->user_follow,
+                'url' => Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
             Notifications::model()->add($arr_noti);
         }
     }
@@ -567,7 +567,7 @@ class Posts extends BasePosts {
                 'content' => "$user_from->username vừa thích bài post của bạn",
                 'type' => 'like',
                 'recipient_id' => $to,
-                'url' => Yii::app()->createAbsoulteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
+                'url' => Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $post_id, array('ref' => 'noti'))));
             Notifications::model()->add($arr_noti);
             //  var_dump($res); die;
         }
