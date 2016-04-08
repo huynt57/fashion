@@ -180,7 +180,7 @@
         <script>
 
             $(document).ready(function () {
-                
+
                 $.get("<?php echo Yii::app()->createUrl("notification/GetNotificationWeb") ?>", function (data) {
                     $("#notify-scroll").html(data);
                     $('.msr-pagination-notify').hide();
@@ -188,7 +188,7 @@
                         loadingHtml: '<img src="loading.gif" alt="Loading" /> Loading...',
                         padding: 20,
                         nextSelector: '.msr-pagination-notify .next > a',
-                       // contentSelector: 'li'
+                        // contentSelector: 'li'
                     });
                 });
 
@@ -197,6 +197,38 @@
 
             });
 
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+//        $("#addPostForm").submit(function () {
+//            $.ajax(this.action, {
+//                data: $(":text", this).serializeArray(),
+//                files: $("#images", this),
+//                iframe: true
+//            }).complete(function (data) {
+//                console.log(data);
+//            });
+//        });
+            });
+
+            $(document).on('submit', '#addPostForm', function (e) {
+                e.preventDefault();
+                if ($('#upload-image').get(0).files.length === 0) {
+                    alert('Bạn chưa chọn ảnh, bạn phải chọn ít nhất 1 ảnh và tối đa 10 ảnh');
+                    return false;
+                }
+
+                if ($('#upload-image').get(0).files.length > 10) {
+                    alert('Bạn chỉ được chọn tối đa 10 ảnh');
+                    return false;
+                }
+
+                if ($("input:checkbox:checked").length === 0)
+                {
+                    alert('Bạn phải chọn ít nhất một category !');
+                    return false;
+                }
+            });
         </script>
         <style>
             #notify-scroll.infinite-loading:after {

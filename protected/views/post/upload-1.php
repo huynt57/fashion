@@ -84,7 +84,7 @@
 
         if ($("input:checkbox:checked").length === 0)
         {
-            alert('Bạn phải chọn ít nhất một tiện nghi trong nhà !');
+            alert('Bạn phải chọn ít nhất một category !');
             return false;
         }
     });
