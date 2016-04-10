@@ -36,7 +36,7 @@
             <div class="single-post-main clearfix">
                 <div class="post-header single-post-header">
                     <div class="header-avatar">
-                        <a href=""><img src="<?php echo $data['user'][0]['photo'] ?>" alt="" width="40" height="40"></a>
+                        <a href=""><img src="<?php echo StringHelper::generateUrlImage($data['user'][0]['photo']) ?>" alt="" width="40" height="40"></a>
                     </div>
                     <div class="header-info">
                         <h4 class="name">
@@ -241,7 +241,7 @@
         });
     }
 
-    function like(to, post_id)
+    function like_modal(to, post_id)
     {
         $.ajax({
             url: '<?php echo Yii::app()->createUrl('post/likePost') ?>',

@@ -1,5 +1,5 @@
 <div class="qh-modal-dialog qh-upload-section z-depth-2">
-    <form  action="<?php echo Yii::app()->createUrl('post/AddPostForWeb') ?>" enctype="multipart/form-data" method="POST" class="qh-form qh-upload-post-form">
+    <form  action="<?php echo Yii::app()->createUrl('post/AddPostForWeb') ?>" enctype="multipart/form-data" method="POST" class="qh-form qh-upload-post-form" id="addPostForm">
         <div class="qh-form-row">
             <textarea rows="4" placeholder="Miêu tả" class="post-description" name="post_content"></textarea>
         </div>
@@ -47,7 +47,7 @@
             <div class="col-xs-8 col-xs-offset-2" id="select-album">
                 <select class="qh-input-control" name="album" id="album">
                     <?php foreach ($albums as $album): ?>
-                        <option value="<?php echo $album->album_id?>"><?php echo $album->album_name ?></option>
+                        <option value="<?php echo $album->album_id ?>"><?php echo $album->album_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -65,4 +65,22 @@
     {
         $('#uploadNewPostModal').modal('hide');
     }
+    $(document).on('submit', '#addPostForm', function (e) {
+        e.preventDefault();
+        if ($('#upload-image').get(0).files.length === 0) {
+            alert('Bạn chưa chọn ảnh, bạn phải chọn ít nhất 1 ảnh và tối đa 10 ảnh');
+            return false;
+        }
+
+        if ($('#upload-image').get(0).files.length > 10) {
+            alert('Bạn chỉ được chọn tối đa 10 ảnh');
+            return false;
+        }
+
+        if ($("input:checkbox:checked").length === 0)
+        {
+            alert('Bạn phải chọn ít nhất một category !');
+            return false;
+        }
+    });
 </script>

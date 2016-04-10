@@ -17,7 +17,7 @@
 $this->widget('CLinkPager', array(
     'pages' => $pages,
     'maxButtonCount' => 1,
-    'htmlOptions' => array('class' => 'msr-pagination',
+    'htmlOptions' => array('class' => 'msr-pagination-notify',
     ),
     'header' => '',
     'prevPageLabel' => '',
@@ -28,4 +28,4 @@ $this->widget('CLinkPager', array(
         )
 )
 ?>
-<div class="msr-loading"></div>
+<div class="msr-loading-notify"></div>

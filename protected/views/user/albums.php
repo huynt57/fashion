@@ -1,5 +1,5 @@
 <?php $this->renderPartial('header', array('profile' => $profile, 'is_followed' => $is_followed)) ?>
-<?php //var_dump($data); die;   ?>
+
 <!-- Modal New Album -->
 <div class="modal fade" id="addNewAlbumModal">
     <div class="qh-modal-dialog qh-upload-section qh-add-album-section z-depth-2">
@@ -43,6 +43,7 @@
                                 <?php endforeach; ?>
                             </a>
                         </div>				
+
                     </div>
                     <div class="c-body">
                         <div class="album-info">
@@ -51,6 +52,7 @@
                         </div>
                         <div class="album-name"><a href="#" title="<?php echo $item['album_name'] ?>"><?php echo $item['album_name'] ?></a></div>
                     </div>
+
                     <!-- <div class="c-header">
                             <div class="user-image">
                                     <a href="#" class="user-avatar" style="background-image: url('assets/stock/avatar.jpg');"></a>
@@ -84,7 +86,11 @@
             type: 'POST',
             url: '<?php echo Yii::app()->createUrl('user/addAlbum') ?>',
             data: data,
-            success: function (response) {
+
+            success: function (response)
+            {
+
+
                 $('#addNewAlbumModal').modal('hide');
                 successNotifiDisplay({
                     title: 'Thành công !',
@@ -93,6 +99,8 @@
             },
             error: function (response)
             {
+                $('#addNewAlbumModal').hide();
+                errorNotifiDisplay({title: 'Có lỗi xảy ra !', message: 'Chúng tôi đang trong quá trình khắc phục, bạn vui lòng thử lại sau'});
             }
         });
     });

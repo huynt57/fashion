@@ -10,7 +10,7 @@ class UserController extends Controller {
     }
 
     public function actionLogin() {
-        $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend/views/layouts";
+        $this->layoutPath = Yii::getPathOfAlias('webroot') . "/themes/frontend2/views/layouts";
         $this->layout = 'main_empty';
         $this->render('login');
     }
@@ -83,11 +83,9 @@ class UserController extends Controller {
     public function actionGetAlbum() {
         $request = Yii::app()->request;
         try {
-            if ($request->getQuery('ref_api') == Yii::app()->params['REF_API']) {
-                $user_id = $request->getQuery('user_id');
-            } else {
-                $user_id = Yii::app()->session['user_id'];
-            }
+
+            $user_id = $request->getQuery('user_id');
+
             $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
             $data = Albums::model()->getDetailAlbumByUser($user_id);
             $profile = User::model()->findByPk($user_id);

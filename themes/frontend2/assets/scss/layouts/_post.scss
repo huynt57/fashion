@@ -26,6 +26,7 @@
 .post-cards-wrap{
 	padding: 0;
 	margin: 10px -10px;
+	min-height: 100vh;
 }
 .card-single{
 	float: left;
@@ -50,6 +51,9 @@
 		.post-link{
 			position: relative;
 			display: block;
+			&.album-link{
+				height: 360px;
+			}
 			.more-image{
 				position: absolute;
 				bottom: 7px; right: 7px;
@@ -72,26 +76,38 @@
 				width: 128px; height: 128px;
 			}
 		}
-		.single-album-image{
-			padding: 25px 25px 0 15px;
-			img{
-				border-radius: 12px;
-			}
-		}
-		.album-behind-border{
+		.album-image{
 			position: absolute;
 			border: 1px solid $grey400;
 			border-radius: 12px;
-			background-color: $grey100;	
-			&.first-border{
-				top: 10px; right: 10px; left: 30px; bottom: 15px;
+			background-color: $grey200;
+			&:first-child{
+				top: 10px; left: 10px;
+				width: 260px;
+				height: 260px;
 			}	
-			&.second-border{
-				top: 15px; right: 15px; left: 25px; bottom: 10px;
+			&:nth-child(2){
+				bottom: 0px; left: 10px;
+				width: 80px;
+				height: 80px;
+			}	
+			&:nth-child(3){
+				bottom: 0px; left: 100px;
+				width: 80px;
+				height: 80px;
+			}	
+			&:nth-child(4){
+				bottom: 0px; right: 10px;
+				width: 80px;
+				height: 80px;
+			}	
+			&:nth-child(n+5){
+				display: none;
 			}
-			&.third-border{
-				top: 20px; right: 20px; left: 20px; bottom: 5px;
-			}	
+		}
+		.single-album-image{
+			position: relative;
+			z-index: 45;
 		}
 	}
 	.c-header{
@@ -225,12 +241,24 @@
 				}
 			}
 		}
+		.album-name{
+			a{
+				display: block;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				font-size: 14px;
+				font-weight: 700;
+				color: $grey800;
+				&:hover{
+					color: $red700;
+				}
+			}
+			
+		}
 		.item-description{
 			font-size: 14px;
 			color: $grey800;
-			&.album-description{
-				padding: 0 3px;
-			}
 		}
 		.item-categories{
 			margin-top: 5px;

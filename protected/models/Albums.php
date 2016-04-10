@@ -38,10 +38,11 @@ class Albums extends BaseAlbums {
         foreach ($data as $item) {
             $returnArr[] = Posts::model()->getPostById($item->post_id, Yii::app()->session['user_id']);
         }
-        $user_id = Albums::model()->findByPk($album_id)->user_id;
-        $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
-        $profile = User::model()->findByPk(Yii::app()->session['user_id']);
-        return array('data' => $returnArr, 'pages' => $pages, 'is_followed' => $is_followed, 'profile' => $profile);
+        $album = Albums::model()->findByPk($album_id);
+        //  $user_id = Albums::model()->findByPk($album_id)->user_id;
+        // $is_followed = User::model()->isFollowedByUser(Yii::app()->session['user_id'], $user_id, 'USER');
+        //   $profile = User::model()->findByPk(Yii::app()->session['user_id']);
+        return array('data' => $returnArr, 'pages' => $pages, 'album' => $album);
     }
 
     public function getAlbumByUser($user_id) {

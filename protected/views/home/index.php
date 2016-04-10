@@ -19,7 +19,7 @@
                     <div class="c-header">
                         <div class="user-image">
                             <?php if (!empty($item['user_id'])): ?>
-                                <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo $item['user'][0]['photo'] ?>');"></a>
+                                <a href="<?php echo Yii::app()->createUrl('user/profile', array('ref_web' => 'ref_web', 'user_id' => $item['user_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo StringHelper::generateUrlImage($item['user'][0]['photo']) ?>');"></a>
                             <?php endif; ?>
                             <?php if (!empty($item['celeb_id'])): ?>
                                 <a href="<?php echo Yii::app()->createUrl('user/profileCeleb', array('ref_web' => 'ref_web', 'celeb_id' => $item['celeb_id'])) ?>" class="user-avatar" style="background-image: url('<?php echo '/' . $item['photo_celeb'] ?>');"></a>
@@ -36,19 +36,21 @@
                             <div class="post-info">
                                 <span class="time"><?php echo Util::time_elapsed_string($item['created_at']); ?></span>
                             </div>
-                            <div class="dropdown user-option">
-                                <button class="user-option-btn" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
-                                <ul class="dropdown-menu user-option-list pull-right z-depth-2">
-                                    <li><a href="#" data-toggle="modal" data-target="#post-report-modal" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)">Báo cáo sai phạm</a></li>
-                                    <li><a href="#"  onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này từ <?php echo $item['user'][0]['username'] ?></a></li>
-                                    <?php if (!empty($item['user_id'])): ?>
-                                        <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'USER')" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
-                                    <?php endif; ?>
-                                    <?php if (!empty($item['celeb_id'])): ?>
-                                        <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'CELEB')" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
-                                    <?php endif; ?>
-                                </ul>
-                            </div>
+                            <?php if (!empty(Yii::app()->session['user_id'])): ?>
+                                <div class="dropdown user-option">
+                                    <button class="user-option-btn" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
+                                    <ul class="dropdown-menu user-option-list pull-right z-depth-2">
+                                        <li><a href="#" data-toggle="modal" data-target="#post-report-modal" onclick="report(<?php echo $item['post_id'] ?>, <?php echo $item['user_id'] ?>)">Báo cáo sai phạm</a></li>
+                                        <li><a href="#"  onclick="hide_post(<?php echo $item['post_id'] ?>)">Ẩn bài đăng này từ <?php echo $item['user'][0]['username'] ?></a></li>
+                                        <?php if (!empty($item['user_id'])): ?>
+                                            <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'USER')" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
+                                        <?php endif; ?>
+                                        <?php if (!empty($item['celeb_id'])): ?>
+                                            <li><a href="#" onclick="block_user(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'CELEB')" >Chặn <?php echo $item['user'][0]['username'] ?></a></li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="c-body">
@@ -60,32 +62,34 @@
 
                         </div>
                     </div>
-                    <div class="c-footer">
-                        <div class="item-buttons left">
-                            <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $item['post_id'])) ?>')">
-                                <span class="icon"><i class="fa fa-share-square-o"></i></span>
-                            </a>
-                        </div>
-                        <div class="item-buttons right">
-                            <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
-                                <span class="icon"><i class="fa fa-comments"></i></span>
-                                <span class="count" id="comment-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_comment_count'] ?></span>
-                                <a href="javascript: void(0)" id="bookmark-<?php echo $item['post_id'] ?>" data-toggle="modal" data-target="#postPinToAlbumModal" class="single-button item-button-pin <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark(<?php echo $item['post_id'] ?>)">
-                                    <span class="icon"><i class="fa fa-thumb-tack"></i></span>
-    <!--                                    <span class="count">10</span>-->
+                    <?php if (!empty(Yii::app()->session['user_id'])): ?>
+                        <div class="c-footer">
+                            <div class="item-buttons left">
+                                <a href="#" class="single-button item-button-comment" data-toggle="modal" data-target="#postShareSocialModal" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $item['post_id'])) ?>')">
+                                    <span class="icon"><i class="fa fa-share-square-o"></i></span>
                                 </a>
-                                <?php if (!empty($item['user_id'])): ?>
-                                    <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'USER')">
-                                    <?php endif; ?>
-                                    <?php if (!empty($item['celeb_id'])): ?>
-                                        <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['celeb_id'] ?>, <?php echo $item['post_id'] ?>, 'CELEB')">
-                                        <?php endif; ?>
-                                        <span class="icon"><i class="fa fa-heart"></i></span>
-                                        <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
+                            </div>
+                            <div class="item-buttons right">
+                                <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $item['post_id'])) ?>" >
+                                    <span class="icon"><i class="fa fa-comments"></i></span>
+                                    <span class="count" id="comment-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_comment_count'] ?></span>
+                                    <a href="javascript: void(0)" id="bookmark-<?php echo $item['post_id'] ?>" data-toggle="modal" data-target="#postPinToAlbumModal" class="single-button item-button-pin <?php if ($item['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark(<?php echo $item['post_id'] ?>)">
+                                        <span class="icon"><i class="fa fa-thumb-tack"></i></span>
+        <!--                                    <span class="count">10</span>-->
                                     </a>
-                                </a>
+                                    <?php if (!empty($item['user_id'])): ?>
+                                        <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'] ?>, 'USER')">
+                                        <?php endif; ?>
+                                        <?php if (!empty($item['celeb_id'])): ?>
+                                            <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['celeb_id'] ?>, <?php echo $item['post_id'] ?>, 'CELEB')">
+                                            <?php endif; ?>
+                                            <span class="icon"><i class="fa fa-heart"></i></span>
+                                            <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>
+                                        </a>
+                                    </a>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>
