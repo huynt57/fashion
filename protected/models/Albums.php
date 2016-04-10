@@ -65,7 +65,7 @@ class Albums extends BaseAlbums {
             $itemArr['album_name'] = $item->album_name;
             $itemArr['updated_at'] = date('d/m/Y', $item->created_at);
             $itemArr['number_posts'] = $this->countNumberPostAlbum($item->album_id);
-            $itemArr['image_preview'] = $this->getRandomPostOfAlbum($item->album_id);
+            $itemArr['images_preview'] = $this->getRandomPostOfAlbum($item->album_id);
             $itemArr['description'] = $item->description;
             $returnArr[] = $itemArr;
         }
@@ -77,14 +77,21 @@ class Albums extends BaseAlbums {
         $criteria->select = '*';
         $criteria->order = 'RAND()';
         $criteria->condition = "album_id = $album_id";
-        $criteria->limit = 1;
-        $post = Posts::model()->find($criteria);
-        if ($post) {
-            $image = Images::model()->getImagePreviewByPostId($post->post_id);
-        } else {
-            $image = 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97300&w=200&h=300';
+        $criteria->limit = 4;
+        $posts = Posts::model()->findAll($criteria);
+        $images = array();
+        if ($posts) {
+            foreach ($posts as $post) {
+                $images[] = Images::model()->getImagePreviewByPostId($post->post_id);
+            }
         }
-        return $image;
+        $cnt = count($images);
+        if ($cnt < 4) {
+            for ($i = 0; $i < (4 - $cnt); $i++) {
+                $images[] = '';
+            }
+        }
+        return $images;
     }
 
 }
