@@ -102,13 +102,12 @@ class UserController extends Controller {
         $request = Yii::app()->request;
         try {
             $album_id = StringHelper::filterString($request->getQuery('album_id'));
+          //  echo $album_id; die;
             $data = Albums::model()->getPostOfAlbum($album_id);
+          //  var_dump($data); die;
             $this->render('listAlbums', $data);
-        } catch (Exception $ex) {
-            echo '<pre>';
-            var_dump($ex->getMessage());
-            var_dump($ex->getTrace());
-            echo '</pre>';
+        } catch (Exception $ex) {   
+            var_dump($ex->getTrace());         
         }
     }
 

@@ -1,5 +1,5 @@
 <?php $this->renderPartial('header', array('profile' => $profile, 'is_followed' => $is_followed)) ?>
-<?php //var_dump($data); die;  ?>
+<?php //var_dump($data); die;     ?>
 <!-- Modal New Album -->
 <div class="modal fade" id="addNewAlbumModal">
     <div class="qh-modal-dialog qh-upload-section qh-add-album-section z-depth-2">
@@ -13,23 +13,24 @@
             <hr>
             <div class="qh-form-row clearfix text-center">
                 <button class="qh-btn qh-btn-red600" id="btnAddAlbum">Thêm Album</button>
-                <div class="post-cancel"><a href="#">Hủy</a></div>
+                <div class="post-cancel"><a href="#" onclick="dismiss()">Hủy</a></div>
             </div>
         </form>
     </div>
 </div>
 <div class="qh-container">
     <div class="post-cards-wrap clearfix">
-        <div class="card-single">
-            <div class="card-single-inner">
-                <div class="add-new-album-btn">
-                    <a href="" class="post-link" data-toggle="modal" data-target="#addNewAlbumModal">
-                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/add-album.jpg" alt="">
-                    </a>
+        <?php if ($profile->id == Yii::app()->session['user_id']): ?>
+            <div class="card-single">
+                <div class="card-single-inner">
+                    <div class="add-new-album-btn">
+                        <a href="" class="post-link" data-toggle="modal" data-target="#addNewAlbumModal">
+                            <img src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/add-album.jpg" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        <?php endif; ?>
 
         <?php foreach ($data as $item): ?>
             <div class="card-single">
@@ -47,7 +48,7 @@
                     <div class="c-body">
                         <div class="album-info">
                             <span class="single-info">Album gồm <?php echo $item['number_posts'] ?> bài</span>
-                            <span class="single-info"><a href="#">Chỉnh sửa</a></span>
+    <!--                            <span class="single-info"><a href="#">Chỉnh sửa</a></span>-->
                         </div>
                         <div class="album-name"><a href="#" title="<?php echo $item['album_name'] ?>"><?php echo $item['album_name'] ?></a></div>
                     </div>
@@ -68,6 +69,10 @@
     </div>
 </div>
 <script>
+    function dismiss()
+    {
+        $('#addNewAlbumModal').modal('hide');
+    }
     $('#btnAddAlbum').click(function () {
         var form = $('#formAddAlbum');
         var data = form.serialize();
