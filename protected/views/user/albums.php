@@ -1,11 +1,10 @@
 <?php $this->renderPartial('header', array('profile' => $profile, 'is_followed' => $is_followed)) ?>
-<?php //var_dump($data); die;     ?>
 <!-- Modal New Album -->
 <div class="modal fade" id="addNewAlbumModal">
     <div class="qh-modal-dialog qh-upload-section qh-add-album-section z-depth-2">
         <form action="Javascript::void(0)" class="qh-form qh-form-normal" id="formAddAlbum">
             <div class="qh-form-row">
-                <input type="text" class="qh-input-control" placeholder="Tên album" name="album_name">
+                <input type="text" class="qh-input-control" placeholder="Tên album" name="album_name" id="album_name">
             </div>
             <div class="qh-form-row">
                 <textarea row="3" class="qh-input-control" placeholder="Mô tả" name="description"></textarea>
@@ -44,6 +43,7 @@
                                 <?php endforeach; ?>
                             </a>
                         </div>				
+
                     </div>
                     <div class="c-body">
                         <div class="album-info">
@@ -52,6 +52,7 @@
                         </div>
                         <div class="album-name"><a href="#" title="<?php echo $item['album_name'] ?>"><?php echo $item['album_name'] ?></a></div>
                     </div>
+
                     <!-- <div class="c-header">
                             <div class="user-image">
                                     <a href="#" class="user-avatar" style="background-image: url('assets/stock/avatar.jpg');"></a>
@@ -77,11 +78,22 @@
         var form = $('#formAddAlbum');
         var data = form.serialize();
         $.ajax({
+            beforeSend: function (xhr) {
+                var album_name = $('#album_name').val();
+                // var description = $('#description').val();
+                if (album_name === '')
+                {
+                    xhr.abort();
+                    alert('Bạn không được để trống tên album');
+                }
+            },
             type: 'POST',
             url: '<?php echo Yii::app()->createUrl('user/addAlbum') ?>',
             data: data,
+
             success: function (response)
             {
+
 
                 $('#addNewAlbumModal').modal('hide');
                 successNotifiDisplay({

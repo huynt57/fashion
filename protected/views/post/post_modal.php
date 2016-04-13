@@ -126,6 +126,12 @@
         $.ajax({
             beforeSend: function (xhr) {
                 $('#loading-comment').show();
+                if($('#comment_content').val() === '')
+                {
+                    alert('Bạn phải nhập nội dung comment');
+                    xhr.abort();
+                }
+                $('#loading-comment').hide();
             },
             type: 'POST',
             url: '<?php echo Yii::app()->createUrl('comment/add') ?>',
