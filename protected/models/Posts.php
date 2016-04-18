@@ -832,8 +832,8 @@ class Posts extends BasePosts {
         $criteria->order = 't.post_id DESC';
         $criteria->addSearchCondition('t.post_content', $query, true, 'AND');
         //$criteria->addSearchCondition('t.post_title', $query, true, 'OR');
-        $count = Posts::model()->count($criteria);
-        $pages = new CPagination($count);
+        $cnt = Posts::model()->count($criteria);
+        $pages = new CPagination($cnt);
         $pages->validateCurrentPage = FALSE;
         $pages->pageSize = Yii::app()->params['RESULT_PER_PAGE'];
         $pages->applyLimit($criteria);
@@ -841,7 +841,7 @@ class Posts extends BasePosts {
         foreach ($data as $item) {
             $returnArr[] = $this->getPostById($item->post_id, $user_id);
         }
-        return array('data' => $returnArr, 'pages' => $pages, 'count'=>$count);
+        return array('data' => $returnArr, 'pages' => $pages, 'count'=>$cnt);
     }
 
 }
