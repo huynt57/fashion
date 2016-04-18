@@ -93,7 +93,7 @@
                 <header id="site-header" class="site-header">
                     <div class="qh-container">
                         <div class="left-side">
-                            <h1 class="main-logo"><a href="#" class="bg-cover" style="background-image: url('http://placehold.it/40x40');">Fitme</a></h1>
+                            <h1 class="main-logo"><a href="<?php echo Yii::app()->createUrl('home/explore')?>" class="bg-cover" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/assets/img/logo.png');">Fitme</a></h1>
                             <div class="main-nav">
                                 <ul class="list">
                                    

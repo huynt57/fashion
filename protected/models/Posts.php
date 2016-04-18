@@ -779,20 +779,17 @@ class Posts extends BasePosts {
         } else if ($time == 'YEAR') {
             $time_start = strtotime('-1 year');
         }
-        $time_end = time();
+        $time_end = strtotime("now");
         $user_id = Yii::app()->session['user_id'];
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
         $criteria->addNotInCondition('t.post_id', $hidden_post); // = "tbl_posts.post_id NOT IN ($hidden_post) AND tbl_posts.user_id NOT IN ($blocked_user)";
         $criteria->addNotInCondition('t.user_id', $blocked_user);
         $criteria->select = 't.post_id, t.post_like_count';
-
         $criteria->join = 'JOIN tbl_like l ON t.user_id = l.to';
         $criteria->addBetweenCondition('l.created_at', $time_start, $time_end);
         $criteria->group = 't.post_id';
-
         $criteria->order = 't.post_like_count DESC';
-
         //    var_dump($returnArr);
         //  die();
         $count = Posts::model()->count($criteria);
