@@ -820,6 +820,7 @@ class Posts extends BasePosts {
     }
 
     public function searchPost($query, $user_id) {
+        
         $returnArr = array();
         $hidden_post = $this->getHiddenPostByUser($user_id);
         $blocked_user = $this->getBlockedUserByUser($user_id);
@@ -840,7 +841,7 @@ class Posts extends BasePosts {
         foreach ($data as $item) {
             $returnArr[] = $this->getPostById($item->post_id, $user_id);
         }
-        return array('data' => $returnArr, 'pages' => $pages);
+        return array('data' => $returnArr, 'pages' => $pages, 'count'=>$count);
     }
 
 }

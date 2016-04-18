@@ -1,3 +1,11 @@
+<div class="qh-page-header z-depth-1 text-center">
+    
+    <?php if ($count != 0): ?>
+    <div class="page-title">Có <?php echo $count ?> kết quả tìm kiếm cho từ khóa '<?php echo StringHelper::filterString($_GET['query'])?>'</div>
+    <?php else: ?>
+        <div class="page-title">Không tìm thấy kết quả nào, bạn vui lòng thử lại</div>
+    <?php endif; ?>
+</div>
 <div class="qh-container">
 
     <!-- Post Card -->
@@ -73,7 +81,7 @@
                                     <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['user_id'] ?>, <?php echo $item['post_id'], 'USER' ?>)">
                                     <?php endif; ?>
                                     <?php if (!empty($item['celeb_id'])): ?>
-                                        <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['celeb_id'] ?>, <?php echo $item['post_id']. 'CELEB' ?>)">
+                                        <a href="javascript: void(0)" id="like-<?php echo $item['post_id'] ?>" class="single-button item-button-like <?php if ($item['is_liked']): ?>active<?php endif; ?>" onclick="like(<?php echo $item['celeb_id'] ?>, <?php echo $item['post_id'] . 'CELEB' ?>)">
                                         <?php endif; ?>
                                         <span class="icon"><i class="fa fa-heart"></i></span>
                                         <span class="count" id="like-count-<?php echo $item['post_id'] ?>"><?php echo $item['post_like_count'] ?></span>

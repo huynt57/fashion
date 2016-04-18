@@ -67,7 +67,7 @@
             <div class="c-footer">
                 <div class="item-buttons">
                     <a href="" class="post-link single-button item-button-comment" data-toggle="modal" data-target="#singlePostModal" data-href="<?php echo Yii::app()->createUrl('post/view', array('post_id' => $data['post_id'])) ?>" >
-                        <span class="icon"><i class="fa fa-comments"></i></span>
+                        <span class="icon" id="comment-icon"><i class="fa fa-comments"></i></span>
                         <span class="count" id="comment-count-modal-<?php echo $data['post_id'] ?>"><?php echo $data['post_comment_count'] ?></span>
                         <a id="bookmark-modal-<?php echo $data['post_id'] ?>" href="javascript::void(0)" class="single-button item-button-pin <?php if ($data['is_bookmarked']): ?>active<?php endif; ?>" onclick="bookmark_modal(<?php echo $data['post_id'] ?>)">
                             <span class="icon"><i class="fa fa-thumb-tack"></i></span>
@@ -110,6 +110,13 @@
 </div>
 
 <script>
+    $(document).on('click', '#comment-icon', function() {
+         $('#comment-icon').click(function() {
+            $('#comment_content').focus();
+        });
+    });
+   
+    
     function comment()
     {
         //event.preventDefault();
