@@ -80,7 +80,7 @@ class Comments extends BaseComments {
             $returnArr = array();
             $returnArr['created_by'] = $model->created_by;
             $returnArr['username'] = $user->username;
-            $returnArr['photo'] = $user->photo;
+            $returnArr['photo'] = StringHelper::generateUrlImage($user->photo);
             $returnArr['created_at'] = Util::time_elapsed_string($model->created_at);
             $returnArr['comment_content'] = $model->comment_content;
             return $returnArr;
@@ -89,7 +89,7 @@ class Comments extends BaseComments {
     }
 
     public function getCommentByPost($post_id, $limit, $offset) {
-
+        //$retArr = array();
         $sql = "SELECT tbl_comments.*, tbl_user.username, tbl_user.photo FROM tbl_comments JOIN tbl_user ON tbl_comments.created_by = tbl_user.id WHERE tbl_comments.post_id = $post_id ORDER BY tbl_comments.comment_id DESC LIMIT $offset, $limit ";
         $data = Yii::app()->db->createCommand($sql)->queryAll();
         return $data;
