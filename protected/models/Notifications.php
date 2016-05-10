@@ -14,13 +14,14 @@ class Notifications extends BaseNotifications {
         $criteria->order = "created_at DESC";
         $count = Notifications::model()->count($criteria);
         //echo $count; die;
-        $pages = new CPagination($count);
-        $pages->validateCurrentPage = FALSE;
-        $pages->pageSize = 8;
-        $pages->applyLimit($criteria);
+       // $pages = new CPagination($count);
+        //$pages->validateCurrentPage = FALSE;
+        //$pages->pageSize = 8;
+        //$pages->applyLimit($criteria);
         $data = Notifications::model()->findAll($criteria);
         //var_dump($data);die;
-        return array('data' => $data, 'pages' => $pages);
+        //return array('data' => $data, 'pages' => $pages);
+        return array('data'=>$data);
     }
 
     public function markSeen($noti_id) {

@@ -14,18 +14,18 @@
     </li>
 <?php endforeach; ?>
 <?php
-$this->widget('CLinkPager', array(
-    'pages' => $pages,
-    'maxButtonCount' => 1,
-    'htmlOptions' => array('class' => 'msr-pagination-notify',
-    ),
-    'header' => '',
-    'prevPageLabel' => '',
-    'nextPageLabel' => 'Loading ...',
-    'firstPageLabel' => '',
-    'lastPageLabel' => '',
-    'selectedPageCssClass' => 'active',
-        )
-)
+//$this->widget('CLinkPager', array(
+//    'pages' => $pages,
+//    'maxButtonCount' => 1,
+//    'htmlOptions' => array('class' => 'msr-pagination-notify',
+//    ),
+//    'header' => '',
+//    'prevPageLabel' => '',
+//    'nextPageLabel' => 'Loading ...',
+//    'firstPageLabel' => '',
+//    'lastPageLabel' => '',
+//    'selectedPageCssClass' => 'active',
+//        )
+//)
 ?>
 <div class="msr-loading-notify"></div>
