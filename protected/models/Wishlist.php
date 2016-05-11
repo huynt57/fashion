@@ -13,6 +13,9 @@ class Wishlist extends BaseWishlist {
 //        if ($check) {
 //            return FALSE;
 //        } else {
+        $check_album = PostAlbum::model()->findByAttributes(array('post_id' => $post_id, 'album_id' => $album_id));
+        $check = Wishlist::model()->findByAttributes(array('post_id' => $post_id, 'user_id' => $user_id));
+        if (!$check_album && !$check) {
             $alb_post = new PostAlbum;
             $alb_post->post_id = $post_id;
             $alb_post->album_id = $album_id;
@@ -28,7 +31,7 @@ class Wishlist extends BaseWishlist {
             if ($model->save(FALSE) && $alb_post->save(FALSE)) {
                 return TRUE;
             }
-       // }
+        }
         return FALSE;
     }
 
@@ -56,7 +59,7 @@ class Wishlist extends BaseWishlist {
     }
 
     public function getWishListForWeb($user_id) {
-        
+
         $criteria = new CDbCriteria;
         $criteria->condition = "user_id = $user_id";
         $wishlists = Wishlist::model()->findAll($criteria);
