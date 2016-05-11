@@ -76,7 +76,7 @@ class Albums extends BaseAlbums {
         $criteria->order = 'RAND()';
         $criteria->condition = "album_id = $album_id";
         $criteria->limit = 4;
-        $posts = Posts::model()->findAll($criteria);
+        $posts = PostAlbum::model()->findAll($criteria);
         $images = array();
         if ($posts) {
             foreach ($posts as $post) {
