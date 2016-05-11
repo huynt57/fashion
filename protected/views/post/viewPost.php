@@ -75,6 +75,7 @@
                         <span class="item-count"><a href="" id="post_comment_count"><span id='post_cmt_cnt'><?php echo $data['post_comment_count'] ?></span> bình luận</a></span>
 <!--                        <span class="item-count"><a href="">1234 chia sẻ</a></span>-->
                     </div>
+                    <?php if(!empty(Yii::app()->session['user_id'])):?>
                     <div class="footer-action">
                         <ul class="icon-container">
                             <li class="like-icon <?php if ($data['is_liked']): ?>active<?php endif; ?>" id="like-<?php echo $data['post_id'] ?>"><a href="javascript: void(0)" onclick="like(<?php echo $data['user_id'] ?>, <?php echo $data['post_id'] ?>)"title="Thích"><i class="fa fa-star"></i></a></li>
@@ -83,8 +84,9 @@
                             <li class="share-icon"><a href="javascript: void(0)" onclick="share('<?php echo Yii::app()->createAbsoluteUrl('post/viewPost', array('post_id' => $data['post_id'])) ?>')" title="Chia sẻ" data-toggle="modal" data-target="#post-share-modal"><i class="fa fa-share"></i></a></li>
                         </ul>
                     </div>
-
+                    <?php endif;?>
                 </div>
+                <?php if(!empty(Yii::app()->session['user_id'])):?>
                 <div class="post-comment single-post-comment">
                     <div class="enter-comment-form clearfix">
                         <div class="avatar">
@@ -116,6 +118,7 @@
                         <?php endforeach; ?>
                     </ul>
                 </div>
+                <?php endif;?>
             </div>
 
         </div>

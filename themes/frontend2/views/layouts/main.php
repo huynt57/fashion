@@ -211,24 +211,24 @@
 //        });
             });
 
-            $(document).on('submit', '#addPostForm', function (e) {
-                e.preventDefault();
-                if ($('#upload-image').get(0).files.length === 0) {
-                    alert('Bạn chưa chọn ảnh, bạn phải chọn ít nhất 1 ảnh và tối đa 10 ảnh');
-                    return false;
-                }
-
-                if ($('#upload-image').get(0).files.length > 10) {
-                    alert('Bạn chỉ được chọn tối đa 10 ảnh');
-                    return false;
-                }
-
-                if ($("input:checkbox:checked").length === 0)
-                {
-                    alert('Bạn phải chọn ít nhất một category !');
-                    return false;
-                }
-            });
+//            $(document).on('submit', '#addPostForm', function (e) {
+//                //e.preventDefault();
+//                if ($('#inputPostImage').get(0).files.length === 0) {
+//                    alert('Bạn chưa chọn ảnh, bạn phải chọn ít nhất 1 ảnh và tối đa 10 ảnh');
+//                    return false;
+//                }
+//
+//                if ($('#inputPostImage').get(0).files.length > 10) {
+//                    alert('Bạn chỉ được chọn tối đa 10 ảnh');
+//                    return false;
+//                }
+//
+//                if ($("input:checkbox:checked").length === 0)
+//                {
+//                    alert('Bạn phải chọn ít nhất một category !');
+//                    return false;
+//                }
+//            });
         </script>
         <style>
             #notify-scroll.infinite-loading:after {
