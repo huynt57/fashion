@@ -95,6 +95,7 @@
                                                 <div class="avatar" style="background-image: url('<?php echo StringHelper::generateUrlImage($comment['photo']) ?>');"></div>
                                                 <div class="user-name"><a href="<?php echo Yii::app()->createUrl('user/profile', array('user_id' => $comment['created_by'], 'ref_web' => 'ref_web')) ?>"><?php echo $comment['username'] ?></a></div>
                                                 <div class="time"><?php echo Util::time_elapsed_string($comment['created_at']) ?></div>
+                                                <?php echo $comment['created_at'];?>
                                                 <div class="content"><?php echo $comment['comment_content'] ?></div>
                                             </li>
                                         <?php endforeach; ?>

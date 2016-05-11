@@ -111,6 +111,7 @@
                                     <div class="content-header">
                                         <a href="" class="name"><?php echo $comment['username'] ?></a>
                                         <span class="time"><?php echo Util::time_elapsed_string($comment['created_at']) ?></span>
+                                        <?php //echo $comment['created_at']?> <?php //echo '1'; ?>
                                     </div>
                                     <div class="content-comment"><?php echo $comment['comment_content'] ?></div>
                                 </div>

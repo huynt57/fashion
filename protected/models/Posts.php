@@ -624,7 +624,7 @@ class Posts extends BasePosts {
     }
 
     public function getCommentsByPost($post_id) {
-        $sql = "SELECT * FROM tbl_comments JOIN tbl_user ON tbl_comments.created_by = tbl_user.id WHERE tbl_comments.post_id = $post_id ORDER BY tbl_comments.created_at DESC";
+        $sql = "SELECT c.*, u.photo, u.username FROM tbl_comments c JOIN tbl_user u ON c.created_by = u.id WHERE c.post_id = $post_id ORDER BY c.created_at DESC";
         $data = Yii::app()->db->createCommand($sql)->queryAll();
         return $data;
     }
